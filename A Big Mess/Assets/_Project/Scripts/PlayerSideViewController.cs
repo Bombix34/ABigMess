@@ -13,7 +13,7 @@ public class PlayerSideViewController : MonoBehaviour
     private Transform saveCubeTransformParent;
 
     public Animator animator;
-    private Rigidbody rigidbody;
+    private Rigidbody rigidBody;
 
     public RaycastSettings raycastSettings = new RaycastSettings();
 
@@ -32,7 +32,7 @@ public class PlayerSideViewController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        rigidBody = GetComponent<Rigidbody>();
     }
 
     enum Direction
@@ -49,7 +49,7 @@ public class PlayerSideViewController : MonoBehaviour
         float translation = Input.GetAxis("Vertical") * speed * Time.deltaTime;
         float rotation = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
 
-        rigidbody.MovePosition(new Vector3(rotation + transform.position.x, transform.position.y, transform.position.z + translation));
+        rigidBody.MovePosition(new Vector3(rotation + transform.position.x, transform.position.y, transform.position.z + translation));
 
 
         if (translation > 0)
@@ -95,7 +95,7 @@ public class PlayerSideViewController : MonoBehaviour
             holdCube.transform.rotation = Quaternion.Slerp(holdCube.transform.rotation, cubePosition.rotation, Time.deltaTime * speed);
         }
 
-        if (holdCube != null && Input.GetMouseButtonUp(0))
+        if (holdCube != null && Input.GetButtonUp("Fire1"))
         {
             DropHoldCube();
         }

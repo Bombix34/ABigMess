@@ -13,12 +13,16 @@ public class CinemachineController : MonoBehaviour
     private Transform saveCubeTransformParent;
 
     public Animator animator;
-    private Rigidbody rigidbody;
+    private Rigidbody rigidBody;
 
     public RaycastSettings raycastSettings = new RaycastSettings();
 
     public BoxCollider holdCubeBoxCollider;
     public BoxCollider saveBoxCollider;
+
+
+    bool hold; // Hold when we press the button
+    float releaseHold = 0.125f; // Unhold if far away from other cubes and could not raycast to them
 
     [System.Serializable]
     public class RaycastSettings
@@ -32,7 +36,7 @@ public class CinemachineController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        rigidBody = GetComponent<Rigidbody>();
     }
 
     enum Direction
@@ -49,7 +53,7 @@ public class CinemachineController : MonoBehaviour
         float translation = Input.GetAxis("Vertical") * speed * Time.deltaTime;
         float rotation = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
 
-        rigidbody.MovePosition(new Vector3(rotation + transform.position.x, transform.position.y, transform.position.z + translation));
+        rigidBody.MovePosition(new Vector3(rotation + transform.position.x, transform.position.y, transform.position.z + translation));
 
 
         if (translation > 0)
@@ -76,18 +80,41 @@ public class CinemachineController : MonoBehaviour
             animator.SetTrigger("isJumping");
         }
 
+
         if (translation != 0 || rotation != 0)
         {
-            animator.SetBool("isRunning", true);
+            if (holdCube == null) // If not holding cube
+            {
+                animator.SetBool("isRunning", true);
+            } else
+            {
+                animator.SetBool("isRunningWithBox", true);
+            }
         }
         else
         {
             animator.SetBool("isRunning", false);
+            animator.SetBool("isRunningWithBox", false);
         }
 
 
+        if (Input.GetButtonDown("Fire1"))
+        {
+            hold = !hold;
+            releaseHold = 0.125f;
+        }
+
+        if (hold && holdCube == null)
+        {
+            releaseHold -= Time.deltaTime; // we release hold quickly if we didn't find any cube to hold
+            if (releaseHold < 0)
+            {
+                hold = false;
+            }
+        }
+
         FindNearestObjectToPickUp();
-        
+
 
         if (holdCube != null)
         {
@@ -95,7 +122,7 @@ public class CinemachineController : MonoBehaviour
             holdCube.transform.rotation = Quaternion.Slerp(holdCube.transform.rotation, cubePosition.rotation, Time.deltaTime * speed);
         }
 
-        if (holdCube != null && Input.GetMouseButtonUp(0))
+        if (holdCube != null && !hold)
         {
             DropHoldCube();
         }
@@ -107,56 +134,60 @@ public class CinemachineController : MonoBehaviour
         holdCube.transform.parent = saveCubeTransformParent;
         holdCube.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         holdCube = null;
-        
+
     }
 
     void FindNearestObjectToPickUp()
     {
-        Collider[] hits = Physics.OverlapSphere(transform.position, raycastSettings.ViewRange);
-
-        int layerMask = 8;
-
-        float minDistance = float.MaxValue;
-        Collider minHit = null;
-
-        foreach (Collider hit in hits) // Field of view of raycast
+        if (hold)
         {
-            if (hit.gameObject == gameObject) continue;
+            Collider[] hits = Physics.OverlapSphere(transform.position, raycastSettings.ViewRange);
 
-            Vector3 direction = (transform.position - hit.transform.position);
-            Vector3 hDirn = Vector3.ProjectOnPlane(direction, transform.up).normalized;
-            Vector3 vDirn = Vector3.ProjectOnPlane(direction, transform.forward).normalized; // forward ?
+            int layerMask = 8;
 
-            float hOffset = Vector3.Dot(hDirn, transform.forward) * Mathf.Rad2Deg;
-            float vOffset = Vector3.Dot(vDirn, transform.forward) * Mathf.Rad2Deg;
+            float minDistance = float.MaxValue;
+            Collider minHit = null;
 
-            if (hOffset > raycastSettings.hHalfFov || vOffset > raycastSettings.vHalfFov)
+            foreach (Collider hit in hits) // Field of view of raycast
             {
-                continue;
+                if (hit.gameObject == gameObject) continue;
+
+                // I don't really understand how this part works (project on plane and dot product)
+                Vector3 direction = (transform.position - hit.transform.position);
+                Vector3 hDirn = Vector3.ProjectOnPlane(direction, transform.up).normalized;
+                Vector3 vDirn = Vector3.ProjectOnPlane(direction, transform.forward).normalized; // forward ?
+
+                float hOffset = Vector3.Dot(hDirn, transform.forward) * Mathf.Rad2Deg;
+                float vOffset = Vector3.Dot(vDirn, transform.forward) * Mathf.Rad2Deg;
+
+                if (hOffset > raycastSettings.hHalfFov || vOffset > raycastSettings.vHalfFov)
+                {
+                    continue;
+                }
+
+                float distance = Vector3.Distance(transform.position, hit.transform.position);
+
+                if (distance < minDistance && distance < raycastSettings.maxDistance && hit.transform.gameObject.layer != layerMask)
+                {
+                    minDistance = distance;
+                    minHit = hit;
+                }
             }
 
-            float distance = Vector3.Distance(transform.position, hit.transform.position);
-
-            if (distance < minDistance && distance < raycastSettings.maxDistance && hit.transform.gameObject.layer != layerMask)
+            if (minHit != null)
             {
-                minDistance = distance;
-                minHit = hit;
+                Debug.DrawLine(transform.position, minHit.transform.position, Color.red);
             }
-        }
 
-        if (minHit != null)
-        {
-            Debug.DrawLine(transform.position, minHit.transform.position, Color.red);
-        }
+            if (minHit != null && holdCube == null) // We found a cube to hold when raycasting
+            {
+                saveCubeTransformParent = minHit.gameObject.transform.parent;
+                holdCube = minHit.gameObject;
+                minHit.transform.parent = cubePosition.transform;
 
-        if(minHit != null && Input.GetButtonDown("Fire1"))
-        {
-            saveCubeTransformParent = minHit.gameObject.transform.parent;
-            holdCube = minHit.gameObject;
-            minHit.transform.parent = cubePosition.transform;
-            
-            holdCube.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-            AddHoldCubeCollider();
+                holdCube.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                AddHoldCubeCollider();
+            }
         }
     }
 
