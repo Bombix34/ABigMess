@@ -23,7 +23,9 @@ public class PlayerManager : ObjectManager
 
     [SerializeField]
     GameObject bringPosition;
-   
+
+    [SerializeField]
+    FixedJoint grabbedJoint;
 
     void Awake()
     {
@@ -54,6 +56,8 @@ public class PlayerManager : ObjectManager
                 if (interactObject != null)
                 {
                     grabbedObject = interactObject;
+                    //grabbedObject.transform.parent = bringPosition.transform;
+                    reachedPosition = false;
                     grabbedObject.GetComponent<Rigidbody>().useGravity = false;
                     interactObject = null;
                     print(grabbedObject);
@@ -151,17 +155,32 @@ public class PlayerManager : ObjectManager
        animator.SetBool("isRunning", currentVelocity.magnitude > 0); 
     }
 
+
+    //Reached position
+    public bool reachedPosition = false;
     void UpdateGrabbedObject()
     {
         if (grabbedObject == null)
             return;
-        grabbedObject.transform.position = Vector3.Lerp(grabbedObject.transform.position, bringPosition.transform.position, Time.deltaTime * 10f);
-        grabbedObject.transform.rotation = Quaternion.Slerp(grabbedObject.transform.rotation, bringPosition.transform.rotation, Time.deltaTime * 10f);
+
+        if (!reachedPosition)
+        {
+            grabbedObject.transform.position = Vector3.Lerp(grabbedObject.transform.position, bringPosition.transform.position, Time.deltaTime * 10f);
+            grabbedObject.transform.rotation = Quaternion.Slerp(grabbedObject.transform.rotation, bringPosition.transform.rotation, Time.deltaTime * 10f);
+        }
+
+        if (Vector3.Distance(grabbedObject.transform.position, bringPosition.transform.position) <= 0.1)
+        {
+            reachedPosition = true;
+            grabbedJoint.connectedBody = grabbedObject.GetComponent<Rigidbody>();
+        }
+        
     }
 
     public void DropBringObject()
     {
         grabbedObject.transform.parent = null;
+        grabbedJoint.connectedBody = null;
         grabbedObject.GetComponent<Rigidbody>().useGravity = true;
         grabbedObject = null;
     }
