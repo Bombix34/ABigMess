@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,6 +20,7 @@ public class PlayerManager : ObjectManager
     Animator animator;
 
     GameObject interactObject= null;  //raycasted object in front of player
+
     GameObject grabbedObject=null;   //object currently hold/grabb
 
     [SerializeField]
@@ -171,10 +173,22 @@ public class PlayerManager : ObjectManager
 
         if (Vector3.Distance(grabbedObject.transform.position, bringPosition.transform.position) <= 0.1)
         {
+            if(!reachedPosition)
+            {
+                grabbedJoint.connectedBody = grabbedObject.GetComponent<Rigidbody>();
+                grabbedJoint.breakForce = 100f;
+            }
             reachedPosition = true;
-            grabbedJoint.connectedBody = grabbedObject.GetComponent<Rigidbody>();
+
         }
         
+    }
+
+
+    public void JointBroken(JointBreak jointBreak)
+    {
+        DropBringObject();
+        grabbedJoint = jointBreak.gameObject.AddComponent<FixedJoint>();
     }
 
     public void DropBringObject()
