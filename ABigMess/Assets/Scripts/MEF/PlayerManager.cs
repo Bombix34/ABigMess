@@ -8,8 +8,6 @@ public class PlayerManager : ObjectManager
 {
     public PlayerReglages reglages;
 
-    public Transform handTool;
-
     PlayerInputManager inputs;
 
     CharacterController character;
@@ -20,7 +18,8 @@ public class PlayerManager : ObjectManager
 
     Animator animator;
 
-    GameObject interactObject;
+    GameObject interactObject= null;  //raycasted object in front of player
+    GameObject grabbedObject=null;   //object currently hold/grabb
 
     [SerializeField]
     GameObject bringPosition;
@@ -32,7 +31,7 @@ public class PlayerManager : ObjectManager
         mainCamera = Camera.main.transform;
         character = GetComponent<CharacterController>();
 
-      //  animator = GetComponentInChildren<Animator>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void Start()
@@ -42,13 +41,28 @@ public class PlayerManager : ObjectManager
 
     private void Update()
     {
+        RaycastObject();
+        UpdateGrabbedObject();
         if(inputs.GetInteractInputDown())
         {
             print("interact");
         }
         if(inputs.GetGrabInputDown())
         {
-            print("grab");
+            if (grabbedObject == null)
+            {
+                if (interactObject != null)
+                {
+                    grabbedObject = interactObject;
+                    grabbedObject.GetComponent<Rigidbody>().useGravity = false;
+                    interactObject = null;
+                    print(grabbedObject);
+                }
+            }
+            else
+            {
+                DropBringObject();
+            }
         }
     }
 
@@ -91,7 +105,7 @@ public class PlayerManager : ObjectManager
         Vector3 forward = mainCamera.transform.forward;
         forward.y = 0;
         forward = Vector3.Normalize(forward);
-        Vector3 right = Quaternion.Euler(0f, 90f, 0f) * forward;
+        Vector3 right = mainCamera.transform.right;
 
         Vector3 rightMove = right * (10 * inputs.GetMovementInputX()) * Time.deltaTime;
         Vector3 upMove = forward * (10 * inputs.GetMovementInputY()) * Time.deltaTime;
@@ -103,7 +117,7 @@ public class PlayerManager : ObjectManager
         currentVelocity = Vector3.zero;
         currentVelocity += heading * amplitude * (reglages.moveSpeed / 5f);
         character.Move(currentVelocity);
-      //  UpdateAnim();
+        UpdateAnim();
     }
 
     public void GravitySpeed()
@@ -133,12 +147,28 @@ public class PlayerManager : ObjectManager
     {
         if (animator == null)
             return;
-        animator.SetFloat("MoveSpeed", currentVelocity.magnitude / 0.1f);
+       // animator.SetFloat("MoveSpeed", currentVelocity.magnitude / 0.1f);
+       animator.SetBool("isRunning", currentVelocity.magnitude > 0); 
+    }
+
+    void UpdateGrabbedObject()
+    {
+        if (grabbedObject == null)
+            return;
+        grabbedObject.transform.position = Vector3.Lerp(grabbedObject.transform.position, bringPosition.transform.position, Time.deltaTime * 10f);
+        grabbedObject.transform.rotation = Quaternion.Slerp(grabbedObject.transform.rotation, bringPosition.transform.rotation, Time.deltaTime * 10f);
+    }
+
+    public void DropBringObject()
+    {
+        grabbedObject.transform.parent = null;
+        grabbedObject.GetComponent<Rigidbody>().useGravity = true;
+        grabbedObject = null;
     }
 
     //RAYCAST OBJECTS___________________________________________________________________________________
 
-    public GameObject RaycastObject(bool interactOnly)
+    public void RaycastObject()
     {
         bool isResult = false;
         GameObject raycastObject = null;
@@ -148,7 +178,12 @@ public class PlayerManager : ObjectManager
         int i = 0;
         while (i < hitColliders.Length)
         {
-            
+            if(hitColliders[i].gameObject.tag=="GrabObject")
+            {
+                interactObject = hitColliders[i].gameObject;
+                isResult = true;
+                break;
+            }
             i++;
         }
         if (!isResult)
@@ -157,27 +192,24 @@ public class PlayerManager : ObjectManager
             //    interactObject.GetComponent<InteractObject>().UpdateFeedback(false);
             interactObject = null;
         }
-        return raycastObject;
     }
 
-    public GameObject IsObstacle(Vector3 testPosition)
+    /*
+    // Adds a cube collider to the player in order for the cube not to go through walls
+    void AddHoldCubeCollider()
     {
-        //NON UTILISE
-        List<GameObject> finalList = new List<GameObject>();
-        Collider[] hitColliders = Physics.OverlapSphere(testPosition, 0.3f);
-        for (int i = 0; i < hitColliders.Length; i++)
-        {
-            if (hitColliders[i].gameObject.tag=="BringObject")
-            {
-                finalList.Add(hitColliders[i].gameObject);
-            }
-        }
-        if (finalList.Count > 0)
-            return finalList[0];
-        else
-            return null;
+        holdCubeBoxCollider = gameObject.AddComponent<BoxCollider>();
+        Debug.Log("Local Position: " + cubePosition.localPosition);
+        holdCubeBoxCollider.center = cubePosition.localPosition;
+        Destroy(holdCube.GetComponent<BoxCollider>());
     }
-    
+
+    void RemoveHoldCubeCollider()
+    {
+        Destroy(holdCubeBoxCollider);
+        holdCube.AddComponent<BoxCollider>();
+    }
+    */
 
     public Vector3 GetFrontPosition()
     {
