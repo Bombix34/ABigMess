@@ -7,6 +7,9 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     List<PlayerManager> players;
 
+
+
+
     public bool PlayerInSameRoom()
     {
         if (players.Count == 1)

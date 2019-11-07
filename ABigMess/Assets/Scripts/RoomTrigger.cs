@@ -15,5 +15,14 @@ public class RoomTrigger : MonoBehaviour
             CameraManager.Instance.SwitchCamera(roomNb);
         }
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            other.gameObject.GetComponent<PlayerManager>().CurrentRoomNb = roomNb;
+            CameraManager.Instance.SwitchCamera(roomNb);
+        }
+    }
 }
 
