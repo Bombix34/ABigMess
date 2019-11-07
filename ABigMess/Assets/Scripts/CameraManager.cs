@@ -8,13 +8,23 @@ public class CameraManager :Singleton<CameraManager>
     public List<CinemachineVirtualCamera> roomCameras;
     public CinemachineVirtualCamera mainCamera;
 
-    public void SwitchCamera(int roomNb)
+    public Material hiddenWallMaterial;
+
+    public bool SwitchCamera(int roomNb)
+        //return true if the camera is switch to the room camera
+        //return false if the mainCamera is chosen
     {
         ResetCamerasPriority();
         if (GameManager.Instance.PlayerInSameRoom())
+        {
             roomCameras[roomNb].Priority = 10;
+            return true;
+        }
         else
+        {
             mainCamera.Priority = 10;
+            return false;
+        }
     }
 
     private void ResetCamerasPriority()
