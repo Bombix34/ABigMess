@@ -11,7 +11,7 @@ public class PlayerManager : ObjectManager
 
     PlayerInputManager inputs;
 
-    CharacterController character;
+    Rigidbody rigidBody;
 
     Vector3 currentVelocity;
 
@@ -23,17 +23,20 @@ public class PlayerManager : ObjectManager
 
     GameObject grabbedObject=null;   //object currently hold/grabb
 
+    BoxCollider grabbedObjectCollider = null; // Added collider to the player
+
     [SerializeField]
     GameObject bringPosition;
 
-    [SerializeField]
-    FixedJoint grabbedJoint;
+    Vector3 startGrabPosition; // Lerping with percentage for grabbing an object
+    float timeStartedLerping;
+
 
     void Awake()
     {
         inputs = GetComponent<PlayerInputManager>();
         mainCamera = Camera.main.transform;
-        character = GetComponent<CharacterController>();
+        rigidBody = GetComponent<Rigidbody>();
 
         animator = GetComponentInChildren<Animator>();
     }
@@ -58,9 +61,11 @@ public class PlayerManager : ObjectManager
                 if (interactObject != null)
                 {
                     grabbedObject = interactObject;
+                    timeStartedLerping = Time.time;
                     //grabbedObject.transform.parent = bringPosition.transform;
+                    startGrabPosition = grabbedObject.transform.position;
                     reachedPosition = false;
-                    grabbedObject.GetComponent<Rigidbody>().useGravity = false;
+                    grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
                     interactObject = null;
                     print(grabbedObject);
                 }
@@ -122,24 +127,24 @@ public class PlayerManager : ObjectManager
         RotatePlayer(inputs.GetMovementInputY(), -inputs.GetMovementInputX());
         currentVelocity = Vector3.zero;
         currentVelocity += heading * amplitude * (reglages.moveSpeed / 5f);
-        character.Move(currentVelocity);
+        rigidBody.MovePosition(transform.position + currentVelocity);
         UpdateAnim();
     }
 
     public void GravitySpeed()
     {
-        if (!character.isGrounded)
-        {
-            currentVelocity = Vector3.zero;
-            float gravity = reglages.gravity * Time.deltaTime;
-            currentVelocity = new Vector3(currentVelocity.x, currentVelocity.y - gravity, currentVelocity.z);
-            character.Move(currentVelocity);
-        }
+        //if (!rigidBody.isGrounded)
+        //{
+            //currentVelocity = Vector3.zero;
+            //float gravity = reglages.gravity * Time.deltaTime;
+            //currentVelocity = new Vector3(currentVelocity.x, currentVelocity.y - gravity, currentVelocity.z);
+            //rigidBody.MovePosition(currentVelocity);
+        //}
     }
 
     public void ResetVelocity()
     {
-        character.Move(Vector3.zero);
+        rigidBody.MovePosition(transform.position);
         animator.SetFloat("MoveSpeed", 0f);
     }
 
@@ -167,36 +172,36 @@ public class PlayerManager : ObjectManager
 
         if (!reachedPosition)
         {
-            grabbedObject.transform.position = Vector3.Lerp(grabbedObject.transform.position, bringPosition.transform.position, Time.deltaTime * 10f);
-            grabbedObject.transform.rotation = Quaternion.Slerp(grabbedObject.transform.rotation, bringPosition.transform.rotation, Time.deltaTime * 10f);
-        }
+            float timeSinceStarted = Time.time - timeStartedLerping;
+            float percentage = timeSinceStarted / 0.06f;
+            //print(timeSinceStarted +  " - " + percentage);
+            grabbedObject.transform.position = Vector3.Lerp(startGrabPosition, bringPosition.transform.position, percentage);
+            grabbedObject.transform.rotation = bringPosition.transform.rotation;
 
-        if (Vector3.Distance(grabbedObject.transform.position, bringPosition.transform.position) <= 0.1)
-        {
-            if(!reachedPosition)
+            if(percentage >= 1.0f)
             {
-                grabbedJoint.connectedBody = grabbedObject.GetComponent<Rigidbody>();
-                grabbedJoint.breakForce = 100f;
+                grabbedObject.transform.parent = bringPosition.transform;
+                grabbedObjectCollider = gameObject.AddComponent<BoxCollider>();
+                grabbedObjectCollider.center = bringPosition.transform.localPosition;
+                Destroy(grabbedObject.GetComponent<BoxCollider>());
+                reachedPosition = true;
             }
-            reachedPosition = true;
-
-        }
-        
+        }        
     }
 
 
     public void JointBroken(JointBreak jointBreak)
     {
         DropBringObject();
-        grabbedJoint = jointBreak.gameObject.AddComponent<FixedJoint>();
     }
 
     public void DropBringObject()
     {
         grabbedObject.transform.parent = null;
-        grabbedJoint.connectedBody = null;
-        grabbedObject.GetComponent<Rigidbody>().useGravity = true;
+        grabbedObject.AddComponent<BoxCollider>();
+        grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
         grabbedObject = null;
+        Destroy(gameObject.GetComponent<BoxCollider>());
     }
 
     //RAYCAST OBJECTS___________________________________________________________________________________
