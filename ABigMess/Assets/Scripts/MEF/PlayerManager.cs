@@ -30,6 +30,7 @@ public class PlayerManager : ObjectManager
 
     Vector3 startGrabPosition; // Lerping with percentage for grabbing an object
     float timeStartedLerping;
+    float grabSpeed = 0.06f; // The lesser the speed the faster the grab
 
 
     void Awake()
@@ -90,7 +91,8 @@ public class PlayerManager : ObjectManager
 
     private void OnDrawGizmos()
     {
-
+        Gizmos.color = new Color(1f, 0f, 0f, 1f);
+        Gizmos.DrawWireSphere(GetFrontPosition(), reglages.raycastRadius);
     }
 
     //MOVEMENT FUNCTIONS______________________________________________________________________________
@@ -173,16 +175,17 @@ public class PlayerManager : ObjectManager
         if (!reachedPosition)
         {
             float timeSinceStarted = Time.time - timeStartedLerping;
-            float percentage = timeSinceStarted / 0.06f;
+            float percentage = timeSinceStarted / grabSpeed;
             //print(timeSinceStarted +  " - " + percentage);
             grabbedObject.transform.position = Vector3.Lerp(startGrabPosition, bringPosition.transform.position, percentage);
             grabbedObject.transform.rotation = bringPosition.transform.rotation;
 
-            if(percentage >= 1.0f)
+            if(percentage >= 1.0f) // Once we finished to lerp
             {
                 grabbedObject.transform.parent = bringPosition.transform;
                 grabbedObjectCollider = gameObject.AddComponent<BoxCollider>();
                 grabbedObjectCollider.center = bringPosition.transform.localPosition;
+                grabbedObjectCollider.size = grabbedObject.transform.localScale;
                 Destroy(grabbedObject.GetComponent<BoxCollider>());
                 reachedPosition = true;
             }
@@ -213,6 +216,7 @@ public class PlayerManager : ObjectManager
         Vector3 testPosition = GetFrontPosition();
 
         Collider[] hitColliders = Physics.OverlapSphere(testPosition, reglages.raycastRadius);
+        //utiliser Physics.OverlapCapsule plutot que overlapsphere
         int i = 0;
         while (i < hitColliders.Length)
         {
@@ -253,9 +257,9 @@ public class PlayerManager : ObjectManager
     {
         //FONCTION POUR OBTENIR LA POSITION DEVANT LE PERSONNAGE
         //POSITION OU INTERAGIR ET POSER LES OBJETS
-        Vector3 forwardPos = transform.TransformDirection(Vector3.forward) * 0.5f;
-        Vector3 testPosition = new Vector3(transform.position.x + forwardPos.x,
-            transform.position.y + forwardPos.y,
+        Vector3 forwardPos = transform.TransformDirection(Vector3.forward) * 0.5f * reglages.raycastOffsetPosition;
+        Vector3 testPosition = new Vector3(transform.position.x + forwardPos.x ,
+            transform.position.y + forwardPos.y +reglages.raycastYPosOffset,
             transform.position.z + forwardPos.z);
         return testPosition;
     }
