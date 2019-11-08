@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ public class PlayerManager : ObjectManager
 
     PlayerInputManager inputs;
 
-    CharacterController character;
+    Rigidbody rigidBody;
 
     Vector3 currentVelocity;
 
@@ -18,43 +19,60 @@ public class PlayerManager : ObjectManager
 
     Animator animator;
 
-    GameObject interactObject= null;  //raycasted object in front of player
-    GameObject grabbedObject=null;   //object currently hold/grabb
+    GameObject interactObject = null;  //raycasted object in front of player
+
+    GameObject grabbedObject = null;   //object currently hold/grabb
+
+    CapsuleCollider playerCollider = null; // The player collider
+
+    BoxCollider grabbedObjectCollider = null; // Added collider to the player
+    BoxCollider grabbedObjectTrigger = null; // Added collider to the player
 
     [SerializeField]
     GameObject bringPosition;
-   
+
+    Vector3 startGrabPosition; // Lerping with percentage for grabbing an object
+    float timeStartedLerping;
+    float grabSpeed = 0.06f; // The lesser the speed the faster the grab
+
+    bool isGrabbedObjectColliding;
+    bool isPlayerGrounded;
 
     void Awake()
     {
         inputs = GetComponent<PlayerInputManager>();
         mainCamera = Camera.main.transform;
-        character = GetComponent<CharacterController>();
+        rigidBody = GetComponent<Rigidbody>();
+        playerCollider = GetComponent<CapsuleCollider>();
 
         animator = GetComponentInChildren<Animator>();
     }
 
     private void Start()
     {
-       // ChangeState(new PlayerBaseState(this));
+        // ChangeState(new PlayerBaseState(this));
     }
 
     private void Update()
     {
         RaycastObject();
         UpdateGrabbedObject();
-        if(inputs.GetInteractInputDown())
+        if (inputs.GetInteractInputDown())
         {
             print("interact");
         }
-        if(inputs.GetGrabInputDown())
+        if (inputs.GetGrabInputDown())
         {
             if (grabbedObject == null)
             {
                 if (interactObject != null)
                 {
                     grabbedObject = interactObject;
-                    grabbedObject.GetComponent<Rigidbody>().useGravity = false;
+                    timeStartedLerping = Time.time;
+                    //grabbedObject.transform.parent = bringPosition.transform;
+                    startGrabPosition = grabbedObject.transform.position;
+                    reachedPosition = false;
+                    grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
                     interactObject = null;
                     print(grabbedObject);
                 }
@@ -63,6 +81,12 @@ public class PlayerManager : ObjectManager
             {
                 DropBringObject();
             }
+        }
+
+        IsPlayerGrounded();
+        if(!isPlayerGrounded && isGrabbedObjectColliding)
+        {
+            DropBringObject();
         }
     }
 
@@ -79,7 +103,9 @@ public class PlayerManager : ObjectManager
 
     private void OnDrawGizmos()
     {
-
+        Gizmos.color = new Color(1f, 0f, 0f, 1f);
+        Gizmos.DrawWireSphere(GetFrontPosition(), reglages.raycastRadius);
+        Gizmos.DrawRay(GetGroundedRay());
     }
 
     //MOVEMENT FUNCTIONS______________________________________________________________________________
@@ -116,24 +142,24 @@ public class PlayerManager : ObjectManager
         RotatePlayer(inputs.GetMovementInputY(), -inputs.GetMovementInputX());
         currentVelocity = Vector3.zero;
         currentVelocity += heading * amplitude * (reglages.moveSpeed / 5f);
-        character.Move(currentVelocity);
+        rigidBody.MovePosition(transform.position + currentVelocity);
         UpdateAnim();
     }
 
     public void GravitySpeed()
     {
-        if (!character.isGrounded)
-        {
-            currentVelocity = Vector3.zero;
-            float gravity = reglages.gravity * Time.deltaTime;
-            currentVelocity = new Vector3(currentVelocity.x, currentVelocity.y - gravity, currentVelocity.z);
-            character.Move(currentVelocity);
-        }
+        //if (!rigidBody.isGrounded)
+        //{
+        //currentVelocity = Vector3.zero;
+        //float gravity = reglages.gravity * Time.deltaTime;
+        //currentVelocity = new Vector3(currentVelocity.x, currentVelocity.y - gravity, currentVelocity.z);
+        //rigidBody.MovePosition(currentVelocity);
+        //}
     }
 
     public void ResetVelocity()
     {
-        character.Move(Vector3.zero);
+        rigidBody.MovePosition(transform.position);
         animator.SetFloat("MoveSpeed", 0f);
     }
 
@@ -147,23 +173,92 @@ public class PlayerManager : ObjectManager
     {
         if (animator == null)
             return;
-       // animator.SetFloat("MoveSpeed", currentVelocity.magnitude / 0.1f);
-       animator.SetBool("isRunning", currentVelocity.magnitude > 0); 
+        // animator.SetFloat("MoveSpeed", currentVelocity.magnitude / 0.1f);
+        animator.SetBool("isRunning", currentVelocity.magnitude > 0);
     }
 
+
+    //Reached position
+    public bool reachedPosition = false;
     void UpdateGrabbedObject()
     {
         if (grabbedObject == null)
             return;
-        grabbedObject.transform.position = Vector3.Lerp(grabbedObject.transform.position, bringPosition.transform.position, Time.deltaTime * 10f);
-        grabbedObject.transform.rotation = Quaternion.Slerp(grabbedObject.transform.rotation, bringPosition.transform.rotation, Time.deltaTime * 10f);
+
+        if (!reachedPosition)
+        {
+            float timeSinceStarted = Time.time - timeStartedLerping;
+            float percentage = timeSinceStarted / grabSpeed;
+            //print(timeSinceStarted +  " - " + percentage);
+            grabbedObject.transform.position = Vector3.Lerp(startGrabPosition, bringPosition.transform.position, percentage);
+            grabbedObject.transform.rotation = bringPosition.transform.rotation;
+
+            if (percentage >= 1.0f) // Once we finished to lerp
+            {
+                grabbedObject.transform.parent = bringPosition.transform;
+                grabbedObjectCollider = gameObject.AddComponent<BoxCollider>();
+                grabbedObjectCollider.center = bringPosition.transform.localPosition;
+                grabbedObjectCollider.size = grabbedObject.transform.localScale;
+
+                grabbedObjectTrigger = gameObject.AddComponent<BoxCollider>();
+                grabbedObjectTrigger.isTrigger = true;
+                grabbedObjectTrigger.center = bringPosition.transform.localPosition;
+                grabbedObjectTrigger.size = grabbedObject.transform.localScale * 1.2f;
+
+                Destroy(grabbedObject.GetComponent<BoxCollider>());
+                reachedPosition = true;
+            }
+        }
+    }
+
+    // COLLIDERS/OBJECTS FUNCTIONS ___________________________________________________________________________________
+
+    public void JointBroken(JointBreak jointBreak)
+    {
+        DropBringObject();
     }
 
     public void DropBringObject()
     {
         grabbedObject.transform.parent = null;
-        grabbedObject.GetComponent<Rigidbody>().useGravity = true;
+        grabbedObject.AddComponent<BoxCollider>();
+        grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
         grabbedObject = null;
+        //Destroy both grabbedObjectTrigger and grabbedObjectCollider
+        Destroy(grabbedObjectCollider);
+        Destroy(grabbedObjectTrigger);
+        isGrabbedObjectColliding = false;
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+
+    }
+
+    public void OnCollisionStay(Collision collision)
+    {
+
+        //print("Player colliding");
+
+    }
+
+
+    public void OnTriggerStay(Collider other)
+    {
+        ////if(other == grabbedObjectTrigger)
+        print("Object colliding");
+        isGrabbedObjectColliding = true;
+
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        isGrabbedObjectColliding = false;
+    }
+
+    public void IsPlayerGrounded()
+    {
+        isPlayerGrounded = Physics.Raycast(GetGroundedRay(), 1.05f);
     }
 
     //RAYCAST OBJECTS___________________________________________________________________________________
@@ -175,10 +270,11 @@ public class PlayerManager : ObjectManager
         Vector3 testPosition = GetFrontPosition();
 
         Collider[] hitColliders = Physics.OverlapSphere(testPosition, reglages.raycastRadius);
+        //utiliser Physics.OverlapCapsule plutot que overlapsphere
         int i = 0;
         while (i < hitColliders.Length)
         {
-            if(hitColliders[i].gameObject.tag=="GrabObject")
+            if (hitColliders[i].gameObject.tag == "GrabObject")
             {
                 interactObject = hitColliders[i].gameObject;
                 isResult = true;
@@ -188,7 +284,7 @@ public class PlayerManager : ObjectManager
         }
         if (!isResult)
         {
-           // if(interactObject!=null)
+            // if(interactObject!=null)
             //    interactObject.GetComponent<InteractObject>().UpdateFeedback(false);
             interactObject = null;
         }
@@ -215,11 +311,18 @@ public class PlayerManager : ObjectManager
     {
         //FONCTION POUR OBTENIR LA POSITION DEVANT LE PERSONNAGE
         //POSITION OU INTERAGIR ET POSER LES OBJETS
-        Vector3 forwardPos = transform.TransformDirection(Vector3.forward) * 0.5f;
+        Vector3 forwardPos = transform.TransformDirection(Vector3.forward) * 0.5f * reglages.raycastOffsetPosition;
         Vector3 testPosition = new Vector3(transform.position.x + forwardPos.x,
-            transform.position.y + forwardPos.y,
+            transform.position.y + forwardPos.y + reglages.raycastYPosOffset,
             transform.position.z + forwardPos.z);
         return testPosition;
+    }
+
+    public Ray GetGroundedRay()
+    {
+        Ray ray = new Ray(transform.position, -transform.up);
+
+        return ray;
     }
 
     public Vector3 GetHeadingDirection()
@@ -233,5 +336,5 @@ public class PlayerManager : ObjectManager
     {
         return inputs;
     }
-    
+
 }

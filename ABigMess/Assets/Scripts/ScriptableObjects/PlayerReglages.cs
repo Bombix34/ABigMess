@@ -20,4 +20,9 @@ public class PlayerReglages : ScriptableObject
     [Header("Reglages Raycast des objets")]
     [Range(0.2f, 1f)]
     public float raycastRadius;
+    [Range(1f, 3f)]
+    public float raycastOffsetPosition;
+
+    [Range(-1f, 1f)]
+    public float raycastYPosOffset;
 }
