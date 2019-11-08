@@ -12,8 +12,6 @@ public class RoomTrigger : MonoBehaviour
     List<MeshRenderer> wallsToHide;
     private List<Material> wallsMaterial;
 
-    bool isActive = false;
-
 
     private void Start()
     {
@@ -26,35 +24,32 @@ public class RoomTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
             other.gameObject.GetComponent<PlayerManager>().CurrentRoomNb = roomNb;
             if (CameraManager.Instance.SwitchCamera(roomNb))
             {
-                isActive = true;
                 ModifyWallsMaterial(true);
-            }
-            else
-            {
-                isActive = false;
             }
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
             other.gameObject.GetComponent<PlayerManager>().CurrentRoomNb = roomNb;
-            if (CameraManager.Instance.SwitchCamera(roomNb))
-            {
-                isActive = true;
-                ModifyWallsMaterial(true);
-            }
-            else
-            {
-                isActive = false;
-            }
+            ModifyWallsMaterial(CameraManager.Instance.SwitchCamera(roomNb));
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            if (CameraManager.Instance.IsMainCameraActive)
+                return;
+            ModifyWallsMaterial(false);
         }
     }
 
@@ -62,18 +57,18 @@ public class RoomTrigger : MonoBehaviour
     {
         if(isTransp)
         {
-            if (isActive)
-                return;
-            foreach(var item in wallsToHide)
+            foreach (var item in wallsToHide)
             {
-                item.material = CameraManager.Instance.hiddenWallMaterial;
+                item.GetComponent<Renderer>().materials[0]= CameraManager.Instance.hiddenWallMaterial;
             }
         }
         else
         {
             for(int i =0; i < wallsToHide.Count;i++)
             {
-                wallsToHide[i].material = wallsMaterial[i];
+              //  item.enabled = true;
+             //   wallsToHide[i].enabled = true;
+                wallsToHide[i].materials[0] = wallsMaterial[i];
             }
         }
     }

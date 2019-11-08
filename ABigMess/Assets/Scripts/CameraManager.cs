@@ -10,6 +10,16 @@ public class CameraManager :Singleton<CameraManager>
 
     public Material hiddenWallMaterial;
 
+    private bool isMainCameraActive = false;
+    public bool IsMainCameraActive
+    {
+        get => isMainCameraActive;
+        set
+        {
+            isMainCameraActive = value;
+        }
+    }
+
     public bool SwitchCamera(int roomNb)
         //return true if the camera is switch to the room camera
         //return false if the mainCamera is chosen
@@ -18,11 +28,13 @@ public class CameraManager :Singleton<CameraManager>
         if (GameManager.Instance.PlayerInSameRoom())
         {
             roomCameras[roomNb].Priority = 10;
+            isMainCameraActive = false;
             return true;
         }
         else
         {
             mainCamera.Priority = 10;
+            isMainCameraActive = true;
             return false;
         }
     }
