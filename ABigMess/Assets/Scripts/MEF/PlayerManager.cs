@@ -31,6 +31,8 @@ public class PlayerManager : ObjectManager
     [SerializeField]
     GameObject bringPosition;
 
+    Ray lastRaycastRay;
+
     Vector3 startGrabPosition; // Lerping with percentage for grabbing an object
     float timeStartedLerping;
     float grabSpeed = 0.06f; // The lesser the speed the faster the grab
@@ -104,8 +106,10 @@ public class PlayerManager : ObjectManager
     private void OnDrawGizmos()
     {
         Gizmos.color = new Color(1f, 0f, 0f, 1f);
-        Gizmos.DrawWireSphere(GetFrontPosition(), reglages.raycastRadius);
-        Gizmos.DrawRay(GetGroundedRay());
+        //Gizmos.DrawWireSphere(GetFrontPosition(), reglages.raycastRadius);
+        //Gizmos.DrawRay(GetGroundedRay());
+        //Gizmos.DrawLine(lastRaycastRay.origin, lastRaycastRay.direction);
+        Gizmos.DrawRay(lastRaycastRay);
     }
 
     //MOVEMENT FUNCTIONS______________________________________________________________________________
@@ -191,7 +195,16 @@ public class PlayerManager : ObjectManager
             float percentage = timeSinceStarted / grabSpeed;
             //print(timeSinceStarted +  " - " + percentage);
             grabbedObject.transform.position = Vector3.Lerp(startGrabPosition, bringPosition.transform.position, percentage);
-            grabbedObject.transform.rotation = bringPosition.transform.rotation;
+            //grabbedObject.transform.rotation = bringPosition.transform.rotation;
+
+            Vector3 forward = grabbedObject.transform.TransformDirection(Vector3.forward);
+            Vector3 toOther = transform.position - grabbedObject.transform.position;
+            lastRaycastRay = new Ray( grabbedObject.transform.position, transform.position - grabbedObject.transform.position);
+            //RaycastHit hit;
+            //Physics.Raycast(lastRaycastRay, out hit, 10f);
+            //Destroy(hit.transform.gameObject);
+
+            print(Vector3.Dot(forward, toOther));
 
             if (percentage >= 1.0f) // Once we finished to lerp
             {
@@ -246,7 +259,7 @@ public class PlayerManager : ObjectManager
     public void OnTriggerStay(Collider other)
     {
         ////if(other == grabbedObjectTrigger)
-        print("Object colliding");
+        //print("Object colliding");
         isGrabbedObjectColliding = true;
 
     }
@@ -277,6 +290,10 @@ public class PlayerManager : ObjectManager
             if (hitColliders[i].gameObject.tag == "GrabObject")
             {
                 interactObject = hitColliders[i].gameObject;
+                if (hitColliders[i].gameObject.GetComponent<InteractObject>() == null)
+                    return;
+                else
+                    hitColliders[i].gameObject.GetComponent<InteractObject>().Highlight();
                 isResult = true;
                 break;
             }
