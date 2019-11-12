@@ -30,6 +30,16 @@ public class PlayerManager : ObjectManager
 
     [SerializeField]
     GameObject bringPosition;
+    
+    [SerializeField] int currentRoomNb=0;
+    public int CurrentRoomNb
+    {
+        get => currentRoomNb;
+        set
+        {
+            currentRoomNb = value;
+        }
+    }
 
     Ray lastRaycastRay;
 
