@@ -35,6 +35,14 @@ public class InteractObject : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Interact();
+        }
+    }
+
     public void Interact()
     {
         interacted = true;
