@@ -7,19 +7,11 @@ public class RoomTrigger : MonoBehaviour
     [SerializeField]
     int roomNb = 0;
 
-
     [SerializeField]
     List<MeshRenderer> wallsToHide;
-    private List<Material> wallsMaterial;
-
 
     private void Start()
     {
-        wallsMaterial = new List<Material>();
-        foreach(var wall in wallsToHide)
-        {
-            wallsMaterial.Add(wall.material);
-        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -27,10 +19,8 @@ public class RoomTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.gameObject.GetComponent<PlayerManager>().CurrentRoomNb = roomNb;
-            if (CameraManager.Instance.SwitchCamera(roomNb))
-            {
-                ModifyWallsMaterial(true);
-            }
+            CameraManager.Instance.SwitchCamera(roomNb);
+            ModifyWallsMaterial(true);
         }
     }
 
@@ -39,7 +29,8 @@ public class RoomTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.gameObject.GetComponent<PlayerManager>().CurrentRoomNb = roomNb;
-            ModifyWallsMaterial(CameraManager.Instance.SwitchCamera(roomNb));
+            CameraManager.Instance.SwitchCamera(roomNb);
+            ModifyWallsMaterial(true);
         }
     }
 
@@ -47,8 +38,6 @@ public class RoomTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (CameraManager.Instance.IsMainCameraActive)
-                return;
             ModifyWallsMaterial(false);
         }
     }
@@ -59,17 +48,55 @@ public class RoomTrigger : MonoBehaviour
         {
             foreach (var item in wallsToHide)
             {
-                item.GetComponent<Renderer>().materials[0]= CameraManager.Instance.hiddenWallMaterial;
+                for(int i = 0; i <item.materials.Length;i++)
+                {
+                    SetupMaterial(item.materials[i], "Transparent");
+                }
             }
         }
         else
         {
-            for(int i =0; i < wallsToHide.Count;i++)
+            foreach (var item in wallsToHide)
             {
-              //  item.enabled = true;
-             //   wallsToHide[i].enabled = true;
-                wallsToHide[i].materials[0] = wallsMaterial[i];
+                for (int i = 0; i < item.materials.Length; i++)
+                {
+                    SetupMaterial(item.materials[i], "Opaque");
+                }
             }
+        }
+    }
+
+    /// <summary>
+    /// Permet de changer le mode du shader standard
+    /// </summary>
+    /// <param name="material">le material à utiliser</param>
+    /// <param name="blendMode"> le mode voulu : Opaque , Transparent</param>
+    private static void SetupMaterial(Material material, string blendMode)
+    {
+        switch (blendMode)
+        {
+            case "Opaque":
+                material.SetFloat("_Mode", 0);
+                material.color = new Color(material.color.r, material.color.g, material.color.b,1f);
+                material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+                material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+                material.SetInt("_ZWrite", 1);
+                material.DisableKeyword("_ALPHATEST_ON");
+                material.DisableKeyword("_ALPHABLEND_ON");
+                material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+                material.renderQueue = -1;
+                break;
+            case "Transparent":
+                material.SetFloat("_Mode", 3);
+                material.color = new Color(material.color.r, material.color.g, material.color.b, 0.01f);
+                material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+                material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                material.SetInt("_ZWrite", 0);
+                material.DisableKeyword("_ALPHATEST_ON");
+                material.DisableKeyword("_ALPHABLEND_ON");
+                material.EnableKeyword("_ALPHAPREMULTIPLY_ON");
+                material.renderQueue = 3000;
+                break;
         }
     }
 }
