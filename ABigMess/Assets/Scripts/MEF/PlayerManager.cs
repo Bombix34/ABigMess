@@ -80,6 +80,7 @@ public class PlayerManager : ObjectManager
                 if (interactObject != null)
                 {
                     grabbedObject = interactObject;
+                    grabbedObject.GetComponent<InteractObject>().Interact();
                     timeStartedLerping = Time.time;
                     //grabbedObject.transform.parent = bringPosition.transform;
                     startGrabPosition = grabbedObject.transform.position;
