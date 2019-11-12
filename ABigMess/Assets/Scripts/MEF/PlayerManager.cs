@@ -271,13 +271,19 @@ public class PlayerManager : ObjectManager
     {
         ////if(other == grabbedObjectTrigger)
         //print("Object colliding");
-        isGrabbedObjectColliding = true;
+        if (other.CompareTag("GrabObject"))
+        {
+            isGrabbedObjectColliding = true;
+        }
 
     }
 
     public void OnTriggerExit(Collider other)
     {
-        isGrabbedObjectColliding = false;
+        if (other.CompareTag("GrabObject"))
+        {
+            isGrabbedObjectColliding = false;
+        }
     }
 
     public void IsPlayerGrounded()
