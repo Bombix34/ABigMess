@@ -9,34 +9,55 @@ public class InteractObject : MonoBehaviour
     Material defaultMat;
 
     [SerializeField]
-    Texture indicator;
+    GameObject indicator;
+    GameObject indicatorInstance;
 
-    float holdMaterial = 1f;
-    // Start is called before the first frame update
+    static float HOLD_TIME = 0.125f;
+    float holdMaterial = HOLD_TIME;
+
+    bool interacted;
+
     void Start()
     {
         defaultMat = gameObject.GetComponent<Renderer>().material;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        holdMaterial -= Time.deltaTime;
-        if(holdMaterial <= 0)
+        if (!interacted)
         {
-            holdMaterial = 1f;
-            ResetMaterial();
+            holdMaterial -= Time.deltaTime;
+            if (holdMaterial <= 0)
+            {
+                holdMaterial = HOLD_TIME;
+                ResetMaterial();
+            }
         }
+    }
+
+    public void Interact()
+    {
+        interacted = true;
+        ResetMaterial();
     }
 
     public void Highlight()
     {
-        gameObject.GetComponent<Renderer>().material = highlightMaterial;
+        if (!interacted)
+        {
+            holdMaterial = HOLD_TIME;
+            if (indicatorInstance == null)
+            {
+                indicatorInstance = Instantiate(indicator, transform);
+                indicatorInstance.transform.Translate(0, transform.localScale.y, 0);
+            }
+            gameObject.GetComponent<Renderer>().material = highlightMaterial;
+        }
     }
 
     public void ResetMaterial()
     {
-      
+        Destroy(indicatorInstance);
         gameObject.GetComponent<Renderer>().material = defaultMat;
 
     }
