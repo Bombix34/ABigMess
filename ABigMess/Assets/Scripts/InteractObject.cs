@@ -1,38 +1,75 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InteractObject : MonoBehaviour
 {
     [SerializeField]
-    Material highlightMaterial;
-    Material defaultMat;
+    Material highlightMaterial; // The material used to highlight 
+
+    Material[] materialsToChange;
+    Material[] defaultMats;
 
     [SerializeField]
-    GameObject indicator;
-    GameObject indicatorInstance;
+    Canvas canvas; // The canvas where I display my button overlay 
+    [SerializeField]
+    GameObject interactButtonOverlayPrefab;
+    GameObject interactButtonOverlayInstance;
 
     static float HOLD_TIME = 0.125f;
     float holdMaterial = HOLD_TIME;
 
     bool interacted;
+    bool childrenHaveMaterials;
 
     void Start()
     {
-        defaultMat = gameObject.GetComponent<Renderer>().material;
+        if (materialsToChange == null || materialsToChange.Length == 0)
+        {
+            materialsToChange = new Material[1];
+
+            if (GetComponent<Renderer>() != null)
+            {
+                // If material is on parent
+                materialsToChange[0] = GetComponent<Renderer>().material;
+            }
+            else
+            {
+                // Search for material on children
+                if (transform.childCount > 0)
+                {
+                    materialsToChange = new Material[transform.childCount];
+
+                    for (int i = 0; i < transform.childCount; i++)
+                    {
+                        materialsToChange[i] = transform.GetChild(i).GetComponent<Renderer>().material;
+                    }
+                    childrenHaveMaterials = true;
+                }
+
+            }
+
+        }
+        defaultMats = new Material[materialsToChange.Length];
+        for (int i = 0; i < materialsToChange.Length; i++)
+        {
+            defaultMats[i] = materialsToChange[i];
+        }
     }
 
     void Update()
     {
-        if (!interacted)
+
+        holdMaterial -= Time.deltaTime;
+        if (holdMaterial <= 0)
         {
-            holdMaterial -= Time.deltaTime;
-            if (holdMaterial <= 0)
-            {
-                holdMaterial = HOLD_TIME;
-                ResetMaterial();
-            }
+            holdMaterial = HOLD_TIME;
+            ResetMaterial();
         }
+
+        UpdateOverlayPosition();
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -51,22 +88,65 @@ public class InteractObject : MonoBehaviour
 
     public void Highlight()
     {
-        if (!interacted)
+
+        holdMaterial = HOLD_TIME;
+        if (interactButtonOverlayInstance == null)
         {
-            holdMaterial = HOLD_TIME;
-            if (indicatorInstance == null)
-            {
-                indicatorInstance = Instantiate(indicator, transform);
-                indicatorInstance.transform.Translate(0, transform.localScale.y, 0);
-            }
-            gameObject.GetComponent<Renderer>().material = highlightMaterial;
+            interactButtonOverlayInstance = Instantiate(interactButtonOverlayPrefab, canvas.transform);
+            interactButtonOverlayInstance.GetComponent<InteractButtonOverlay>().SetText(gameObject.name);
+        } else
+        {
+            interactButtonOverlayInstance.SetActive(true);
+        }
+        for (int i = 0; i < materialsToChange.Length; i++)
+        {
+            materialsToChange[i] = highlightMaterial;
+        }
+        ApplyMaterials();
+
+    }
+
+    public void UpdateOverlayPosition()
+    {
+        if (interactButtonOverlayInstance != null)
+        {
+            Vector3 overlayPos = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, transform.localScale.y, 0));
+
+            interactButtonOverlayInstance.transform.position = overlayPos;
         }
     }
 
     public void ResetMaterial()
     {
-        Destroy(indicatorInstance);
-        gameObject.GetComponent<Renderer>().material = defaultMat;
+        if (interactButtonOverlayInstance != null)
+        {
+            interactButtonOverlayInstance.SetActive(false);
+        }
+        for (int i = 0; i < materialsToChange.Length; i++)
+        {
+            materialsToChange[i] = defaultMats[i];
+            ApplyMaterials();
+        }
 
+    }
+
+    // Apply the same highlight material to all the children of an object
+    public void ApplyMaterials()
+    {
+        if (childrenHaveMaterials)
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                Renderer r = transform.GetChild(i).GetComponent<Renderer>();
+                if (r != null)
+                {
+                    r.material = materialsToChange[i];
+                }
+            }
+        }
+        else
+        {
+            GetComponent<Renderer>().material = materialsToChange[0];
+        }
     }
 }
