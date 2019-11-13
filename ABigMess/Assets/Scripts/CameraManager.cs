@@ -3,10 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-public class CameraManager :Singleton<CameraManager>
+public class CameraManager : Singleton<CameraManager>
 {
+    private GameManager manager;
+
+    [SerializeField]
+    CameraSettings settings;
+
+
     public List<CinemachineVirtualCamera> roomCameras;
     public CinemachineVirtualCamera mainCamera;
+
+    CinemachineFramingTransposer mainCameraTransposer;
 
     public Material hiddenWallMaterial;
 
@@ -17,6 +25,30 @@ public class CameraManager :Singleton<CameraManager>
         set
         {
             isMainCameraActive = value;
+        }
+    }
+
+    private void Start()
+    {
+        manager = GameManager.Instance;
+        mainCameraTransposer = mainCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
+    }
+
+    private void Update()
+    {
+        UpdateMainCameraZoom();
+    }
+
+    private void UpdateMainCameraZoom()
+    {
+        if (isMainCameraActive)
+        {
+            mainCameraTransposer.m_CameraDistance = 5f * manager.GetPositionBetweenPlayersAmplitude();
+            if (mainCameraTransposer.m_CameraDistance > settings.maxZoomOut)
+                mainCameraTransposer.m_CameraDistance = settings.maxZoomOut;
+            else if (mainCameraTransposer.m_CameraDistance < settings.maxZoomIn)
+                mainCameraTransposer.m_CameraDistance = settings.maxZoomIn;
+            // mainCamera.m_Lens.FieldOfView = 40 * GameManager.Instance.GetPositionBetweenPlayersAmplitude();
         }
     }
 
