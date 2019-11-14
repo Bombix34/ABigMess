@@ -1,53 +1,163 @@
 ﻿Shader "BIGMESS/Outline"
 {
-    Properties
-    {
-        _Color ("Color", Color) = (1,1,1,1)
-        _MainTex ("Albedo (RGB)", 2D) = "white" {}
-        _Glossiness ("Smoothness", Range(0,1)) = 0.5
-        _Metallic ("Metallic", Range(0,1)) = 0.0
-    }
-    SubShader
-    {
-        Tags { "RenderType"="Opaque" }
-        LOD 200
+	Properties//Variables
+	{
+		_MainTex("Main Texture (RBG)", 2D) = "white" {}//Allows for a texture property.
+		_Color("Color", Color) = (1,1,1,1)//Allows for a color property.
 
-        CGPROGRAM
-        // Physically based Standard lighting model, and enable shadows on all light types
-        #pragma surface surf Standard fullforwardshadows
+		_OutlineTex("Outline Texture", 2D) = "white" {}
+		_OutlineColor("Outline Color", Color) = (1,1,1,1)
+		_OutlineWidth("Outline Width", Range(1.0,10.0)) = 1.1
+	}
 
-        // Use shader model 3.0 target, to get nicer looking lighting
-        #pragma target 3.0
+		SubShader
+		{
+			Tags
+			{
+				"Queue" = "Transparent"
+			}
+			Pass
+			{
+				Name "OUTLINE"
 
-        sampler2D _MainTex;
+				ZWrite Off//Allows for other render passes to be drawn on top of this pass.
 
-        struct Input
-        {
-            float2 uv_MainTex;
-        };
+				CGPROGRAM//Allows talk between two languages: shader lab and nvidia C for graphics.
 
-        half _Glossiness;
-        half _Metallic;
-        fixed4 _Color;
+				//\===========================================================================================
+				//\ Function Defines - defines the name for the vertex and fragment functions
+				//\===========================================================================================
 
-        // Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
-        // See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
-        // #pragma instancing_options assumeuniformscaling
-        UNITY_INSTANCING_BUFFER_START(Props)
-            // put more per-instance properties here
-        UNITY_INSTANCING_BUFFER_END(Props)
+				#pragma vertex vert//Define for the building function.
 
-        void surf (Input IN, inout SurfaceOutputStandard o)
-        {
-            // Albedo comes from a texture tinted by color
-            fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
-            o.Albedo = c.rgb;
-            // Metallic and smoothness come from slider variables
-            o.Metallic = _Metallic;
-            o.Smoothness = _Glossiness;
-            o.Alpha = c.a;
-        }
-        ENDCG
-    }
-    FallBack "Diffuse"
+				#pragma fragment frag//Define for coloring function.
+
+				//\===========================================================================================
+				//\ Includes
+				//\===========================================================================================
+
+				#include "UnityCG.cginc"//Built in shader functions.
+
+				//\===========================================================================================
+				//\ Structures - Can get data like - vertices's, normal, color, uv.
+				//\===========================================================================================
+
+				struct appdata//How the vertex function receives info.
+				{
+					float4 vertex : POSITION;
+					float2 uv : TEXCOORD0;
+				};
+
+				struct v2f
+				{
+					float4 pos : SV_POSITION;
+					float2 uv : TEXCOORD0;
+				};
+
+				//\===========================================================================================
+				//\ Imports - Re-import property from shader lab to nvidia cg
+				//\===========================================================================================
+
+				float _OutlineWidth;
+				float4 _OutlineColor;
+				sampler2D _OutlineTex;
+
+				//\===========================================================================================
+				//\ Vertex Function - Builds the object
+				//\===========================================================================================
+
+				v2f vert(appdata IN)
+				{
+					IN.vertex.xyz *= _OutlineWidth;
+					v2f OUT;
+
+					OUT.pos = UnityObjectToClipPos(IN.vertex);
+					OUT.uv = IN.uv;
+
+					return OUT;
+				}
+
+				//\===========================================================================================
+				//\ Fragment Function - Color it in
+				//\===========================================================================================
+
+				fixed4 frag(v2f IN) : SV_Target
+				{
+					float4 texColor = tex2D(_OutlineTex, IN.uv);
+					return texColor * _OutlineColor;
+				}
+
+				ENDCG
+			}
+
+			Pass
+			{
+				Name "OBJECT"
+
+				CGPROGRAM//Allows talk between two languages: shader lab and nvidia C for graphics.
+
+				//\===========================================================================================
+				//\ Function Defines - defines the name for the vertex and fragment functions
+				//\===========================================================================================
+
+				#pragma vertex vert//Define for the building function.
+
+				#pragma fragment frag//Define for coloring function.
+
+				//\===========================================================================================
+				//\ Includes
+				//\===========================================================================================
+
+				#include "UnityCG.cginc"//Built in shader functions.
+
+				//\===========================================================================================
+				//\ Structures - Can get data like - vertices's, normal, color, uv.
+				//\===========================================================================================
+
+				struct appdata//How the vertex function receives info.
+				{
+					float4 vertex : POSITION;
+					float2 uv : TEXCOORD0;
+				};
+
+				struct v2f
+				{
+					float4 pos : SV_POSITION;
+					float2 uv : TEXCOORD0;
+				};
+
+				//\===========================================================================================
+				//\ Imports - Re-import property from shader lab to nvidia cg
+				//\===========================================================================================
+
+				float4 _Color;
+				sampler2D _MainTex;
+
+				//\===========================================================================================
+				//\ Vertex Function - Builds the object
+				//\===========================================================================================
+
+				v2f vert(appdata IN)
+				{
+					v2f OUT;
+
+					OUT.pos = UnityObjectToClipPos(IN.vertex);
+					OUT.uv = IN.uv;
+
+					return OUT;
+				}
+
+				//\===========================================================================================
+				//\ Fragment Function - Color it in
+				//\===========================================================================================
+
+				fixed4 frag(v2f IN) : SV_Target
+				{
+					float4 texColor = tex2D(_MainTex, IN.uv);
+					return texColor * _Color;
+				}
+
+				ENDCG
+			}
+		}
 }
