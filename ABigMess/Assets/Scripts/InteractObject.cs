@@ -6,12 +6,6 @@ using UnityEngine.UI;
 public class InteractObject : MonoBehaviour
 {
     [SerializeField]
-    Material highlightMaterial; // The material used to highlight 
-
-    Material[] materialsToChange;
-    Material[] defaultMats;
-
-    [SerializeField]
     Canvas canvas; // The canvas where I display my button overlay 
     [SerializeField]
     GameObject interactButtonOverlayPrefab;
@@ -23,39 +17,23 @@ public class InteractObject : MonoBehaviour
     bool interacted;
     bool childrenHaveMaterials;
 
+    Outline outline;
+    [SerializeField]
+    AnimationCurve outlineAnimation;
+    float outlineTime;
+    bool decreaseOutline = true;
+
+    [SerializeField]
+    [Range(1, 15)]
+    float outlineWidth = 8;
+    [SerializeField]
+    [Range(1, 10)]
+    float outlineSpeed = 2;
+
     void Start()
     {
-        if (materialsToChange == null || materialsToChange.Length == 0)
-        {
-            materialsToChange = new Material[1];
-
-            if (GetComponent<Renderer>() != null)
-            {
-                // If material is on parent
-                materialsToChange[0] = GetComponent<Renderer>().material;
-            }
-            else
-            {
-                // Search for material on children
-                if (transform.childCount > 0)
-                {
-                    materialsToChange = new Material[transform.childCount];
-
-                    for (int i = 0; i < transform.childCount; i++)
-                    {
-                        materialsToChange[i] = transform.GetChild(i).GetComponent<Renderer>().material;
-                    }
-                    childrenHaveMaterials = true;
-                }
-
-            }
-
-        }
-        defaultMats = new Material[materialsToChange.Length];
-        for (int i = 0; i < materialsToChange.Length; i++)
-        {
-            defaultMats[i] = materialsToChange[i];
-        }
+        outline = gameObject.AddComponent<Outline>();
+        outline.OutlineWidth = 0;
     }
 
     void Update()
@@ -65,7 +43,23 @@ public class InteractObject : MonoBehaviour
         if (holdMaterial <= 0)
         {
             holdMaterial = HOLD_TIME;
-            ResetMaterial();
+            ResetHighlight();
+        }
+        // We start the counter by setting it to time.deltaTIme wich is > 0
+        if(decreaseOutline)
+        {
+            outline.OutlineWidth = outlineAnimation.Evaluate(outlineTime) * outlineWidth;
+            if (outlineTime > 0)
+            {
+                outlineTime -= Time.deltaTime * outlineSpeed;
+            }
+        } else
+        {
+            outline.OutlineWidth = outlineAnimation.Evaluate(outlineTime) * outlineWidth;
+            if (outlineTime < 1)
+            {
+                outlineTime += Time.deltaTime * outlineSpeed;
+            }
         }
 
         UpdateOverlayPosition();
@@ -83,7 +77,7 @@ public class InteractObject : MonoBehaviour
     public void Interact()
     {
         interacted = true;
-        ResetMaterial();
+        ResetHighlight();
     }
 
     public void Highlight()
@@ -98,11 +92,9 @@ public class InteractObject : MonoBehaviour
         {
             interactButtonOverlayInstance.SetActive(true);
         }
-        for (int i = 0; i < materialsToChange.Length; i++)
-        {
-            materialsToChange[i] = highlightMaterial;
-        }
-        ApplyMaterials();
+        
+        decreaseOutline = false;
+
 
     }
 
@@ -116,37 +108,14 @@ public class InteractObject : MonoBehaviour
         }
     }
 
-    public void ResetMaterial()
+    public void ResetHighlight()
     {
         if (interactButtonOverlayInstance != null)
         {
             interactButtonOverlayInstance.SetActive(false);
+            outline.OutlineWidth = 0;
+            decreaseOutline = true;
         }
-        for (int i = 0; i < materialsToChange.Length; i++)
-        {
-            materialsToChange[i] = defaultMats[i];
-            ApplyMaterials();
-        }
-
-    }
-
-    // Apply the same highlight material to all the children of an object
-    public void ApplyMaterials()
-    {
-        if (childrenHaveMaterials)
-        {
-            for (int i = 0; i < transform.childCount; i++)
-            {
-                Renderer r = transform.GetChild(i).GetComponent<Renderer>();
-                if (r != null)
-                {
-                    r.material = materialsToChange[i];
-                }
-            }
-        }
-        else
-        {
-            GetComponent<Renderer>().material = materialsToChange[0];
-        }
+        
     }
 }

@@ -272,7 +272,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &135590830
 MonoBehaviour:
@@ -286,10 +286,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67cd42b004709454faa4a979280a2e96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightMaterial: {fileID: 2100000, guid: 6b0c39f7b0d409541a7dc7bc635b27d4, type: 2}
   canvas: {fileID: 1912123865}
   interactButtonOverlayPrefab: {fileID: 1379215672641199259, guid: c68c3ed3cdef8584fb8e77aabc7143e0,
     type: 3}
+  outlineAnimation:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.009426117
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.61502635
+      value: 1.26799
+      inSlope: 1.1502599
+      outSlope: 1.1502599
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.34234935
+    - serializedVersion: 3
+      time: 1
+      value: 1.0094261
+      inSlope: -1.18383
+      outSlope: -1.18383
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.35451406
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  outlineWidth: 8
+  outlineSpeed: 6
 --- !u!1 &232770995
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,10 +404,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67cd42b004709454faa4a979280a2e96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightMaterial: {fileID: 2100000, guid: 6b0c39f7b0d409541a7dc7bc635b27d4, type: 2}
   canvas: {fileID: 1912123865}
   interactButtonOverlayPrefab: {fileID: 1379215672641199259, guid: c68c3ed3cdef8584fb8e77aabc7143e0,
     type: 3}
+  outlineAnimation:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.009426117
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.61502635
+      value: 1.26799
+      inSlope: 1.1502599
+      outSlope: 1.1502599
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.34234935
+    - serializedVersion: 3
+      time: 1
+      value: 1.0094261
+      inSlope: -1.18383
+      outSlope: -1.18383
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.35451406
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  outlineWidth: 8
+  outlineSpeed: 6
 --- !u!1 &328316411
 GameObject:
   m_ObjectHideFlags: 0
@@ -635,7 +703,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.8, z: 0.2}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &557370446
 MonoBehaviour:
@@ -649,10 +717,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67cd42b004709454faa4a979280a2e96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightMaterial: {fileID: 2100000, guid: 6b0c39f7b0d409541a7dc7bc635b27d4, type: 2}
   canvas: {fileID: 1912123865}
   interactButtonOverlayPrefab: {fileID: 1379215672641199259, guid: c68c3ed3cdef8584fb8e77aabc7143e0,
     type: 3}
+  outlineAnimation:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.009426117
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.61502635
+      value: 1.26799
+      inSlope: 1.1502599
+      outSlope: 1.1502599
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.34234935
+    - serializedVersion: 3
+      time: 1
+      value: 1.0094261
+      inSlope: -1.18383
+      outSlope: -1.18383
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.35451406
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  outlineWidth: 8
+  outlineSpeed: 6
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1279,7 +1381,7 @@ Transform:
   m_LocalScale: {x: 0.25, y: 2, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1514863993
 GameObject:
@@ -1629,7 +1731,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1932768642
 MonoBehaviour:
@@ -1643,10 +1745,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67cd42b004709454faa4a979280a2e96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightMaterial: {fileID: 2100000, guid: 6b0c39f7b0d409541a7dc7bc635b27d4, type: 2}
   canvas: {fileID: 1912123865}
   interactButtonOverlayPrefab: {fileID: 1379215672641199259, guid: c68c3ed3cdef8584fb8e77aabc7143e0,
     type: 3}
+  outlineAnimation:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.009426117
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.61502635
+      value: 1.26799
+      inSlope: 1.1502599
+      outSlope: 1.1502599
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.34234935
+    - serializedVersion: 3
+      time: 1
+      value: 1.0094261
+      inSlope: -1.18383
+      outSlope: -1.18383
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.35451406
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  outlineWidth: 8
+  outlineSpeed: 6
 --- !u!1 &1939033544
 GameObject:
   m_ObjectHideFlags: 0
