@@ -12,7 +12,19 @@ public class RoomTrigger : MonoBehaviour
 
     private void Start()
     {
+        InitWallsFeedback();
     }
+
+    private void InitWallsFeedback()
+    {
+        foreach (var item in wallsToHide)
+        {
+            GameObject wallFeedback = Instantiate(item.gameObject, item.transform.position, Quaternion.identity) as GameObject;
+            wallFeedback.transform.parent = item.transform;
+            wallFeedback.transform.localScale = new Vector3(wallFeedback.transform.localScale.x, 0.2f, wallFeedback.transform.localScale.z);
+        }
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
