@@ -195,15 +195,15 @@ public class PlayerManager : ObjectManager
             //print(timeSinceStarted +  " - " + percentage);
             grabbedObject.transform.position = Vector3.Lerp(startGrabPosition, bringPosition.transform.position, percentage);
             //grabbedObject.transform.rotation = bringPosition.transform.rotation;
-
+/*
             Vector3 forward = grabbedObject.transform.TransformDirection(Vector3.forward);
             Vector3 toOther = transform.position - grabbedObject.transform.position;
             lastRaycastRay = new Ray( grabbedObject.transform.position, transform.position - grabbedObject.transform.position);
             //RaycastHit hit;
             //Physics.Raycast(lastRaycastRay, out hit, 10f);
             //Destroy(hit.transform.gameObject);
-
-            print(Vector3.Dot(forward, toOther));
+            */
+           // print(Vector3.Dot(forward, toOther));
 
             if (percentage >= 1.0f) // Once we finished to lerp
             {
