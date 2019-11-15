@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class InteractObject : MonoBehaviour
 {
-    [SerializeField]
+
     Canvas canvas; // The canvas where I display my button overlay 
     [SerializeField]
     GameObject interactButtonOverlayPrefab;
@@ -33,6 +33,11 @@ public class InteractObject : MonoBehaviour
     void Start()
     {
         outline = gameObject.AddComponent<Outline>();
+        canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        if(canvas == null)
+        {
+            Debug.LogError("Define a canvas for InteractObject: " + name);
+        }
         outline.OutlineWidth = 0;
     }
 

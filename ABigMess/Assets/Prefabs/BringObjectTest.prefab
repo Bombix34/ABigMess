@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2033689655906909180}
   - component: {fileID: 2033689655906908931}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: BringObjectTest
   m_TagString: GrabObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,6 +121,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67cd42b004709454faa4a979280a2e96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightMaterial: {fileID: 0}
-  indicator: {fileID: 1871479501340734669, guid: 5aedca80fefa73949b96db0595627805,
+  interactButtonOverlayPrefab: {fileID: 1379215672641199259, guid: c68c3ed3cdef8584fb8e77aabc7143e0,
     type: 3}
+  outlineAnimation:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: -0.028301239
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0.97169876
+      inSlope: -4.2902417
+      outSlope: -4.2902417
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.04470569
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  outlineWidth: 8
+  outlineSpeed: 2
