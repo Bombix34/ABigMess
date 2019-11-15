@@ -16,6 +16,7 @@ public abstract class State
 	
 	public abstract void Enter();
 	public abstract void Execute();
+    public abstract void FixedExecute();
 	public abstract void Exit();
     //public abstract void OnMessage(Telegram message);
 }
