@@ -48,7 +48,6 @@ public class CameraManager : Singleton<CameraManager>
                 mainCameraTransposer.m_CameraDistance = settings.maxZoomOut;
             else if (mainCameraTransposer.m_CameraDistance < settings.maxZoomIn)
                 mainCameraTransposer.m_CameraDistance = settings.maxZoomIn;
-            // mainCamera.m_Lens.FieldOfView = 40 * GameManager.Instance.GetPositionBetweenPlayersAmplitude();
         }
     }
 

@@ -21,7 +21,7 @@ public class RoomTrigger : MonoBehaviour
         {
             GameObject wallFeedback = Instantiate(item.gameObject, item.transform.position, Quaternion.identity) as GameObject;
             wallFeedback.transform.parent = item.transform;
-            wallFeedback.transform.localScale = new Vector3(wallFeedback.transform.localScale.x, 0.2f, wallFeedback.transform.localScale.z);
+            wallFeedback.transform.localScale = new Vector3(wallFeedback.transform.localScale.x, 0.2f, wallFeedback.transform.localScale.z*0.95f);
         }
     }
 
