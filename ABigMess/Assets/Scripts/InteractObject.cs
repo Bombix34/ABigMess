@@ -1,38 +1,69 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InteractObject : MonoBehaviour
 {
     [SerializeField]
-    Material highlightMaterial;
-    Material defaultMat;
-
+    Canvas canvas; // The canvas where I display my button overlay 
     [SerializeField]
-    GameObject indicator;
-    GameObject indicatorInstance;
+    GameObject interactButtonOverlayPrefab;
+    GameObject interactButtonOverlayInstance;
 
     static float HOLD_TIME = 0.125f;
     float holdMaterial = HOLD_TIME;
 
     bool interacted;
+    bool childrenHaveMaterials;
+
+    Outline outline;
+    [SerializeField]
+    AnimationCurve outlineAnimation;
+    float outlineTime;
+    bool decreaseOutline = true;
+
+    [SerializeField]
+    [Range(1, 15)]
+    float outlineWidth = 8;
+    [SerializeField]
+    [Range(1, 10)]
+    float outlineSpeed = 2;
 
     void Start()
     {
-        defaultMat = gameObject.GetComponent<Renderer>().material;
+        outline = gameObject.AddComponent<Outline>();
+        outline.OutlineWidth = 0;
     }
 
     void Update()
     {
-        if (!interacted)
+
+        holdMaterial -= Time.deltaTime;
+        if (holdMaterial <= 0)
         {
-            holdMaterial -= Time.deltaTime;
-            if (holdMaterial <= 0)
+            holdMaterial = HOLD_TIME;
+            ResetHighlight();
+        }
+        // We start the counter by setting it to time.deltaTIme wich is > 0
+        if(decreaseOutline)
+        {
+            outline.OutlineWidth = outlineAnimation.Evaluate(outlineTime) * outlineWidth;
+            if (outlineTime > 0)
             {
-                holdMaterial = HOLD_TIME;
-                ResetMaterial();
+                outlineTime -= Time.deltaTime * outlineSpeed;
+            }
+        } else
+        {
+            outline.OutlineWidth = outlineAnimation.Evaluate(outlineTime) * outlineWidth;
+            if (outlineTime < 1)
+            {
+                outlineTime += Time.deltaTime * outlineSpeed;
             }
         }
+
+        UpdateOverlayPosition();
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -46,27 +77,45 @@ public class InteractObject : MonoBehaviour
     public void Interact()
     {
         interacted = true;
-        ResetMaterial();
+        ResetHighlight();
     }
 
     public void Highlight()
     {
-        if (!interacted)
+
+        holdMaterial = HOLD_TIME;
+        if (interactButtonOverlayInstance == null)
         {
-            holdMaterial = HOLD_TIME;
-            if (indicatorInstance == null)
-            {
-                indicatorInstance = Instantiate(indicator, transform);
-                indicatorInstance.transform.Translate(0, transform.localScale.y, 0);
-            }
-            gameObject.GetComponent<Renderer>().material = highlightMaterial;
+            interactButtonOverlayInstance = Instantiate(interactButtonOverlayPrefab, canvas.transform);
+            interactButtonOverlayInstance.GetComponent<InteractButtonOverlay>().SetText(gameObject.name);
+        } else
+        {
+            interactButtonOverlayInstance.SetActive(true);
+        }
+        
+        decreaseOutline = false;
+
+
+    }
+
+    public void UpdateOverlayPosition()
+    {
+        if (interactButtonOverlayInstance != null)
+        {
+            Vector3 overlayPos = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, transform.localScale.y, 0));
+
+            interactButtonOverlayInstance.transform.position = overlayPos;
         }
     }
 
-    public void ResetMaterial()
+    public void ResetHighlight()
     {
-        Destroy(indicatorInstance);
-        gameObject.GetComponent<Renderer>().material = defaultMat;
-
+        if (interactButtonOverlayInstance != null)
+        {
+            interactButtonOverlayInstance.SetActive(false);
+            outline.OutlineWidth = 0;
+            decreaseOutline = true;
+        }
+        
     }
 }
