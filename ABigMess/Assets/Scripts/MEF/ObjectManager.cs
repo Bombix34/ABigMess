@@ -8,13 +8,10 @@ public abstract class ObjectManager : MonoBehaviour {
 
 	public virtual void ChangeState(State newState)
 	{
-		//newState==null permet de traiter les Idles des différentes config' : IA ou joueur
-		if(newState==null)
-			return;
         if(currentState!=null)
             currentState.Exit();
 		currentState=newState;
-		newState.Enter();
+		currentState.Enter();
 	}
 	
 	//public abstract void ReceiveMessage(Telegram message);

@@ -58,55 +58,24 @@ public class PlayerManager : ObjectManager
         playerCollider = GetComponent<CapsuleCollider>();
 
         animator = GetComponentInChildren<Animator>();
+        ChangeState(new PlayerBaseState(this));
     }
 
     private void Start()
     {
-        // ChangeState(new PlayerBaseState(this));
     }
 
     private void Update()
     {
         RaycastObject();
         UpdateGrabbedObject();
-        if (inputs.GetInteractInputDown())
-        {
-            print("interact");
-        }
-        if (inputs.GetGrabInputDown())
-        {
-            if (grabbedObject == null)
-            {
-                if (interactObject != null)
-                {
-                    grabbedObject = interactObject;
-                    grabbedObject.GetComponent<InteractObject>().Interact();
-                    timeStartedLerping = Time.time;
-                    //grabbedObject.transform.parent = bringPosition.transform;
-                    startGrabPosition = grabbedObject.transform.position;
-                    reachedPosition = false;
-                    grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
-                    interactObject = null;
-                    print(grabbedObject);
-                }
-            }
-            else
-            {
-                DropBringObject();
-            }
-        }
-
         IsPlayerGrounded();
-        if(!isPlayerGrounded && isGrabbedObjectColliding)
-        {
-            DropBringObject();
-        }
+        currentState.Execute();
     }
 
     private void FixedUpdate()
     {
-        if (canMove)
-            DoMove();
+        currentState.FixedExecute();
     }
 
     public override void ChangeState(State newState)
@@ -134,6 +103,8 @@ public class PlayerManager : ObjectManager
 
     public void DoMove()
     {
+        if (!canMove)
+            return;
         Vector3 directionController = inputs.GetMovementInput();
         GravitySpeed();
         if (directionController == Vector3.zero)
@@ -163,13 +134,6 @@ public class PlayerManager : ObjectManager
 
     public void GravitySpeed()
     {
-        //if (!rigidBody.isGrounded)
-        //{
-        //currentVelocity = Vector3.zero;
-        //float gravity = reglages.gravity * Time.deltaTime;
-        //currentVelocity = new Vector3(currentVelocity.x, currentVelocity.y - gravity, currentVelocity.z);
-        //rigidBody.MovePosition(currentVelocity);
-        //}
     }
 
     public void ResetVelocity()
@@ -191,7 +155,28 @@ public class PlayerManager : ObjectManager
         // animator.SetFloat("MoveSpeed", currentVelocity.magnitude / 0.1f);
         animator.SetBool("isRunning", currentVelocity.magnitude > 0);
     }
-
+    
+    public void TryBringObject()
+    {
+        if (inputs.GetGrabInputDown())
+        {
+            if (grabbedObject == null)
+            {
+                if (interactObject != null)
+                {
+                    grabbedObject = interactObject;
+                    grabbedObject.GetComponent<InteractObject>().Interact();
+                    timeStartedLerping = Time.time;
+                    //grabbedObject.transform.parent = bringPosition.transform;
+                    startGrabPosition = grabbedObject.transform.position;
+                    reachedPosition = false;
+                    grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
+                    interactObject = null;
+                    ChangeState(new PlayerBringState(this, grabbedObject.GetComponent<InteractObject>()));
+                }
+            }
+        }
+    }
 
     //Reached position
     public bool reachedPosition = false;
@@ -234,25 +219,26 @@ public class PlayerManager : ObjectManager
             }
         }
     }
-
-    // COLLIDERS/OBJECTS FUNCTIONS ___________________________________________________________________________________
-
-    public void JointBroken(JointBreak jointBreak)
-    {
-        DropBringObject();
-    }
-
+    
+    
     public void DropBringObject()
     {
-        grabbedObject.transform.parent = null;
-        grabbedObject.AddComponent<BoxCollider>();
-        grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
-        grabbedObject = null;
-        //Destroy both grabbedObjectTrigger and grabbedObjectCollider
-        Destroy(grabbedObjectCollider);
-        Destroy(grabbedObjectTrigger);
-        isGrabbedObjectColliding = false;
+        if ((grabbedObject != null && inputs.GetGrabInputDown())||(!isPlayerGrounded && isGrabbedObjectColliding))
+        {
+            grabbedObject.transform.parent = null;
+            grabbedObject.AddComponent<BoxCollider>();
+            grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
+            grabbedObject = null;
+            //Destroy both grabbedObjectTrigger and grabbedObjectCollider
+            Destroy(grabbedObjectCollider);
+            Destroy(grabbedObjectTrigger);
+            isGrabbedObjectColliding = false;
+            ChangeState(new PlayerBaseState(this));
+        }
     }
+
+
+ // COLLIDERS/OBJECTS FUNCTIONS ___________________________________________________________________________________
 
     public void OnCollisionEnter(Collision collision)
     {
@@ -261,9 +247,6 @@ public class PlayerManager : ObjectManager
 
     public void OnCollisionStay(Collision collision)
     {
-
-        //print("Player colliding");
-
     }
 
 
@@ -318,28 +301,9 @@ public class PlayerManager : ObjectManager
         }
         if (!isResult)
         {
-            // if(interactObject!=null)
-            //    interactObject.GetComponent<InteractObject>().UpdateFeedback(false);
             interactObject = null;
         }
     }
-
-    /*
-    // Adds a cube collider to the player in order for the cube not to go through walls
-    void AddHoldCubeCollider()
-    {
-        holdCubeBoxCollider = gameObject.AddComponent<BoxCollider>();
-        Debug.Log("Local Position: " + cubePosition.localPosition);
-        holdCubeBoxCollider.center = cubePosition.localPosition;
-        Destroy(holdCube.GetComponent<BoxCollider>());
-    }
-
-    void RemoveHoldCubeCollider()
-    {
-        Destroy(holdCubeBoxCollider);
-        holdCube.AddComponent<BoxCollider>();
-    }
-    */
 
     public Vector3 GetFrontPosition()
     {
