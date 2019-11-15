@@ -10,6 +10,11 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     GameObject middlePlayers;
 
+    private void Start()
+    {
+        AkSoundEngine.PostEvent("Play_musique_test",gameObject);
+        AkSoundEngine.SetState("MUTE", "down");
+    }
 
     private void Update()
     {

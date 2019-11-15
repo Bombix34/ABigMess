@@ -67,6 +67,9 @@ public class PlayerManager : ObjectManager
 
     private void Update()
     {
+        //TEST__________
+        UpdateQuackSound();
+        //__________
         RaycastObject();
         UpdateGrabbedObject();
         IsPlayerGrounded();
@@ -328,7 +331,19 @@ public class PlayerManager : ObjectManager
         return transform.TransformDirection(Vector3.forward);
     }
 
-    //GET & SET________________________________________________________________________________________
+    public void UpdateQuackSound()
+    {
+        if(inputs.GetQuackInputDown())
+        {
+            AkSoundEngine.SetState("MUTE", "up");
+        }
+        else if(inputs.GetQuackInputUp())
+        {
+            AkSoundEngine.SetState("MUTE", "down");
+        }
+    }
+
+ //GET & SET________________________________________________________________________________________
 
     public PlayerInputManager GetInputManager()
     {
