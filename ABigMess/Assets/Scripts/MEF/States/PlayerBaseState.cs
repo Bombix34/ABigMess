@@ -25,7 +25,7 @@ public class PlayerBaseState : PlayerState
 
     public override void FixedExecute()
     {
-        manager.DoMove();
+        manager.UpdateMovement();
     }
 
     public override void Exit()

@@ -11,9 +11,7 @@ public class PlayerManager : ObjectManager
 
     PlayerInputManager inputs;
 
-    Rigidbody rigidBody;
-
-    Vector3 currentVelocity;
+    PlayerMovement movement;
 
     Transform mainCamera;
 
@@ -48,13 +46,13 @@ public class PlayerManager : ObjectManager
     float grabSpeed = 0.06f; // The lesser the speed the faster the grab
 
     bool isGrabbedObjectColliding;
-    bool isPlayerGrounded;
 
     void Awake()
     {
         inputs = GetComponent<PlayerInputManager>();
         mainCamera = Camera.main.transform;
-        rigidBody = GetComponent<Rigidbody>();
+        movement = GetComponent<PlayerMovement>();
+        movement.Reglages = reglages;
         playerCollider = GetComponent<CapsuleCollider>();
 
         animator = GetComponentInChildren<Animator>();
@@ -72,7 +70,7 @@ public class PlayerManager : ObjectManager
         //__________
         RaycastObject();
         UpdateGrabbedObject();
-        IsPlayerGrounded();
+        UpdateAnim();
         currentState.Execute();
     }
 
@@ -95,68 +93,17 @@ public class PlayerManager : ObjectManager
         Gizmos.DrawRay(lastRaycastRay);
     }
 
-    //MOVEMENT FUNCTIONS______________________________________________________________________________
-
-    bool canMove = true;
-
-    public void Move(bool IsOn)
+    public void UpdateMovement()
     {
-        canMove = IsOn;
+        movement.DoMove(inputs.GetMovementInput());
     }
-
-    public void DoMove()
-    {
-        if (!canMove)
-            return;
-        Vector3 directionController = inputs.GetMovementInput();
-        GravitySpeed();
-        if (directionController == Vector3.zero)
-        {
-            currentVelocity = Vector3.zero;
-            UpdateAnim();
-            return;
-        }
-        //init values
-        Vector3 forward = mainCamera.transform.forward;
-        forward.y = 0;
-        forward = Vector3.Normalize(forward);
-        Vector3 right = mainCamera.transform.right;
-
-        Vector3 rightMove = right * (10 * inputs.GetMovementInputX()) * Time.deltaTime;
-        Vector3 upMove = forward * (10 * inputs.GetMovementInputY()) * Time.deltaTime;
-        Vector3 heading = (rightMove + upMove).normalized;
-
-        float amplitude = new Vector2(inputs.GetMovementInputX(), inputs.GetMovementInputY()).magnitude;
-
-        RotatePlayer(inputs.GetMovementInputY(), -inputs.GetMovementInputX());
-        currentVelocity = Vector3.zero;
-        currentVelocity += heading * amplitude * (reglages.moveSpeed / 5f);
-        rigidBody.MovePosition(transform.position + currentVelocity);
-        UpdateAnim();
-    }
-
-    public void GravitySpeed()
-    {
-    }
-
-    public void ResetVelocity()
-    {
-        rigidBody.MovePosition(transform.position);
-        animator.SetFloat("MoveSpeed", 0f);
-    }
-
-    private void RotatePlayer(float x, float y)
-    {
-        Vector3 dir = new Vector3(-y, 0, x);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(dir), (reglages.rotationSpeed * 100) * Time.deltaTime);
-    }
-
+    
     private void UpdateAnim()
     {
         if (animator == null)
             return;
         // animator.SetFloat("MoveSpeed", currentVelocity.magnitude / 0.1f);
-        animator.SetBool("isRunning", currentVelocity.magnitude > 0);
+        animator.SetBool("isRunning", movement.CurrentVelocity.magnitude > 0);
     }
     
     public void TryBringObject()
@@ -226,7 +173,7 @@ public class PlayerManager : ObjectManager
     
     public void DropBringObject()
     {
-        if ((grabbedObject != null && inputs.GetGrabInputDown())||(!isPlayerGrounded && isGrabbedObjectColliding))
+        if ((grabbedObject != null && inputs.GetGrabInputDown())||(!movement.IsGrounded() && isGrabbedObjectColliding))
         {
             grabbedObject.transform.parent = null;
             grabbedObject.AddComponent<BoxCollider>();
@@ -272,18 +219,13 @@ public class PlayerManager : ObjectManager
         }
     }
 
-    public void IsPlayerGrounded()
-    {
-        isPlayerGrounded = Physics.Raycast(GetGroundedRay(), 1.05f);
-    }
-
     //RAYCAST OBJECTS___________________________________________________________________________________
 
     public void RaycastObject()
     {
         bool isResult = false;
         GameObject raycastObject = null;
-        Vector3 testPosition = GetFrontPosition();
+        Vector3 testPosition = movement.GetFrontPosition();
 
         Collider[] hitColliders = Physics.OverlapSphere(testPosition, reglages.raycastRadius);
         //utiliser Physics.OverlapCapsule plutot que overlapsphere
@@ -308,28 +250,6 @@ public class PlayerManager : ObjectManager
         }
     }
 
-    public Vector3 GetFrontPosition()
-    {
-        //FONCTION POUR OBTENIR LA POSITION DEVANT LE PERSONNAGE
-        //POSITION OU INTERAGIR ET POSER LES OBJETS
-        Vector3 forwardPos = transform.TransformDirection(Vector3.forward) * 0.5f * reglages.raycastOffsetPosition;
-        Vector3 testPosition = new Vector3(transform.position.x + forwardPos.x,
-            transform.position.y + forwardPos.y + reglages.raycastYPosOffset,
-            transform.position.z + forwardPos.z);
-        return testPosition;
-    }
-
-    public Ray GetGroundedRay()
-    {
-        Ray ray = new Ray(transform.position, -transform.up);
-
-        return ray;
-    }
-
-    public Vector3 GetHeadingDirection()
-    {
-        return transform.TransformDirection(Vector3.forward);
-    }
 
     public void UpdateQuackSound()
     {

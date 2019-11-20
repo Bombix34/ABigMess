@@ -32,7 +32,7 @@ public class PlayerBringState : PlayerState
 
     public override void FixedExecute()
     {
-        manager.DoMove();
+        manager.UpdateMovement();
     }
 
     public override void Exit()
