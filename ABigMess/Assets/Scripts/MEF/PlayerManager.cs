@@ -11,22 +11,20 @@ public class PlayerManager : ObjectManager
 
     PlayerInputManager inputs;
 
-    Rigidbody rigidBody;
-
-    Vector3 currentVelocity;
+    PlayerMovement movement;
 
     Transform mainCamera;
 
     Animator animator;
 
-    GameObject interactObject = null;  //raycasted object in front of player
+    GameObject interactObject = null;           //raycasted object in front of player
 
-    GameObject grabbedObject = null;   //object currently hold/grabb
+    GameObject grabbedObject = null;            //object currently hold/grabb
 
-    CapsuleCollider playerCollider = null; // The player collider
+    CapsuleCollider playerCollider = null;      // The player collider
 
-    BoxCollider grabbedObjectCollider = null; // Added collider to the player
-    BoxCollider grabbedObjectTrigger = null; // Added collider to the player
+    BoxCollider grabbedObjectCollider = null;   // Added collider to the player
+    BoxCollider grabbedObjectTrigger = null;    // Added collider to the player
 
     [SerializeField]
     GameObject bringPosition;
@@ -48,16 +46,21 @@ public class PlayerManager : ObjectManager
     float grabSpeed = 0.06f; // The lesser the speed the faster the grab
 
     bool isGrabbedObjectColliding;
-    bool isPlayerGrounded;
+
+
+    List<InteractObject> raycastedObjects;
+    int raycastIndex = 0;
 
     void Awake()
     {
         inputs = GetComponent<PlayerInputManager>();
         mainCamera = Camera.main.transform;
-        rigidBody = GetComponent<Rigidbody>();
+        movement = GetComponent<PlayerMovement>();
+        movement.Reglages = reglages;
         playerCollider = GetComponent<CapsuleCollider>();
 
         animator = GetComponentInChildren<Animator>();
+        raycastedObjects = new List<InteractObject>();
         ChangeState(new PlayerBaseState(this));
     }
 
@@ -72,7 +75,7 @@ public class PlayerManager : ObjectManager
         //__________
         RaycastObject();
         UpdateGrabbedObject();
-        IsPlayerGrounded();
+        UpdateAnim();
         currentState.Execute();
     }
 
@@ -89,74 +92,20 @@ public class PlayerManager : ObjectManager
     private void OnDrawGizmos()
     {
         Gizmos.color = new Color(1f, 0f, 0f, 1f);
-        //Gizmos.DrawWireSphere(GetFrontPosition(), reglages.raycastRadius);
-        //Gizmos.DrawRay(GetGroundedRay());
-        //Gizmos.DrawLine(lastRaycastRay.origin, lastRaycastRay.direction);
         Gizmos.DrawRay(lastRaycastRay);
     }
 
-    //MOVEMENT FUNCTIONS______________________________________________________________________________
-
-    bool canMove = true;
-
-    public void Move(bool IsOn)
+    public void UpdateMovement()
     {
-        canMove = IsOn;
+        movement.DoMove(inputs.GetMovementInput());
     }
-
-    public void DoMove()
-    {
-        if (!canMove)
-            return;
-        Vector3 directionController = inputs.GetMovementInput();
-        GravitySpeed();
-        if (directionController == Vector3.zero)
-        {
-            currentVelocity = Vector3.zero;
-            UpdateAnim();
-            return;
-        }
-        //init values
-        Vector3 forward = mainCamera.transform.forward;
-        forward.y = 0;
-        forward = Vector3.Normalize(forward);
-        Vector3 right = mainCamera.transform.right;
-
-        Vector3 rightMove = right * (10 * inputs.GetMovementInputX()) * Time.deltaTime;
-        Vector3 upMove = forward * (10 * inputs.GetMovementInputY()) * Time.deltaTime;
-        Vector3 heading = (rightMove + upMove).normalized;
-
-        float amplitude = new Vector2(inputs.GetMovementInputX(), inputs.GetMovementInputY()).magnitude;
-
-        RotatePlayer(inputs.GetMovementInputY(), -inputs.GetMovementInputX());
-        currentVelocity = Vector3.zero;
-        currentVelocity += heading * amplitude * (reglages.moveSpeed / 5f);
-        rigidBody.MovePosition(transform.position + currentVelocity);
-        UpdateAnim();
-    }
-
-    public void GravitySpeed()
-    {
-    }
-
-    public void ResetVelocity()
-    {
-        rigidBody.MovePosition(transform.position);
-        animator.SetFloat("MoveSpeed", 0f);
-    }
-
-    private void RotatePlayer(float x, float y)
-    {
-        Vector3 dir = new Vector3(-y, 0, x);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(dir), (reglages.rotationSpeed * 100) * Time.deltaTime);
-    }
-
+    
     private void UpdateAnim()
     {
         if (animator == null)
             return;
         // animator.SetFloat("MoveSpeed", currentVelocity.magnitude / 0.1f);
-        animator.SetBool("isRunning", currentVelocity.magnitude > 0);
+        animator.SetBool("isRunning", movement.CurrentVelocity.magnitude > 0);
     }
     
     public void TryBringObject()
@@ -169,6 +118,7 @@ public class PlayerManager : ObjectManager
                 {
                     grabbedObject = interactObject;
                     grabbedObject.GetComponent<InteractObject>().Interact();
+                    ResetRaycastedObjects();
                     timeStartedLerping = Time.time;
                     //grabbedObject.transform.parent = bringPosition.transform;
                     startGrabPosition = grabbedObject.transform.position;
@@ -192,19 +142,7 @@ public class PlayerManager : ObjectManager
         {
             float timeSinceStarted = Time.time - timeStartedLerping;
             float percentage = timeSinceStarted / grabSpeed;
-            //print(timeSinceStarted +  " - " + percentage);
             grabbedObject.transform.position = Vector3.Lerp(startGrabPosition, bringPosition.transform.position, percentage);
-            //grabbedObject.transform.rotation = bringPosition.transform.rotation;
-/*
-            Vector3 forward = grabbedObject.transform.TransformDirection(Vector3.forward);
-            Vector3 toOther = transform.position - grabbedObject.transform.position;
-            lastRaycastRay = new Ray( grabbedObject.transform.position, transform.position - grabbedObject.transform.position);
-            //RaycastHit hit;
-            //Physics.Raycast(lastRaycastRay, out hit, 10f);
-            //Destroy(hit.transform.gameObject);
-            */
-           // print(Vector3.Dot(forward, toOther));
-
             if (percentage >= 1.0f) // Once we finished to lerp
             {
                 grabbedObject.transform.parent = bringPosition.transform;
@@ -226,7 +164,7 @@ public class PlayerManager : ObjectManager
     
     public void DropBringObject()
     {
-        if ((grabbedObject != null && inputs.GetGrabInputDown())||(!isPlayerGrounded && isGrabbedObjectColliding))
+        if ((grabbedObject != null && inputs.GetGrabInputDown())||(!movement.IsGrounded() && isGrabbedObjectColliding))
         {
             grabbedObject.transform.parent = null;
             grabbedObject.AddComponent<BoxCollider>();
@@ -272,64 +210,58 @@ public class PlayerManager : ObjectManager
         }
     }
 
-    public void IsPlayerGrounded()
-    {
-        isPlayerGrounded = Physics.Raycast(GetGroundedRay(), 1.05f);
-    }
-
     //RAYCAST OBJECTS___________________________________________________________________________________
 
     public void RaycastObject()
     {
-        bool isResult = false;
-        GameObject raycastObject = null;
-        Vector3 testPosition = GetFrontPosition();
-
-        Collider[] hitColliders = Physics.OverlapSphere(testPosition, reglages.raycastRadius);
+        raycastedObjects.Clear();
+        Vector3 testPosition = movement.GetFrontPosition();
         //utiliser Physics.OverlapCapsule plutot que overlapsphere
+        Collider[] hitColliders = Physics.OverlapSphere(testPosition, reglages.raycastRadius);
         int i = 0;
         while (i < hitColliders.Length)
         {
-            if (hitColliders[i].gameObject.tag == "GrabObject")
+            if (hitColliders[i].gameObject.GetComponent<InteractObject>() !=null)
             {
-                interactObject = hitColliders[i].gameObject;
-                if (hitColliders[i].gameObject.GetComponent<InteractObject>() == null)
-                    return;
-                else
-                    hitColliders[i].gameObject.GetComponent<InteractObject>().Highlight();
-                isResult = true;
-                break;
+                raycastedObjects.Add(hitColliders[i].gameObject.GetComponent<InteractObject>());
             }
             i++;
         }
-        if (!isResult)
+        if (raycastedObjects.Count==0)
         {
-            interactObject = null;
+            ResetRaycastedObjects();
+        }
+        else
+        {
+            if (raycastIndex >= raycastedObjects.Count)
+            {
+                raycastIndex = 0;
+            }
+            interactObject = raycastedObjects[raycastIndex].gameObject;
+            interactObject.GetComponent<InteractObject>().Highlight();
         }
     }
 
-    public Vector3 GetFrontPosition()
+    public void SwitchRaycastedObject()
     {
-        //FONCTION POUR OBTENIR LA POSITION DEVANT LE PERSONNAGE
-        //POSITION OU INTERAGIR ET POSER LES OBJETS
-        Vector3 forwardPos = transform.TransformDirection(Vector3.forward) * 0.5f * reglages.raycastOffsetPosition;
-        Vector3 testPosition = new Vector3(transform.position.x + forwardPos.x,
-            transform.position.y + forwardPos.y + reglages.raycastYPosOffset,
-            transform.position.z + forwardPos.z);
-        return testPosition;
+        if(inputs.GetSwitchInputDown()&&raycastedObjects.Count>0)
+        {
+            interactObject.GetComponent<InteractObject>().ResetHighlight();
+            raycastIndex++;
+            if(raycastIndex>=raycastedObjects.Count)
+            {
+                raycastIndex = 0;
+            }
+        }
     }
 
-    public Ray GetGroundedRay()
+    private void ResetRaycastedObjects()
     {
-        Ray ray = new Ray(transform.position, -transform.up);
-
-        return ray;
+        raycastedObjects.Clear();
+        raycastIndex = 0;
+        interactObject = null;
     }
 
-    public Vector3 GetHeadingDirection()
-    {
-        return transform.TransformDirection(Vector3.forward);
-    }
 
     public void UpdateQuackSound()
     {

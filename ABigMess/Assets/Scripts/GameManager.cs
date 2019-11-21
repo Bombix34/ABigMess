@@ -12,20 +12,19 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        AkSoundEngine.PostEvent("Play_musique_test",gameObject);
-        AkSoundEngine.SetState("MUTE", "down");
     }
 
     private void Update()
     {
         middlePlayers.transform.position = GetPositionBetweenPlayers();
     }
-
-
+    
     public bool PlayerInSameRoom()
     {
         if (players.Count == 1)
+        {
             return true;
+        }
         int firstPlayerRoom = players[0].CurrentRoomNb;
         for(int i =1; i < players.Count;i++)
         {

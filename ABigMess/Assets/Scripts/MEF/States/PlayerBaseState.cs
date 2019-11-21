@@ -21,11 +21,12 @@ public class PlayerBaseState : PlayerState
     public override void Execute()
     {
         manager.TryBringObject();
+        manager.SwitchRaycastedObject();
     }
 
     public override void FixedExecute()
     {
-        manager.DoMove();
+        manager.UpdateMovement();
     }
 
     public override void Exit()

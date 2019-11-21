@@ -18,8 +18,10 @@ public class InteractObject : MonoBehaviour
     bool childrenHaveMaterials;
 
     Outline outline;
+
     [SerializeField]
     AnimationCurve outlineAnimation;
+
     float outlineTime;
     bool decreaseOutline = true;
 
@@ -33,6 +35,7 @@ public class InteractObject : MonoBehaviour
     void Start()
     {
         outline = gameObject.AddComponent<Outline>();
+        outline.OutlineMode = Outline.Mode.OutlineVisible;
         canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         if(canvas == null)
         {
@@ -43,7 +46,6 @@ public class InteractObject : MonoBehaviour
 
     void Update()
     {
-
         holdMaterial -= Time.deltaTime;
         if (holdMaterial <= 0)
         {
@@ -66,9 +68,7 @@ public class InteractObject : MonoBehaviour
                 outlineTime += Time.deltaTime * outlineSpeed;
             }
         }
-
         UpdateOverlayPosition();
-
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -87,20 +87,16 @@ public class InteractObject : MonoBehaviour
 
     public void Highlight()
     {
-
         holdMaterial = HOLD_TIME;
         if (interactButtonOverlayInstance == null)
         {
             interactButtonOverlayInstance = Instantiate(interactButtonOverlayPrefab, canvas.transform);
-            interactButtonOverlayInstance.GetComponent<InteractButtonOverlay>().SetText(gameObject.name);
+            interactButtonOverlayInstance.GetComponent<InteractButtonOverlay>().SetText("Interact");
         } else
         {
             interactButtonOverlayInstance.SetActive(true);
         }
-        
         decreaseOutline = false;
-
-
     }
 
     public void UpdateOverlayPosition()
