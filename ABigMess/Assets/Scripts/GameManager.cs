@@ -18,12 +18,13 @@ public class GameManager : Singleton<GameManager>
     {
         middlePlayers.transform.position = GetPositionBetweenPlayers();
     }
-
-
+    
     public bool PlayerInSameRoom()
     {
         if (players.Count == 1)
+        {
             return true;
+        }
         int firstPlayerRoom = players[0].CurrentRoomNb;
         for(int i =1; i < players.Count;i++)
         {

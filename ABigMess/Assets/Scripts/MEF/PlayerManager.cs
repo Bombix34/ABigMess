@@ -17,14 +17,14 @@ public class PlayerManager : ObjectManager
 
     Animator animator;
 
-    GameObject interactObject = null;  //raycasted object in front of player
+    GameObject interactObject = null;           //raycasted object in front of player
 
-    GameObject grabbedObject = null;   //object currently hold/grabb
+    GameObject grabbedObject = null;            //object currently hold/grabb
 
-    CapsuleCollider playerCollider = null; // The player collider
+    CapsuleCollider playerCollider = null;      // The player collider
 
-    BoxCollider grabbedObjectCollider = null; // Added collider to the player
-    BoxCollider grabbedObjectTrigger = null; // Added collider to the player
+    BoxCollider grabbedObjectCollider = null;   // Added collider to the player
+    BoxCollider grabbedObjectTrigger = null;    // Added collider to the player
 
     [SerializeField]
     GameObject bringPosition;
@@ -47,6 +47,10 @@ public class PlayerManager : ObjectManager
 
     bool isGrabbedObjectColliding;
 
+
+    List<InteractObject> raycastedObjects;
+    int raycastIndex = 0;
+
     void Awake()
     {
         inputs = GetComponent<PlayerInputManager>();
@@ -56,6 +60,7 @@ public class PlayerManager : ObjectManager
         playerCollider = GetComponent<CapsuleCollider>();
 
         animator = GetComponentInChildren<Animator>();
+        raycastedObjects = new List<InteractObject>();
         ChangeState(new PlayerBaseState(this));
     }
 
@@ -87,9 +92,6 @@ public class PlayerManager : ObjectManager
     private void OnDrawGizmos()
     {
         Gizmos.color = new Color(1f, 0f, 0f, 1f);
-        //Gizmos.DrawWireSphere(GetFrontPosition(), reglages.raycastRadius);
-        //Gizmos.DrawRay(GetGroundedRay());
-        //Gizmos.DrawLine(lastRaycastRay.origin, lastRaycastRay.direction);
         Gizmos.DrawRay(lastRaycastRay);
     }
 
@@ -116,6 +118,7 @@ public class PlayerManager : ObjectManager
                 {
                     grabbedObject = interactObject;
                     grabbedObject.GetComponent<InteractObject>().Interact();
+                    ResetRaycastedObjects();
                     timeStartedLerping = Time.time;
                     //grabbedObject.transform.parent = bringPosition.transform;
                     startGrabPosition = grabbedObject.transform.position;
@@ -139,19 +142,7 @@ public class PlayerManager : ObjectManager
         {
             float timeSinceStarted = Time.time - timeStartedLerping;
             float percentage = timeSinceStarted / grabSpeed;
-            //print(timeSinceStarted +  " - " + percentage);
             grabbedObject.transform.position = Vector3.Lerp(startGrabPosition, bringPosition.transform.position, percentage);
-            //grabbedObject.transform.rotation = bringPosition.transform.rotation;
-/*
-            Vector3 forward = grabbedObject.transform.TransformDirection(Vector3.forward);
-            Vector3 toOther = transform.position - grabbedObject.transform.position;
-            lastRaycastRay = new Ray( grabbedObject.transform.position, transform.position - grabbedObject.transform.position);
-            //RaycastHit hit;
-            //Physics.Raycast(lastRaycastRay, out hit, 10f);
-            //Destroy(hit.transform.gameObject);
-            */
-           // print(Vector3.Dot(forward, toOther));
-
             if (percentage >= 1.0f) // Once we finished to lerp
             {
                 grabbedObject.transform.parent = bringPosition.transform;
@@ -223,31 +214,52 @@ public class PlayerManager : ObjectManager
 
     public void RaycastObject()
     {
-        bool isResult = false;
-        GameObject raycastObject = null;
+        raycastedObjects.Clear();
         Vector3 testPosition = movement.GetFrontPosition();
-
-        Collider[] hitColliders = Physics.OverlapSphere(testPosition, reglages.raycastRadius);
         //utiliser Physics.OverlapCapsule plutot que overlapsphere
+        Collider[] hitColliders = Physics.OverlapSphere(testPosition, reglages.raycastRadius);
         int i = 0;
         while (i < hitColliders.Length)
         {
-            if (hitColliders[i].gameObject.tag == "GrabObject")
+            if (hitColliders[i].gameObject.GetComponent<InteractObject>() !=null)
             {
-                interactObject = hitColliders[i].gameObject;
-                if (hitColliders[i].gameObject.GetComponent<InteractObject>() == null)
-                    return;
-                else
-                    hitColliders[i].gameObject.GetComponent<InteractObject>().Highlight();
-                isResult = true;
-                break;
+                raycastedObjects.Add(hitColliders[i].gameObject.GetComponent<InteractObject>());
             }
             i++;
         }
-        if (!isResult)
+        if (raycastedObjects.Count==0)
         {
-            interactObject = null;
+            ResetRaycastedObjects();
         }
+        else
+        {
+            if (raycastIndex >= raycastedObjects.Count)
+            {
+                raycastIndex = 0;
+            }
+            interactObject = raycastedObjects[raycastIndex].gameObject;
+            interactObject.GetComponent<InteractObject>().Highlight();
+        }
+    }
+
+    public void SwitchRaycastedObject()
+    {
+        if(inputs.GetSwitchInputDown()&&raycastedObjects.Count>0)
+        {
+            interactObject.GetComponent<InteractObject>().ResetHighlight();
+            raycastIndex++;
+            if(raycastIndex>=raycastedObjects.Count)
+            {
+                raycastIndex = 0;
+            }
+        }
+    }
+
+    private void ResetRaycastedObjects()
+    {
+        raycastedObjects.Clear();
+        raycastIndex = 0;
+        interactObject = null;
     }
 
 
