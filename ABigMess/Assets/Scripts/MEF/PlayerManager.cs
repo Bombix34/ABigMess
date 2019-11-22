@@ -85,6 +85,8 @@ public class PlayerManager : ObjectManager
     {
         Gizmos.color = new Color(1f, 0f, 0f, 1f);
         Gizmos.DrawRay(lastRaycastRay);
+        Gizmos.DrawWireSphere(movement.GetFrontPosition(), reglages.raycastRadius);
+        Gizmos.DrawWireSphere(new Vector3(movement.GetFrontPosition().x, movement.GetFrontPosition().y * 1.3f, movement.GetFrontPosition().z),reglages.raycastRadius);
     }
 
     public void UpdateMovement()
@@ -227,8 +229,8 @@ public class PlayerManager : ObjectManager
     {
         raycastedObjects.Clear();
         Vector3 testPosition = movement.GetFrontPosition();
-        //utiliser Physics.OverlapCapsule plutot que overlapsphere
-        Collider[] hitColliders = Physics.OverlapSphere(testPosition, reglages.raycastRadius);
+        Vector3 capsuleUpPosition = new Vector3(testPosition.x, testPosition.y*1.3f, testPosition.z);
+        Collider[] hitColliders = Physics.OverlapCapsule(testPosition,capsuleUpPosition,reglages.raycastRadius);
         int i = 0;
         while (i < hitColliders.Length)
         {

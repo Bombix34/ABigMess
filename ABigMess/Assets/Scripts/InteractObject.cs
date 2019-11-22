@@ -11,6 +11,9 @@ public class InteractObject : MonoBehaviour
     GameObject interactButtonOverlayPrefab;
     GameObject interactButtonOverlayInstance;
 
+    [SerializeField]
+    ObjectSettings settings;
+
     static float HOLD_TIME = 0.125f;
     float holdMaterial = HOLD_TIME;
 
