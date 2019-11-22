@@ -16,8 +16,6 @@ public class CameraManager : Singleton<CameraManager>
 
     CinemachineFramingTransposer mainCameraTransposer;
 
-    public Material hiddenWallMaterial;
-
     private bool isMainCameraActive = false;
 
     private void Start()
