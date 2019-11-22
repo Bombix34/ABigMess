@@ -126,16 +126,27 @@ public class PlayerManager : ObjectManager
             {
                 if (interactObject != null)
                 {
-                    grabbedObject = interactObject;
-                    grabbedObject.GetComponent<InteractObject>().Interact();
-                    ResetRaycastedObjects();
-                    timeStartedLerping = Time.time;
-                    //grabbedObject.transform.parent = bringPosition.transform;
-                    startGrabPosition = grabbedObject.transform.position;
-                    reachedPosition = false;
-                    grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
-                    interactObject = null;
-                    ChangeState(new PlayerBringState(this, grabbedObject.GetComponent<InteractObject>()));
+                    // A ray that verifies that we are not rycasting through a wall
+                    lastRaycastRay = new Ray(transform.position, interactObject.transform.position - transform.position);
+
+                    RaycastHit hit;
+                    Physics.Raycast(transform.position, interactObject.transform.position - transform.position, out hit, 5f);
+
+                    if (!hit.collider.CompareTag("Wall")) // If we are not going through a wall
+                    {
+                        grabbedObject = interactObject;
+
+                        grabbedObject.GetComponent<InteractObject>().Interact();
+                        ResetRaycastedObjects();
+                        timeStartedLerping = Time.time;
+                        //grabbedObject.transform.parent = bringPosition.transform;
+                        startGrabPosition = grabbedObject.transform.position;
+                        reachedPosition = false;
+                        grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
+                        interactObject = null;
+
+                        ChangeState(new PlayerBringState(this, grabbedObject.GetComponent<InteractObject>()));
+                    }
                 }
             }
         }
