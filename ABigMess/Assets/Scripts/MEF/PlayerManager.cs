@@ -30,14 +30,6 @@ public class PlayerManager : ObjectManager
     GameObject bringPosition;
     
     [SerializeField] int currentRoomNb=0;
-    public int CurrentRoomNb
-    {
-        get => currentRoomNb;
-        set
-        {
-            currentRoomNb = value;
-        }
-    }
 
     Ray lastRaycastRay;
 
@@ -67,7 +59,7 @@ public class PlayerManager : ObjectManager
     private void Start()
     {
     }
-
+    
     private void Update()
     {
         //TEST__________
@@ -103,11 +95,29 @@ public class PlayerManager : ObjectManager
     private void UpdateAnim()
     {
         if (animator == null)
+        {
             return;
+        }
         // animator.SetFloat("MoveSpeed", currentVelocity.magnitude / 0.1f);
         animator.SetBool("isRunning", movement.CurrentVelocity.magnitude > 0);
     }
     
+    public void UpdateQuackSound()
+    {
+        if (inputs.GetQuackInputDown())
+        {
+            AkSoundEngine.SetState("MUTE", "up");
+        }
+        else if (inputs.GetQuackInputUp())
+        {
+            AkSoundEngine.SetState("MUTE", "down");
+        }
+    }
+
+    #region BRING_DROP_SYSTEM
+
+    public bool reachedPosition = false;
+
     public void TryBringObject()
     {
         if (inputs.GetGrabInputDown())
@@ -131,13 +141,12 @@ public class PlayerManager : ObjectManager
         }
     }
 
-    //Reached position
-    public bool reachedPosition = false;
     void UpdateGrabbedObject()
     {
         if (grabbedObject == null)
+        {
             return;
-
+        }
         if (!reachedPosition)
         {
             float timeSinceStarted = Time.time - timeStartedLerping;
@@ -178,8 +187,9 @@ public class PlayerManager : ObjectManager
         }
     }
 
+    #endregion
 
- // COLLIDERS/OBJECTS FUNCTIONS ___________________________________________________________________________________
+    #region COLLISION_SYSTEM
 
     public void OnCollisionEnter(Collision collision)
     {
@@ -189,7 +199,6 @@ public class PlayerManager : ObjectManager
     public void OnCollisionStay(Collision collision)
     {
     }
-
 
     public void OnTriggerStay(Collider other)
     {
@@ -210,7 +219,9 @@ public class PlayerManager : ObjectManager
         }
     }
 
-    //RAYCAST OBJECTS___________________________________________________________________________________
+    #endregion
+
+    #region RAYCAST_SYSTEM
 
     public void RaycastObject()
     {
@@ -262,24 +273,24 @@ public class PlayerManager : ObjectManager
         interactObject = null;
     }
 
-
-    public void UpdateQuackSound()
-    {
-        if(inputs.GetQuackInputDown())
-        {
-            AkSoundEngine.SetState("MUTE", "up");
-        }
-        else if(inputs.GetQuackInputUp())
-        {
-            AkSoundEngine.SetState("MUTE", "down");
-        }
-    }
-
- //GET & SET________________________________________________________________________________________
+    #endregion
+    
+    #region GET/SET
 
     public PlayerInputManager GetInputManager()
     {
         return inputs;
     }
+
+    public int CurrentRoomNb
+    {
+        get => currentRoomNb;
+        set
+        {
+            currentRoomNb = value;
+        }
+    }
+
+    #endregion
 
 }

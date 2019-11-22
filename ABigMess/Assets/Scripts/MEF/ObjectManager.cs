@@ -9,7 +9,9 @@ public abstract class ObjectManager : MonoBehaviour {
 	public virtual void ChangeState(State newState)
 	{
         if(currentState!=null)
+        {
             currentState.Exit();
+        }
 		currentState=newState;
 		currentState.Enter();
 	}

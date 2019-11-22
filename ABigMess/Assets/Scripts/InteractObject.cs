@@ -85,6 +85,8 @@ public class InteractObject : MonoBehaviour
         ResetHighlight();
     }
 
+    #region HIGHLIGHT_SYSTEM
+
     public void Highlight()
     {
         holdMaterial = HOLD_TIME;
@@ -119,4 +121,6 @@ public class InteractObject : MonoBehaviour
         }
         
     }
+
+    #endregion
 }

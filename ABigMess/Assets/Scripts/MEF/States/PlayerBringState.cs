@@ -19,7 +19,7 @@ public class PlayerBringState : PlayerState
         objectBring = obj;
     }
 
-    //STATE GESTION___________________________________________________________________________________
+    #region STATE_GESTION
 
     public override void Enter()
     {
@@ -39,4 +39,6 @@ public class PlayerBringState : PlayerState
     public override void Exit()
     {
     }
+
+    #endregion
 }

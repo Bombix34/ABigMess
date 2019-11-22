@@ -19,14 +19,6 @@ public class CameraManager : Singleton<CameraManager>
     public Material hiddenWallMaterial;
 
     private bool isMainCameraActive = false;
-    public bool IsMainCameraActive
-    {
-        get => isMainCameraActive;
-        set
-        {
-            isMainCameraActive = value;
-        }
-    }
 
     private void Start()
     {
@@ -45,15 +37,25 @@ public class CameraManager : Singleton<CameraManager>
         {
             mainCameraTransposer.m_CameraDistance = 5f * manager.GetPositionBetweenPlayersAmplitude();
             if (mainCameraTransposer.m_CameraDistance > settings.maxZoomOut)
+            {
                 mainCameraTransposer.m_CameraDistance = settings.maxZoomOut;
+            }
             else if (mainCameraTransposer.m_CameraDistance < settings.maxZoomIn)
+            {
                 mainCameraTransposer.m_CameraDistance = settings.maxZoomIn;
+            }
         }
     }
 
+    /// <summary>
+    /// function to switch camera currently used
+    /// </summary>
+    /// <param name="roomNb">the room nb we want to focus on </param>
+    /// <returns>
+    /// true if the camera is switch to the room camera
+    /// false if the mainCamera is chosen
+    /// </returns>
     public bool SwitchCamera(int roomNb)
-        //return true if the camera is switch to the room camera
-        //return false if the mainCamera is chosen
     {
         ResetCamerasPriority();
         if (GameManager.Instance.PlayerInSameRoom())
@@ -70,9 +72,11 @@ public class CameraManager : Singleton<CameraManager>
         }
     }
 
+    /// <summary>
+    /// be careful, every camera will be at 0, 
+    /// always change one priority after to make sure one cam is not choose at rand
+    /// </summary>
     private void ResetCamerasPriority()
-        //be careful, every camera will be at 0, 
-        //always change one priority after to make sure one cam is not choose at rand
     {
         mainCamera.Priority = 0;
         foreach(var cam in roomCameras)
@@ -80,4 +84,17 @@ public class CameraManager : Singleton<CameraManager>
             cam.Priority = 0;
         }
     }
+
+    #region GET/SET
+
+    public bool IsMainCameraActive
+    {
+        get => isMainCameraActive;
+        set
+        {
+            isMainCameraActive = value;
+        }
+    }
+
+    #endregion
 }

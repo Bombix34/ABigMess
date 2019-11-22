@@ -12,7 +12,7 @@ public class PlayerBaseState : PlayerState
         manager = (PlayerManager)curObject;
     }
 
-//STATE GESTION___________________________________________________________________________________
+    #region STATE_GESTION
 
     public override void Enter()
     {
@@ -32,4 +32,6 @@ public class PlayerBaseState : PlayerState
     public override void Exit()
     {
     }
+
+    #endregion
 }

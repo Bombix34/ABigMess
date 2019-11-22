@@ -6,35 +6,9 @@ public class PlayerMovement : MonoBehaviour
 {
 
     Rigidbody rigidBody;
-
     bool canMove = true;
-    public bool CanMove
-    {
-        get => canMove;
-        set
-        {
-            canMove = value;
-        }
-    }
-
     PlayerReglages reglages;
-    public PlayerReglages Reglages
-    {
-        set
-        {
-            reglages = value;
-        }
-    }
-
     Vector3 currentVelocity;
-    public Vector3 CurrentVelocity
-    {
-        get => currentVelocity;
-        set
-        {
-            currentVelocity = value;
-        }
-    }
 
     private void Awake()
     {
@@ -44,7 +18,9 @@ public class PlayerMovement : MonoBehaviour
     public void DoMove(Vector3 playerInputs)
     {
         if (!canMove)
+        {
             return;
+        }
         Vector3 directionController = playerInputs;
         GravitySpeed();
         if (directionController == Vector3.zero)
@@ -70,7 +46,6 @@ public class PlayerMovement : MonoBehaviour
         rigidBody.MovePosition(transform.position + currentVelocity);
     }
 
-
     private void RotatePlayer(float x, float y)
     {
         Vector3 dir = new Vector3(-y, 0, x);
@@ -93,7 +68,6 @@ public class PlayerMovement : MonoBehaviour
         return transform.TransformDirection(Vector3.forward);
     }
 
-
     public void GravitySpeed()
     {
     }
@@ -115,4 +89,34 @@ public class PlayerMovement : MonoBehaviour
         rigidBody.MovePosition(transform.position);
       //  animator.SetFloat("MoveSpeed", 0f);
     }
+
+    #region GET/SET
+
+    public Vector3 CurrentVelocity
+    {
+        get => currentVelocity;
+        set
+        {
+            currentVelocity = value;
+        }
+    }
+
+    public PlayerReglages Reglages
+    {
+        set
+        {
+            reglages = value;
+        }
+    }
+
+    public bool CanMove
+    {
+        get => canMove;
+        set
+        {
+            canMove = value;
+        }
+    }
+
+    #endregion
 }

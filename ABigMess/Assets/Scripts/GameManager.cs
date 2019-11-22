@@ -18,7 +18,9 @@ public class GameManager : Singleton<GameManager>
     {
         middlePlayers.transform.position = GetPositionBetweenPlayers();
     }
-    
+
+    #region PLAYERS_GESTION
+
     public bool PlayerInSameRoom()
     {
         if (players.Count == 1)
@@ -57,4 +59,6 @@ public class GameManager : Singleton<GameManager>
         Vector3 resultVector = middlePos - player1Pos;
         return resultVector.magnitude;
     }
+
+    #endregion
 }

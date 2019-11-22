@@ -16,7 +16,8 @@ public class PlayerInputManager : MonoBehaviour
         player = ReInput.players.GetPlayer(playerId);
     }
 
-//MOVEMENT INPUTS__________________________
+
+    #region MOVEMENT_INPUT
 
     public float GetMovementInputX()
     {
@@ -36,7 +37,10 @@ public class PlayerInputManager : MonoBehaviour
         return move;
     }
 
-//BUTTONS INPUTS____________________________
+    #endregion
+
+
+    #region BUTTONS_INPUT
 
     //Interact
     public bool GetInteractInputDown()
@@ -113,5 +117,7 @@ public class PlayerInputManager : MonoBehaviour
     {
         return player.GetAnyButton();
     }
+
+    #endregion
 
 }
