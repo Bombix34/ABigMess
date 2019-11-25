@@ -83,10 +83,12 @@ public class PlayerManager : ObjectManager
 
     private void OnDrawGizmos()
     {
+        /*
         Gizmos.color = new Color(1f, 0f, 0f, 1f);
         Gizmos.DrawRay(lastRaycastRay);
         Gizmos.DrawWireSphere(movement.GetFrontPosition(), reglages.raycastRadius);
         Gizmos.DrawWireSphere(new Vector3(movement.GetFrontPosition().x, movement.GetFrontPosition().y * 1.3f, movement.GetFrontPosition().z),reglages.raycastRadius);
+        */    
     }
 
     public void UpdateMovement()
