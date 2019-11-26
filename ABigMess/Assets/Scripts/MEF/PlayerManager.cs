@@ -13,7 +13,7 @@ public class PlayerManager : ObjectManager
 
     PlayerMovement movement;
 
-    Transform mainCamera;
+   // Transform mainCamera;
 
     Animator animator;
 
@@ -46,7 +46,6 @@ public class PlayerManager : ObjectManager
     void Awake()
     {
         inputs = GetComponent<PlayerInputManager>();
-        mainCamera = Camera.main.transform;
         movement = GetComponent<PlayerMovement>();
         movement.Reglages = reglages;
         playerCollider = GetComponent<CapsuleCollider>();

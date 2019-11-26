@@ -38,7 +38,7 @@ public class InteractObject : MonoBehaviour
     float outlineSpeed = 2;
 
     [Header("Action when player interact without obj in hand")]
-    public UnityEvent OnInteractWithoutTool;
+    [SerializeField] UnityEvent onInteractWithoutTool;
 
 
     void Start()
@@ -85,7 +85,7 @@ public class InteractObject : MonoBehaviour
         ResetHighlight();
         if(objInPlayerHand==null)
         {
-            OnInteractWithoutTool.Invoke();
+            onInteractWithoutTool.Invoke();
         }
     }
 
@@ -135,6 +135,15 @@ public class InteractObject : MonoBehaviour
             decreaseOutline = true;
         }
         
+    }
+
+    #endregion
+
+    #region GET/SET
+
+    public UnityEvent OnInteractWithoutTool
+    {
+        get => onInteractWithoutTool;
     }
 
     #endregion

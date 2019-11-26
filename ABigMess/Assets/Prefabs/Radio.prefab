@@ -470,6 +470,7 @@ GameObject:
   - component: {fileID: 8039857299736457052}
   - component: {fileID: 8039857299736457053}
   - component: {fileID: 1728051593}
+  - component: {fileID: 4213559933049823716}
   - component: {fileID: 1728051592}
   m_Layer: 0
   m_Name: Radio
@@ -486,7 +487,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8039857299736457042}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.972, y: 2.243, z: 1.51}
+  m_LocalPosition: {x: 16.258, y: 2.243, z: 1.51}
   m_LocalScale: {x: 1, y: 0.59, z: 0.45}
   m_Children:
   - {fileID: 8039857298744326004}
@@ -571,6 +572,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4213559933049823716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8039857299736457042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6d4a39291717c946b2ca184d496ba1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1728051592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -612,23 +625,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   outlineWidth: 8
   outlineSpeed: 4
-  OnInteractWithoutTool:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: SwitchRadio
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnInteractWithATool:
+  onInteractWithoutTool:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
