@@ -20,6 +20,7 @@ public class ObjectSettings : ScriptableObject
     public enum ObjectType
     {
         brush,
-        frigde
+        frigde,
+        radio
     }
 }

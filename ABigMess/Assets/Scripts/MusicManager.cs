@@ -7,34 +7,32 @@ public class MusicManager : MonoBehaviour
 
     Radio radioSystem;
 
-    void Start()
+    void Awake()
     {
         AkSoundEngine.PostEvent("Play_musique_test", gameObject);
         AkSoundEngine.SetState("MUTE", "down");
-        radioSystem = new Radio(this.gameObject);
     }
 
-    private void Update()
+    public void SwitchRadio()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (radioSystem == null)
         {
-            if(radioSystem.IsRadioLaunch())
-            {
-                print(radioSystem.CurrentState);
-                radioSystem.SwitchRadioChannel();
-            }
-            else
-            {
-                radioSystem.LaunchRadio(this.gameObject);
-            }
+            radioSystem = new Radio(this.gameObject);
         }
+        else if(!radioSystem.IsRadioLaunch())
+        {
+            radioSystem.LaunchRadio();
+        }
+        radioSystem.SwitchRadioChannel();
     }
 
 }
 
 public class Radio
 {
-    RadioState currentState;
+    RadioState currentState=RadioState.Off;
+    GameObject akSoundManager;
+
     public RadioState CurrentState
     {
         get=>currentState;
@@ -46,14 +44,8 @@ public class Radio
 
     public Radio(GameObject obj)
     {
-        currentState = RadioState.Off;
-        AkSoundEngine.PostEvent("Play_radio_state", obj);
-        AkSoundEngine.SetState("radio_station", "off");
-    }
-
-    public void LaunchRadio(GameObject objAttached)
-    {
-        AkSoundEngine.PostEvent("Play_radio_state", objAttached);
+        akSoundManager = obj;
+        LaunchRadio();
     }
 
     public bool IsRadioLaunch()
@@ -61,28 +53,38 @@ public class Radio
         return currentState != RadioState.Off;
     }
 
+    public void LaunchRadio()
+    {
+        AkSoundEngine.PostEvent("Play_radio_state", akSoundManager);
+    }
+
     public void SwitchRadioChannel()
     {
-        if(currentState==RadioState.Third || currentState==RadioState.Off)
+        currentState++;
+        if (currentState==RadioState.Count)
         {
             currentState = RadioState.First;
-        }
-        else
-        {
-            currentState++;
         }
         switch(currentState)
         {
             case RadioState.First:
-                AkSoundEngine.SetState("radio_station", "station01");
+                AkSoundEngine.PostEvent("Play_radio_station01",akSoundManager);
                 break;
             case RadioState.Second:
-                AkSoundEngine.SetState("radio_station", "station02");
+                AkSoundEngine.PostEvent("Play_radio_station02", akSoundManager);
                 break;
             case RadioState.Third:
-                AkSoundEngine.SetState("radio_station", "station03");
+                AkSoundEngine.PostEvent("Play_radio_station03", akSoundManager);
                 break;
         }
+    }
+
+    public void StopRadio(GameObject obj)
+    {
+        if (currentState == RadioState.Off)
+            return;
+        currentState = RadioState.Off;
+        AkSoundEngine.PostEvent("Stop_radio_stations", akSoundManager);
     }
 
     public enum RadioState
@@ -90,6 +92,7 @@ public class Radio
         Off,
         First,
         Second,
-        Third
+        Third,
+        Count
     }
 }
