@@ -13,6 +13,9 @@ public class MusicManager : MonoBehaviour
         AkSoundEngine.SetState("MUTE", "down");
     }
 
+    /// <summary>
+    /// Function to start and switch radio station
+    /// </summary>
     public void SwitchRadio()
     {
         if (radioSystem == null)
@@ -26,21 +29,19 @@ public class MusicManager : MonoBehaviour
         radioSystem.SwitchRadioChannel();
     }
 
+    public void ShutRadio()
+    {
+        radioSystem.StopRadio();
+    }
+
 }
+
+#region RadioClass
 
 public class Radio
 {
     RadioState currentState=RadioState.Off;
     GameObject akSoundManager;
-
-    public RadioState CurrentState
-    {
-        get=>currentState;
-        set
-        {
-            currentState = value;
-        }
-    }
 
     public Radio(GameObject obj)
     {
@@ -79,7 +80,7 @@ public class Radio
         }
     }
 
-    public void StopRadio(GameObject obj)
+    public void StopRadio()
     {
         if (currentState == RadioState.Off)
             return;
@@ -95,4 +96,17 @@ public class Radio
         Third,
         Count
     }
+
+    #region GET/SET
+    public RadioState CurrentState
+    {
+        get => currentState;
+        set
+        {
+            currentState = value;
+        }
+    }
+    #endregion
+
 }
+#endregion

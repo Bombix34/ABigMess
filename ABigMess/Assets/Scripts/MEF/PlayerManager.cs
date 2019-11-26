@@ -118,6 +118,18 @@ public class PlayerManager : ObjectManager
         }
     }
 
+    #region INTERACTION_SYSTEM
+    public void TryInteraction()
+    {
+        if(inputs.GetInteractInputDown())
+        {
+            if (interactObject == null)
+                return;
+            interactObject.GetComponent<InteractObject>().Interact(grabbedObject);
+        }
+    }
+    #endregion
+
     #region BRING_DROP_SYSTEM
 
     public bool reachedPosition = false;
@@ -131,7 +143,7 @@ public class PlayerManager : ObjectManager
                 if (interactObject != null)
                 {
                     grabbedObject = interactObject;
-                    grabbedObject.GetComponent<InteractObject>().Interact();
+                    grabbedObject.GetComponent<InteractObject>().Grab();
                     ResetRaycastedObjects();
                     timeStartedLerping = Time.time;
                     //grabbedObject.transform.parent = bringPosition.transform;
@@ -180,6 +192,7 @@ public class PlayerManager : ObjectManager
         if ((grabbedObject != null && inputs.GetGrabInputDown())||(!movement.IsGrounded() && isGrabbedObjectColliding))
         {
             grabbedObject.transform.parent = null;
+            grabbedObject.GetComponent<InteractObject>().Dropdown();
             grabbedObject.AddComponent<BoxCollider>();
             grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
             grabbedObject = null;
