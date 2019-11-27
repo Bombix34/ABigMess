@@ -9,6 +9,8 @@ public class ObjectSettings : ScriptableObject
     public ObjectWeight weightType;
 
     public ObjectPriorityList priorityList;
+
+    public Vector3 rotation;
     
     public enum ObjectWeight
     {

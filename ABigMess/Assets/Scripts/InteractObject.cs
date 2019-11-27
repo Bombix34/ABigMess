@@ -146,5 +146,21 @@ public class InteractObject : MonoBehaviour
         get => onInteractWithoutTool;
     }
 
+    public Vector3 Rotation
+    {
+        get
+        {
+            if (settings != null)
+            {
+                return settings.rotation;
+            }
+            else
+            {
+                Debug.LogError("No rotation defined for the object: " + name);
+                return Vector3.zero;
+            }
+        }
+    }
+
     #endregion
 }
