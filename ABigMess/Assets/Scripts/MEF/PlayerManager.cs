@@ -177,6 +177,7 @@ public class PlayerManager : ObjectManager
             float timeSinceStarted = Time.time - timeStartedLerping;
             float percentage = timeSinceStarted / grabSpeed;
             grabbedObject.transform.position = Vector3.Lerp(startGrabPosition, bringPosition.transform.position, percentage);
+            grabbedObject.transform.rotation = transform.rotation * Quaternion.Euler(grabbedObject.GetComponent<InteractObject>().Rotation);
             if (percentage >= 1.0f) // Once we finished to lerp
             {
                 SetupCollidersAndTriggers(grabbedObject);
@@ -239,10 +240,15 @@ public class PlayerManager : ObjectManager
 
                 isGrabbedObjectColliding = false;
 
+                // Reset interact object rotation
+                interactObject.transform.rotation = transform.rotation * Quaternion.Euler(interactObject.GetComponent<InteractObject>().Rotation); 
                 grabbedObject.transform.parent = null;
                 grabbedObject = interactObject;
 
+               
                 grabbedObject.transform.parent = bringPosition.transform;
+                grabbedObject.transform.rotation = transform.rotation * Quaternion.Euler(grabbedObject.GetComponent<InteractObject>().Rotation);
+                
 
                 ChangeState(new PlayerBringState(this, grabbedObject.GetComponent<InteractObject>()));
             }
