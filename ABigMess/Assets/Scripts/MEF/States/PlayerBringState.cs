@@ -28,6 +28,7 @@ public class PlayerBringState : PlayerState
     public override void Execute()
     {
         manager.DropBringObject();
+        manager.TryInteraction();
         manager.SwitchGrabbedObject();
         manager.SwitchRaycastedObject();
     }

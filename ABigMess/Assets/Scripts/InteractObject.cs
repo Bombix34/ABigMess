@@ -37,16 +37,16 @@ public class InteractObject : MonoBehaviour
     [Range(1, 10)]
     float outlineSpeed = 2;
 
-    [Header("Action when player interact without obj in hand")]
-    [SerializeField] UnityEvent onInteractWithoutTool;
-
+   // [Header("Action when player interact without obj in hand")]
+  //  [SerializeField] UnityEvent onInteractWithoutTool;
+  
 
     void Start()
     {
         outline = gameObject.AddComponent<Outline>();
         outline.OutlineMode = Outline.Mode.OutlineVisible;
         canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
-        if(canvas == null)
+        if (canvas == null)
         {
             Debug.LogError("Define a canvas for InteractObject: " + name);
         }
@@ -62,14 +62,15 @@ public class InteractObject : MonoBehaviour
             ResetHighlight();
         }
         // We start the counter by setting it to time.deltaTIme wich is > 0
-        if(decreaseOutline)
+        if (decreaseOutline)
         {
             outline.OutlineWidth = outlineAnimation.Evaluate(outlineTime) * outlineWidth;
             if (outlineTime > 0)
             {
                 outlineTime -= Time.deltaTime * outlineSpeed;
             }
-        } else
+        }
+        else
         {
             outline.OutlineWidth = outlineAnimation.Evaluate(outlineTime) * outlineWidth;
             if (outlineTime < 1)
@@ -80,12 +81,24 @@ public class InteractObject : MonoBehaviour
         UpdateOverlayPosition();
     }
 
-    public void Interact(GameObject objInPlayerHand)
+    public void Interact(PlayerManager player)
     {
         ResetHighlight();
-        if(objInPlayerHand==null)
+        GameObject objPlayer = player.GrabbedObject;
+        if (objPlayer == null)
         {
-            onInteractWithoutTool.Invoke();
+            //no tools in hand
+            ToolSettings noObjEvents = player.reglages.noObjectInHandEventsList;
+            noObjEvents.ApplyEvent(this);
+        }
+        else
+        {
+            InteractObject toolObj = objPlayer.GetComponent<InteractObject>();
+            if(toolObj.Settings.IsTool())
+            {
+                ToolSettings tool = (ToolSettings)toolObj.Settings;
+                tool.ApplyEvent(this);
+            }
         }
     }
 
@@ -102,16 +115,27 @@ public class InteractObject : MonoBehaviour
 
     #region HIGHLIGHT_SYSTEM
 
-    public void Highlight()
+    public void Highlight(GameObject grabbedObject)
     {
         holdMaterial = HOLD_TIME;
         if (interactButtonOverlayInstance == null)
         {
             interactButtonOverlayInstance = Instantiate(interactButtonOverlayPrefab, canvas.transform);
-            interactButtonOverlayInstance.GetComponent<InteractButtonOverlay>().SetText("Interact");
-        } else
+            /*
+            if (grabbedObject != null && grabbedObject.GetComponent<InteractObject>() != null && grabbedObject.GetComponent<InteractObject>().interaction != null)
+            {
+                interactButtonOverlayInstance.GetComponent<InteractButtonOverlay>().SetText(grabbedObject.GetComponent<InteractObject>().interaction.name);
+            }
+            else
+            {
+            */
+                interactButtonOverlayInstance.GetComponent<InteractButtonOverlay>().SetText("Interact");
+            //}
+        }
+        else
         {
             interactButtonOverlayInstance.SetActive(true);
+            interactButtonOverlayInstance.GetComponent<InteractButtonOverlay>().SetText("Interact");
         }
         decreaseOutline = false;
     }
@@ -134,17 +158,12 @@ public class InteractObject : MonoBehaviour
             outline.OutlineWidth = 0;
             decreaseOutline = true;
         }
-        
+
     }
 
     #endregion
 
     #region GET/SET
-
-    public UnityEvent OnInteractWithoutTool
-    {
-        get => onInteractWithoutTool;
-    }
 
     public Vector3 Rotation
     {
@@ -160,6 +179,11 @@ public class InteractObject : MonoBehaviour
                 return Vector3.zero;
             }
         }
+    }
+
+    public ObjectSettings Settings
+    {
+        get => settings;
     }
 
     #endregion

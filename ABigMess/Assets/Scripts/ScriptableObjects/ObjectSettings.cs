@@ -8,9 +8,14 @@ public class ObjectSettings : ScriptableObject
     public ObjectType objectType;
     public ObjectWeight weightType;
 
-    public ObjectPriorityList priorityList;
+  //  public ObjectPriorityList priorityList;
 
     public Vector3 rotation;
+
+    public bool IsTool()
+    {
+        return objectType == ObjectType.brush;
+    }
     
     public enum ObjectWeight
     {
@@ -21,6 +26,7 @@ public class ObjectSettings : ScriptableObject
 
     public enum ObjectType
     {
+        freeHand,
         brush,
         frigde,
         radio

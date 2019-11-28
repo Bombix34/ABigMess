@@ -123,8 +123,10 @@ public class PlayerManager : ObjectManager
         if(inputs.GetInteractInputDown())
         {
             if (interactObject == null)
+            {
                 return;
-            interactObject.GetComponent<InteractObject>().Interact(grabbedObject);
+            }
+            interactObject.GetComponent<InteractObject>().Interact(this);
         }
     }
     #endregion
@@ -341,7 +343,7 @@ public class PlayerManager : ObjectManager
                 raycastIndex = 0;
             }
             interactObject = raycastedObjects[raycastIndex].gameObject;
-            interactObject.GetComponent<InteractObject>().Highlight();
+            interactObject.GetComponent<InteractObject>().Highlight(grabbedObject);
         }
     }
 
@@ -381,6 +383,11 @@ public class PlayerManager : ObjectManager
         {
             currentRoomNb = value;
         }
+    }
+
+   public GameObject GrabbedObject
+    {
+        get => grabbedObject;
     }
 
     #endregion

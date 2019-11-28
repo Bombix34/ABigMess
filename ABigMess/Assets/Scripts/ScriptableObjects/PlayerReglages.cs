@@ -25,4 +25,6 @@ public class PlayerReglages : ScriptableObject
 
     [Range(-1f, 1f)]
     public float raycastYPosOffset;
+
+    public ToolSettings noObjectInHandEventsList;
 }
