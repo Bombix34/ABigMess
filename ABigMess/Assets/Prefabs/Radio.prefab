@@ -87,7 +87,7 @@ SphereCollider:
   m_GameObject: {fileID: 8039857297764838502}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -178,7 +178,7 @@ BoxCollider:
   m_GameObject: {fileID: 8039857298555466499}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -269,7 +269,7 @@ SphereCollider:
   m_GameObject: {fileID: 8039857298744326005}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -360,7 +360,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 8039857299451821709}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -452,7 +452,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 8039857299500775973}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -470,7 +470,6 @@ GameObject:
   - component: {fileID: 8039857299736457052}
   - component: {fileID: 8039857299736457053}
   - component: {fileID: 1728051593}
-  - component: {fileID: 4213559933049823716}
   - component: {fileID: 1728051592}
   m_Layer: 0
   m_Name: Radio
@@ -572,18 +571,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4213559933049823716
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8039857299736457042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6d4a39291717c946b2ca184d496ba1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1728051592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -625,8 +612,3 @@ MonoBehaviour:
     m_RotationOrder: 4
   outlineWidth: 8
   outlineSpeed: 4
-  onInteractWithoutTool:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
