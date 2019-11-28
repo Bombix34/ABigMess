@@ -13,7 +13,7 @@ public class PlayerManager : ObjectManager
 
     PlayerMovement movement;
 
-    Transform mainCamera;
+   // Transform mainCamera;
 
     Animator animator;
 
@@ -46,7 +46,6 @@ public class PlayerManager : ObjectManager
     void Awake()
     {
         inputs = GetComponent<PlayerInputManager>();
-        mainCamera = Camera.main.transform;
         movement = GetComponent<PlayerMovement>();
         movement.Reglages = reglages;
         playerCollider = GetComponent<CapsuleCollider>();
@@ -83,8 +82,12 @@ public class PlayerManager : ObjectManager
 
     private void OnDrawGizmos()
     {
+        /*
         Gizmos.color = new Color(1f, 0f, 0f, 1f);
         Gizmos.DrawRay(lastRaycastRay);
+        Gizmos.DrawWireSphere(movement.GetFrontPosition(), reglages.raycastRadius);
+        Gizmos.DrawWireSphere(new Vector3(movement.GetFrontPosition().x, movement.GetFrontPosition().y * 1.3f, movement.GetFrontPosition().z),reglages.raycastRadius);
+        */    
     }
 
     public void UpdateMovement()
@@ -114,6 +117,18 @@ public class PlayerManager : ObjectManager
         }
     }
 
+    #region INTERACTION_SYSTEM
+    public void TryInteraction()
+    {
+        if(inputs.GetInteractInputDown())
+        {
+            if (interactObject == null)
+                return;
+            interactObject.GetComponent<InteractObject>().Interact(grabbedObject);
+        }
+    }
+    #endregion
+
     #region BRING_DROP_SYSTEM
 
     public bool reachedPosition = false;
@@ -124,22 +139,30 @@ public class PlayerManager : ObjectManager
         {
             if (grabbedObject == null)
             {
-                if (interactObject != null)
-                {
-                    grabbedObject = interactObject;
-
-                    grabbedObject.GetComponent<InteractObject>().Interact();
-                    ResetRaycastedObjects();
-                    timeStartedLerping = Time.time;
-                    //grabbedObject.transform.parent = bringPosition.transform;
-                    startGrabPosition = grabbedObject.transform.position;
-                    reachedPosition = false;
-                    grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
-                    interactObject = null;
-
-                    ChangeState(new PlayerBringState(this, grabbedObject.GetComponent<InteractObject>()));
-                }
+                GrabInteractObject();
             }
+        }
+    }
+
+    /// <summary>
+    /// Grabbed object points to a newly found interactObject by raycast. 
+    /// The object has it's physics disabled. They come back DropBringObject
+    /// Changes the state of the player to bring state
+    /// </summary>
+    void GrabInteractObject()
+    {
+        if (interactObject != null)
+        {
+            grabbedObject = interactObject;
+            grabbedObject.GetComponent<InteractObject>().Grab();
+            ResetRaycastedObjects();
+            timeStartedLerping = Time.time;
+            //grabbedObject.transform.parent = bringPosition.transform;
+            startGrabPosition = grabbedObject.transform.position;
+            reachedPosition = false;
+            grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
+            interactObject = null;
+            ChangeState(new PlayerBringState(this, grabbedObject.GetComponent<InteractObject>()));
         }
     }
 
@@ -154,30 +177,90 @@ public class PlayerManager : ObjectManager
             float timeSinceStarted = Time.time - timeStartedLerping;
             float percentage = timeSinceStarted / grabSpeed;
             grabbedObject.transform.position = Vector3.Lerp(startGrabPosition, bringPosition.transform.position, percentage);
+            grabbedObject.transform.rotation = transform.rotation * Quaternion.Euler(grabbedObject.GetComponent<InteractObject>().Rotation);
             if (percentage >= 1.0f) // Once we finished to lerp
             {
+                SetupCollidersAndTriggers(grabbedObject);
                 grabbedObject.transform.parent = bringPosition.transform;
-                grabbedObjectCollider = gameObject.AddComponent<BoxCollider>();
-                grabbedObjectCollider.center = bringPosition.transform.localPosition;
-                grabbedObjectCollider.size = grabbedObject.transform.localScale;
-
-                grabbedObjectTrigger = gameObject.AddComponent<BoxCollider>();
-                grabbedObjectTrigger.isTrigger = true;
-                grabbedObjectTrigger.center = bringPosition.transform.localPosition;
-                grabbedObjectTrigger.size = grabbedObject.transform.localScale * 1.2f;
-
-                Destroy(grabbedObject.GetComponent<BoxCollider>());
                 reachedPosition = true;
             }
         }
     }
 
+    public void SetupCollidersAndTriggers(GameObject objectToSetup)
+    {
+        bringPosition.transform.rotation = objectToSetup.transform.rotation;
+
+        grabbedObjectCollider = bringPosition.AddComponent<BoxCollider>();
+        grabbedObjectCollider.size = objectToSetup.transform.localScale;
+
+        grabbedObjectTrigger = bringPosition.AddComponent<BoxCollider>();
+        grabbedObjectTrigger.isTrigger = true;
+        grabbedObjectTrigger.size = objectToSetup.transform.localScale * 1.2f;
+
+        Destroy(objectToSetup.GetComponent<BoxCollider>());
+    }
+
+    public void ResetPlayerColliders()
+    {
+        if (grabbedObjectCollider != null)
+        {
+            Destroy(grabbedObjectCollider);
+        }
+
+        if (grabbedObjectTrigger != null)
+        {
+            Destroy(grabbedObjectTrigger);
+        }
+    }
+
+    public void SwitchGrabbedObject()
+    {
+        if (inputs.GetSwitchInputDown())
+        {
+            // We switch interactObject with grabbedObject
+            if (grabbedObject != null && interactObject != null)
+            {
+                // Grabbed Object is exchanged so it gains back it's box collider
+                // Interact Object becomes the object holded by the player
+                Vector3 switchObjectPosition = interactObject.transform.position;
+
+                interactObject.GetComponent<Rigidbody>().isKinematic = true;
+
+                interactObject.transform.position = grabbedObject.transform.position;
+                grabbedObject.transform.position = switchObjectPosition;
+
+                grabbedObject.transform.parent = null;
+                grabbedObject.AddComponent<BoxCollider>();
+                grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
+
+                ResetPlayerColliders();
+                SetupCollidersAndTriggers(interactObject);
+
+
+                isGrabbedObjectColliding = false;
+
+                // Reset interact object rotation
+                interactObject.transform.rotation = transform.rotation * Quaternion.Euler(interactObject.GetComponent<InteractObject>().Rotation); 
+                grabbedObject.transform.parent = null;
+                grabbedObject = interactObject;
+
+               
+                grabbedObject.transform.parent = bringPosition.transform;
+                grabbedObject.transform.rotation = transform.rotation * Quaternion.Euler(grabbedObject.GetComponent<InteractObject>().Rotation);
+                
+
+                ChangeState(new PlayerBringState(this, grabbedObject.GetComponent<InteractObject>()));
+            }
+        }
+    }
 
     public void DropBringObject()
     {
         if ((grabbedObject != null && inputs.GetGrabInputDown()) || (!movement.IsGrounded() && isGrabbedObjectColliding))
         {
             grabbedObject.transform.parent = null;
+            grabbedObject.GetComponent<InteractObject>().Dropdown();
             grabbedObject.AddComponent<BoxCollider>();
             grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
             grabbedObject = null;
@@ -229,8 +312,8 @@ public class PlayerManager : ObjectManager
     {
         raycastedObjects.Clear();
         Vector3 testPosition = movement.GetFrontPosition();
-        //utiliser Physics.OverlapCapsule plutot que overlapsphere
-        Collider[] hitColliders = Physics.OverlapSphere(testPosition, reglages.raycastRadius);
+        Vector3 capsuleUpPosition = new Vector3(testPosition.x, testPosition.y*1.3f, testPosition.z);
+        Collider[] hitColliders = Physics.OverlapCapsule(testPosition,capsuleUpPosition,reglages.raycastRadius);
         int i = 0;
         while (i < hitColliders.Length)
         {

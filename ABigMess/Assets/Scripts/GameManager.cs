@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
+    MusicManager musicManager;
+
     [SerializeField]
     List<PlayerManager> players;
     
     [SerializeField]
-    GameObject middlePlayers;
+    GameObject middlePlayers;       //Position between players for cameras
 
-    private void Start()
+    private void Awake()
     {
+        musicManager = GetComponent<MusicManager>();
     }
 
     private void Update()
@@ -60,5 +63,13 @@ public class GameManager : Singleton<GameManager>
         return resultVector.magnitude;
     }
 
+    #endregion
+
+    #region GET/SET
+    public MusicManager MusicManager
+    {
+        get => musicManager;
+        set { MusicManager = value; }
+    }
     #endregion
 }

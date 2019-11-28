@@ -184,15 +184,24 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: d8f724ebd01aca43968faaf35d3b837f
     GuidInternal: 
-    m_lastTime: -8586280300138735943
+    m_lastTime: -8586269099280708459
     List: []
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 0f2a0ca1a300644f9d0e66377c7a9207
     GuidInternal: 
-    m_lastTime: -8586277723749880020
+    m_lastTime: -8586269099275592149
     List:
+    - name: ABM_radio
+      guid: 81bdc1a4529ded46acba6c71c01e41ac
+      id: 4116217585
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: ABM_radio
+        ObjectType: 7
+      Path: Default Work Unit\ABM_radio
     - name: ABM_test
       guid: 3de1b763af55174ba5cc31eb22d1527d
       id: 3265541676
@@ -207,29 +216,119 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 2e0b19a433a3384db4191777c4d33194
     GuidInternal: 
-    m_lastTime: -8586277723750129350
+    m_lastTime: -8586269099280927873
     List:
-    - name: Play_midi
-      guid: 529fde1ac5110c4cb9df67c788ffd91f
-      id: 1916619709
+    - name: Play_alien_voice
+      guid: c713cd4f037ad74ea9b696953c383ff9
+      id: 3570971296
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Play_midi
+      - ElementName: Play_alien_voice
         ObjectType: 3
-      Path: Default Work Unit\Play_midi
+      Path: Default Work Unit\Play_alien_voice
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
+  - PhysicalPath: Events\Music.wwu
+    ParentPhysicalPath: 
+    guid: 989c4f7b6a08564c950aaf2152d17c74
+    GuidInternal: 
+    m_lastTime: -8586269099280877997
+    List:
     - name: Play_musique_test
       guid: 96c84e736c252c4db841a79c047da1bf
       id: 1760975142
       PathAndIcons:
-      - ElementName: Default Work Unit
+      - ElementName: Music
         ObjectType: 12
       - ElementName: Play_musique_test
         ObjectType: 3
-      Path: Default Work Unit\Play_musique_test
+      Path: Music\Play_musique_test
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_radio_RTPC
+      guid: 736800628170ca4b871287961c3ec7d3
+      id: 1264013275
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Radio
+        ObjectType: 4
+      - ElementName: Play_radio_RTPC
+        ObjectType: 3
+      Path: Music\Radio\Play_radio_RTPC
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_radio_state
+      guid: bc2190c629530e45944554dd7922e855
+      id: 1510088249
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Radio
+        ObjectType: 4
+      - ElementName: Play_radio_state
+        ObjectType: 3
+      Path: Music\Radio\Play_radio_state
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_radio_station01
+      guid: 9a05f6aafcbb8c4d95b974706c26f164
+      id: 1069010655
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Radio
+        ObjectType: 4
+      - ElementName: Play_radio_station01
+        ObjectType: 3
+      Path: Music\Radio\Play_radio_station01
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_radio_station02
+      guid: 487003824c984b4daf0bf79ae7716640
+      id: 1069010652
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Radio
+        ObjectType: 4
+      - ElementName: Play_radio_station02
+        ObjectType: 3
+      Path: Music\Radio\Play_radio_station02
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_radio_station03
+      guid: 413947f901f48a45bfd311fb4da57da9
+      id: 1069010653
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Radio
+        ObjectType: 4
+      - ElementName: Play_radio_station03
+        ObjectType: 3
+      Path: Music\Radio\Play_radio_station03
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Stop_radio_stations
+      guid: 9f2b4bfc5b4fbe44b1312ed44aab8135
+      id: 3703828323
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Radio
+        ObjectType: 4
+      - ElementName: Stop_radio_stations
+        ObjectType: 3
+      Path: Music\Radio\Stop_radio_stations
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -238,8 +337,17 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 50118bca76311f4d8c36b826beb145d9
     GuidInternal: 
-    m_lastTime: -8586280300138805756
-    List: []
+    m_lastTime: -8586269099280937850
+    List:
+    - name: station_number
+      guid: 936fb51854b3214fb4b09e20a7521f92
+      id: 1640804097
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: station_number
+        ObjectType: 13
+      Path: Default Work Unit\station_number
   - PhysicalPath: Game Parameters\Factory SoundSeed Air Game Syncs.wwu
     ParentPhysicalPath: 
     guid: 5577163b42fb8b4598bf96f557afb3b9
@@ -341,35 +449,78 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: c4521f62a23b9243be27545589d49544
     GuidInternal: 
-    m_lastTime: -8586277723749850083
+    m_lastTime: -8586269099275442543
     List:
-    - name: MUTE
-      guid: 55ebd73282d46b4aa0f1d0e5ba523b82
-      id: 2974103762
+    - name: Pause_effect
+      guid: daf48d0a0b43fe47b79bad54b32267e2
+      id: 2518961899
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: MUTE
+      - ElementName: Pause_effect
         ObjectType: 9
-      Path: Default Work Unit\MUTE
+      Path: Default Work Unit\Pause_effect
       values:
-      - name: down
-        guid: 178d8fd262e7414d8b74bc00da2722e1
-        id: 2280510569
+      - name: Game
+        guid: fc082fa67bde2945bb98e2311170d23a
+        id: 702482391
         PathAndIcons:
-        - ElementName: down
+        - ElementName: Game
           ObjectType: 8
       - name: None
-        guid: e4cb417f9a611d4cbb18f38dfc3cb6ae
+        guid: bc3c7e86db619643a412af29259f9686
         id: 748895195
         PathAndIcons:
         - ElementName: None
           ObjectType: 8
-      - name: up
-        guid: e7aa8950740b6b4a8ba90d029de92eda
-        id: 1551306158
+      - name: Pause
+        guid: 74340dc036611842821ad00444eae25a
+        id: 3092587493
         PathAndIcons:
-        - ElementName: up
+        - ElementName: Pause
+          ObjectType: 8
+      ValueGuids: []
+      ValueIcons: []
+      valuesInternal: []
+    - name: radio_station
+      guid: 53256cffc9428f4887c86b2273cd6023
+      id: 166680927
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: radio_station
+        ObjectType: 9
+      Path: Default Work Unit\radio_station
+      values:
+      - name: None
+        guid: 933bbf949cd48842b21733ae2bd66c74
+        id: 748895195
+        PathAndIcons:
+        - ElementName: None
+          ObjectType: 8
+      - name: off
+        guid: faf3669f9ae73d40b4986b76a5fc3826
+        id: 930712164
+        PathAndIcons:
+        - ElementName: off
+          ObjectType: 8
+      - name: station01
+        guid: 59ad4c22518e53429e07d5751313f204
+        id: 312882086
+        PathAndIcons:
+        - ElementName: station01
+          ObjectType: 8
+      - name: station02
+        guid: ef06ac77e0348a4ba545679f2c31ceb2
+        id: 312882085
+        PathAndIcons:
+        - ElementName: station02
+          ObjectType: 8
+      - name: station03
+        guid: ffa1b2b8bca98c46b9ffa313c12f4c6c
+        id: 312882084
+        PathAndIcons:
+        - ElementName: station03
           ObjectType: 8
       ValueGuids: []
       ValueIcons: []
@@ -379,7 +530,7 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 2495d1397172a6449a60dc120bd78572
     GuidInternal: 
-    m_lastTime: -8586280300136950705
+    m_lastTime: -8586269099275382702
     List: []
   TriggerWwu:
   - PhysicalPath: Triggers\Default Work Unit.wwu
@@ -392,10 +543,13 @@ MonoBehaviour:
   - /M2_A_Big_Mess
   - /M2_A_Big_Mess/Events
   - /M2_A_Big_Mess/Events/Default Work Unit
+  - /M2_A_Big_Mess/Events/Music
+  - /M2_A_Big_Mess/Events/Music/Radio
   - /M2_A_Big_Mess/SoundBanks
   - /M2_A_Big_Mess/SoundBanks/Default Work Unit
   - /M2_A_Big_Mess/States
   - /M2_A_Big_Mess/States/Default Work Unit
-  - /M2_A_Big_Mess/States/Default Work Unit/MUTE
+  - /M2_A_Big_Mess/States/Default Work Unit/radio_station
+  - /M2_A_Big_Mess/Virtual Acoustics
   autoPopulateEnabled: 1
   CurrentPluginConfig: 

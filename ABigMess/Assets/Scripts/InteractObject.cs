@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class InteractObject : MonoBehaviour
 {
@@ -11,10 +12,13 @@ public class InteractObject : MonoBehaviour
     GameObject interactButtonOverlayPrefab;
     GameObject interactButtonOverlayInstance;
 
+    [SerializeField]
+    ObjectSettings settings;
+
     static float HOLD_TIME = 0.125f;
     float holdMaterial = HOLD_TIME;
 
-    bool interacted;
+    bool grabbed = false;
     bool childrenHaveMaterials;
 
     Outline outline;
@@ -28,9 +32,14 @@ public class InteractObject : MonoBehaviour
     [SerializeField]
     [Range(1, 15)]
     float outlineWidth = 8;
+
     [SerializeField]
     [Range(1, 10)]
     float outlineSpeed = 2;
+
+    [Header("Action when player interact without obj in hand")]
+    [SerializeField] UnityEvent onInteractWithoutTool;
+
 
     void Start()
     {
@@ -71,18 +80,24 @@ public class InteractObject : MonoBehaviour
         UpdateOverlayPosition();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public void Interact(GameObject objInPlayerHand)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        ResetHighlight();
+        if(objInPlayerHand==null)
         {
-            Interact();
+            onInteractWithoutTool.Invoke();
         }
     }
 
-    public void Interact()
+    public void Grab()
     {
-        interacted = true;
+        grabbed = true;
         ResetHighlight();
+    }
+
+    public void Dropdown()
+    {
+        grabbed = false;
     }
 
     #region HIGHLIGHT_SYSTEM
@@ -120,6 +135,31 @@ public class InteractObject : MonoBehaviour
             decreaseOutline = true;
         }
         
+    }
+
+    #endregion
+
+    #region GET/SET
+
+    public UnityEvent OnInteractWithoutTool
+    {
+        get => onInteractWithoutTool;
+    }
+
+    public Vector3 Rotation
+    {
+        get
+        {
+            if (settings != null)
+            {
+                return settings.rotation;
+            }
+            else
+            {
+                Debug.LogError("No rotation defined for the object: " + name);
+                return Vector3.zero;
+            }
+        }
     }
 
     #endregion

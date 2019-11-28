@@ -21,6 +21,7 @@ public class PlayerBaseState : PlayerState
     public override void Execute()
     {
         manager.TryBringObject();
+        manager.TryInteraction();
         manager.SwitchRaycastedObject();
     }
 
