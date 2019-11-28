@@ -28,8 +28,8 @@ public class PlayerManager : ObjectManager
 
     [SerializeField]
     GameObject bringPosition;
-    
-    [SerializeField] int currentRoomNb=0;
+
+    [SerializeField] int currentRoomNb = 0;
 
     Ray lastRaycastRay;
 
@@ -58,7 +58,7 @@ public class PlayerManager : ObjectManager
     private void Start()
     {
     }
-    
+
     private void Update()
     {
         //TEST__________
@@ -94,7 +94,7 @@ public class PlayerManager : ObjectManager
     {
         movement.DoMove(inputs.GetMovementInput());
     }
-    
+
     private void UpdateAnim()
     {
         if (animator == null)
@@ -104,7 +104,7 @@ public class PlayerManager : ObjectManager
         // animator.SetFloat("MoveSpeed", currentVelocity.magnitude / 0.1f);
         animator.SetBool("isRunning", movement.CurrentVelocity.magnitude > 0);
     }
-    
+
     public void UpdateQuackSound()
     {
         if (inputs.GetQuackInputDown())
@@ -259,7 +259,7 @@ public class PlayerManager : ObjectManager
 
     public void DropBringObject()
     {
-        if ((grabbedObject != null && inputs.GetGrabInputDown())||(!movement.IsGrounded() && isGrabbedObjectColliding))
+        if ((grabbedObject != null && inputs.GetGrabInputDown()) || (!movement.IsGrounded() && isGrabbedObjectColliding))
         {
             grabbedObject.transform.parent = null;
             grabbedObject.GetComponent<InteractObject>().Dropdown();
@@ -319,13 +319,20 @@ public class PlayerManager : ObjectManager
         int i = 0;
         while (i < hitColliders.Length)
         {
-            if (hitColliders[i].gameObject.GetComponent<InteractObject>() !=null)
+            if (hitColliders[i].gameObject.GetComponent<InteractObject>() != null)
             {
-                raycastedObjects.Add(hitColliders[i].gameObject.GetComponent<InteractObject>());
+                // A ray that verifies that we are not rycasting through a wall
+                RaycastHit hit;
+                Physics.Raycast(transform.position, hitColliders[i].transform.position - transform.position, out hit, 5f);
+
+                if (!hit.collider.CompareTag("Wall")) // If we are not going through a wall
+                {
+                    raycastedObjects.Add(hitColliders[i].gameObject.GetComponent<InteractObject>());
+                }
             }
             i++;
         }
-        if (raycastedObjects.Count==0)
+        if (raycastedObjects.Count == 0)
         {
             ResetRaycastedObjects();
         }
@@ -342,11 +349,11 @@ public class PlayerManager : ObjectManager
 
     public void SwitchRaycastedObject()
     {
-        if(inputs.GetSwitchInputDown()&&raycastedObjects.Count>0)
+        if (inputs.GetSwitchInputDown() && raycastedObjects.Count > 0)
         {
             interactObject.GetComponent<InteractObject>().ResetHighlight();
             raycastIndex++;
-            if(raycastIndex>=raycastedObjects.Count)
+            if (raycastIndex >= raycastedObjects.Count)
             {
                 raycastIndex = 0;
             }
@@ -361,7 +368,7 @@ public class PlayerManager : ObjectManager
     }
 
     #endregion
-    
+
     #region GET/SET
 
     public PlayerInputManager GetInputManager()
