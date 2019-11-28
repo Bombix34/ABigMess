@@ -1,10 +1,20 @@
 State Group	ID	Name			Wwise Object Path	Notes
-	2974103762	MUTE			\Default Work Unit\MUTE	
+	166680927	radio_station			\Default Work Unit\radio_station	
+	2518961899	Pause_effect			\Default Work Unit\Pause_effect	
 
 State	ID	Name	State Group			Notes
-	0	None	MUTE			
-	1551306158	up	MUTE			
-	2280510569	down	MUTE			
+	0	None	radio_station			
+	312882084	station03	radio_station			
+	312882085	station02	radio_station			
+	312882086	station01	radio_station			
+	930712164	off	radio_station			
+	0	None	Pause_effect			
+	702482391	Game	Pause_effect			
+	3092587493	Pause	Pause_effect			
+
+Custom State	ID	Name	State Group	Owner		Notes
+	204137773	Pause	Pause_effect	\Master-Mixer Hierarchy\Default Work Unit\Radio		
+	394893964	Pause	Pause_effect	\Master-Mixer Hierarchy\Default Work Unit\Musique		
 
 Game Parameter	ID	Name			Wwise Object Path	Notes
 	504532776	Brick			\Factory Reflect Acoustic Textures\Textures\Brick	
@@ -23,6 +33,8 @@ Game Parameter	ID	Name			Wwise Object Path	Notes
 	4262522749	Wood_Bright			\Factory Reflect Acoustic Textures\Textures\Wood_Bright	
 
 Audio Bus	ID	Name			Wwise Object Path	Notes
+	69765534	Musique			\Default Work Unit\Musique	
+	2548238350	Radio			\Default Work Unit\Radio	
 	3803692087	Master Audio Bus			\Default Work Unit\Master Audio Bus	
 
 Audio Devices	ID	Name	Type				Notes

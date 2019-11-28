@@ -3,7 +3,7 @@
 	<RootPaths>
 		<ProjectRoot>C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\</ProjectRoot>
 		<SourceFilesRoot>C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\</SourceFilesRoot>
-		<SoundBanksRoot>C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess\ABigMess\ABigMess\Assets\StreamingAssets\Audio\GeneratedSoundBanks\Windows\</SoundBanksRoot>
+		<SoundBanksRoot>C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\GeneratedSoundBanks\Windows\</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
 		<ExternalSourcesOutputRoot>C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
@@ -21,21 +21,147 @@
 			<ShortName>ABM_test</ShortName>
 			<Path>ABM_test.bnk</Path>
 			<IncludedEvents>
-				<Event Id="1916619709" Name="Play_midi" ObjectPath="\Events\Default Work Unit\Play_midi" DurationType="OneShot" DurationMin="24.000000" DurationMax="24.000000"/>
-				<Event Id="1760975142" Name="Play_musique_test" ObjectPath="\Events\Default Work Unit\Play_musique_test" DurationType="Infinite"/>
+				<Event Id="3570971296" Name="Play_alien_voice" ObjectPath="\Events\Default Work Unit\Play_alien_voice"/>
+				<Event Id="1760975142" Name="Play_musique_test" ObjectPath="\Events\Music\Play_musique_test"/>
 			</IncludedEvents>
 			<IncludedMemoryFiles>
-				<File Id="24939743" Language="SFX">
-					<ShortName>09-Recorded MIDI render 002.mid</ShortName>
-					<Path>SFX\09-Recorded MIDI render 002_00000000.wem</Path>
+				<File Id="284145969" Language="SFX">
+					<ShortName>alien_voice-006.wav</ShortName>
+					<Path>SFX\alien_voice-006_6296B0F9.wem</Path>
+				</File>
+				<File Id="468066134" Language="SFX">
+					<ShortName>alien_voice-005.wav</ShortName>
+					<Path>SFX\alien_voice-005_6296B0F9.wem</Path>
+				</File>
+				<File Id="489684753" Language="SFX">
+					<ShortName>alien_voice-001.wav</ShortName>
+					<Path>SFX\alien_voice-001_6296B0F9.wem</Path>
 				</File>
 				<File Id="582749892" Language="SFX">
 					<ShortName>ABM_musique_loop_test.wav</ShortName>
-					<Path>SFX\ABM_musique_loop_test_D79FB2B7.wem</Path>
+					<Path>SFX\ABM_musique_loop_test_9B96ECC7.wem</Path>
 				</File>
-				<File Id="584967470" Language="SFX">
-					<ShortName>ABM_musique_alien_voice.wav</ShortName>
-					<Path>SFX\ABM_musique_alien_voice_D79FB2B7.wem</Path>
+				<File Id="591429942" Language="SFX">
+					<ShortName>alien_voice-003.wav</ShortName>
+					<Path>SFX\alien_voice-003_6296B0F9.wem</Path>
+				</File>
+				<File Id="1008417507" Language="SFX">
+					<ShortName>alien_voice-002.wav</ShortName>
+					<Path>SFX\alien_voice-002_6296B0F9.wem</Path>
+				</File>
+				<File Id="1057308780" Language="SFX">
+					<ShortName>alien_voice-004.wav</ShortName>
+					<Path>SFX\alien_voice-004_6296B0F9.wem</Path>
+				</File>
+			</IncludedMemoryFiles>
+		</SoundBank>
+		<SoundBank Id="4116217585" Language="SFX">
+			<ObjectPath>\SoundBanks\Default Work Unit\ABM_radio</ObjectPath>
+			<ShortName>ABM_radio</ShortName>
+			<Path>ABM_radio.bnk</Path>
+			<IncludedEvents>
+				<Event Id="1510088249" Name="Play_radio_state" ObjectPath="\Events\Music\Radio\Play_radio_state"/>
+				<Event Id="1069010655" Name="Play_radio_station01" ObjectPath="\Events\Music\Radio\Play_radio_station01"/>
+				<Event Id="1069010652" Name="Play_radio_station02" ObjectPath="\Events\Music\Radio\Play_radio_station02"/>
+				<Event Id="1069010653" Name="Play_radio_station03" ObjectPath="\Events\Music\Radio\Play_radio_station03"/>
+				<Event Id="3703828323" Name="Stop_radio_stations" ObjectPath="\Events\Music\Radio\Stop_radio_stations"/>
+			</IncludedEvents>
+			<IncludedMemoryFiles>
+				<File Id="58216700" Language="SFX">
+					<ShortName>static_FX-001.wav</ShortName>
+					<Path>SFX\static_FX-001_6296B0F9.wem</Path>
+				</File>
+				<File Id="83533862" Language="SFX">
+					<ShortName>fanfare.wav</ShortName>
+					<Path>SFX\fanfare_9B96ECC7.wem</Path>
+				</File>
+				<File Id="86833560" Language="SFX">
+					<ShortName>rayman-origins-ost-desert-of-dijiridoos-shooting-me-softly.wav</ShortName>
+					<Path>SFX\rayman-origins-ost-desert-of-dijiridoos-shooting-me-softly_9B96ECC7.wem</Path>
+				</File>
+				<File Id="147106354" Language="SFX">
+					<ShortName>caster10.wav</ShortName>
+					<Path>SFX\caster10_9B96ECC7.wem</Path>
+				</File>
+				<File Id="186735368" Language="SFX">
+					<ShortName>static_FX-002.wav</ShortName>
+					<Path>SFX\static_FX-002_6296B0F9.wem</Path>
+				</File>
+				<File Id="270568837" Language="SFX">
+					<ShortName>caster02.wav</ShortName>
+					<Path>SFX\caster02_9B96ECC7.wem</Path>
+				</File>
+				<File Id="441436472" Language="SFX">
+					<ShortName>caster05.wav</ShortName>
+					<Path>SFX\caster05_9B96ECC7.wem</Path>
+				</File>
+				<File Id="455104934" Language="SFX">
+					<ShortName>caster01.wav</ShortName>
+					<Path>SFX\caster01_9B96ECC7.wem</Path>
+				</File>
+				<File Id="464763951" Language="SFX">
+					<ShortName>static_FX-003.wav</ShortName>
+					<Path>SFX\static_FX-003_6296B0F9.wem</Path>
+				</File>
+				<File Id="491892643" Language="SFX">
+					<ShortName>stage-clear-part-time-ufo-soundtrack.wav</ShortName>
+					<Path>SFX\stage-clear-part-time-ufo-soundtrack_9B96ECC7.wem</Path>
+				</File>
+				<File Id="597972490" Language="SFX">
+					<ShortName>caster04.wav</ShortName>
+					<Path>SFX\caster04_9B96ECC7.wem</Path>
+				</File>
+				<File Id="662439261" Language="SFX">
+					<ShortName>caster07.wav</ShortName>
+					<Path>SFX\caster07_9B96ECC7.wem</Path>
+				</File>
+				<File Id="689098952" Language="SFX">
+					<ShortName>rayman-origins-ost-world-map-sea-of-serendipity.wav</ShortName>
+					<Path>SFX\rayman-origins-ost-world-map-sea-of-serendipity_9B96ECC7.wem</Path>
+				</File>
+				<File Id="701277267" Language="SFX">
+					<ShortName>static_FX-004.wav</ShortName>
+					<Path>SFX\static_FX-004_6296B0F9.wem</Path>
+				</File>
+				<File Id="718618698" Language="SFX">
+					<ShortName>caster08.wav</ShortName>
+					<Path>SFX\caster08_9B96ECC7.wem</Path>
+				</File>
+				<File Id="790031349" Language="SFX">
+					<ShortName>caster09.wav</ShortName>
+					<Path>SFX\caster09_9B96ECC7.wem</Path>
+				</File>
+				<File Id="878141750" Language="SFX">
+					<ShortName>static_FX-007.wav</ShortName>
+					<Path>SFX\static_FX-007_6296B0F9.wem</Path>
+				</File>
+				<File Id="878270383" Language="SFX">
+					<ShortName>head-games.wav</ShortName>
+					<Path>SFX\head-games_9B96ECC7.wem</Path>
+				</File>
+				<File Id="906475637" Language="SFX">
+					<ShortName>caster03.wav</ShortName>
+					<Path>SFX\caster03_9B96ECC7.wem</Path>
+				</File>
+				<File Id="929187640" Language="SFX">
+					<ShortName>caster06.wav</ShortName>
+					<Path>SFX\caster06_9B96ECC7.wem</Path>
+				</File>
+				<File Id="975757049" Language="SFX">
+					<ShortName>crash-twinsanity-ost-nsanity-island.wav</ShortName>
+					<Path>SFX\crash-twinsanity-ost-nsanity-island_9B96ECC7.wem</Path>
+				</File>
+				<File Id="1002832952" Language="SFX">
+					<ShortName>static_FX-005.wav</ShortName>
+					<Path>SFX\static_FX-005_6296B0F9.wem</Path>
+				</File>
+				<File Id="1029104766" Language="SFX">
+					<ShortName>static_FX-006.wav</ShortName>
+					<Path>SFX\static_FX-006_6296B0F9.wem</Path>
+				</File>
+				<File Id="1057994481" Language="SFX">
+					<ShortName>locoroco-yellows-theme.wav</ShortName>
+					<Path>SFX\locoroco-yellows-theme_9B96ECC7.wem</Path>
 				</File>
 			</IncludedMemoryFiles>
 		</SoundBank>
