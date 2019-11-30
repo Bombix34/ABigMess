@@ -49,9 +49,11 @@ namespace SplineMesh {
             UpdateNodes();
 
             // balancing
+            /*
             if (Application.isPlaying) {
                 firstSegment.transform.localPosition = new Vector3(Mathf.Sin(Time.time) * 3, 0, 0);
             }
+            */
         }
 
         private void UpdateNodes() {
