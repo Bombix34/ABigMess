@@ -84,25 +84,24 @@ namespace SplineMesh {
                 GameObject go;
                 if (i == spline.curves.Count - 1 && endMesh!=null)
                 {
-                    go = FindOrCreate("segment " + i++ + " mesh", false);
+                    go = FindOrCreate("segment " + i++ + " mesh", true);
                 }
                 else
                 {
-                    go = FindOrCreate("segment " + i++ + " mesh", true);
+                    go = FindOrCreate("segment " + i++ + " mesh", false);
                 }
-                go = FindOrCreate("segment " + i++ + " mesh",false);
                 go.GetComponent<MeshBender>().SetInterval(curve);
                 go.GetComponent<MeshCollider>().enabled = generateCollider;
                 used.Add(go);
             }
-                /*
-            } else {
-                var go = FindOrCreate("segment 1 mesh",false);
-                go.GetComponent<MeshBender>().SetInterval(spline, 0);
-                go.GetComponent<MeshCollider>().enabled = generateCollider;
-                used.Add(go);
-            }
-            */
+            /*
+        } else {
+            var go = FindOrCreate("segment 1 mesh",false);
+            go.GetComponent<MeshBender>().SetInterval(spline, 0);
+            go.GetComponent<MeshCollider>().enabled = generateCollider;
+            used.Add(go);
+        }
+        */
 
             // we destroy the unused objects. This is classic pooling to recycle game objects.
             foreach (var go in generated.transform
@@ -129,10 +128,20 @@ namespace SplineMesh {
             res.GetComponent<MeshRenderer>().material = material;
             res.GetComponent<MeshCollider>().material = physicMaterial;
             MeshBender mb = res.GetComponent<MeshBender>();
-            mb.Source = SourceMesh.Build(mesh)
+            if(!isFinalNode)
+            {
+                mb.Source = SourceMesh.Build(mesh)
                 .Translate(translation)
                 .Rotate(Quaternion.Euler(rotation))
                 .Scale(scale);
+            }
+            else
+            {
+                mb.Source = SourceMesh.Build(endMesh)
+                .Translate(translation)
+                .Rotate(Quaternion.Euler(rotation))
+                .Scale(scale);
+            }
             mb.Mode = mode;
             return res;
         }
