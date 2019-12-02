@@ -8,6 +8,7 @@ using UnityEngine;
 [Serializable]
 public class ToolSettings : ObjectSettings
 {
+    [HideInInspector]
     public List<Interaction> interactionsList;
 
     public void ApplyEvent(InteractObject objConcerned)
