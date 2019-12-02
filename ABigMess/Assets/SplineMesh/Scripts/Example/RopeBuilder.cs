@@ -31,6 +31,8 @@ namespace SplineMesh {
         public int segmentCount;
         public float segmentSpacing;
 
+        public bool isPositionFreeze = true;
+
         private void OnEnable() {
             spline = GetComponent<Spline>();
             toUpdate = true;
@@ -93,7 +95,7 @@ namespace SplineMesh {
 
                 var segRB = seg.GetComponent<Rigidbody>();
                 // we fix the first segment so that the rope won't fall
-                if (i == 0) {
+                if (i == 0 && isPositionFreeze) {
                     firstSegment = seg;
                     segRB.constraints = RigidbodyConstraints.FreezePosition;
                 }

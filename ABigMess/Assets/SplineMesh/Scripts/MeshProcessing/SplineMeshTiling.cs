@@ -21,6 +21,8 @@ namespace SplineMesh {
 
         [Tooltip("Mesh to bend along the spline.")]
         public Mesh mesh;
+        [Tooltip("Mesh to finish the spline, nothing if null")]
+        public Mesh endMesh;
         [Tooltip("Material to apply on the bent mesh.")]
         public Material material;
         [Tooltip("Physic material to apply on the bent mesh.")]
@@ -75,20 +77,32 @@ namespace SplineMesh {
         public void CreateMeshes() {
             var used = new List<GameObject>();
 
-            if (curveSpace) {
-                int i = 0;
-                foreach (var curve in spline.curves) {
-                    var go = FindOrCreate("segment " + i++ + " mesh");
-                    go.GetComponent<MeshBender>().SetInterval(curve);
-                    go.GetComponent<MeshCollider>().enabled = generateCollider;
-                    used.Add(go);
+            //  if (curveSpace) {
+            int i = 0;
+            foreach (var curve in spline.curves)
+            {
+                GameObject go;
+                if (i == spline.curves.Count - 1 && endMesh!=null)
+                {
+                    go = FindOrCreate("segment " + i++ + " mesh", false);
                 }
+                else
+                {
+                    go = FindOrCreate("segment " + i++ + " mesh", true);
+                }
+                go = FindOrCreate("segment " + i++ + " mesh",false);
+                go.GetComponent<MeshBender>().SetInterval(curve);
+                go.GetComponent<MeshCollider>().enabled = generateCollider;
+                used.Add(go);
+            }
+                /*
             } else {
-                var go = FindOrCreate("segment 1 mesh");
+                var go = FindOrCreate("segment 1 mesh",false);
                 go.GetComponent<MeshBender>().SetInterval(spline, 0);
                 go.GetComponent<MeshCollider>().enabled = generateCollider;
                 used.Add(go);
             }
+            */
 
             // we destroy the unused objects. This is classic pooling to recycle game objects.
             foreach (var go in generated.transform
@@ -98,7 +112,7 @@ namespace SplineMesh {
             }
         }
 
-        private GameObject FindOrCreate(string name) {
+        private GameObject FindOrCreate(string name, bool isFinalNode) {
             var childTransform = generated.transform.Find(name);
             GameObject res;
             if (childTransform == null) {
