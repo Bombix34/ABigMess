@@ -166,7 +166,7 @@ public class InteractObject : MonoBehaviour
     {
         bool containsObjConcerned = false;
 
-        if (grabbedObject.IsTool())
+        if (grabbedObject != null && grabbedObject.IsTool())
         {
             if (settings != null)
             {
