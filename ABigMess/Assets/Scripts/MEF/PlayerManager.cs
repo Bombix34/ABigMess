@@ -343,7 +343,17 @@ public class PlayerManager : ObjectManager
                 raycastIndex = 0;
             }
             interactObject = raycastedObjects[raycastIndex].gameObject;
-            interactObject.GetComponent<InteractObject>().Highlight(grabbedObject);
+            if (interactObject != grabbedObject) // Never highlight an object in my hands
+            {
+                if(grabbedObject == null)
+                {
+                    interactObject.GetComponent<InteractObject>().Highlight(reglages.noObjectInHandEventsList);
+                } 
+                else
+                {
+                    interactObject.GetComponent<InteractObject>().Highlight(grabbedObject);
+                }
+            }
         }
     }
 
