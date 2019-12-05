@@ -33,6 +33,8 @@ namespace SplineMesh {
         public Vector3 rotation;
         [Tooltip("Scale to apply on the mesh before bending it.")]
         public Vector3 scale = Vector3.one;
+        [Tooltip("Scale to apply on the final mesh before bending it.")]
+        public Vector3 finalMeshScale = Vector3.one;
 
         [Tooltip("If true, a mesh collider will be generated.")]
         public bool generateCollider = true;
@@ -140,7 +142,7 @@ namespace SplineMesh {
                 mb.Source = SourceMesh.Build(endMesh)
                 .Translate(translation)
                 .Rotate(Quaternion.Euler(rotation))
-                .Scale(scale);
+                .Scale(finalMeshScale);
             }
             mb.Mode = mode;
             return res;

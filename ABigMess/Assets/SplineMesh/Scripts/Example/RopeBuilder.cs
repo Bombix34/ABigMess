@@ -33,6 +33,14 @@ namespace SplineMesh {
 
         public bool isPositionFreeze = true;
 
+        [SerializeField]
+        Transform handPosition;
+        public Transform HandPosition
+        {
+            get=> handPosition;
+        }
+
+
         private void OnEnable() {
             spline = GetComponent<Spline>();
             toUpdate = true;
@@ -98,6 +106,11 @@ namespace SplineMesh {
                 if (i == 0 && isPositionFreeze) {
                     firstSegment = seg;
                     segRB.constraints = RigidbodyConstraints.FreezePosition;
+                }
+                else if(i==segmentCount-1)
+                {
+                    handPosition = seg.transform;
+                    Destroy(seg.transform.GetChild(0).transform.GetChild(0).GetComponent<CapsuleCollider>());
                 }
 
                 // we attach the rigidbody to the joint of the previous segment
