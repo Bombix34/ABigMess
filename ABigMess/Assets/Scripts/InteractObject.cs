@@ -118,10 +118,10 @@ public class InteractObject : MonoBehaviour
 
     public void Highlight(GameObject grabbedObject)
     {
-        Highlight((ToolSettings)grabbedObject.GetComponent<InteractObject>().Settings);
+        Highlight(grabbedObject.GetComponent<InteractObject>().Settings);
     }
 
-    public void Highlight(ToolSettings grabbedObject)
+    public void Highlight(ObjectSettings grabbedObject)
     {
         holdMaterial = HOLD_TIME;
         if (interactButtonOverlayInstance == null)
@@ -162,24 +162,25 @@ public class InteractObject : MonoBehaviour
     #endregion
 
     #region INTERACT_BUTTON_OVERLAY_TEXT
-    private void UpdateOverlayText(ToolSettings grabbedObject)
+    private void UpdateOverlayText(ObjectSettings grabbedObject)
     {
         bool containsObjConcerned = false;
 
         if (grabbedObject != null && grabbedObject.IsTool())
         {
+            ToolSettings toolSettings = (ToolSettings)grabbedObject;
             if (settings != null)
             {
-                if (grabbedObject.interactionsList.Count > 0)
+                if (toolSettings.interactionsList.Count > 0)
                 {
-                    for (int index = 0; index < grabbedObject.interactionsList.Count; index++)
+                    for (int index = 0; index < toolSettings.interactionsList.Count; index++)
                     {
-                        if (grabbedObject.interactionsList[index].objectConcerned == settings.objectType)
+                        if (toolSettings.interactionsList[index].objectConcerned == settings.objectType)
                         {
                             containsObjConcerned = true;
-                            if (grabbedObject.interactionsList[index].eventsToLaunch != null && grabbedObject.interactionsList[index].eventsToLaunch.Count > 0)
+                            if (toolSettings.interactionsList[index].eventsToLaunch != null && toolSettings.interactionsList[index].eventsToLaunch.Count > 0)
                             {
-                                interactButtonOverlayInstance.GetComponent<InteractButtonOverlay>().SetText(grabbedObject.interactionsList[index].eventsToLaunch[0].name);
+                                interactButtonOverlayInstance.GetComponent<InteractButtonOverlay>().SetText(toolSettings.interactionsList[index].eventsToLaunch[0].name);
                             }
                             else
                             {
