@@ -40,6 +40,12 @@ namespace SplineMesh {
             get=> handPosition;
         }
 
+        private Vector3 handOriginPosition;
+        public Vector3 HandOriginPosition
+        {
+            get => handOriginPosition;
+        }
+
 
         private void OnEnable() {
             spline = GetComponent<Spline>();
@@ -127,4 +133,6 @@ namespace SplineMesh {
             UOUtility.Destroy(joint);
         }
     }
+
+
 }

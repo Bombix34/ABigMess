@@ -9,10 +9,10 @@ public class PlayerRenderer : MonoBehaviour
     PlayerManager manager;
 
     [SerializeField]
-    List<RopeBuilder> arms;
+    RopeBuilder leftArm, rightArm;
 
     [SerializeField]
-    Transform armsPositionForBring;
+    Transform leftHandPositionForBring, rightHandPositionForBring;
 
 
     void Awake()
@@ -23,26 +23,34 @@ public class PlayerRenderer : MonoBehaviour
     public void AttachHandToObject()
     {
 
-        arms[0].HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        arms[1].HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        //leftArm.HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        //rightArm.HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         MoveArmsToBringPosition();
 
         RaycastHit hit;
         LayerMask layerMask = ~(1 << LayerMask.NameToLayer("Player"));
-        Vector3 dirVector = (manager.GrabbedObject.transform.position - arms[0].HandPosition.position).normalized;
-        if (Physics.Raycast(arms[0].HandPosition.position, dirVector, out hit, Mathf.Infinity, layerMask))
+        Vector3 dirVector = (manager.GrabbedObject.transform.position - leftHandPositionForBring.position).normalized;
+        if (Physics.Raycast(leftHandPositionForBring.position, dirVector, out hit, Mathf.Infinity, layerMask))
         {
-            arms[0].HandPosition.position = hit.point;
-            Debug.DrawRay(arms[0].HandPosition.position, dirVector, Color.yellow);
+            leftArm.HandPosition.position = hit.point;
+            Debug.DrawRay(leftArm.HandPosition.position, dirVector, Color.yellow);
             //  Debug.Break();
         }
-        dirVector = (manager.GrabbedObject.transform.position - arms[1].HandPosition.position).normalized;
-        if (Physics.Raycast(arms[1].HandPosition.position, dirVector, out hit, Mathf.Infinity, layerMask))
+        dirVector = (manager.GrabbedObject.transform.position - rightHandPositionForBring.position).normalized;
+        if (Physics.Raycast(rightHandPositionForBring.position, dirVector, out hit, Mathf.Infinity, layerMask))
         {
-            arms[1].HandPosition.position = hit.point;
+            rightArm.HandPosition.position = hit.point;
         }
-        arms[0].HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        arms[1].HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        leftArm.HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        rightArm.HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(leftHandPositionForBring.position, 0.1f);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(rightHandPositionForBring.position, 0.1f);
     }
 
     /// <summary>
@@ -51,13 +59,32 @@ public class PlayerRenderer : MonoBehaviour
     /// </summary>
     private void MoveArmsToBringPosition()
     {
-        arms[0].HandPosition.position = new Vector3(armsPositionForBring.position.x-0.6f, armsPositionForBring.position.y, armsPositionForBring.position.z);
-        arms[1].HandPosition.position = new Vector3(armsPositionForBring.position.x + 0.6f, armsPositionForBring.position.y, armsPositionForBring.position.z);
+        //StartCoroutine(MoveArmsCoroutine(leftArm.HandPosition,-0.6f));
+        //StartCoroutine(MoveArmsCoroutine(rightArm.HandPosition, 0.6f));
+        leftArm.HandPosition.position = leftHandPositionForBring.position;
+        rightArm.HandPosition.position = rightHandPositionForBring.position;
     }
 
     public void DetachHand()
     {
-        arms[0].HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-        arms[1].HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        leftArm.HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        rightArm.HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
     }
+
+    /*
+    IEnumerator MoveArmsCoroutine(Transform handToMove, float posModif)
+    {
+        Vector3 leftArmFinalPos = new Vector3(armsPositionForBring.position.x + posModif, armsPositionForBring.position.y, armsPositionForBring.position.z);
+        Vector3 dirVector = (leftArmFinalPos - handToMove.localPosition).normalized;
+      //  Debug.DrawLine(handToMove.position, leftArmFinalPos);
+        Debug.DrawRay(handToMove.localPosition, dirVector);
+        Debug.Break();
+        while (handToMove.localPosition != leftArmFinalPos)
+        {
+            handToMove.Translate(dirVector * Time.fixedDeltaTime);
+            yield return new WaitForSeconds(0.001f);
+        }
+       // leftArm.HandPosition.Translate(new Vector3(armsPositionForBring.position.x - 0.6f, armsPositionForBring.position.y, armsPositionForBring.position.z);
+    }
+    */
 }
