@@ -110,7 +110,8 @@ namespace SplineMesh {
                 else if(i==segmentCount-1)
                 {
                     handPosition = seg.transform;
-                    Destroy(seg.transform.GetChild(0).transform.GetChild(0).GetComponent<CapsuleCollider>());
+                    seg.transform.GetChild(0).transform.GetChild(0).GetComponent<CapsuleCollider>().isTrigger = true;
+                  //  Destroy(seg.transform.GetChild(0).transform.GetChild(0).GetComponent<CapsuleCollider>());
                 }
 
                 // we attach the rigidbody to the joint of the previous segment

@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using SplineMesh;
 
 [RequireComponent(typeof(PlayerInputManager))]
+[RequireComponent(typeof(PlayerRenderer))]
 
 public class PlayerManager : ObjectManager
 {
@@ -13,6 +13,7 @@ public class PlayerManager : ObjectManager
     PlayerInputManager inputs;
 
     PlayerMovement movement;
+    PlayerRenderer renderer;
 
    // Transform mainCamera;
 
@@ -40,17 +41,14 @@ public class PlayerManager : ObjectManager
 
     bool isGrabbedObjectColliding;
 
-
     List<InteractObject> raycastedObjects;
     int raycastIndex = 0;
-
-    [SerializeField]
-    List<RopeBuilder> arms;
 
     void Awake()
     {
         inputs = GetComponent<PlayerInputManager>();
         movement = GetComponent<PlayerMovement>();
+        renderer = GetComponent<PlayerRenderer>();
         movement.Reglages = reglages;
         playerCollider = GetComponent<CapsuleCollider>();
 
@@ -161,7 +159,7 @@ public class PlayerManager : ObjectManager
         {
             grabbedObject = interactObject;
             grabbedObject.GetComponent<InteractObject>().Grab();
-            AttachHandToObject();
+            renderer.AttachHandToObject();
             ResetRaycastedObjects();
             timeStartedLerping = Time.time;
             //grabbedObject.transform.parent = bringPosition.transform;
@@ -171,38 +169,6 @@ public class PlayerManager : ObjectManager
             interactObject = null;
             ChangeState(new PlayerBringState(this, grabbedObject.GetComponent<InteractObject>()));
         }
-    }
-
-    void AttachHandToObject()
-    {
-        RaycastHit hit;
-        LayerMask layerMask = ~(1 << LayerMask.NameToLayer("Player"));
-        Vector3 dirVector = (grabbedObject.transform.position - arms[0].HandPosition.position).normalized;
-        if(Physics.Raycast(arms[0].HandPosition.position,dirVector, out hit, Mathf.Infinity,layerMask))
-        {
-            arms[0].HandPosition.position = hit.point;
-            Debug.DrawRay(arms[0].HandPosition.position, dirVector , Color.yellow);
-          //  Debug.Break();
-        }
-        dirVector = (grabbedObject.transform.position - arms[1].HandPosition.position).normalized;
-        if (Physics.Raycast(arms[1].HandPosition.position, dirVector, out hit, Mathf.Infinity, layerMask))
-        {
-            arms[1].HandPosition.position = hit.point;
-        }
-        arms[0].HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        arms[1].HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        /*
-        arms[0].HandPosition.position = grabbedObject.GetComponent<BringPositions>().GetEdge(true);
-        arms[0].HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        arms[1].HandPosition.position = grabbedObject.GetComponent<BringPositions>().GetEdge(false);
-        arms[1].HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        */
-    }
-
-    void DetachHand()
-    {
-        arms[0].HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-        arms[1].HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
     }
 
     void UpdateGrabbedObject()
@@ -299,7 +265,7 @@ public class PlayerManager : ObjectManager
         if ((grabbedObject != null && inputs.GetGrabInputDown()) || (!movement.IsGrounded() && isGrabbedObjectColliding))
         {
             grabbedObject.transform.parent = null;
-            DetachHand();
+            renderer.DetachHand();
             grabbedObject.GetComponent<InteractObject>().Dropdown();
             grabbedObject.AddComponent<BoxCollider>();
             grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
