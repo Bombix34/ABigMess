@@ -22,5 +22,12 @@ public class InteractButtonOverlay : MonoBehaviour
     public void SetText(string text)
     {
         this.text.text = text;
+        this.text.color = Color.white;
+    }
+
+    public void SetErrorText(string text)
+    {
+        this.text.text = text;
+        this.text.color = Color.red;
     }
 }

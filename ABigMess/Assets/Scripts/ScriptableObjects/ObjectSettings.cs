@@ -14,7 +14,7 @@ public class ObjectSettings : ScriptableObject
 
     public bool IsTool()
     {
-        return objectType == ObjectType.brush;
+        return objectType == ObjectType.brush || objectType == ObjectType.freeHand;
     }
     
     public enum ObjectWeight
@@ -29,6 +29,7 @@ public class ObjectSettings : ScriptableObject
         freeHand,
         brush,
         frigde,
-        radio
+        radio,
+        box
     }
 }

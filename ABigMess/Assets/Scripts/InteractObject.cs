@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System;
 
 public class InteractObject : MonoBehaviour
 {
@@ -37,9 +38,9 @@ public class InteractObject : MonoBehaviour
     [Range(1, 10)]
     float outlineSpeed = 2;
 
-   // [Header("Action when player interact without obj in hand")]
-  //  [SerializeField] UnityEvent onInteractWithoutTool;
-  
+    // [Header("Action when player interact without obj in hand")]
+    //  [SerializeField] UnityEvent onInteractWithoutTool;
+
 
     void Start()
     {
@@ -94,7 +95,7 @@ public class InteractObject : MonoBehaviour
         else
         {
             InteractObject toolObj = objPlayer.GetComponent<InteractObject>();
-            if(toolObj.Settings.IsTool())
+            if (toolObj.Settings.IsTool())
             {
                 ToolSettings tool = (ToolSettings)toolObj.Settings;
                 tool.ApplyEvent(this);
@@ -117,28 +118,25 @@ public class InteractObject : MonoBehaviour
 
     public void Highlight(GameObject grabbedObject)
     {
+        Highlight(grabbedObject.GetComponent<InteractObject>().Settings);
+    }
+
+    public void Highlight(ObjectSettings grabbedObject)
+    {
         holdMaterial = HOLD_TIME;
         if (interactButtonOverlayInstance == null)
         {
             interactButtonOverlayInstance = Instantiate(interactButtonOverlayPrefab, canvas.transform);
-            /*
-            if (grabbedObject != null && grabbedObject.GetComponent<InteractObject>() != null && grabbedObject.GetComponent<InteractObject>().interaction != null)
-            {
-                interactButtonOverlayInstance.GetComponent<InteractButtonOverlay>().SetText(grabbedObject.GetComponent<InteractObject>().interaction.name);
-            }
-            else
-            {
-            */
-                interactButtonOverlayInstance.GetComponent<InteractButtonOverlay>().SetText("Interact");
-            //}
+            UpdateOverlayText(grabbedObject);
         }
         else
         {
             interactButtonOverlayInstance.SetActive(true);
-            interactButtonOverlayInstance.GetComponent<InteractButtonOverlay>().SetText("Interact");
+            UpdateOverlayText(grabbedObject);
         }
         decreaseOutline = false;
     }
+
 
     public void UpdateOverlayPosition()
     {
@@ -161,6 +159,56 @@ public class InteractObject : MonoBehaviour
 
     }
 
+    #endregion
+
+    #region INTERACT_BUTTON_OVERLAY_TEXT
+    private void UpdateOverlayText(ObjectSettings grabbedObject)
+    {
+        bool containsObjConcerned = false;
+
+        if (grabbedObject != null && grabbedObject.IsTool())
+        {
+            ToolSettings toolSettings = (ToolSettings)grabbedObject;
+            if (settings != null)
+            {
+                if (toolSettings.interactionsList.Count > 0)
+                {
+                    for (int index = 0; index < toolSettings.interactionsList.Count; index++)
+                    {
+                        if (toolSettings.interactionsList[index].objectConcerned == settings.objectType)
+                        {
+                            containsObjConcerned = true;
+                            if (toolSettings.interactionsList[index].eventsToLaunch != null && toolSettings.interactionsList[index].eventsToLaunch.Count > 0)
+                            {
+                                interactButtonOverlayInstance.GetComponent<InteractButtonOverlay>().SetText(toolSettings.interactionsList[index].eventsToLaunch[0].name);
+                            }
+                            else
+                            {
+                                interactButtonOverlayInstance.GetComponent<InteractButtonOverlay>().SetErrorText("No events set");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    interactButtonOverlayInstance.GetComponent<InteractButtonOverlay>().SetErrorText("No interact set");
+                }
+
+                if (!containsObjConcerned)
+                {
+                    interactButtonOverlayInstance.GetComponent<InteractButtonOverlay>().SetErrorText("No objConcerned");
+                }
+            }
+            else
+            {
+                interactButtonOverlayInstance.GetComponent<InteractButtonOverlay>().SetErrorText("No settings set");
+            }
+        }
+        else
+        {
+            interactButtonOverlayInstance.GetComponent<InteractButtonOverlay>().SetErrorText("Not a tool");
+        }
+    }
     #endregion
 
     #region GET/SET
