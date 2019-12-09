@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerInputManager))]
+[RequireComponent(typeof(PlayerRenderer))]
 
 public class PlayerManager : ObjectManager
 {
@@ -12,6 +13,7 @@ public class PlayerManager : ObjectManager
     PlayerInputManager inputs;
 
     PlayerMovement movement;
+    PlayerRenderer renderer;
 
     // Transform mainCamera;
 
@@ -39,7 +41,6 @@ public class PlayerManager : ObjectManager
 
     bool isGrabbedObjectColliding;
 
-
     List<InteractObject> raycastedObjects;
     int raycastIndex = 0;
 
@@ -47,6 +48,7 @@ public class PlayerManager : ObjectManager
     {
         inputs = GetComponent<PlayerInputManager>();
         movement = GetComponent<PlayerMovement>();
+        renderer = GetComponent<PlayerRenderer>();
         movement.Reglages = reglages;
         playerCollider = GetComponent<CapsuleCollider>();
 
@@ -157,6 +159,7 @@ public class PlayerManager : ObjectManager
         {
             grabbedObject = interactObject;
             grabbedObject.GetComponent<InteractObject>().Grab();
+            renderer.AttachHandToObject();
             ResetRaycastedObjects();
             timeStartedLerping = Time.time;
             //grabbedObject.transform.parent = bringPosition.transform;
@@ -305,6 +308,7 @@ public class PlayerManager : ObjectManager
         if ((grabbedObject != null && inputs.GetGrabInputDown()) || (!movement.IsGrounded() && isGrabbedObjectColliding))
         {
             grabbedObject.transform.parent = null;
+            renderer.DetachHand();
             grabbedObject.GetComponent<InteractObject>().Dropdown();
             grabbedObject.AddComponent<BoxCollider>();
             grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
