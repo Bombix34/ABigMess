@@ -29,6 +29,7 @@ public class ObjectSettings : ScriptableObject
         freeHand,
         brush,
         frigde,
-        radio
+        radio,
+        box
     }
 }
