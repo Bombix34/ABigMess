@@ -17,6 +17,21 @@ public class ObjectState : MonoBehaviour
     [SerializeField] private bool opened;
     [SerializeField] private bool plugged;
 
+    private void Update()
+    {
+
+        if(washed && GetComponent<Washed>() == null)
+        {
+            gameObject.AddComponent<Washed>();
+        }
+        
+        if(burnt && GetComponent<Burnt>() == null)
+        {
+            gameObject.AddComponent<Burnt>();
+        }
+
+    }
+
     #region GET/SET
 
     public bool Washed
