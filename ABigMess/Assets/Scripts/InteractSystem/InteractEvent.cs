@@ -29,6 +29,13 @@ public abstract class InteractEvent : ScriptableObject
             objConcerned.AddComponent<ObjectState>();
         }
 
+        SetStates(objConcerned);
+
+        objConcerned.GetComponent<ObjectState>().UpdateState();
+    }
+
+    private void SetStates(GameObject objConcerned)
+    {
         if (washed.Key)
         {
             objConcerned.GetComponent<ObjectState>().Washed = Washed;

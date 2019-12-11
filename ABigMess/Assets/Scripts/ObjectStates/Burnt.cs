@@ -11,17 +11,12 @@ public class Burnt : MonoBehaviour
     {
         defaultColor = GetComponent<Renderer>().material.color;
         objectState = GetComponent<ObjectState>();
+
+        GetComponent<Renderer>().material.color = Color.black;
     }
 
-    void Update()
+    private void OnDestroy()
     {
-        if (objectState.Burnt)
-        {
-            GetComponent<Renderer>().material.color = Color.black;
-        }
-        else
-        {
-            GetComponent<Renderer>().material.color = defaultColor;
-        }
+        GetComponent<Renderer>().material.color = defaultColor;
     }
 }
