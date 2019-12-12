@@ -37,7 +37,7 @@ public class PlayerManager : ObjectManager
 
     Vector3 startGrabPosition; // Lerping with percentage for grabbing an object
     float timeStartedLerping;
-    float grabSpeed = 0.06f; // The lesser the speed the faster the grab
+    float grabSpeed = 0.03f; // The lesser the speed the faster the grab
 
     bool isGrabbedObjectColliding;
 
@@ -69,6 +69,7 @@ public class PlayerManager : ObjectManager
         RaycastObject();
         UpdateGrabbedObject();
         UpdateAnim();
+        movement.PreventPlayerRotation();
         currentState.Execute();
     }
 
@@ -86,7 +87,7 @@ public class PlayerManager : ObjectManager
     {
         /*
         Gizmos.color = new Color(1f, 0f, 0f, 1f);
-        Gizmos.DrawRay(lastRaycastRay);
+      //  Gizmos.DrawRay(lastRaycastRay);
         Gizmos.DrawWireSphere(movement.GetFrontPosition(), reglages.raycastRadius);
         Gizmos.DrawWireSphere(new Vector3(movement.GetFrontPosition().x, movement.GetFrontPosition().y * 1.3f, movement.GetFrontPosition().z),reglages.raycastRadius);
         */
@@ -159,7 +160,6 @@ public class PlayerManager : ObjectManager
         {
             grabbedObject = interactObject;
             grabbedObject.GetComponent<InteractObject>().Grab();
-            renderer.AttachHandToObject();
             ResetRaycastedObjects();
             timeStartedLerping = Time.time;
             //grabbedObject.transform.parent = bringPosition.transform;
@@ -167,6 +167,7 @@ public class PlayerManager : ObjectManager
             reachedPosition = false;
             grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
             interactObject = null;
+            //renderer.AttachHandToObject();
             ChangeState(new PlayerBringState(this, grabbedObject.GetComponent<InteractObject>()));
         }
     }
@@ -204,8 +205,9 @@ public class PlayerManager : ObjectManager
                     grabbedObject.transform.rotation = transform.rotation * Quaternion.Euler(grabbedObject.GetComponent<InteractObject>().Rotation);
                     if (percentage >= 1.0f) // Once we finished to lerp
                     {
-                        SetupCollidersAndTriggers(grabbedObject);
+                        //SetupCollidersAndTriggers(grabbedObject);
                         grabbedObject.transform.parent = bringPosition.transform;
+                        renderer.AttachHandToObject();
                         reachedPosition = true;
                     }
                     break;
@@ -280,9 +282,8 @@ public class PlayerManager : ObjectManager
                         grabbedObject.AddComponent<BoxCollider>();
                         grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
 
-                        ResetPlayerColliders();
-                        SetupCollidersAndTriggers(interactObject);
-
+                        //ResetPlayerColliders();
+                       // SetupCollidersAndTriggers(interactObject);
 
                         isGrabbedObjectColliding = false;
 
@@ -446,6 +447,11 @@ public class PlayerManager : ObjectManager
     public GameObject GrabbedObject
     {
         get => grabbedObject;
+    }
+
+    public PlayerRenderer Renderer
+    {
+        get => renderer;
     }
 
     #endregion

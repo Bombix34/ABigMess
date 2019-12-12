@@ -46,6 +46,22 @@ public class PlayerMovement : MonoBehaviour
         rigidBody.MovePosition(transform.position + currentVelocity);
     }
 
+    /// <summary>
+    /// prevent the player from moving while nothing happened
+    /// this strange behavior is due to the arms spline physic
+    /// </summary>
+    public void PreventPlayerRotation()
+    {
+        if (currentVelocity == Vector3.zero)
+        {
+            rigidBody.constraints = RigidbodyConstraints.FreezeRotation;
+        }
+        else
+        {
+            rigidBody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        }
+    }
+
     private void RotatePlayer(float x, float y)
     {
         Vector3 dir = new Vector3(-y, 0, x);

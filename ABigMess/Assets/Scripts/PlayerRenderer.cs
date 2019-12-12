@@ -33,24 +33,17 @@ public class PlayerRenderer : MonoBehaviour
         if (Physics.Raycast(leftHandPositionForBring.position, dirVector, out hit, Mathf.Infinity, layerMask))
         {
             leftArm.HandPosition.position = hit.point;
-            Debug.DrawRay(leftArm.HandPosition.position, dirVector, Color.yellow);
-            //  Debug.Break();
         }
+        Debug.DrawRay(leftArm.HandPosition.position, dirVector, Color.yellow);
+
         dirVector = (manager.GrabbedObject.transform.position - rightHandPositionForBring.position).normalized;
         if (Physics.Raycast(rightHandPositionForBring.position, dirVector, out hit, Mathf.Infinity, layerMask))
         {
             rightArm.HandPosition.position = hit.point;
         }
+
         leftArm.HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         rightArm.HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(leftHandPositionForBring.position, 0.1f);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(rightHandPositionForBring.position, 0.1f);
     }
 
     /// <summary>
