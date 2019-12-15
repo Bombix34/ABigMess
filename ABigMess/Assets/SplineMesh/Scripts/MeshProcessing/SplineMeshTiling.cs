@@ -11,7 +11,7 @@ namespace SplineMesh {
     /// This class intend to cover the most common situations of mesh bending. It can be used as-is in your project,
     /// or can serve as a source of inspiration to write your own procedural generator.
     /// </summary>
-    [ExecuteInEditMode]
+    //[ExecuteInEditMode]
     [SelectionBase]
     [DisallowMultipleComponent]
     public class SplineMeshTiling : MonoBehaviour {

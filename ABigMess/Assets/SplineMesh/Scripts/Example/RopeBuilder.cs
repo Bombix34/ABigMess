@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 namespace SplineMesh {
-    [ExecuteInEditMode]
+   // [ExecuteInEditMode]
     [RequireComponent(typeof(Spline))]
     public class RopeBuilder : MonoBehaviour {
         private bool toUpdate = false;

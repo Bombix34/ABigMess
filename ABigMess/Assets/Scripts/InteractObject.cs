@@ -9,12 +9,14 @@ public class InteractObject : MonoBehaviour
 {
 
     Canvas canvas; // The canvas where I display my button overlay 
+
     [SerializeField]
     GameObject interactButtonOverlayPrefab;
     GameObject interactButtonOverlayInstance;
 
     [SerializeField]
     ObjectSettings settings;
+    Rigidbody body;
 
     static float HOLD_TIME = 0.125f;
     float holdMaterial = HOLD_TIME;
@@ -41,17 +43,21 @@ public class InteractObject : MonoBehaviour
     // [Header("Action when player interact without obj in hand")]
     //  [SerializeField] UnityEvent onInteractWithoutTool;
 
-
-    void Start()
+    private void Awake()
     {
+        body = GetComponent<Rigidbody>();
         outline = gameObject.AddComponent<Outline>();
-        outline.OutlineMode = Outline.Mode.OutlineVisible;
         canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         if (canvas == null)
         {
             Debug.LogError("Define a canvas for InteractObject: " + name);
         }
+    }
+    void Start()
+    {
+        outline.OutlineMode = Outline.Mode.OutlineVisible;
         outline.OutlineWidth = 0;
+        SetupWeight();
     }
 
     void Update()
@@ -103,15 +109,34 @@ public class InteractObject : MonoBehaviour
         }
     }
 
+    private void SetupWeight()
+    {
+        if(settings==null)
+        {
+            Debug.Log("Settings of the object "+ this.gameObject.name  +" missing");
+            return;
+        }
+        if(settings.weightType == ObjectSettings.ObjectWeight.heavy)
+        {
+            body.isKinematic = true;
+        }
+        else
+        {
+            body.isKinematic = false;
+        }
+    }
+
     public void Grab()
     {
         grabbed = true;
+        body.isKinematic = true;
         ResetHighlight();
     }
 
     public void Dropdown()
     {
         grabbed = false;
+        SetupWeight();
     }
 
     #region HIGHLIGHT_SYSTEM

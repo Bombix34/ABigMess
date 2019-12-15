@@ -10,6 +10,9 @@ public class PlayerMovement : MonoBehaviour
     PlayerReglages reglages;
     Vector3 currentVelocity;
 
+    [SerializeField]
+    GameObject torso;
+
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
@@ -62,10 +65,30 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    Quaternion[] bodyRotation = new Quaternion[8];
+    int indexRotation = 0;
+
     private void RotatePlayer(float x, float y)
     {
         Vector3 dir = new Vector3(-y, 0, x);
+        SaveRotation();
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(dir), (reglages.rotationSpeed * 100) * Time.deltaTime);
+        torso.transform.rotation = Quaternion.RotateTowards(torso.transform.rotation, bodyRotation[0], (reglages.rotationSpeed * 90) * Time.deltaTime);
+    }
+
+    public void ResetTorso()
+    {
+        torso.transform.rotation = transform.rotation;
+    }
+
+    private void SaveRotation()
+    {
+        bodyRotation[indexRotation] = transform.rotation;
+        indexRotation++;
+        if (indexRotation == bodyRotation.Length)
+        {
+            indexRotation = 0;
+        }
     }
 
     public Vector3 GetFrontPosition()
