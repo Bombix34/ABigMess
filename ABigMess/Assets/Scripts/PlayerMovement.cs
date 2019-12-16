@@ -10,6 +10,9 @@ public class PlayerMovement : MonoBehaviour
     PlayerReglages reglages;
     Vector3 currentVelocity;
 
+    [SerializeField]
+    GameObject torso;
+
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
@@ -46,10 +49,57 @@ public class PlayerMovement : MonoBehaviour
         rigidBody.MovePosition(transform.position + currentVelocity);
     }
 
+    /// <summary>
+    /// prevent the player from moving while nothing happened
+    /// this strange behavior is due to the arms spline physic
+    /// </summary>
+    public void PreventPlayerRotation()
+    {
+        if (currentVelocity == Vector3.zero)
+        {
+            rigidBody.constraints = RigidbodyConstraints.FreezeRotation;
+        }
+        else
+        {
+            rigidBody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        }
+    }
+
+
+    const int SIZE_ROTATION_SAVE = 8;
+    Quaternion[] bodyRotation = new Quaternion[SIZE_ROTATION_SAVE];
+    int indexRotation = 0;
+    int cptRotation = 0;
+
     private void RotatePlayer(float x, float y)
     {
         Vector3 dir = new Vector3(-y, 0, x);
+        SaveRotation();
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(dir), (reglages.rotationSpeed * 100) * Time.deltaTime);
+        if(cptRotation<4)
+        {
+            torso.transform.rotation = Quaternion.RotateTowards(torso.transform.rotation, bodyRotation[0], (reglages.rotationSpeed * 90) * Time.deltaTime);
+        }
+        else
+        {
+            torso.transform.rotation = Quaternion.RotateTowards(torso.transform.rotation, bodyRotation[cptRotation % SIZE_ROTATION_SAVE], (reglages.rotationSpeed * 90) * Time.deltaTime);
+        }
+    }
+
+    public void ResetTorso()
+    {
+        torso.transform.rotation = transform.rotation;
+    }
+
+    private void SaveRotation()
+    {
+        bodyRotation[indexRotation] = transform.rotation;
+        indexRotation++;
+        cptRotation++;
+        if (indexRotation == bodyRotation.Length)
+        {
+            indexRotation = 0;
+        }
     }
 
     public Vector3 GetFrontPosition()

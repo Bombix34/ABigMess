@@ -17,6 +17,12 @@ public class GameManager : Singleton<GameManager>
         musicManager = GetComponent<MusicManager>();
     }
 
+    private void Start()
+    {
+        Application.targetFrameRate = 30;
+        QualitySettings.vSyncCount = 0;
+    }
+
     private void Update()
     {
         middlePlayers.transform.position = GetPositionBetweenPlayers();
