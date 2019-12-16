@@ -52,6 +52,21 @@ public class ObjectState : MonoBehaviour
         {
             Destroy(GetComponent<Burnt>());
         }
+
+        if (grown && GetComponent<Grown>() == null)
+        {
+            gameObject.AddComponent<Grown>();
+        }
+
+        if (!grown && GetComponent<Grown>() != null)
+        {
+            Destroy(GetComponent<Grown>());
+        }
+    }
+
+    public void SetupState(string className)
+    {
+
     }
 
     #region GET/SET
