@@ -65,15 +65,25 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    Quaternion[] bodyRotation = new Quaternion[8];
+
+    const int SIZE_ROTATION_SAVE = 8;
+    Quaternion[] bodyRotation = new Quaternion[SIZE_ROTATION_SAVE];
     int indexRotation = 0;
+    int cptRotation = 0;
 
     private void RotatePlayer(float x, float y)
     {
         Vector3 dir = new Vector3(-y, 0, x);
         SaveRotation();
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(dir), (reglages.rotationSpeed * 100) * Time.deltaTime);
-        torso.transform.rotation = Quaternion.RotateTowards(torso.transform.rotation, bodyRotation[0], (reglages.rotationSpeed * 90) * Time.deltaTime);
+        if(cptRotation<4)
+        {
+            torso.transform.rotation = Quaternion.RotateTowards(torso.transform.rotation, bodyRotation[0], (reglages.rotationSpeed * 90) * Time.deltaTime);
+        }
+        else
+        {
+            torso.transform.rotation = Quaternion.RotateTowards(torso.transform.rotation, bodyRotation[cptRotation % SIZE_ROTATION_SAVE], (reglages.rotationSpeed * 90) * Time.deltaTime);
+        }
     }
 
     public void ResetTorso()
@@ -85,6 +95,7 @@ public class PlayerMovement : MonoBehaviour
     {
         bodyRotation[indexRotation] = transform.rotation;
         indexRotation++;
+        cptRotation++;
         if (indexRotation == bodyRotation.Length)
         {
             indexRotation = 0;
