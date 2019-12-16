@@ -25,9 +25,12 @@ namespace SplineMesh {
         public static void Destroy(GameObject go) {
             if (Application.isPlaying) {
                 UnityEngine.Object.Destroy(go);
-            } else {
+            }
+            /*
+            else {
                 UnityEngine.Object.DestroyImmediate(go);
             }
+            */
         }
 
         public static void Destroy(Component comp) {

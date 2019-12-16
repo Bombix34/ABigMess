@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 namespace SplineMesh {
     [DisallowMultipleComponent]
-    [ExecuteInEditMode]
+   // [ExecuteInEditMode]
     [RequireComponent(typeof(Spline))]
     public class SplineSmoother : MonoBehaviour {
         private Spline spline;

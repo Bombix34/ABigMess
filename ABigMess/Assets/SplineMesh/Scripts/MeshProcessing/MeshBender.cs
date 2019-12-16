@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -110,9 +111,22 @@ namespace SplineMesh {
             }
         }
 
+
+        private float limiterTimer = 0.025f;
+
+        /// <summary>
+        /// add the limiterTimer to lock fresh rate for movement
+        /// if not limited, there is frame rate issue
+        /// </summary>
         private void Update() {
-            ComputeIfNeeded();
+            limiterTimer -= Time.fixedDeltaTime;
+            if(limiterTimer <= 0)
+            {
+                limiterTimer = 0.025f;
+                ComputeIfNeeded();
+            }
         }
+        
 
         public void ComputeIfNeeded() {
             if (isDirty) {

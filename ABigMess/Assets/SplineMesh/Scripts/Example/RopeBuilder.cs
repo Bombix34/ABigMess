@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 namespace SplineMesh {
-    [ExecuteInEditMode]
+   // [ExecuteInEditMode]
     [RequireComponent(typeof(Spline))]
     public class RopeBuilder : MonoBehaviour {
         private bool toUpdate = false;
@@ -62,7 +62,6 @@ namespace SplineMesh {
                 Generate();
                 UpdateSpline();
             }
-            UpdateNodes();
 
             // balancing
             /*
@@ -72,11 +71,18 @@ namespace SplineMesh {
             */
         }
 
+        private void FixedUpdate()
+        {
+            UpdateNodes();
+        }
+
         private void UpdateNodes() {
             int i = 0;
             foreach (GameObject wayPoint in wayPoints) {
                 var node = spline.nodes[i++];
-                if (Vector3.Distance(node.Position, transform.InverseTransformPoint(wayPoint.transform.position)) > 0.001f) {
+                //if (Vector3.Distance(node.Position, transform.InverseTransformPoint(wayPoint.transform.position)) > 0.001f) 
+                if (Vector3.Distance(node.Position, transform.InverseTransformPoint(wayPoint.transform.position)) > 0.000001f)
+                {
                     node.Position = transform.InverseTransformPoint(wayPoint.transform.position);
                     node.Up = wayPoint.transform.up;
                 }
@@ -100,7 +106,6 @@ namespace SplineMesh {
         private void Generate() {
             UOUtility.DestroyChildren(Generated);
             wayPoints.Clear();
-
             float localSpacing = 0;
             Joint joint = null;
             for (int i = 0; i < segmentCount; i++) {
