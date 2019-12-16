@@ -17,6 +17,58 @@ public class ObjectState : MonoBehaviour
     [SerializeField] private bool opened;
     [SerializeField] private bool plugged;
 
+
+    private void Start()
+    {
+        UpdateState();
+    }
+
+
+    private void Update()
+    {
+
+        
+
+    }
+
+    public void UpdateState()
+    {
+        if (washed && GetComponent<Washed>() == null)
+        {
+            gameObject.AddComponent<Washed>();
+        }
+
+        if (!washed && GetComponent<Washed>() != null)
+        {
+            Destroy(GetComponent<Washed>());
+        }
+
+        if (burnt && GetComponent<Burnt>() == null)
+        {
+            gameObject.AddComponent<Burnt>();
+        }
+
+        if (!burnt && GetComponent<Burnt>() != null)
+        {
+            Destroy(GetComponent<Burnt>());
+        }
+
+        if (grown && GetComponent<Grown>() == null)
+        {
+            gameObject.AddComponent<Grown>();
+        }
+
+        if (!grown && GetComponent<Grown>() != null)
+        {
+            Destroy(GetComponent<Grown>());
+        }
+    }
+
+    public void SetupState(string className)
+    {
+
+    }
+
     #region GET/SET
 
     public bool Washed
@@ -29,6 +81,7 @@ public class ObjectState : MonoBehaviour
         set
         {
             washed = value;
+            UpdateState();
         }
     }
 
@@ -42,6 +95,7 @@ public class ObjectState : MonoBehaviour
         set
         {
             burnt = value;
+            UpdateState();
         }
     }
 
@@ -55,6 +109,7 @@ public class ObjectState : MonoBehaviour
         set
         {
             smuged = value;
+            UpdateState();
         }
     }
 
@@ -68,6 +123,7 @@ public class ObjectState : MonoBehaviour
         set
         {
             cooked = value;
+            UpdateState();
         }
     }
 
@@ -81,6 +137,7 @@ public class ObjectState : MonoBehaviour
         set
         {
             grown = value;
+            UpdateState();
         }
     }
 
@@ -94,6 +151,7 @@ public class ObjectState : MonoBehaviour
         set
         {
             colored = value;
+            UpdateState();
         }
     }
     
@@ -107,6 +165,7 @@ public class ObjectState : MonoBehaviour
         set
         {
             broken = value;
+            UpdateState();
         }
     }
     
@@ -120,6 +179,7 @@ public class ObjectState : MonoBehaviour
         set
         {
             opened = value;
+            UpdateState();
         }
     }
     
@@ -133,6 +193,7 @@ public class ObjectState : MonoBehaviour
         set
         {
             plugged = value;
+            UpdateState();
         }
     }
     

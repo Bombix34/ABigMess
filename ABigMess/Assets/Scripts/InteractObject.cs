@@ -100,6 +100,14 @@ public class InteractObject : MonoBehaviour
                 ToolSettings tool = (ToolSettings)toolObj.Settings;
                 tool.ApplyEvent(this);
             }
+            else
+            {
+                // if I'm a tool
+                if (Settings.IsTool()) {
+                    ToolSettings tool = (ToolSettings)Settings;
+                    tool.ApplyEvent(toolObj);
+                }
+            }
         }
     }
 
