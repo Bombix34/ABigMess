@@ -88,6 +88,26 @@ public class InteractObject : MonoBehaviour
         UpdateOverlayPosition();
     }
 
+    public void Interact(GameObject grabbedObject)
+    {
+        InteractObject toolObj = grabbedObject.GetComponent<InteractObject>();
+        if (toolObj.Settings.IsTool())
+        {
+            ToolSettings tool = (ToolSettings)toolObj.Settings;
+            tool.ApplyEvent(this);
+        }
+        else
+        {
+            // if I'm a tool
+            if (Settings.IsTool())
+            {
+                ToolSettings tool = (ToolSettings)Settings;
+                tool.ApplyEvent(toolObj);
+            }
+        }
+    }
+
+
     public void Interact(PlayerManager player)
     {
         ResetHighlight();
@@ -100,20 +120,7 @@ public class InteractObject : MonoBehaviour
         }
         else
         {
-            InteractObject toolObj = objPlayer.GetComponent<InteractObject>();
-            if (toolObj.Settings.IsTool())
-            {
-                ToolSettings tool = (ToolSettings)toolObj.Settings;
-                tool.ApplyEvent(this);
-            }
-            else
-            {
-                // if I'm a tool
-                if (Settings.IsTool()) {
-                    ToolSettings tool = (ToolSettings)Settings;
-                    tool.ApplyEvent(toolObj);
-                }
-            }
+            Interact(objPlayer);
         }
     }
 
