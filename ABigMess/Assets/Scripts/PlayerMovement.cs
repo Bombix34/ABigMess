@@ -25,10 +25,10 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
         Vector3 directionController = playerInputs;
-        GravitySpeed();
         if (directionController == Vector3.zero)
         {
             currentVelocity = Vector3.zero;
+            RotateTorso(false);
             return;
         }
         //init values
@@ -65,24 +65,40 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    #region ROTATION
 
+    //variables for torso rotation system
     const int SIZE_ROTATION_SAVE = 8;
     Quaternion[] bodyRotation = new Quaternion[SIZE_ROTATION_SAVE];
     int indexRotation = 0;
-    int cptRotation = 0;
+    int indexRotationTorso = 0;
+    bool isInitTorsoRotation = false;
+    //----------------------------------
 
     private void RotatePlayer(float x, float y)
     {
         Vector3 dir = new Vector3(-y, 0, x);
         SaveRotation();
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(dir), (reglages.rotationSpeed * 100) * Time.deltaTime);
-        if(cptRotation<4)
+        RotateTorso(true);
+    }
+
+    private void RotateTorso(bool isMoving)
+    {
+        if(isMoving)
         {
-            torso.transform.rotation = Quaternion.RotateTowards(torso.transform.rotation, bodyRotation[0], (reglages.rotationSpeed * 90) * Time.deltaTime);
+            if (indexRotationTorso < SIZE_ROTATION_SAVE / 2 && !isInitTorsoRotation)
+            {
+                torso.transform.rotation = Quaternion.RotateTowards(torso.transform.rotation, bodyRotation[0], (reglages.rotationSpeed * 90) * Time.deltaTime);
+            }
+            else
+            {
+                torso.transform.rotation = Quaternion.RotateTowards(torso.transform.rotation, bodyRotation[indexRotationTorso % SIZE_ROTATION_SAVE], (reglages.rotationSpeed * 90) * Time.deltaTime);
+            }
         }
         else
         {
-            torso.transform.rotation = Quaternion.RotateTowards(torso.transform.rotation, bodyRotation[cptRotation % SIZE_ROTATION_SAVE], (reglages.rotationSpeed * 90) * Time.deltaTime);
+            torso.transform.rotation = Quaternion.RotateTowards(torso.transform.rotation, transform.rotation, (reglages.rotationSpeed * 90) * Time.deltaTime);
         }
     }
 
@@ -95,12 +111,19 @@ public class PlayerMovement : MonoBehaviour
     {
         bodyRotation[indexRotation] = transform.rotation;
         indexRotation++;
-        cptRotation++;
-        if (indexRotation == bodyRotation.Length)
+        indexRotationTorso++;
+        if (indexRotation == SIZE_ROTATION_SAVE)
         {
             indexRotation = 0;
         }
+        if(indexRotationTorso % SIZE_ROTATION_SAVE == 0)
+        {
+            isInitTorsoRotation = true;
+            indexRotationTorso = 0;
+        }
     }
+
+    #endregion
 
     public Vector3 GetFrontPosition()
     {
@@ -111,27 +134,6 @@ public class PlayerMovement : MonoBehaviour
             transform.position.y + forwardPos.y + reglages.raycastYPosOffset,
             transform.position.z + forwardPos.z);
         return testPosition;
-    }
-
-    public Vector3 GetHeadingDirection()
-    {
-        return transform.TransformDirection(Vector3.forward);
-    }
-
-    public void GravitySpeed()
-    {
-    }
-
-    public bool IsGrounded()
-    {
-        return Physics.Raycast(GetGroundedRay(), 1.05f);
-    }
-
-    public Ray GetGroundedRay()
-    {
-        Ray ray = new Ray(transform.position, -transform.up);
-
-        return ray;
     }
 
     public void ResetVelocity()
@@ -166,6 +168,22 @@ public class PlayerMovement : MonoBehaviour
         {
             canMove = value;
         }
+    }
+
+    public Vector3 GetHeadingDirection()
+    {
+        return transform.TransformDirection(Vector3.forward);
+    }
+
+    public bool IsGrounded()
+    {
+        return Physics.Raycast(GetGroundedRay(), 1.05f);
+    }
+
+    public Ray GetGroundedRay()
+    {
+        Ray ray = new Ray(transform.position, -transform.up);
+        return ray;
     }
 
     #endregion
