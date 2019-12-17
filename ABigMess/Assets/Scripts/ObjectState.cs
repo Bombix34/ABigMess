@@ -27,8 +27,6 @@ public class ObjectState : MonoBehaviour
     private void Update()
     {
 
-        
-
     }
 
     public void UpdateState()
@@ -64,9 +62,9 @@ public class ObjectState : MonoBehaviour
         }
     }
 
-    public void SetupState(string className)
+    private void OnValidate()
     {
-
+        UpdateState();
     }
 
     #region GET/SET
