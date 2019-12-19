@@ -5,7 +5,6 @@ using UnityEngine;
 public class TestActivator : MonoBehaviour
 {
     public GameObject selectedObject;
-    public GameObject actionObject;
 
     // Start is called before the first frame update
     void Start()
@@ -25,38 +24,40 @@ public class TestActivator : MonoBehaviour
 
             Physics.Raycast(ray, out hit);
 
-            if (hit.collider.gameObject != null && selectedObject == null)
+            if (hit.collider.gameObject != null)
             {
                 selectedObject = hit.collider.gameObject;
             } 
-            else if (hit.collider.gameObject != null && selectedObject != null)
-            {
-                actionObject = hit.collider.gameObject;
-            }
-
-            ApplyEvents();
         }
 
-        if(selectedObject != null)
+        if (Input.GetMouseButton(0) && selectedObject != null)
         {
+            Plane plane = new Plane(Vector3.up, new Vector3(0, 0.5f, 0));
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            float distance;
+
+            if(plane.Raycast(ray, out distance))
+            {
+                selectedObject.transform.position = ray.origin + (ray.direction * distance);
+                selectedObject.transform.rotation = Quaternion.identity;
+            }
             //Vector3 objPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f));
             //objPos.y = 0.5f;
-            //selectedObject.transform.position = objPos;
+            
         }
 
         
     }
 
 
-    public void ApplyEvents()
+
+    public void OnCollide(GameObject gameObject)
     {
-        if(actionObject != null && selectedObject != null)
+        if (selectedObject != null)
         {
-            selectedObject.GetComponent<InteractObject>().Interact(actionObject);
-
-
-            actionObject = null;
-            selectedObject = null;
+            print(gameObject.name + " collided with " + selectedObject.name);
+            selectedObject.GetComponent<InteractObject>().Interact(gameObject);
         }
     }
 
