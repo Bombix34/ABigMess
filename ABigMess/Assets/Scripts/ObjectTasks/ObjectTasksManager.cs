@@ -23,16 +23,10 @@ public class ObjectTasksManager : MonoBehaviour
 
     }
 
+
     public void OnCollisionTask(GameObject gameObject)
     {
         Collision collision = gameObject.GetComponent<CollideEvent>().collision;
-
-        if(collision.gameObject.GetComponent<ObjectState>() == null)
-        {
-            // If the object has no state, then no need to compare a state
-            GetNextTask();
-            return;
-        }
 
         ObjectSettings.ObjectType collisionObjectType = collision.gameObject.GetComponent<InteractObject>().Settings.objectType;
 
@@ -41,9 +35,32 @@ public class ObjectTasksManager : MonoBehaviour
             return;
         }
 
+        if (collision.gameObject.GetComponent<ObjectState>() == null)
+        {
+            // If the object has no state, then no need to compare a state
+            print(gameObject.name + "  " + actualTask.destination);
+            if (actualTask.destination.Equals(gameObject.name))
+            {
+                GetNextTask();
+            }
+            else if (actualTask.destination.Equals(""))
+            {
+                GetNextTask();
+            }
+            return;
+        }
+
         if (VerifyStates(actualTask, collision.gameObject.GetComponent<ObjectState>().states))
         {
-            GetNextTask();
+            print(gameObject.name + "  " + actualTask.destination);
+            if (actualTask.destination.Equals(gameObject.name))
+            {
+                GetNextTask();
+            }
+            else if (actualTask.destination.Equals(""))
+            {
+                GetNextTask();
+            }
         }
     }
 

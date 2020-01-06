@@ -10,6 +10,7 @@ public class ObjectTask : ScriptableObject
     [Header("Task")]
     public bool done;
     public string description;
+    public string destination;
     public ObjectSettings.ObjectType objectType;
 
     [Header("States of the object")]
