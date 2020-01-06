@@ -137,6 +137,19 @@ namespace SplineMesh {
             }
             UOUtility.Destroy(joint);
         }
+
+        public void AttachHand(Rigidbody toAttach)
+        {
+            FixedJoint joint = HandPosition.gameObject.AddComponent<FixedJoint>();
+            joint.connectedBody = toAttach;
+        }
+
+        public void DetachHand()
+        {
+            FixedJoint joint = HandPosition.gameObject.GetComponent<FixedJoint>();
+            joint.connectedBody = null;
+            Destroy(joint);
+        }
     }
 
 

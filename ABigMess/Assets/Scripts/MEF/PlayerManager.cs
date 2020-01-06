@@ -50,10 +50,6 @@ public class PlayerManager : ObjectManager
         ChangeState(new PlayerBaseState(this));
     }
 
-    private void Start()
-    {
-    }
-
     private void Update()
     {
         //TEST__________
@@ -179,7 +175,7 @@ public class PlayerManager : ObjectManager
             switch (weight)
             {
                 case ObjectSettings.ObjectWeight.heavy:
-                    movement.CanMove = false;
+                  //  movement.CanMove = false;
                     renderer.AttachHandToObject();
                     reachedPosition = true;
                     break;

@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rigidBody;
     bool canMove = true;
+    bool canRotate = true;
     PlayerReglages reglages;
     Vector3 currentVelocity;
 
@@ -43,7 +44,10 @@ public class PlayerMovement : MonoBehaviour
 
         float amplitude = new Vector2(playerInputs.x, playerInputs.z).magnitude;
 
-        RotatePlayer(playerInputs.z, -playerInputs.x);
+        if(canRotate)
+        {
+            RotatePlayer(playerInputs.z, -playerInputs.x);
+        }
         currentVelocity = Vector3.zero;
         currentVelocity += heading * amplitude * (reglages.moveSpeed / 5f);
         rigidBody.MovePosition(transform.position + currentVelocity);
@@ -184,6 +188,15 @@ public class PlayerMovement : MonoBehaviour
     {
         Ray ray = new Ray(transform.position, -transform.up);
         return ray;
+    }
+
+    public bool CanRotate
+    {
+        get => canRotate;
+        set
+        {
+            canRotate = value;
+        }
     }
 
     #endregion

@@ -66,6 +66,7 @@ public class PlayerRenderer : MonoBehaviour
             if (hit.transform.gameObject == manager.GrabbedObject)
             {
                 currentHand.HandPosition.position = hit.point;
+                currentHand.AttachHand(hit.transform.gameObject.GetComponent<Rigidbody>());
                 currentHand.HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 return true;
             }
@@ -84,6 +85,8 @@ public class PlayerRenderer : MonoBehaviour
 
     public void DetachHand()
     {
+        rightArm.DetachHand();
+        leftArm.DetachHand();
         leftArm.HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         rightArm.HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
     }

@@ -144,7 +144,14 @@ public class InteractObject : MonoBehaviour
     public void Grab()
     {
         grabbed = true;
-        body.isKinematic = true;
+        if(settings!=null)
+        {
+            body.isKinematic = !(settings.weightType == ObjectSettings.ObjectWeight.heavy);
+        }
+        else
+        {
+            body.isKinematic = true;
+        }
         ResetHighlight();
     }
 
