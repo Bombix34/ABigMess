@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -23,7 +24,10 @@ public class ObjectTasksManager : MonoBehaviour
         float distance = Vector3.Distance(actualTask.gameObject.transform.position, actualTask.desiredPosition.position);
         if (distance < 2.0f)
         {
-            GetNextTask();
+            if (actualTask.states.Equals(actualTask.gameObject.GetComponent<ObjectState>().states))
+            {
+                GetNextTask();
+            }
         }
 
     }

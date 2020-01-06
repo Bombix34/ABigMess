@@ -686,15 +686,45 @@ MonoBehaviour:
     desiredPosition: {fileID: 116295320}
     done: 0
     description: Bring burnt cube to platform
+    states:
+      washed: 0
+      burnt: 0
+      smuged: 0
+      cooked: 0
+      grown: 0
+      colored: 0
+      broken: 0
+      opened: 0
+      plugged: 0
   - gameObject: {fileID: 399454940}
     desiredPosition: {fileID: 116295320}
     done: 0
     description: Bring cube to platform
+    states:
+      washed: 0
+      burnt: 0
+      smuged: 0
+      cooked: 0
+      grown: 0
+      colored: 0
+      broken: 0
+      opened: 0
+      plugged: 0
   actualTask:
     gameObject: {fileID: 0}
     desiredPosition: {fileID: 0}
     done: 0
     description: 
+    states:
+      washed: 0
+      burnt: 0
+      smuged: 0
+      cooked: 0
+      grown: 0
+      colored: 0
+      broken: 0
+      opened: 0
+      plugged: 0
   actualTaskText: {fileID: 936193861}
 --- !u!1 &1449997452 stripped
 GameObject:
@@ -999,6 +1029,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146837521137475661, guid: fd0acc2ff0404284886656aa7db96d11,
+        type: 3}
+      propertyPath: states.burnt
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd0acc2ff0404284886656aa7db96d11, type: 3}
