@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 116295319}
   - component: {fileID: 116295318}
   - component: {fileID: 116295317}
+  - component: {fileID: 116295321}
   m_Layer: 0
   m_Name: Platform
   m_TagString: Untagged
@@ -212,6 +213,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &116295321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116295316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b42a5c99586362245ab67c59fc6cfe07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collideEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1319233177}
+        m_MethodName: OnCollisionTask
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 116295316}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &399454940 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9148804012554291335, guid: ff1aa8d5f58c1c741adcebaabe81d493,
@@ -663,7 +692,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1319233175}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 610, y: 305.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -682,49 +711,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectTasks:
-  - gameObject: {fileID: 1449997452}
-    desiredPosition: {fileID: 116295320}
-    done: 0
-    description: Bring burnt cube to platform
-    states:
-      washed: 0
-      burnt: 0
-      smuged: 0
-      cooked: 0
-      grown: 0
-      colored: 0
-      broken: 0
-      opened: 0
-      plugged: 0
-  - gameObject: {fileID: 399454940}
-    desiredPosition: {fileID: 116295320}
-    done: 0
-    description: Bring cube to platform
-    states:
-      washed: 0
-      burnt: 0
-      smuged: 0
-      cooked: 0
-      grown: 0
-      colored: 0
-      broken: 0
-      opened: 0
-      plugged: 0
-  actualTask:
-    gameObject: {fileID: 0}
-    desiredPosition: {fileID: 0}
-    done: 0
-    description: 
-    states:
-      washed: 0
-      burnt: 0
-      smuged: 0
-      cooked: 0
-      grown: 0
-      colored: 0
-      broken: 0
-      opened: 0
-      plugged: 0
+  - {fileID: 11400000, guid: 3383407da762220439ce4155b0044709, type: 2}
+  - {fileID: 11400000, guid: 4cada5f1a7534814b97228b5267ee8ac, type: 2}
+  - {fileID: 11400000, guid: d2d9f7bcdc5e90e408cf89dac249cc3d, type: 2}
+  actualTask: {fileID: 0}
   actualTaskText: {fileID: 936193861}
 --- !u!1 &1449997452 stripped
 GameObject:
@@ -1030,11 +1020,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7146837521137475661, guid: fd0acc2ff0404284886656aa7db96d11,
-        type: 3}
-      propertyPath: states.burnt
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd0acc2ff0404284886656aa7db96d11, type: 3}
 --- !u!1001 &1871350547
@@ -1232,6 +1217,46 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
+        type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
+        type: 3}
+      propertyPath: m_firstOverflowCharacterIndex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 19.35
+      objectReference: {fileID: 0}
     - target: {fileID: 1218077499467806261, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1341,31 +1366,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -8.299988
-      objectReference: {fileID: 0}
-    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
-        type: 3}
-      propertyPath: m_textInfo.spaceCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92eb305b328bddd4393a5d0c2acfe3c0, type: 3}
