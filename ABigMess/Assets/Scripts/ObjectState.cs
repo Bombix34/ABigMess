@@ -51,6 +51,16 @@ public class ObjectState : MonoBehaviour
         {
             Destroy(GetComponent<Grown>());
         }
+
+        if (states.plugged && GetComponent<Plugged>() == null)
+        {
+            gameObject.AddComponent<Plugged>();
+        }
+
+        if (!states.plugged && GetComponent<Plugged>() != null)
+        {
+            Destroy(GetComponent<Plugged>());
+        }
     }
 
     private void OnValidate()

@@ -9,7 +9,7 @@ public class ObjectTasksManager : MonoBehaviour
 {
 
     public List<ObjectTask> objectTasks;
-    public ObjectTask actualTask;
+    private ObjectTask actualTask;
 
     private Canvas canvas;
     private GridLayoutGroup tasksPanel;
