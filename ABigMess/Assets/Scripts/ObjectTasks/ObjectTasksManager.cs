@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ObjectTasksManager : MonoBehaviour
 {
@@ -10,11 +11,25 @@ public class ObjectTasksManager : MonoBehaviour
     public List<ObjectTask> objectTasks;
     public ObjectTask actualTask;
 
-    public TextMeshProUGUI actualTaskText;
+    private Canvas canvas;
+    private GridLayoutGroup tasksPanel;
+    public GameObject taskPrefab;
+
+    public Dictionary<int, TextMeshProUGUI> taskTexts;
 
     void Start()
     {
-        GetNextTask();
+        canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        tasksPanel = canvas.transform.Find("Tasks").GetComponent<GridLayoutGroup>();
+        taskTexts = new Dictionary<int, TextMeshProUGUI>();
+
+        for (int i = 0; i < objectTasks.Count; i++)
+        {
+            GameObject taskInstance = Instantiate(taskPrefab, tasksPanel.transform);
+            TextMeshProUGUI taskText = taskInstance.GetComponentInChildren<TextMeshProUGUI>();
+            taskText.text = objectTasks[i].description;
+            taskTexts.Add(i, taskText);
+        }
     }
 
     void Update()
@@ -23,6 +38,12 @@ public class ObjectTasksManager : MonoBehaviour
 
     }
 
+    private void TaskDone(int taskId)
+    {
+         taskTexts[taskId].text = "OK! " + objectTasks[taskId].description;
+         taskTexts[taskId].color = Color.yellow;
+
+    }
 
     public void OnCollisionTask(GameObject gameObject)
     {
@@ -30,36 +51,40 @@ public class ObjectTasksManager : MonoBehaviour
 
         ObjectSettings.ObjectType collisionObjectType = collision.gameObject.GetComponent<InteractObject>().Settings.objectType;
 
-        if (collisionObjectType != actualTask.objectType)
+        for (int i = 0; i < objectTasks.Count; i++)
         {
-            return;
-        }
+            actualTask = objectTasks[i];
 
-        if (collision.gameObject.GetComponent<ObjectState>() == null)
-        {
-            // If the object has no state, then no need to compare a state
-            print(gameObject.name + "  " + actualTask.destination);
-            if (actualTask.destination.Equals(gameObject.name))
+            if (collisionObjectType != actualTask.objectType)
             {
-                GetNextTask();
+                continue;
             }
-            else if (actualTask.destination.Equals(""))
-            {
-                GetNextTask();
-            }
-            return;
-        }
 
-        if (VerifyStates(actualTask, collision.gameObject.GetComponent<ObjectState>().states))
-        {
-            print(gameObject.name + "  " + actualTask.destination);
-            if (actualTask.destination.Equals(gameObject.name))
+            if (collision.gameObject.GetComponent<ObjectState>() == null)
             {
-                GetNextTask();
+                // If the object has no state, then no need to compare a state
+                if (actualTask.destination.Equals(gameObject.name))
+                {
+                    TaskDone(i);
+                }
+                else if (actualTask.destination.Equals(""))
+                {
+                    TaskDone(i);
+                }
+                continue;
             }
-            else if (actualTask.destination.Equals(""))
+
+            if (VerifyStates(actualTask, collision.gameObject.GetComponent<ObjectState>().states))
             {
-                GetNextTask();
+                //print(gameObject.name + "  " + actualTask.destination);
+                if (actualTask.destination.Equals(gameObject.name))
+                {
+                    TaskDone(i);
+                }
+                else if (actualTask.destination.Equals(""))
+                {
+                    TaskDone(i);
+                }
             }
         }
     }
@@ -117,24 +142,6 @@ public class ObjectTasksManager : MonoBehaviour
     {
         return pair.Key && pair.Value != state;
     }
-
-    void GetNextTask()
-    {
-        if (objectTasks.Count > 0)
-        {
-            actualTask = objectTasks[0];
-            actualTaskText.text = actualTask.description;
-            objectTasks.RemoveAt(0);
-        }
-        else
-        {
-            actualTaskText.text = "All tasks done";
-        }
-
-    }
-
-
-
 
 
 }
