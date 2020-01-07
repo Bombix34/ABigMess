@@ -49,6 +49,11 @@ public class ObjectTasksManager : MonoBehaviour
     {
         Collision collision = gameObject.GetComponent<CollideEvent>().collision;
 
+        if(collision.gameObject.GetComponent<InteractObject>() == null)
+        {
+            return;
+        }
+
         ObjectSettings.ObjectType collisionObjectType = collision.gameObject.GetComponent<InteractObject>().Settings.objectType;
 
         for (int i = 0; i < objectTasks.Count; i++)
