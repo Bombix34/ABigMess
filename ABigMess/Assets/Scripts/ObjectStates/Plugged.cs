@@ -13,17 +13,25 @@ public class Plugged : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     public void OnCollisionEnter(Collision collision)
     {
-        plug = collision.gameObject;
+        GameObject collisionGameObject = collision.gameObject;
+        if (collisionGameObject.GetComponent<InteractObject>() != null)
+        {
+            if (collisionGameObject.GetComponent<InteractObject>().Settings.objectType == ObjectSettings.ObjectType.plug)
+            {
+                plug = collisionGameObject;
+            }
+        }
+
     }
 
     public void OnCollisionExit(Collision collision)
     {
-        if(collision.gameObject == plug)
+        if (collision.gameObject == plug)
         {
             // Unplug
             gameObject.GetComponent<ObjectState>().Plugged = false;
@@ -32,6 +40,6 @@ public class Plugged : MonoBehaviour
     }
     public void OnDestroy()
     {
-       
+
     }
 }

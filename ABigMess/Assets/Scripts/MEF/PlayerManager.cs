@@ -111,6 +111,7 @@ public class PlayerManager : ObjectManager
             {
                 return;
             }
+            //Interact object is an object near the player that he wants to interact with
             interactObject.GetComponent<InteractObject>().Interact(this);
         }
     }

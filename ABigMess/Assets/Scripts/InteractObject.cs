@@ -88,22 +88,38 @@ public class InteractObject : MonoBehaviour
         UpdateOverlayPosition();
     }
 
+    /// <summary>
+    /// Interact if I have a tool in hand
+    /// </summary>
+    /// <param name="grabbedObject">Is the tool</param>
     public void Interact(GameObject grabbedObject)
     {
         InteractObject toolObj = grabbedObject.GetComponent<InteractObject>();
-        if (toolObj.Settings.IsTool())
+        if (toolObj.Settings.IsTool() && !toolObj.Settings.NeedsToBePlugged())
         {
             ToolSettings tool = (ToolSettings)toolObj.Settings;
             tool.ApplyEvent(this);
         }
+        else if (toolObj.Settings.IsTool() && toolObj.Settings.NeedsToBePlugged())
+        {
+            if (toolObj.GetComponent<ObjectState>() != null)
+            {
+                if (toolObj.GetComponent<ObjectState>().Plugged)
+                {
+                    ToolSettings tool = (ToolSettings)toolObj.Settings;
+                    tool.ApplyEvent(this);
+                }
+            } 
+        }
         else
         {
             // if I'm a tool
-            if (Settings.IsTool())
+            if (Settings.IsTool() && !Settings.NeedsToBePlugged())
             {
                 ToolSettings tool = (ToolSettings)Settings;
                 tool.ApplyEvent(toolObj);
             }
+
         }
     }
 

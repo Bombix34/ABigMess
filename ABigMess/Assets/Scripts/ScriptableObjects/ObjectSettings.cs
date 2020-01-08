@@ -21,6 +21,11 @@ public class ObjectSettings : ScriptableObject
             || objectType == ObjectType.plug;
     }
     
+    public bool NeedsToBePlugged()
+    {
+        return objectType == ObjectType.oven;
+    }
+
     public enum ObjectWeight
     {
         light,  // basic object
