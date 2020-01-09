@@ -95,6 +95,7 @@ public class InteractObject : MonoBehaviour
     public void Interact(GameObject grabbedObject)
     {
         InteractObject toolObj = grabbedObject.GetComponent<InteractObject>();
+
         if (toolObj.Settings.IsTool() && !toolObj.Settings.NeedsToBePlugged())
         {
             ToolSettings tool = (ToolSettings)toolObj.Settings;
@@ -119,7 +120,6 @@ public class InteractObject : MonoBehaviour
                 ToolSettings tool = (ToolSettings)Settings;
                 tool.ApplyEvent(toolObj);
             }
-
         }
     }
 

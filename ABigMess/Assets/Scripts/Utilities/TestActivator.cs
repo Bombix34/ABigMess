@@ -5,6 +5,7 @@ using UnityEngine;
 public class TestActivator : MonoBehaviour
 {
     public GameObject selectedObject;
+    public ToolSettings noToolInHand;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +25,7 @@ public class TestActivator : MonoBehaviour
 
             Physics.Raycast(ray, out hit);
 
-            if (hit.collider.gameObject != null)
+            if (hit.collider != null && hit.collider.gameObject != null)
             {
                 selectedObject = hit.collider.gameObject;
             } 
@@ -47,7 +48,19 @@ public class TestActivator : MonoBehaviour
             
         }
 
-        
+        if (Input.GetMouseButtonDown(1))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            Physics.Raycast(ray, out hit);
+
+            if(hit.collider != null && hit.collider.gameObject != null)
+            {
+                GameObject gameObject = hit.collider.gameObject;
+                noToolInHand.ApplyEvent(gameObject.GetComponent<InteractObject>());
+            }
+        }
     }
 
 
