@@ -25,7 +25,7 @@ namespace SplineMesh {
         private GameObject firstSegment;
 
         [SerializeField]
-        public List<GameObject> wayPoints = new List<GameObject>();
+        public List<GameObject> wayPoints;
 
         public GameObject segmentPrefab;
         public int segmentCount;
@@ -49,6 +49,7 @@ namespace SplineMesh {
 
         private void OnEnable() {
             spline = GetComponent<Spline>();
+            wayPoints = new List<GameObject>();
             toUpdate = true;
         }
 
@@ -56,19 +57,13 @@ namespace SplineMesh {
             toUpdate = true;
         }
 
-        private void Update() {
+        private void Update()
+        {
             if (toUpdate) {
                 toUpdate = false;
                 Generate();
                 UpdateSpline();
             }
-
-            // balancing
-            /*
-            if (Application.isPlaying) {
-                firstSegment.transform.localPosition = new Vector3(Mathf.Sin(Time.time) * 3, 0, 0);
-            }
-            */
         }
 
         private void FixedUpdate()
@@ -78,9 +73,9 @@ namespace SplineMesh {
 
         private void UpdateNodes() {
             int i = 0;
-            foreach (GameObject wayPoint in wayPoints) {
+            foreach (GameObject wayPoint in wayPoints)
+            {
                 var node = spline.nodes[i++];
-                //if (Vector3.Distance(node.Position, transform.InverseTransformPoint(wayPoint.transform.position)) > 0.001f) 
                 if (Vector3.Distance(node.Position, transform.InverseTransformPoint(wayPoint.transform.position)) > 0.000001f)
                 {
                     node.Position = transform.InverseTransformPoint(wayPoint.transform.position);
@@ -89,8 +84,10 @@ namespace SplineMesh {
             }
         }
 
-        private void UpdateSpline() {
-            foreach (var penisNode in wayPoints.ToList()) {
+        private void UpdateSpline()
+        {
+            foreach (var penisNode in wayPoints.ToList())
+            {
                 if (penisNode == null) wayPoints.Remove(penisNode);
             }
             int nodeCount = wayPoints.Count;
@@ -103,12 +100,14 @@ namespace SplineMesh {
             }
         }
 
-        private void Generate() {
+        private void Generate()
+        {
             UOUtility.DestroyChildren(Generated);
             wayPoints.Clear();
             float localSpacing = 0;
             Joint joint = null;
-            for (int i = 0; i < segmentCount; i++) {
+            for (int i = 0; i < segmentCount; i++)
+            {
                 var seg = UOUtility.Instantiate(segmentPrefab, Generated.transform);
                 seg.transform.Translate(0, 0, localSpacing);
 
@@ -126,7 +125,8 @@ namespace SplineMesh {
                 }
 
                 // we attach the rigidbody to the joint of the previous segment
-                if (joint != null) {
+                if (joint != null)
+                {
                     joint.connectedBody = segRB;
                 }
                 joint = seg.GetComponent<Joint>();
@@ -147,6 +147,10 @@ namespace SplineMesh {
         public void DetachHand()
         {
             FixedJoint joint = HandPosition.gameObject.GetComponent<FixedJoint>();
+            if (joint == null)
+            {
+                return;
+            }
             joint.connectedBody = null;
             Destroy(joint);
         }

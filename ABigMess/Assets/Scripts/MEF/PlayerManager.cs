@@ -59,6 +59,7 @@ public class PlayerManager : ObjectManager
         UpdateGrabbedObject();
         movement.PreventPlayerRotation();
         currentState.Execute();
+        print(currentState.stateName);
     }
 
     private void FixedUpdate()
@@ -137,7 +138,7 @@ public class PlayerManager : ObjectManager
         if (interactObject != null)
         {
             grabbedObject = interactObject;
-            grabbedObject.GetComponent<InteractObject>().Grab();
+            movement.CanMove = grabbedObject.GetComponent<InteractObject>().Grab(this.gameObject);
             ResetRaycastedObjects();
             timeStartedLerping = Time.time;
             //grabbedObject.transform.parent = bringPosition.transform;
@@ -218,7 +219,7 @@ public class PlayerManager : ObjectManager
                 grabbedObject.transform.position = switchObjectPosition;
 
                 grabbedObject.transform.parent = null;
-                grabbedObject.GetComponent<InteractObject>().Dropdown();
+                grabbedObject.GetComponent<InteractObject>().Dropdown(this.gameObject);
 
                 isGrabbedObjectColliding = false;
                 grabbedObject.transform.parent = null;
@@ -243,7 +244,7 @@ public class PlayerManager : ObjectManager
         {
             grabbedObject.transform.parent = null;
             renderer.DetachHand();
-            grabbedObject.GetComponent<InteractObject>().Dropdown();
+            grabbedObject.GetComponent<InteractObject>().Dropdown(this.gameObject);
             grabbedObject = null;
             isGrabbedObjectColliding = false;
             movement.CanMove = true;

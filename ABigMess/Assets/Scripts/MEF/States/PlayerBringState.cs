@@ -10,6 +10,7 @@ public class PlayerBringState : PlayerState
     {
         this.curObject = curObject;
         manager = (PlayerManager)curObject;
+        this.stateName = "PLAYER_BRING_OBJECT";
     }
 
     public PlayerBringState(ObjectManager curObject, InteractObject obj) : base(curObject)
@@ -17,6 +18,7 @@ public class PlayerBringState : PlayerState
         this.curObject = curObject;
         manager = (PlayerManager)curObject;
         objectBring = obj;
+        this.stateName = "PLAYER_BRING_OBJECT";
     }
 
     #region STATE_GESTION

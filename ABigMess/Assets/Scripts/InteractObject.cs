@@ -40,6 +40,8 @@ public class InteractObject : MonoBehaviour
     [Range(1, 10)]
     float outlineSpeed = 2;
 
+    private List<GameObject> attachedPlayers;
+
     // [Header("Action when player interact without obj in hand")]
     //  [SerializeField] UnityEvent onInteractWithoutTool;
 
@@ -47,6 +49,7 @@ public class InteractObject : MonoBehaviour
     {
         body = GetComponent<Rigidbody>();
         outline = gameObject.AddComponent<Outline>();
+        attachedPlayers = new List<GameObject>();
         canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         if (canvas == null)
         {
@@ -57,7 +60,7 @@ public class InteractObject : MonoBehaviour
     {
         outline.OutlineMode = Outline.Mode.OutlineVisible;
         outline.OutlineWidth = 0;
-        SetupWeight();
+      //  SetupWeight();
     }
 
     void Update()
@@ -139,25 +142,53 @@ public class InteractObject : MonoBehaviour
         {
             body.isKinematic = false;
         }
+        body.isKinematic = false;
     }
 
-    public void Grab()
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="player"></param>
+    /// <returns>return true if the object can move</returns>
+    public bool Grab(GameObject player)
     {
         grabbed = true;
+        attachedPlayers.Add(player);
         if(settings!=null)
         {
-            body.isKinematic = !(settings.weightType == ObjectSettings.ObjectWeight.heavy);
+            if(settings.weightType == ObjectSettings.ObjectWeight.heavy )
+            {
+                if(attachedPlayers.Count > 1)
+                {
+                    body.isKinematic = false;
+                    body.useGravity = false;
+                }
+                else
+                {
+                    body.isKinematic = true;
+                }
+            }
+            else
+            {
+                body.isKinematic = false;
+                body.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+                body.useGravity = false;
+            }
         }
         else
         {
-            body.isKinematic = true;
+            body.isKinematic = false;
         }
         ResetHighlight();
+        return !body.isKinematic;
     }
 
-    public void Dropdown()
+    public void Dropdown(GameObject player)
     {
         grabbed = false;
+        body.constraints = RigidbodyConstraints.None;
+        body.useGravity = true;
+        attachedPlayers.Remove(player);
         SetupWeight();
     }
 
