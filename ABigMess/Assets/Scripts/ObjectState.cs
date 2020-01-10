@@ -22,34 +22,44 @@ public class ObjectState : MonoBehaviour
 
     public void UpdateState()
     {
-        if (states.washed.Value && GetComponent<Washed>() == null)
+        if (states.washed && GetComponent<Washed>() == null)
         {
             gameObject.AddComponent<Washed>();
         }
 
-        if (!states.washed.Value && GetComponent<Washed>() != null)
+        if (!states.washed && GetComponent<Washed>() != null)
         {
             Destroy(GetComponent<Washed>());
         }
 
-        if (states.burnt.Value && GetComponent<Burnt>() == null)
+        if (states.burnt && GetComponent<Burnt>() == null)
         {
             gameObject.AddComponent<Burnt>();
         }
 
-        if (!states.burnt.Value && GetComponent<Burnt>() != null)
+        if (!states.burnt && GetComponent<Burnt>() != null)
         {
             Destroy(GetComponent<Burnt>());
         }
 
-        if (states.grown.Value && GetComponent<Grown>() == null)
+        if (states.grown && GetComponent<Grown>() == null)
         {
             gameObject.AddComponent<Grown>();
         }
 
-        if (!states.grown.Value && GetComponent<Grown>() != null)
+        if (!states.grown && GetComponent<Grown>() != null)
         {
             Destroy(GetComponent<Grown>());
+        }
+
+        if (states.plugged && GetComponent<Plugged>() == null)
+        {
+            gameObject.AddComponent<Plugged>();
+        }
+
+        if (!states.plugged && GetComponent<Plugged>() != null)
+        {
+            Destroy(GetComponent<Plugged>());
         }
     }
 
@@ -64,12 +74,12 @@ public class ObjectState : MonoBehaviour
     {
         get
         {
-            return states.washed.Value;
+            return states.washed;
         }
 
         set
         {
-            states.washed.Value = value;
+            states.washed = value;
             UpdateState();
         }
     }
@@ -78,12 +88,12 @@ public class ObjectState : MonoBehaviour
     {
         get
         {
-            return states.burnt.Value;
+            return states.burnt;
         }
 
         set
         {
-            states.burnt.Value = value;
+            states.burnt = value;
             UpdateState();
         }
     }
@@ -92,12 +102,12 @@ public class ObjectState : MonoBehaviour
     {
         get
         {
-            return states.smuged.Value;
+            return states.smuged;
         }
 
         set
         {
-            states.smuged.Value = value;
+            states.smuged = value;
             UpdateState();
         }
     }
@@ -106,12 +116,12 @@ public class ObjectState : MonoBehaviour
     {
         get
         {
-            return states.cooked.Value;
+            return states.cooked;
         }
 
         set
         {
-            states.cooked.Value = value;
+            states.cooked = value;
             UpdateState();
         }
     }
@@ -120,12 +130,12 @@ public class ObjectState : MonoBehaviour
     {
         get
         {
-            return states.grown.Value;
+            return states.grown;
         }
 
         set
         {
-            states.grown.Value = value;
+            states.grown = value;
             UpdateState();
         }
     }
@@ -134,12 +144,12 @@ public class ObjectState : MonoBehaviour
     {
         get
         {
-            return states.colored.Value;
+            return states.colored;
         }
 
         set
         {
-            states.colored.Value = value;
+            states.colored = value;
             UpdateState();
         }
     }
@@ -148,12 +158,12 @@ public class ObjectState : MonoBehaviour
     {
         get
         {
-            return states.broken.Value;
+            return states.broken;
         }
 
         set
         {
-            states.broken.Value = value;
+            states.broken = value;
             UpdateState();
         }
     }
@@ -162,12 +172,12 @@ public class ObjectState : MonoBehaviour
     {
         get
         {
-            return states.opened.Value;
+            return states.opened;
         }
 
         set
         {
-            states.opened.Value = value;
+            states.opened = value;
             UpdateState();
         }
     }
@@ -176,12 +186,12 @@ public class ObjectState : MonoBehaviour
     {
         get
         {
-            return states.plugged.Value;
+            return states.plugged;
         }
 
         set
         {
-            states.plugged.Value = value;
+            states.plugged = value;
             UpdateState();
         }
     }

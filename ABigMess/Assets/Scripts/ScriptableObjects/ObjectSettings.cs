@@ -14,9 +14,18 @@ public class ObjectSettings : ScriptableObject
 
     public bool IsTool()
     {
-        return objectType == ObjectType.brush || objectType == ObjectType.freeHand || objectType == ObjectType.oven || objectType == ObjectType.wateringCan;
+        return objectType == ObjectType.brush 
+            || objectType == ObjectType.freeHand 
+            || objectType == ObjectType.oven 
+            || objectType == ObjectType.wateringCan 
+            || objectType == ObjectType.plug;
     }
     
+    public bool NeedsToBePlugged()
+    {
+        return objectType == ObjectType.oven;
+    }
+
     public enum ObjectWeight
     {
         light,  // basic object
@@ -33,5 +42,6 @@ public class ObjectSettings : ScriptableObject
         box,
         oven,
         wateringCan,
+        plug,
     }
 }

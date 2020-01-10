@@ -9,15 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1376ca17ece9d9d48a80cf4337f799fd, type: 3}
-  m_Name: CookEvent
+  m_Script: {fileID: 11500000, guid: 700f429a1bf32014d865e190835bdb98, type: 3}
+  m_Name: BringCube
   m_EditorClassIdentifier: 
+  done: 0
+  description: Bring cube to Kitchen
+  destination: KitchenPlatform
+  objectType: 4
   washed:
     Key: 0
     Value: 0
   burnt:
-    Key: 1
-    Value: 1
+    Key: 0
+    Value: 0
   smuged:
     Key: 0
     Value: 0
@@ -39,4 +43,3 @@ MonoBehaviour:
   plugged:
     Key: 0
     Value: 0
-  smoke: {fileID: 7077657945059091276, guid: becbaf9943b416145926b02c94da3249, type: 3}
