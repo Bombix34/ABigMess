@@ -24,7 +24,7 @@ public class InteractObject : MonoBehaviour
     bool grabbed = false;
     bool childrenHaveMaterials;
 
-    Outline outline;
+    SimpleOutline outline;
 
     [SerializeField]
     AnimationCurve outlineAnimation;
@@ -46,7 +46,7 @@ public class InteractObject : MonoBehaviour
     private void Awake()
     {
         body = GetComponent<Rigidbody>();
-        outline = gameObject.AddComponent<Outline>();
+        outline = gameObject.AddComponent<SimpleOutline>();
         canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         if (canvas == null)
         {
@@ -55,7 +55,7 @@ public class InteractObject : MonoBehaviour
     }
     void Start()
     {
-        outline.OutlineMode = Outline.Mode.OutlineVisible;
+        outline.OutlineMode = SimpleOutline.Mode.OutlineVisible;
         outline.OutlineWidth = 0;
         SetupWeight();
     }

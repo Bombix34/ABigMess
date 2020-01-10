@@ -13,7 +13,7 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 
-public class Outline : MonoBehaviour
+public class SimpleOutline : MonoBehaviour
 {
     private static HashSet<Mesh> registeredMeshes = new HashSet<Mesh>();
 
