@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class ObjectTasksManager : MonoBehaviour
 {
@@ -12,30 +13,69 @@ public class ObjectTasksManager : MonoBehaviour
     private ObjectTask actualTask;
 
     private Canvas canvas;
-    private GridLayoutGroup tasksPanel;
+    private CanvasGroup tasksPanel;
     public GameObject taskPrefab;
 
     public Dictionary<int, TextMeshProUGUI> taskTexts;
+    public Dictionary<int, GameObject> tasksDisplays;
+
+    public float lastScreenWidth;
+    public float lastScreenHeight;
 
     void Start()
     {
         canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
-        tasksPanel = canvas.transform.Find("Tasks").GetComponent<GridLayoutGroup>();
+        tasksPanel = canvas.transform.Find("Tasks").GetComponent<CanvasGroup>();
         taskTexts = new Dictionary<int, TextMeshProUGUI>();
+        tasksDisplays = new Dictionary<int, GameObject>();
+
+        lastScreenWidth = Screen.width;
+        lastScreenHeight = Screen.height;
+
+        float height = tasksPanel.GetComponent<RectTransform>().rect.height;
+        float width = tasksPanel.GetComponent<RectTransform>().rect.width;
 
         for (int i = 0; i < objectTasks.Count; i++)
         {
             GameObject taskInstance = Instantiate(taskPrefab, tasksPanel.transform);
+            RectTransform taskInstanceRect = taskInstance.GetComponent<RectTransform>();
+            taskInstanceRect.anchoredPosition = 
+                new Vector2(-width / 2 + taskInstanceRect.sizeDelta.x/2
+                , -height / 2 + (taskInstanceRect.sizeDelta.y/ 2) + (taskInstanceRect.sizeDelta.y * i));
+
+
+            //taskInstanceRect.DOAnchorPosX(-786, 1);
+            //taskInstanceRect.DOAnchorPosY((190 * (objectTasks.Count -i)) - 400, 1);
             TextMeshProUGUI taskText = taskInstance.GetComponentInChildren<TextMeshProUGUI>();
             taskText.text = objectTasks[i].description;
             taskTexts.Add(i, taskText);
+            tasksDisplays.Add(i, taskInstance);
         }
     }
 
     void Update()
     {
+        if(lastScreenWidth != Screen.width || lastScreenHeight != Screen.height)
+        {
+            lastScreenWidth = Screen.width;
+            lastScreenHeight = Screen.height;
+            SetupTasksPositions();
+        }
 
+    }
 
+    public void SetupTasksPositions()
+    {
+        float height = tasksPanel.GetComponent<RectTransform>().rect.height;
+        float width = tasksPanel.GetComponent<RectTransform>().rect.width;
+
+        for (int i = 0; i < tasksDisplays.Count; i++)
+        {
+            RectTransform taskInstanceRect = tasksDisplays[i].GetComponent<RectTransform>();
+            taskInstanceRect.anchoredPosition =
+                new Vector2(-width / 2 + taskInstanceRect.sizeDelta.x / 2
+                , -height / 2 + (taskInstanceRect.sizeDelta.y / 2) + (taskInstanceRect.sizeDelta.y * i));
+        }
     }
 
     private void TaskDone(int taskId)
@@ -45,9 +85,16 @@ public class ObjectTasksManager : MonoBehaviour
 
     }
 
-    public void OnCollisionTask(GameObject gameObject)
+    private void TaskUnDone(int taskId)
     {
-        Collision collision = gameObject.GetComponent<CollideEvent>().collision;
+        taskTexts[taskId].text = taskTexts[taskId].text.Remove(0, 4);
+        taskTexts[taskId].color = Color.white;
+
+    }
+
+    public void OnCollisionEnterTask(GameObject gameObject)
+    {
+        Collision collision = gameObject.GetComponent<UnPlugEvent>().collision;
 
         if(collision.gameObject.GetComponent<InteractObject>() == null)
         {
@@ -89,6 +136,55 @@ public class ObjectTasksManager : MonoBehaviour
                 else if (actualTask.destination.Equals(""))
                 {
                     TaskDone(i);
+                }
+            }
+        }
+    }
+
+    public void OnCollisionExitTask(GameObject gameObject)
+    {
+        Collision collision = gameObject.GetComponent<UnPlugEvent>().collision;
+
+        if (collision.gameObject.GetComponent<InteractObject>() == null)
+        {
+            return;
+        }
+
+        ObjectSettings.ObjectType collisionObjectType = collision.gameObject.GetComponent<InteractObject>().Settings.objectType;
+
+        for (int i = 0; i < objectTasks.Count; i++)
+        {
+            actualTask = objectTasks[i];
+
+            if (collisionObjectType != actualTask.objectType)
+            {
+                continue;
+            }
+
+            if (collision.gameObject.GetComponent<ObjectState>() == null)
+            {
+                // If the object has no state, then no need to compare a state
+                if (actualTask.destination.Equals(gameObject.name))
+                {
+                    TaskUnDone(i);
+                }
+                else if (actualTask.destination.Equals(""))
+                {
+                    TaskUnDone(i);
+                }
+                continue;
+            }
+
+            if (VerifyStates(actualTask, collision.gameObject.GetComponent<ObjectState>().states))
+            {
+                //print(gameObject.name + "  " + actualTask.destination);
+                if (actualTask.destination.Equals(gameObject.name))
+                {
+                    TaskUnDone(i);
+                }
+                else if (actualTask.destination.Equals(""))
+                {
+                    TaskUnDone(i);
                 }
             }
         }
