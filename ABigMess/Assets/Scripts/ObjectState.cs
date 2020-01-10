@@ -3,19 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class ObjectState : MonoBehaviour
 {
 
-    [SerializeField] private bool washed;
-    [SerializeField] private bool burnt;
-    [SerializeField] private bool smuged;
-    [SerializeField] private bool cooked;
-    [SerializeField] private bool grown;
-    [SerializeField] private bool colored;
-    [SerializeField] private bool broken;
-    [SerializeField] private bool opened;
-    [SerializeField] private bool plugged;
+    public ObjectStates states;
 
 
     private void Start()
@@ -31,32 +22,32 @@ public class ObjectState : MonoBehaviour
 
     public void UpdateState()
     {
-        if (washed && GetComponent<Washed>() == null)
+        if (states.washed.Value && GetComponent<Washed>() == null)
         {
             gameObject.AddComponent<Washed>();
         }
 
-        if (!washed && GetComponent<Washed>() != null)
+        if (!states.washed.Value && GetComponent<Washed>() != null)
         {
             Destroy(GetComponent<Washed>());
         }
 
-        if (burnt && GetComponent<Burnt>() == null)
+        if (states.burnt.Value && GetComponent<Burnt>() == null)
         {
             gameObject.AddComponent<Burnt>();
         }
 
-        if (!burnt && GetComponent<Burnt>() != null)
+        if (!states.burnt.Value && GetComponent<Burnt>() != null)
         {
             Destroy(GetComponent<Burnt>());
         }
 
-        if (grown && GetComponent<Grown>() == null)
+        if (states.grown.Value && GetComponent<Grown>() == null)
         {
             gameObject.AddComponent<Grown>();
         }
 
-        if (!grown && GetComponent<Grown>() != null)
+        if (!states.grown.Value && GetComponent<Grown>() != null)
         {
             Destroy(GetComponent<Grown>());
         }
@@ -73,12 +64,12 @@ public class ObjectState : MonoBehaviour
     {
         get
         {
-            return washed;
+            return states.washed.Value;
         }
 
         set
         {
-            washed = value;
+            states.washed.Value = value;
             UpdateState();
         }
     }
@@ -87,12 +78,12 @@ public class ObjectState : MonoBehaviour
     {
         get
         {
-            return burnt;
+            return states.burnt.Value;
         }
 
         set
         {
-            burnt = value;
+            states.burnt.Value = value;
             UpdateState();
         }
     }
@@ -101,12 +92,12 @@ public class ObjectState : MonoBehaviour
     {
         get
         {
-            return smuged;
+            return states.smuged.Value;
         }
 
         set
         {
-            smuged = value;
+            states.smuged.Value = value;
             UpdateState();
         }
     }
@@ -115,12 +106,12 @@ public class ObjectState : MonoBehaviour
     {
         get
         {
-            return cooked;
+            return states.cooked.Value;
         }
 
         set
         {
-            cooked = value;
+            states.cooked.Value = value;
             UpdateState();
         }
     }
@@ -129,12 +120,12 @@ public class ObjectState : MonoBehaviour
     {
         get
         {
-            return grown;
+            return states.grown.Value;
         }
 
         set
         {
-            grown = value;
+            states.grown.Value = value;
             UpdateState();
         }
     }
@@ -143,12 +134,12 @@ public class ObjectState : MonoBehaviour
     {
         get
         {
-            return colored;
+            return states.colored.Value;
         }
 
         set
         {
-            colored = value;
+            states.colored.Value = value;
             UpdateState();
         }
     }
@@ -157,12 +148,12 @@ public class ObjectState : MonoBehaviour
     {
         get
         {
-            return broken;
+            return states.broken.Value;
         }
 
         set
         {
-            broken = value;
+            states.broken.Value = value;
             UpdateState();
         }
     }
@@ -171,12 +162,12 @@ public class ObjectState : MonoBehaviour
     {
         get
         {
-            return opened;
+            return states.opened.Value;
         }
 
         set
         {
-            opened = value;
+            states.opened.Value = value;
             UpdateState();
         }
     }
@@ -185,12 +176,12 @@ public class ObjectState : MonoBehaviour
     {
         get
         {
-            return plugged;
+            return states.plugged.Value;
         }
 
         set
         {
-            plugged = value;
+            states.plugged.Value = value;
             UpdateState();
         }
     }
