@@ -60,6 +60,7 @@ public class InteractObject : MonoBehaviour
     {
         outline.OutlineMode = Outline.Mode.OutlineVisible;
         outline.OutlineWidth = 0;
+        body.isKinematic = false;
       //  SetupWeight();
     }
 
@@ -134,43 +135,38 @@ public class InteractObject : MonoBehaviour
             Debug.Log("Settings of the object "+ this.gameObject.name  +" missing");
             return;
         }
-        if(settings.weightType == ObjectSettings.ObjectWeight.heavy)
-        {
-            body.isKinematic = true;
-        }
-        else
-        {
-            body.isKinematic = false;
-        }
+        body.useGravity = true;
         body.isKinematic = false;
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="player"></param>
-    /// <returns>return true if the object can move</returns>
-    public bool Grab(GameObject player)
+    
+    public void Grab(GameObject player)
     {
         grabbed = true;
         attachedPlayers.Add(player);
         if(settings!=null)
         {
-            if(settings.weightType == ObjectSettings.ObjectWeight.heavy )
+            if (IsHeavy()) 
             {
                 if(attachedPlayers.Count > 1)
                 {
-                    body.isKinematic = false;
-                    body.useGravity = false;
+                    //body.isKinematic = false;
+                    if(attachedPlayers.Count==2)
+                    {
+                        SetupHeavyObjectBringed();
+                    }
+                    else
+                    {
+                        this.gameObject.GetComponent<MultiplayerBring>().UpdatePlayers(attachedPlayers);
+                    }
                 }
                 else
                 {
-                    body.isKinematic = true;
+                    attachedPlayers[0].GetComponent<PlayerManager>().Movement.CanMove = false;
                 }
             }
             else
             {
-                body.isKinematic = false;
+                //body.isKinematic = false;
                 body.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
                 body.useGravity = false;
             }
@@ -180,15 +176,33 @@ public class InteractObject : MonoBehaviour
             body.isKinematic = false;
         }
         ResetHighlight();
-        return !body.isKinematic;
+    }
+
+    public void SetupHeavyObjectBringed()
+    {
+        MultiplayerBring bringSystem = this.gameObject.AddComponent<MultiplayerBring>();
+        bringSystem.UpdatePlayers(attachedPlayers);
+        bringSystem.SetMovementSettings(attachedPlayers[0].GetComponent<PlayerManager>().Reglages);
     }
 
     public void Dropdown(GameObject player)
     {
         grabbed = false;
         body.constraints = RigidbodyConstraints.None;
-        body.useGravity = true;
         attachedPlayers.Remove(player);
+        if(IsHeavy())
+        {
+            MultiplayerBring bringSystem = this.gameObject.GetComponent<MultiplayerBring>();
+            if (bringSystem!=null)
+            {
+                bringSystem.UpdatePlayers(attachedPlayers);
+                if (attachedPlayers.Count < 2 )
+                {
+                    this.GetComponent<MultiplayerBring>().EndMovement();
+                    attachedPlayers[0].GetComponent<PlayerManager>().Movement.CanMove = false;
+                }
+            }
+        }
         SetupWeight();
     }
 
@@ -310,6 +324,11 @@ public class InteractObject : MonoBehaviour
     public ObjectSettings Settings
     {
         get => settings;
+    }
+
+    public bool IsHeavy()
+    {
+        return (settings.weightType == ObjectSettings.ObjectWeight.heavy);
     }
 
     #endregion

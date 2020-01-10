@@ -59,7 +59,6 @@ public class PlayerManager : ObjectManager
         UpdateGrabbedObject();
         movement.PreventPlayerRotation();
         currentState.Execute();
-        print(currentState.stateName);
     }
 
     private void FixedUpdate()
@@ -138,7 +137,7 @@ public class PlayerManager : ObjectManager
         if (interactObject != null)
         {
             grabbedObject = interactObject;
-            movement.CanMove = grabbedObject.GetComponent<InteractObject>().Grab(this.gameObject);
+            grabbedObject.GetComponent<InteractObject>().Grab(this.gameObject);
             ResetRaycastedObjects();
             timeStartedLerping = Time.time;
             //grabbedObject.transform.parent = bringPosition.transform;
@@ -362,9 +361,19 @@ public class PlayerManager : ObjectManager
 
     #region GET/SET
 
-    public PlayerInputManager GetInputManager()
+    public PlayerInputManager Inputs
     {
-        return inputs;
+        get => inputs;
+    }
+
+    public PlayerReglages Reglages
+    {
+        get => reglages;
+    }
+
+    public PlayerMovement Movement
+    {
+        get => movement;
     }
 
     public int CurrentRoomNb

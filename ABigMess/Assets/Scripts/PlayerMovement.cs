@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rigidBody;
     bool canMove = true;
     bool canRotate = true;
+    bool canRotateTorso = true;
     PlayerReglages reglages;
     Vector3 currentVelocity;
 
@@ -49,8 +50,11 @@ public class PlayerMovement : MonoBehaviour
             RotatePlayer(playerInputs.z, -playerInputs.x);
         }
         currentVelocity = Vector3.zero;
-        currentVelocity += heading * amplitude * (reglages.moveSpeed / 5f);
+        rigidBody.velocity = currentVelocity;
+        currentVelocity += heading * amplitude * (reglages.moveSpeed/5f);
         rigidBody.MovePosition(transform.position + currentVelocity);
+
+        print(rigidBody.velocity);
     }
 
     /// <summary>
@@ -89,6 +93,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void RotateTorso(bool isMoving)
     {
+        if(!canRotateTorso)
+        {
+            return;
+        }
         if(isMoving)
         {
             if (indexRotationTorso < SIZE_ROTATION_SAVE / 2 && !isInitTorsoRotation)
@@ -196,6 +204,14 @@ public class PlayerMovement : MonoBehaviour
         set
         {
             canRotate = value;
+        }
+    }
+
+    public bool CanRotateTorso
+    {
+        set
+        {
+            canRotateTorso = value;
         }
     }
 
