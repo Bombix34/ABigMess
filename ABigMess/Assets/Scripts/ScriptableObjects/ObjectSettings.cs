@@ -16,7 +16,7 @@ public class ObjectSettings : ScriptableObject
     {
         return objectType == ObjectType.toolFreeHand //missing ---------
             || objectType == ObjectType.toolGardening
-            || objectType == ObjectType.toolMicrowave
+            || objectType == ObjectType.toolOwen
             || objectType == ObjectType.toolPaintingBrush
             || objectType == ObjectType.toolStationaryElectricWashing
             || objectType == ObjectType.toolStationaryWashing
@@ -27,8 +27,7 @@ public class ObjectSettings : ScriptableObject
     
     public bool NeedsToBePlugged()
     {
-        return objectType == ObjectType.toolStationaryElectricWashing
-            || objectType == ObjectType.toolMicrowave;
+        return objectType == ObjectType.toolStationaryElectricWashing;
     }
 
     public enum ObjectWeight
@@ -44,7 +43,7 @@ public class ObjectSettings : ScriptableObject
         plug, //not sure-------------
         toolFreeHand,
         toolGardening,
-        toolMicrowave,
+        toolOwen,
         toolPaintingBrush,
         toolStationaryElectricWashing,
         toolStationaryWashing,
