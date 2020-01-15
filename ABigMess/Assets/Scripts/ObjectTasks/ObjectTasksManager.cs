@@ -9,8 +9,7 @@ using DG.Tweening;
 public class ObjectTasksManager : MonoBehaviour
 {
 
-    public List<ObjectTask> objectTasks;
-    private ObjectTask actualTask;
+    public ObjectTaskGroup objectTasksGroup;
 
     private Canvas canvas;
     private CanvasGroup tasksPanel;
@@ -18,6 +17,7 @@ public class ObjectTasksManager : MonoBehaviour
 
     public Dictionary<int, TextMeshProUGUI> taskTexts;
     public Dictionary<int, GameObject> tasksDisplays;
+    public Dictionary<int, ObjectTask> tasksToDo;
 
     public float lastScreenWidth;
     public float lastScreenHeight;
@@ -28,34 +28,14 @@ public class ObjectTasksManager : MonoBehaviour
         tasksPanel = canvas.transform.Find("Tasks").GetComponent<CanvasGroup>();
         taskTexts = new Dictionary<int, TextMeshProUGUI>();
         tasksDisplays = new Dictionary<int, GameObject>();
+        tasksToDo = new Dictionary<int, ObjectTask>();
 
-        lastScreenWidth = Screen.width;
-        lastScreenHeight = Screen.height;
-
-        float height = tasksPanel.GetComponent<RectTransform>().rect.height;
-        float width = tasksPanel.GetComponent<RectTransform>().rect.width;
-
-        for (int i = 0; i < objectTasks.Count; i++)
-        {
-            GameObject taskInstance = Instantiate(taskPrefab, tasksPanel.transform);
-            RectTransform taskInstanceRect = taskInstance.GetComponent<RectTransform>();
-            taskInstanceRect.anchoredPosition = 
-                new Vector2(-width / 2 + taskInstanceRect.sizeDelta.x/2
-                , -height / 2 + (taskInstanceRect.sizeDelta.y/ 2) + (taskInstanceRect.sizeDelta.y * i));
-
-
-            //taskInstanceRect.DOAnchorPosX(-786, 1);
-            //taskInstanceRect.DOAnchorPosY((190 * (objectTasks.Count -i)) - 400, 1);
-            TextMeshProUGUI taskText = taskInstance.GetComponentInChildren<TextMeshProUGUI>();
-            taskText.text = objectTasks[i].description;
-            taskTexts.Add(i, taskText);
-            tasksDisplays.Add(i, taskInstance);
-        }
+        AddTasks();
     }
 
     void Update()
     {
-        if(lastScreenWidth != Screen.width || lastScreenHeight != Screen.height)
+        if (lastScreenWidth != Screen.width || lastScreenHeight != Screen.height)
         {
             lastScreenWidth = Screen.width;
             lastScreenHeight = Screen.height;
@@ -80,115 +60,136 @@ public class ObjectTasksManager : MonoBehaviour
 
     private void TaskDone(int taskId)
     {
-         taskTexts[taskId].text = "OK! " + objectTasks[taskId].description;
-         taskTexts[taskId].color = Color.yellow;
-
+        taskTexts[taskId].text = "OK! " + objectTasksGroup.objectTasks[taskId].description;
+        taskTexts[taskId].color = Color.yellow;
+        tasksToDo.Remove(taskId);
     }
 
     private void TaskUnDone(int taskId)
     {
         taskTexts[taskId].text = taskTexts[taskId].text.Remove(0, 4);
         taskTexts[taskId].color = Color.white;
-
+        tasksToDo.Add(taskId, objectTasksGroup.objectTasks[taskId]);
     }
 
-    public void OnCollisionEnterTask(GameObject gameObject)
+    public void OnCollisionEnterTask(GameObject platform)
     {
-        Collision collision = gameObject.GetComponent<UnPlugEvent>().collision;
+        TaskDone(platform, true);
 
-        if(collision.gameObject.GetComponent<InteractObject>() == null)
+        if (tasksToDo.Count == 0)
         {
+            objectTasksGroup = objectTasksGroup.nextTasks;
+            AddTasks();
+        }
+    }
+
+    public void OnCollisionExitTask(GameObject platform)
+    {
+        TaskDone(platform, false);
+    }
+
+    private void TaskDone(GameObject platform, bool done)
+    {
+        // Get the collision that collided with the platform
+        Collision collision = platform.gameObject.GetComponent<UnPlugEvent>().collision;
+
+        // Get the object that collided with the platform        
+        InteractObject interactObject = collision.gameObject.GetComponent<InteractObject>();
+
+        // No task should work without an interactObject
+        if (interactObject == null)
+        {
+            Debug.LogError("You should use an interact object to do a task");
             return;
         }
 
-        ObjectSettings.ObjectType collisionObjectType = collision.gameObject.GetComponent<InteractObject>().Settings.objectType;
+        ObjectSettings.ObjectType collisionObjectType = interactObject.Settings.objectType;
 
-        for (int i = 0; i < objectTasks.Count; i++)
+        for (int i = 0; i < objectTasksGroup.objectTasks.Count; i++)
         {
-            actualTask = objectTasks[i];
+            ObjectTask actualTask = objectTasksGroup.objectTasks[i];
 
+            //Debug.Log(collisionObjectType + " != " + actualTask.objectType);
             if (collisionObjectType != actualTask.objectType)
             {
                 continue;
             }
 
+            // If the object has no state, then no need to compare a state
             if (collision.gameObject.GetComponent<ObjectState>() == null)
             {
-                // If the object has no state, then no need to compare a state
-                if (actualTask.destination.Equals(gameObject.name))
+                // Check if the task destination is the same as the passed plateform 
+                if (actualTask.destination.Equals(platform.name))
                 {
-                    TaskDone(i);
+                    TasksDoneOrUndone(done, i);
                 }
-                else if (actualTask.destination.Equals(""))
+                else if (actualTask.destination.Equals("")) // If no destination has been set, any platform works
                 {
-                    TaskDone(i);
+                    TasksDoneOrUndone(done, i);
                 }
                 continue;
             }
 
+            // If the object has a state, then veryfy if the states of the object correspond with what is wanted
             if (VerifyStates(actualTask, collision.gameObject.GetComponent<ObjectState>().states))
             {
                 //print(gameObject.name + "  " + actualTask.destination);
-                if (actualTask.destination.Equals(gameObject.name))
+                if (actualTask.destination.Equals(platform.name))
                 {
-                    TaskDone(i);
+                    TasksDoneOrUndone(done, i);
                 }
                 else if (actualTask.destination.Equals(""))
                 {
-                    TaskDone(i);
+                    TasksDoneOrUndone(done, i);
                 }
             }
         }
     }
 
-    public void OnCollisionExitTask(GameObject gameObject)
+    private void TasksDoneOrUndone(bool done, int i)
     {
-        Collision collision = gameObject.GetComponent<UnPlugEvent>().collision;
-
-        if (collision.gameObject.GetComponent<InteractObject>() == null)
+        if (done)
         {
-            return;
+            TaskDone(i);
         }
-
-        ObjectSettings.ObjectType collisionObjectType = collision.gameObject.GetComponent<InteractObject>().Settings.objectType;
-
-        for (int i = 0; i < objectTasks.Count; i++)
+        else
         {
-            actualTask = objectTasks[i];
-
-            if (collisionObjectType != actualTask.objectType)
-            {
-                continue;
-            }
-
-            if (collision.gameObject.GetComponent<ObjectState>() == null)
-            {
-                // If the object has no state, then no need to compare a state
-                if (actualTask.destination.Equals(gameObject.name))
-                {
-                    TaskUnDone(i);
-                }
-                else if (actualTask.destination.Equals(""))
-                {
-                    TaskUnDone(i);
-                }
-                continue;
-            }
-
-            if (VerifyStates(actualTask, collision.gameObject.GetComponent<ObjectState>().states))
-            {
-                //print(gameObject.name + "  " + actualTask.destination);
-                if (actualTask.destination.Equals(gameObject.name))
-                {
-                    TaskUnDone(i);
-                }
-                else if (actualTask.destination.Equals(""))
-                {
-                    TaskUnDone(i);
-                }
-            }
+            TaskUnDone(i);
         }
     }
+
+    private void AddTasks()
+    {
+        taskTexts.Clear();
+        tasksDisplays.Clear();
+        tasksToDo.Clear();
+
+        lastScreenWidth = Screen.width;
+        lastScreenHeight = Screen.height;
+
+        float height = tasksPanel.GetComponent<RectTransform>().rect.height;
+        float width = tasksPanel.GetComponent<RectTransform>().rect.width;
+
+        for (int i = 0; i < objectTasksGroup.objectTasks.Count; i++)
+        {
+            GameObject taskInstance = Instantiate(taskPrefab, tasksPanel.transform);
+            RectTransform taskInstanceRect = taskInstance.GetComponent<RectTransform>();
+            taskInstanceRect.anchoredPosition =
+                new Vector2(-width / 2 + taskInstanceRect.sizeDelta.x / 2
+                , -height / 2 - (taskInstanceRect.sizeDelta.y / 2));
+
+
+
+            taskInstanceRect.DOAnchorPosY(-height / 2 + (taskInstanceRect.sizeDelta.y / 2) + (taskInstanceRect.sizeDelta.y * i), 1);
+            TextMeshProUGUI taskText = taskInstance.GetComponentInChildren<TextMeshProUGUI>();
+            taskText.text = objectTasksGroup.objectTasks[i].description;
+            taskTexts.Add(i, taskText);
+            tasksDisplays.Add(i, taskInstance);
+            tasksToDo.Add(i, objectTasksGroup.objectTasks[i]);
+        }
+    }
+
+
 
     /// <summary>
     /// Verify if each state needs to be set: if it needs to be set and the value is different
@@ -200,7 +201,7 @@ public class ObjectTasksManager : MonoBehaviour
     /// <returns></returns>
     private bool VerifyStates(ObjectTask actualTask, ObjectStates states)
     {
-        if(CheckBoolPairState(actualTask.washed, states.washed))
+        if (CheckBoolPairState(actualTask.washed, states.washed))
         {
             return false;
         }
