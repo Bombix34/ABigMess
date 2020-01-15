@@ -24,7 +24,7 @@ public class InteractObject : MonoBehaviour
     bool grabbed = false;
     bool childrenHaveMaterials;
 
-    Outline outline;
+    SimpleOutline outline;
 
     [SerializeField]
     AnimationCurve outlineAnimation;
@@ -46,7 +46,7 @@ public class InteractObject : MonoBehaviour
     private void Awake()
     {
         body = GetComponent<Rigidbody>();
-        outline = gameObject.AddComponent<Outline>();
+        outline = gameObject.AddComponent<SimpleOutline>();
         canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         if (canvas == null)
         {
@@ -55,7 +55,7 @@ public class InteractObject : MonoBehaviour
     }
     void Start()
     {
-        outline.OutlineMode = Outline.Mode.OutlineVisible;
+        outline.OutlineMode = SimpleOutline.Mode.OutlineVisible;
         outline.OutlineWidth = 0;
         SetupWeight();
     }
@@ -88,18 +88,34 @@ public class InteractObject : MonoBehaviour
         UpdateOverlayPosition();
     }
 
+    /// <summary>
+    /// Interact if I have a tool in hand
+    /// </summary>
+    /// <param name="grabbedObject">Is the tool</param>
     public void Interact(GameObject grabbedObject)
     {
         InteractObject toolObj = grabbedObject.GetComponent<InteractObject>();
-        if (toolObj.Settings.IsTool())
+
+        if (toolObj.Settings.IsTool() && !toolObj.Settings.NeedsToBePlugged())
         {
             ToolSettings tool = (ToolSettings)toolObj.Settings;
             tool.ApplyEvent(this);
         }
+        else if (toolObj.Settings.IsTool() && toolObj.Settings.NeedsToBePlugged())
+        {
+            if (toolObj.GetComponent<ObjectState>() != null)
+            {
+                if (toolObj.GetComponent<ObjectState>().Plugged)
+                {
+                    ToolSettings tool = (ToolSettings)toolObj.Settings;
+                    tool.ApplyEvent(this);
+                }
+            } 
+        }
         else
         {
             // if I'm a tool
-            if (Settings.IsTool())
+            if (Settings.IsTool() && !Settings.NeedsToBePlugged())
             {
                 ToolSettings tool = (ToolSettings)Settings;
                 tool.ApplyEvent(toolObj);
