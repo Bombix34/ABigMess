@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 7146837521137475696}
   - component: {fileID: 7146837521137475703}
   - component: {fileID: 7146837521137475661}
-  - component: {fileID: 7146837521137475662}
   m_Layer: 0
   m_Name: 20Radio
   m_TagString: GrabObject
@@ -175,7 +174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   states:
     washed: 0
-    burnt: 1
+    burnt: 0
     smuged: 0
     cooked: 0
     grown: 0
@@ -183,15 +182,3 @@ MonoBehaviour:
     broken: 0
     opened: 0
     plugged: 0
---- !u!114 &7146837521137475662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7146837521137475702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 645ccacbf7dadd146bf5ecddf658b5a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
