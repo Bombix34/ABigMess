@@ -27,7 +27,7 @@ public class ObjectSettings : ScriptableObject
     
     public bool NeedsToBePlugged()
     {
-        return objectType == ObjectType.toolStationaryElectricWashing;
+        return objectType == ObjectType.toolStationaryElectricWashing; //maybe fridge and shit
     }
 
     public enum ObjectWeight
@@ -35,7 +35,7 @@ public class ObjectSettings : ScriptableObject
         light,  // basic object
         medium, // object that slow you down
         heavy,   // object that need 2 players to be bringed
-        immobile //stationary tools
+        immobile // stationary tools
     }
 
     public enum ObjectType
