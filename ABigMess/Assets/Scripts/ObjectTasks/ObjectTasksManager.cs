@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.Events;
 
 public class ObjectTasksManager : MonoBehaviour
 {
@@ -16,18 +17,23 @@ public class ObjectTasksManager : MonoBehaviour
     public GameObject taskPrefab;
 
     public Dictionary<int, TextMeshProUGUI> taskTexts;
-    public Dictionary<int, GameObject> tasksDisplays;
+    public Dictionary<int, GameObject> taskDisplays;
     public Dictionary<int, ObjectTask> tasksToDo;
 
-    public float lastScreenWidth;
-    public float lastScreenHeight;
+    private float lastScreenWidth;
+    private float lastScreenHeight;
+
+    [Range(0, 100)]
+    public float marginX = 25;
+    [Range(0, 100)]
+    public float marginY = 25;
 
     void Start()
     {
         canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         tasksPanel = canvas.transform.Find("Tasks").GetComponent<CanvasGroup>();
         taskTexts = new Dictionary<int, TextMeshProUGUI>();
-        tasksDisplays = new Dictionary<int, GameObject>();
+        taskDisplays = new Dictionary<int, GameObject>();
         tasksToDo = new Dictionary<int, ObjectTask>();
 
         AddTasks();
@@ -49,27 +55,35 @@ public class ObjectTasksManager : MonoBehaviour
         float height = tasksPanel.GetComponent<RectTransform>().rect.height;
         float width = tasksPanel.GetComponent<RectTransform>().rect.width;
 
-        for (int i = 0; i < tasksDisplays.Count; i++)
+        for (int i = 0; i < taskDisplays.Count; i++)
         {
-            RectTransform taskInstanceRect = tasksDisplays[i].GetComponent<RectTransform>();
+            RectTransform taskInstanceRect = taskDisplays[i].GetComponent<RectTransform>();
             taskInstanceRect.anchoredPosition =
-                new Vector2(-width / 2 + taskInstanceRect.sizeDelta.x / 2
-                , -height / 2 + (taskInstanceRect.sizeDelta.y / 2) + (taskInstanceRect.sizeDelta.y * i));
+                new Vector2(-width / 2 + taskInstanceRect.sizeDelta.x / 2 + marginX
+                , height / 2 - (taskInstanceRect.sizeDelta.y / 2) - (taskInstanceRect.sizeDelta.y * i) - marginY);
         }
     }
 
     private void TaskDone(int taskId)
     {
-        taskTexts[taskId].text = "OK! " + objectTasksGroup.objectTasks[taskId].description;
-        taskTexts[taskId].color = Color.yellow;
-        tasksToDo.Remove(taskId);
+        if (tasksToDo.ContainsKey(taskId))
+        {
+            taskTexts[taskId].text = "OK! " + objectTasksGroup.objectTasks[taskId].description;
+            taskTexts[taskId].color = Color.yellow;
+
+            tasksToDo.Remove(taskId);
+        }
     }
 
     private void TaskUnDone(int taskId)
     {
-        taskTexts[taskId].text = taskTexts[taskId].text.Remove(0, 4);
-        taskTexts[taskId].color = Color.white;
-        tasksToDo.Add(taskId, objectTasksGroup.objectTasks[taskId]);
+        if (!tasksToDo.ContainsKey(taskId))
+        {
+            taskTexts[taskId].text = taskTexts[taskId].text.Remove(0, 4);
+            taskTexts[taskId].color = Color.white;
+
+            tasksToDo.Add(taskId, objectTasksGroup.objectTasks[taskId]);
+        }
     }
 
     public void OnCollisionEnterTask(GameObject platform)
@@ -78,6 +92,7 @@ public class ObjectTasksManager : MonoBehaviour
 
         if (tasksToDo.Count == 0)
         {
+            // When tasks from a group are done
             objectTasksGroup = objectTasksGroup.nextTasks;
             AddTasks();
         }
@@ -160,9 +175,7 @@ public class ObjectTasksManager : MonoBehaviour
 
     private void AddTasks()
     {
-        taskTexts.Clear();
-        tasksDisplays.Clear();
-        tasksToDo.Clear();
+        ClearTasksGroup();
 
         lastScreenWidth = Screen.width;
         lastScreenHeight = Screen.height;
@@ -175,21 +188,37 @@ public class ObjectTasksManager : MonoBehaviour
             GameObject taskInstance = Instantiate(taskPrefab, tasksPanel.transform);
             RectTransform taskInstanceRect = taskInstance.GetComponent<RectTransform>();
             taskInstanceRect.anchoredPosition =
-                new Vector2(-width / 2 + taskInstanceRect.sizeDelta.x / 2
-                , -height / 2 - (taskInstanceRect.sizeDelta.y / 2));
+                new Vector2(-width / 2 + taskInstanceRect.sizeDelta.x / 2 + marginX
+                , height / 2 + (taskInstanceRect.sizeDelta.y / 2) + marginY);
 
 
-
-            taskInstanceRect.DOAnchorPosY(-height / 2 + (taskInstanceRect.sizeDelta.y / 2) + (taskInstanceRect.sizeDelta.y * i), 1);
+            // Make the tasks appear from the top
+            taskInstanceRect.DOAnchorPosY(height / 2 - (taskInstanceRect.sizeDelta.y / 2) - (taskInstanceRect.sizeDelta.y * i) - marginY, 1);
             TextMeshProUGUI taskText = taskInstance.GetComponentInChildren<TextMeshProUGUI>();
             taskText.text = objectTasksGroup.objectTasks[i].description;
             taskTexts.Add(i, taskText);
-            tasksDisplays.Add(i, taskInstance);
+            taskDisplays.Add(i, taskInstance);
             tasksToDo.Add(i, objectTasksGroup.objectTasks[i]);
         }
     }
 
+    private void ClearTasksGroup()
+    {
+        lastScreenWidth = Screen.width;
 
+        float width = tasksPanel.GetComponent<RectTransform>().rect.width;
+
+        for (int i = 0; i < taskDisplays.Count; i++)
+        {
+            RectTransform taskDisplay = taskDisplays[i].GetComponent<RectTransform>();
+            taskDisplay.DOAnchorPosX(-width / 2 - taskDisplay.sizeDelta.x / 2, 0.5f);
+            Destroy(taskDisplay.gameObject, 0.5f);
+        }
+
+        taskTexts.Clear();
+        taskDisplays.Clear();
+        tasksToDo.Clear();
+    }
 
     /// <summary>
     /// Verify if each state needs to be set: if it needs to be set and the value is different
