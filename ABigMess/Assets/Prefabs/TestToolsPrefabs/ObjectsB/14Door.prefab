@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 7146837521137475696}
   - component: {fileID: 7146837521137475703}
   - component: {fileID: 7146837521137475661}
-  - component: {fileID: 7146837521137475662}
   m_Layer: 0
   m_Name: 14Door
   m_TagString: GrabObject
@@ -44,7 +43,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7146837521137475702}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -5053925668127403250, guid: 3bcdd4d1ee44b744fb1c3fb6dbb2d77d, type: 3}
 --- !u!23 &7146837521137475698
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -93,8 +92,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.70918965, y: 2.7512035, z: 2}
+  m_Center: {x: -1.0238608, y: 0.3756017, z: 0}
 --- !u!54 &7146837521137475696
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -175,7 +174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   states:
     washed: 0
-    burnt: 1
+    burnt: 0
     smuged: 0
     cooked: 0
     grown: 0
@@ -183,15 +182,3 @@ MonoBehaviour:
     broken: 0
     opened: 0
     plugged: 0
---- !u!114 &7146837521137475662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7146837521137475702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 645ccacbf7dadd146bf5ecddf658b5a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
