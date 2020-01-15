@@ -12,9 +12,6 @@ public class PlayerManager : ObjectManager
 
     private PlayerInputManager inputs;
 
-    [SerializeField]
-    private Animator animator;
-
     private PlayerMovement movement;
     private PlayerRenderer renderer;
 
@@ -43,7 +40,7 @@ public class PlayerManager : ObjectManager
     private List<InteractObject> raycastedObjects;
     private int raycastIndex = 0;
 
-    void Awake()
+    private void Awake()
     {
         inputs = GetComponent<PlayerInputManager>();
         movement = GetComponent<PlayerMovement>();
@@ -54,20 +51,15 @@ public class PlayerManager : ObjectManager
         ChangeState(new PlayerBaseState(this));
     }
 
-    private void Start()
-    {
-    }
-
     private void Update()
     {
         //TEST__________
         UpdateQuackSound();
         //__________
         RaycastObject();
-        UpdateGrabbedObject();
         movement.PreventPlayerRotation();
         currentState.Execute();
-        UpdateAnimation();
+        renderer.UpdateAnimation(inputs.GetMovementInput().magnitude);
     }
 
     private void FixedUpdate()
@@ -80,24 +72,9 @@ public class PlayerManager : ObjectManager
         base.ChangeState(newState);
     }
 
-    private void OnDrawGizmos()
-    {
-        /*
-        Gizmos.color = new Color(1f, 0f, 0f, 1f);
-      //  Gizmos.DrawRay(lastRaycastRay);
-        Gizmos.DrawWireSphere(movement.GetFrontPosition(), reglages.raycastRadius);
-        Gizmos.DrawWireSphere(new Vector3(movement.GetFrontPosition().x, movement.GetFrontPosition().y * 1.3f, movement.GetFrontPosition().z),reglages.raycastRadius);
-        */
-    }
-
     public void UpdateMovement()
     {
         movement.DoMove(inputs.GetMovementInput());
-    }
-
-    public void UpdateAnimation()
-    {
-        animator.SetFloat("MovementSpeed", inputs.GetMovementInput().magnitude );
     }
 
     public void UpdateQuackSound()
@@ -151,41 +128,45 @@ public class PlayerManager : ObjectManager
     {
         if (interactObject != null)
         {
+            if(interactObject.GetComponent<InteractObject>().GetObjectWeight==ObjectSettings.ObjectWeight.immobile)
+            {
+                return;
+            }
             grabbedObject = interactObject;
             grabbedObject.GetComponent<InteractObject>().Grab();
             ResetRaycastedObjects();
             timeStartedLerping = Time.time;
-            //grabbedObject.transform.parent = bringPosition.transform;
             startGrabPosition = grabbedObject.transform.position;
             reachedPosition = false;
             interactObject = null;
             movement.ResetTorso();
-            //renderer.AttachHandToObject();
+            UpdateGrabbedObject();
             ChangeState(new PlayerBringState(this, grabbedObject.GetComponent<InteractObject>()));
         }
     }
 
+    /// <summary>
+    /// function to take the object in hand
+    /// </summary>
     void UpdateGrabbedObject()
     {
         if (grabbedObject == null)
         {
             return;
         }
-        if (!reachedPosition)
+        //Update position according to weight
+        ObjectSettings.ObjectWeight weight = ObjectSettings.ObjectWeight.light;
+        if (grabbedObject.GetComponent<InteractObject>().Settings == null)
         {
-            float timeSinceStarted = Time.time - timeStartedLerping;
-            float percentage = timeSinceStarted / grabSpeed;
-
-            //Update position according to weight
-            ObjectSettings.ObjectWeight weight = ObjectSettings.ObjectWeight.light;
-            if (grabbedObject.GetComponent<InteractObject>().Settings == null)
-            {
-                Debug.LogError("Define settings for the object: " + grabbedObject.name);
-            }
-            else
-            {
-                weight = grabbedObject.GetComponent<InteractObject>().Settings.weightType;
-            }
+            Debug.LogError("Define settings for the object: " + grabbedObject.name);
+        }
+        else
+        {
+            weight = grabbedObject.GetComponent<InteractObject>().Settings.weightType;
+        }
+        while (!reachedPosition)
+        {
+            Vector3 dirVector = bringPosition.transform.position - grabbedObject.transform.position;
 
             switch (weight)
             {
@@ -195,9 +176,9 @@ public class PlayerManager : ObjectManager
                     reachedPosition = true;
                     break;
                 default:
-                    grabbedObject.transform.position = Vector3.Lerp(startGrabPosition, bringPosition.transform.position, percentage);
+                    grabbedObject.transform.position += dirVector.normalized * grabSpeed;
                     grabbedObject.transform.rotation = transform.rotation * Quaternion.Euler(grabbedObject.GetComponent<InteractObject>().Rotation);
-                    if (percentage >= 1.0f) // Once we finished to lerp
+                    if (dirVector.magnitude < 0.1f)
                     {
                         grabbedObject.transform.parent = bringPosition.transform;
                         renderer.AttachHandToObject();
@@ -316,7 +297,7 @@ public class PlayerManager : ObjectManager
                 RaycastHit hit;
                 Physics.Raycast(transform.position, raycastedObject.transform.position - transform.position, out hit, 5f);
 
-                if (!hit.collider.CompareTag("Wall")) // If we are not going through a wall
+                if (hit.collider!=null && !hit.collider.CompareTag("Wall")) // If we are not going through a wall
                 {
                     if (grabbedObject != null && raycastedObject == grabbedObject)
                     {

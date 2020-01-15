@@ -5,13 +5,13 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    Rigidbody rigidBody;
-    bool canMove = true;
-    PlayerReglages reglages;
-    Vector3 currentVelocity;
+    private Rigidbody rigidBody;
+    private bool canMove = true;
+    private PlayerReglages reglages;
+    private Vector3 currentVelocity;
 
     [SerializeField]
-    GameObject torso;
+    private GameObject torso;
 
     private void Awake()
     {
@@ -67,6 +67,23 @@ public class PlayerMovement : MonoBehaviour
         {
             rigidBody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         }
+    }
+
+    public Vector3 GetFrontPosition()
+    {
+        //FONCTION POUR OBTENIR LA POSITION DEVANT LE PERSONNAGE
+        //POSITION OU INTERAGIR ET POSER LES OBJETS
+        Vector3 forwardPos = transform.TransformDirection(Vector3.forward) * 0.5f * reglages.raycastOffsetPosition;
+        Vector3 testPosition = new Vector3(transform.position.x + forwardPos.x,
+            transform.position.y + forwardPos.y + reglages.raycastYPosOffset,
+            transform.position.z + forwardPos.z);
+        return testPosition;
+    }
+
+    public void ResetVelocity()
+    {
+        rigidBody.MovePosition(transform.position);
+        //  animator.SetFloat("MoveSpeed", 0f);
     }
 
     #region ROTATION
@@ -134,23 +151,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
     #endregion
-
-    public Vector3 GetFrontPosition()
-    {
-        //FONCTION POUR OBTENIR LA POSITION DEVANT LE PERSONNAGE
-        //POSITION OU INTERAGIR ET POSER LES OBJETS
-        Vector3 forwardPos = transform.TransformDirection(Vector3.forward) * 0.5f * reglages.raycastOffsetPosition;
-        Vector3 testPosition = new Vector3(transform.position.x + forwardPos.x,
-            transform.position.y + forwardPos.y + reglages.raycastYPosOffset,
-            transform.position.z + forwardPos.z);
-        return testPosition;
-    }
-
-    public void ResetVelocity()
-    {
-        rigidBody.MovePosition(transform.position);
-      //  animator.SetFloat("MoveSpeed", 0f);
-    }
 
     #region GET/SET
 
