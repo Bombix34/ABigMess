@@ -10,34 +10,38 @@ public class PlayerManager : ObjectManager
 {
     public PlayerReglages reglages;
 
-    PlayerInputManager inputs;
-
-    PlayerMovement movement;
-    PlayerRenderer renderer;
-
-    GameObject interactObject = null;           //raycasted object in front of player
-    GameObject grabbedObject = null;            //object currently hold/grabb
-
-    CapsuleCollider playerCollider = null;      // The player collider
-
-    BoxCollider grabbedObjectCollider = null;   // Added collider to the player
-    BoxCollider grabbedObjectTrigger = null;    // Added collider to the player
+    private PlayerInputManager inputs;
 
     [SerializeField]
-    GameObject bringPosition;
+    private Animator animator;
 
-    [SerializeField] int currentRoomNb = 0;
+    private PlayerMovement movement;
+    private PlayerRenderer renderer;
 
-    Ray lastRaycastRay;
+    private GameObject interactObject = null;           //raycasted object in front of player
+    private GameObject grabbedObject = null;            //object currently hold/grabb
 
-    Vector3 startGrabPosition; // Lerping with percentage for grabbing an object
-    float timeStartedLerping;
-    float grabSpeed = 0.03f; // The lesser the speed the faster the grab
+    private CapsuleCollider playerCollider = null;      // The player collider
 
-    bool isGrabbedObjectColliding;
+    private BoxCollider grabbedObjectCollider = null;   // Added collider to the player
+    private BoxCollider grabbedObjectTrigger = null;    // Added collider to the player
 
-    List<InteractObject> raycastedObjects;
-    int raycastIndex = 0;
+    [SerializeField]
+    private GameObject bringPosition;
+
+    [SerializeField]
+    private int currentRoomNb = 0;
+
+    private Ray lastRaycastRay;
+
+    private Vector3 startGrabPosition; // Lerping with percentage for grabbing an object
+    private float timeStartedLerping;
+    private float grabSpeed = 0.03f; // The lesser the speed the faster the grab
+
+    private bool isGrabbedObjectColliding;
+
+    private List<InteractObject> raycastedObjects;
+    private int raycastIndex = 0;
 
     void Awake()
     {
@@ -63,6 +67,7 @@ public class PlayerManager : ObjectManager
         UpdateGrabbedObject();
         movement.PreventPlayerRotation();
         currentState.Execute();
+        UpdateAnimation();
     }
 
     private void FixedUpdate()
@@ -88,6 +93,11 @@ public class PlayerManager : ObjectManager
     public void UpdateMovement()
     {
         movement.DoMove(inputs.GetMovementInput());
+    }
+
+    public void UpdateAnimation()
+    {
+        animator.SetFloat("MovementSpeed", inputs.GetMovementInput().magnitude );
     }
 
     public void UpdateQuackSound()
