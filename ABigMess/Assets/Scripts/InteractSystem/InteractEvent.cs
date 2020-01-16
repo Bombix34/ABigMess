@@ -16,11 +16,29 @@ public abstract class InteractEvent : ScriptableObject
     [SerializeField] private BoolPair opened;
     [SerializeField] private BoolPair plugged;
 
+    [SerializeField]
+    ParticleSystem particleFX;
+
+    [SerializeField]
+    float chronoBeforeKillingParticles = 0.25f;
+
+
     /// <summary>
     /// Script for interaction object that need to be set when the game launch
     /// exemple : the radio, maybe some other stuff
     /// </summary>
     public abstract void InteractionEvent(GameObject objConcerned);
+
+    protected GameObject TryInstantiateParticleFX(GameObject objConcerned)
+    {
+        if (particleFX != null)
+        {
+            ParticleSystem particles = Instantiate(particleFX, objConcerned.transform.position, Quaternion.identity);
+            Destroy(particles.gameObject, chronoBeforeKillingParticles);
+            return particles.gameObject;
+        }
+        return null;
+    }
 
     public void SetupObjectState(GameObject objConcerned)
     {

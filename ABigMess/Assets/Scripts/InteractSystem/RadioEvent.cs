@@ -14,5 +14,6 @@ public class RadioEvent : InteractEvent
             return;
         }
         radioManager.SwitchRadio();
+        TryInstantiateParticleFX(objConcerned);
     }
 }
