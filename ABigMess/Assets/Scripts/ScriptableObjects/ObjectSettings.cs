@@ -12,6 +12,8 @@ public class ObjectSettings : ScriptableObject
 
     public Vector3 rotation;
 
+    public bool isOneHandedCarrying = false;
+
     public bool IsTool()
     {
         return objectType == ObjectType.toolFreeHand //missing ---------

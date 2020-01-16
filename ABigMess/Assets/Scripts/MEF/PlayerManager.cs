@@ -30,9 +30,7 @@ public class PlayerManager : ObjectManager
     private int currentRoomNb = 0;
 
     private Ray lastRaycastRay;
-
-    private Vector3 startGrabPosition; // Lerping with percentage for grabbing an object
-    private float timeStartedLerping;
+    
     private float grabSpeed = 0.03f; // The lesser the speed the faster the grab
 
     private bool isGrabbedObjectColliding;
@@ -90,6 +88,7 @@ public class PlayerManager : ObjectManager
     }
 
     #region INTERACTION_SYSTEM
+
     public void TryInteraction()
     {
         if (inputs.GetInteractInputDown())
@@ -105,8 +104,6 @@ public class PlayerManager : ObjectManager
     #endregion
 
     #region BRING_DROP_SYSTEM
-
-    public bool reachedPosition = false;
 
     public void TryBringObject()
     {
@@ -135,12 +132,17 @@ public class PlayerManager : ObjectManager
             grabbedObject = interactObject;
             grabbedObject.GetComponent<InteractObject>().Grab();
             ResetRaycastedObjects();
-            timeStartedLerping = Time.time;
-            startGrabPosition = grabbedObject.transform.position;
-            reachedPosition = false;
             interactObject = null;
             movement.ResetTorso();
-            UpdateGrabbedObject();
+            bool isGrabOneHand = grabbedObject.GetComponent<InteractObject>().Settings.isOneHandedCarrying;
+            if(isGrabOneHand)
+            {
+                AttachGrabbedObjectOneHanded();
+            }
+            else
+            {
+                AttachGrabbedObjectTwoHanded();
+            }
             ChangeState(new PlayerBringState(this, grabbedObject.GetComponent<InteractObject>()));
         }
     }
@@ -148,7 +150,7 @@ public class PlayerManager : ObjectManager
     /// <summary>
     /// function to take the object in hand
     /// </summary>
-    void UpdateGrabbedObject()
+    private void AttachGrabbedObjectTwoHanded()
     {
         if (grabbedObject == null)
         {
@@ -164,10 +166,10 @@ public class PlayerManager : ObjectManager
         {
             weight = grabbedObject.GetComponent<InteractObject>().Settings.weightType;
         }
+        bool reachedPosition=false;
         while (!reachedPosition)
         {
             Vector3 dirVector = bringPosition.transform.position - grabbedObject.transform.position;
-
             switch (weight)
             {
                 case ObjectSettings.ObjectWeight.heavy:
@@ -190,7 +192,15 @@ public class PlayerManager : ObjectManager
         }
     }
 
-    public void SwitchGrabbedObject()
+    private void AttachGrabbedObjectOneHanded()
+    {
+        grabbedObject.transform.position = renderer.RightArm.HandPosition.position;
+        grabbedObject.transform.parent = renderer.RightArm.HandPosition;
+        grabbedObject.AddComponent<FixedJoint>();
+        grabbedObject.GetComponent<FixedJoint>().connectedBody = renderer.RightArm.HandPosition.GetComponent<Rigidbody>();
+    }
+
+    private void SwitchGrabbedObject()
     {
         //Update position according to weight
         ObjectSettings.ObjectWeight weight = ObjectSettings.ObjectWeight.light;
@@ -299,14 +309,13 @@ public class PlayerManager : ObjectManager
 
                 if (hit.collider!=null && !hit.collider.CompareTag("Wall")) // If we are not going through a wall
                 {
-                    if (grabbedObject != null && raycastedObject == grabbedObject)
+                    if (raycastedObject != grabbedObject)
                     {
-                        return;
+                        raycastedObjects.Add(raycastedObject.GetComponent<InteractObject>());
                     }
-                    raycastedObjects.Add(raycastedObject.GetComponent<InteractObject>());
                 }
             }
-            i++;
+            ++i;
         }
         if (raycastedObjects.Count == 0)
         {

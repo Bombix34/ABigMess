@@ -98,4 +98,9 @@ public class PlayerRenderer : MonoBehaviour
         leftArm.HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         rightArm.HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
     }
+
+    public RopeBuilder RightArm
+    {
+        get => rightArm;
+    }
 }

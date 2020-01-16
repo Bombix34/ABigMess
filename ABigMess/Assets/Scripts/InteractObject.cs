@@ -40,9 +40,12 @@ public class InteractObject : MonoBehaviour
     [Range(1, 10)]
     private float outlineSpeed = 2;
 
+    private float initMass;
+
     private void Awake()
     {
         body = GetComponent<Rigidbody>();
+        initMass = body.mass;
         outline = gameObject.AddComponent<SimpleOutline>();
         canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         if (canvas == null)
@@ -157,13 +160,26 @@ public class InteractObject : MonoBehaviour
     public void Grab()
     {
         grabbed = true;
-        body.isKinematic = true;
+        if(!settings.isOneHandedCarrying)
+        {
+            body.isKinematic = true;
+        }
+        else
+        {
+            body.mass = 0f;
+        }
         ResetHighlight();
     }
 
     public void Dropdown()
     {
         grabbed = false;
+        if (settings.isOneHandedCarrying)
+        {
+            body.mass = initMass;
+            Destroy(GetComponent<FixedJoint>());
+            transform.parent = null;
+        }
         SetupWeight();
     }
 

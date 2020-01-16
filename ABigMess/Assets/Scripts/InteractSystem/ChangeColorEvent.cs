@@ -9,5 +9,6 @@ public class ChangeColorEvent : InteractEvent
     public override void InteractionEvent(GameObject objConcerned)
     {
         SetupObjectState(objConcerned);
+        TryInstantiateParticleFX(objConcerned);
     }
 }
