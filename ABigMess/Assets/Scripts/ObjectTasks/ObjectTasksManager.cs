@@ -55,12 +55,18 @@ public class ObjectTasksManager : MonoBehaviour
 
         actualObjectTasksGroup = objectTasksGroup;
 
+        float height = tasksPanel.GetComponent<RectTransform>().rect.height;
+        float width = tasksPanel.GetComponent<RectTransform>().rect.width;
+
         // add all tasks to TasksToDo, but dont add the displays
         for (int i = 0; i < allTasks.Count; i++)
         {
             GameObject taskInstance = Instantiate(taskPrefab, tasksPanel.transform);
             RectTransform taskInstanceRect = taskInstance.GetComponent<RectTransform>();
             TextMeshProUGUI taskText = taskInstance.GetComponentInChildren<TextMeshProUGUI>();
+            taskInstanceRect.anchoredPosition =
+                new Vector2(-width / 2 - taskInstanceRect.sizeDelta.x / 2
+                , height / 2 + (taskInstanceRect.sizeDelta.y / 2));
             taskText.text = allTasks[i].description;
             taskTexts.Add(i, taskText);
             taskInstances.Add(i, taskInstance);
@@ -107,6 +113,8 @@ public class ObjectTasksManager : MonoBehaviour
             if (ActualTasksDone())
             {
                 ClearTasksGroup();
+                countTasks += actualObjectTasksGroup.objectTasks.Count;
+
                 // When tasks from a group are done
                 if (actualObjectTasksGroup == actualObjectTasksGroup.nextTasks)
                 {
@@ -114,7 +122,6 @@ public class ObjectTasksManager : MonoBehaviour
                     return;
                 }
 
-                countTasks += actualObjectTasksGroup.objectTasks.Count;
                 actualObjectTasksGroup = actualObjectTasksGroup.nextTasks;
 
                 AddTasks();
@@ -199,7 +206,7 @@ public class ObjectTasksManager : MonoBehaviour
 
         ObjectSettings.ObjectType collisionObjectType = interactObject.Settings.objectType;
 
-        for (int i = 0; i < allTasks.Count; i++)
+        for (int i = countTasks; i < allTasks.Count; i++)
         {
             ObjectTask actualTask = allTasks[i];
 
