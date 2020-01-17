@@ -109,7 +109,7 @@ GameObject:
   m_Component:
   - component: {fileID: 221961100341400347}
   - component: {fileID: 6291465745725031855}
-  - component: {fileID: 431773935758307792}
+  - component: {fileID: 8175119048131938268}
   m_Layer: 5
   m_Name: Tasks
   m_TagString: Untagged
@@ -144,27 +144,15 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6073958013812969908}
   m_CullTransparentMesh: 0
---- !u!114 &431773935758307792
-MonoBehaviour:
+--- !u!225 &8175119048131938268
+CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6073958013812969908}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -2095666955, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 0
-  m_StartCorner: 0
-  m_StartAxis: 1
-  m_CellSize: {x: 300, y: 48}
-  m_Spacing: {x: 5, y: 5}
-  m_Constraint: 0
-  m_ConstraintCount: 2
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

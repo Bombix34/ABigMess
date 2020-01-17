@@ -5,17 +5,22 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    Rigidbody rigidBody;
-    bool canMove = true;
-    PlayerReglages reglages;
-    Vector3 currentVelocity;
+    private Rigidbody rigidBody;
+    private bool canMove = true;
+    private PlayerReglages reglages;
+    private Vector3 currentVelocity;
 
     [SerializeField]
-    GameObject torso;
+    private GameObject torso;
 
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
+    }
+
+    private void LateUpdate()
+    {
+        RotateTorso(currentVelocity != Vector3.zero);
     }
 
     public void DoMove(Vector3 playerInputs)
@@ -28,7 +33,6 @@ public class PlayerMovement : MonoBehaviour
         if (directionController == Vector3.zero)
         {
             currentVelocity = Vector3.zero;
-            RotateTorso(false);
             return;
         }
         //init values
@@ -42,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 heading = (rightMove + upMove).normalized;
 
         float amplitude = new Vector2(playerInputs.x, playerInputs.z).magnitude;
-
+        
         RotatePlayer(playerInputs.z, -playerInputs.x);
         currentVelocity = Vector3.zero;
         currentVelocity += heading * amplitude * (reglages.moveSpeed / 5f);
@@ -65,6 +69,23 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public Vector3 GetFrontPosition()
+    {
+        //FONCTION POUR OBTENIR LA POSITION DEVANT LE PERSONNAGE
+        //POSITION OU INTERAGIR ET POSER LES OBJETS
+        Vector3 forwardPos = transform.TransformDirection(Vector3.forward) * 0.5f * reglages.raycastOffsetPosition;
+        Vector3 testPosition = new Vector3(transform.position.x + forwardPos.x,
+            transform.position.y + forwardPos.y + reglages.raycastYPosOffset,
+            transform.position.z + forwardPos.z);
+        return testPosition;
+    }
+
+    public void ResetVelocity()
+    {
+        rigidBody.MovePosition(transform.position);
+        //  animator.SetFloat("MoveSpeed", 0f);
+    }
+
     #region ROTATION
 
     //variables for torso rotation system
@@ -80,26 +101,32 @@ public class PlayerMovement : MonoBehaviour
         Vector3 dir = new Vector3(-y, 0, x);
         SaveRotation();
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(dir), (reglages.rotationSpeed * 100) * Time.deltaTime);
-        RotateTorso(true);
     }
 
     private void RotateTorso(bool isMoving)
     {
+        Quaternion currentRotation = torso.transform.rotation;
+        Quaternion desiredRotation;
+        Quaternion finalDesiredRotation;
         if(isMoving)
         {
             if (indexRotationTorso < SIZE_ROTATION_SAVE / 2 && !isInitTorsoRotation)
             {
-                torso.transform.rotation = Quaternion.RotateTowards(torso.transform.rotation, bodyRotation[0], (reglages.rotationSpeed * 90) * Time.deltaTime);
+                desiredRotation = Quaternion.RotateTowards(currentRotation, bodyRotation[0], (reglages.rotationSpeed * 90) * Time.deltaTime);
             }
             else
             {
-                torso.transform.rotation = Quaternion.RotateTowards(torso.transform.rotation, bodyRotation[indexRotationTorso % SIZE_ROTATION_SAVE], (reglages.rotationSpeed * 90) * Time.deltaTime);
+                desiredRotation = Quaternion.RotateTowards(currentRotation, bodyRotation[indexRotationTorso % SIZE_ROTATION_SAVE], (reglages.rotationSpeed * 90) * Time.deltaTime);
             }
         }
         else
         {
-            torso.transform.rotation = Quaternion.RotateTowards(torso.transform.rotation, transform.rotation, (reglages.rotationSpeed * 90) * Time.deltaTime);
+            desiredRotation = Quaternion.RotateTowards(currentRotation, transform.rotation, (reglages.rotationSpeed * 90) * Time.deltaTime);
         }
+
+        //torso.transform.rotation = Quaternion.EulerRotation(currentRotation.eulerAngles.x, desiredRotation.eulerAngles.y, currentRotation.eulerAngles.z);
+        finalDesiredRotation = Quaternion.Euler(currentRotation.eulerAngles.x, desiredRotation.eulerAngles.y, currentRotation.eulerAngles.z);
+        torso.transform.rotation = Quaternion.RotateTowards(torso.transform.rotation, finalDesiredRotation, (reglages.rotationSpeed * 90) * Time.deltaTime);
     }
 
     public void ResetTorso()
@@ -124,23 +151,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
     #endregion
-
-    public Vector3 GetFrontPosition()
-    {
-        //FONCTION POUR OBTENIR LA POSITION DEVANT LE PERSONNAGE
-        //POSITION OU INTERAGIR ET POSER LES OBJETS
-        Vector3 forwardPos = transform.TransformDirection(Vector3.forward) * 0.5f * reglages.raycastOffsetPosition;
-        Vector3 testPosition = new Vector3(transform.position.x + forwardPos.x,
-            transform.position.y + forwardPos.y + reglages.raycastYPosOffset,
-            transform.position.z + forwardPos.z);
-        return testPosition;
-    }
-
-    public void ResetVelocity()
-    {
-        rigidBody.MovePosition(transform.position);
-      //  animator.SetFloat("MoveSpeed", 0f);
-    }
 
     #region GET/SET
 

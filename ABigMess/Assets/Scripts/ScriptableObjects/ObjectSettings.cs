@@ -12,36 +12,68 @@ public class ObjectSettings : ScriptableObject
 
     public Vector3 rotation;
 
+    public bool isOneHandedCarrying = false;
+
     public bool IsTool()
     {
-        return objectType == ObjectType.brush 
-            || objectType == ObjectType.freeHand 
-            || objectType == ObjectType.oven 
-            || objectType == ObjectType.wateringCan 
-            || objectType == ObjectType.plug;
+        return objectType == ObjectType.toolFreeHand //missing ---------
+            || objectType == ObjectType.toolGardening
+            || objectType == ObjectType.toolOwen
+            || objectType == ObjectType.toolPaintingBrush
+            || objectType == ObjectType.toolStationaryElectricWashing
+            || objectType == ObjectType.toolStationaryWashing
+            || objectType == ObjectType.toolWashing
+            || objectType == ObjectType.toolWatering
+            || objectType == ObjectType.plug; //-------------
     }
     
     public bool NeedsToBePlugged()
     {
-        return objectType == ObjectType.oven;
+        return objectType == ObjectType.toolStationaryElectricWashing; //maybe fridge and shit
     }
 
     public enum ObjectWeight
     {
         light,  // basic object
         medium, // object that slow you down
-        heavy   // object that need 2 players to be bringed
+        heavy,   // object that need 2 players to be bringed
+        immobile // stationary tools
     }
 
     public enum ObjectType
     {
-        freeHand,
-        brush,
-        frigde,
+        plug, //not sure-------------
+        toolFreeHand,
+        toolGardening,
+        toolOwen,
+        toolPaintingBrush,
+        toolStationaryElectricWashing,
+        toolStationaryWashing,
+        toolWashing,
+        toolWatering,
+        couch,
+        pillow,
+        table,
+        chairs,
+        flowerPot,
+        mugs,
+        flowers,
+        plate,
+        framedPictures,
+        fridge,
+        lamp,
+        bed,
+        door,
+        livingRoomTable,
+        bedRoomTable,
+        leek,
+        carrots,
+        chouFlour,
         radio,
-        box,
-        oven,
-        wateringCan,
-        plug,
+        dirtPiles,
+        pumpkin,
+        electricPlug,
+        
+
     }
 }

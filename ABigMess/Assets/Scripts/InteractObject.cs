@@ -8,44 +8,44 @@ using System;
 public class InteractObject : MonoBehaviour
 {
 
-    Canvas canvas; // The canvas where I display my button overlay 
+    private Canvas canvas; // The canvas where I display my button overlay 
 
     [SerializeField]
-    GameObject interactButtonOverlayPrefab;
-    GameObject interactButtonOverlayInstance;
+    private GameObject interactButtonOverlayPrefab;
+    private GameObject interactButtonOverlayInstance;
 
     [SerializeField]
-    ObjectSettings settings;
-    Rigidbody body;
+    private ObjectSettings settings;
+    private Rigidbody body;
 
-    static float HOLD_TIME = 0.125f;
-    float holdMaterial = HOLD_TIME;
+    private static float HOLD_TIME = 0.125f;
+    private float holdMaterial = HOLD_TIME;
 
-    bool grabbed = false;
-    bool childrenHaveMaterials;
+    private bool grabbed = false;
+    private bool childrenHaveMaterials;
 
-    SimpleOutline outline;
+    private SimpleOutline outline;
 
     [SerializeField]
-    AnimationCurve outlineAnimation;
+    private AnimationCurve outlineAnimation;
 
-    float outlineTime;
-    bool decreaseOutline = true;
+    private float outlineTime;
+    private bool decreaseOutline = true;
 
     [SerializeField]
     [Range(1, 15)]
-    float outlineWidth = 8;
+    private float outlineWidth = 8;
 
     [SerializeField]
     [Range(1, 10)]
-    float outlineSpeed = 2;
+    private float outlineSpeed = 2;
 
-    // [Header("Action when player interact without obj in hand")]
-    //  [SerializeField] UnityEvent onInteractWithoutTool;
+    private float initMass;
 
     private void Awake()
     {
         body = GetComponent<Rigidbody>();
+        initMass = body.mass;
         outline = gameObject.AddComponent<SimpleOutline>();
         canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         if (canvas == null)
@@ -53,14 +53,14 @@ public class InteractObject : MonoBehaviour
             Debug.LogError("Define a canvas for InteractObject: " + name);
         }
     }
-    void Start()
+    private void Start()
     {
         outline.OutlineMode = SimpleOutline.Mode.OutlineVisible;
         outline.OutlineWidth = 0;
         SetupWeight();
     }
 
-    void Update()
+    private void Update()
     {
         holdMaterial -= Time.deltaTime;
         if (holdMaterial <= 0)
@@ -160,13 +160,26 @@ public class InteractObject : MonoBehaviour
     public void Grab()
     {
         grabbed = true;
-        body.isKinematic = true;
+        if(!settings.isOneHandedCarrying)
+        {
+            body.isKinematic = true;
+        }
+        else
+        {
+            body.mass = 0f;
+        }
         ResetHighlight();
     }
 
     public void Dropdown()
     {
         grabbed = false;
+        if (settings.isOneHandedCarrying)
+        {
+            body.mass = initMass;
+            Destroy(GetComponent<FixedJoint>());
+            transform.parent = null;
+        }
         SetupWeight();
     }
 
@@ -288,6 +301,11 @@ public class InteractObject : MonoBehaviour
     public ObjectSettings Settings
     {
         get => settings;
+    }
+
+    public ObjectSettings.ObjectWeight GetObjectWeight
+    {
+        get => settings.weightType;
     }
 
     #endregion

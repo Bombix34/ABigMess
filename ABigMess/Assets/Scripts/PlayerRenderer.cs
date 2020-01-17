@@ -6,18 +6,21 @@ using SplineMesh;
 
 public class PlayerRenderer : MonoBehaviour
 {
-    PlayerManager manager;
+    private PlayerManager manager;
 
     [SerializeField]
-    RopeBuilder leftArm, rightArm;
+    private Animator animator;
 
     [SerializeField]
-    Transform leftHandPositionForBring, rightHandPositionForBring;
+    private RopeBuilder leftArm, rightArm;
 
-    bool leftHandNeedGrab= false;
-    bool rightHandNeedGrab = false;
+    [SerializeField]
+    private Transform leftHandPositionForBring, rightHandPositionForBring;
 
-    void Awake()
+    private bool leftHandNeedGrab = false;
+    private bool rightHandNeedGrab = false;
+
+    private void Awake()
     {
         manager = GetComponent<PlayerManager>();
     }
@@ -27,7 +30,12 @@ public class PlayerRenderer : MonoBehaviour
         UpdateHandPosition();
     }
 
-    void UpdateHandPosition()
+    public void UpdateAnimation(float inputMagnitude)
+    {
+        animator.SetFloat("MovementSpeed", inputMagnitude);
+    }
+
+    private void UpdateHandPosition()
     {
         if(leftHandNeedGrab)
         {
@@ -61,7 +69,7 @@ public class PlayerRenderer : MonoBehaviour
         float distance = Mathf.Sqrt(Mathf.Pow(objectPosition.x-handBasePosition.x,2f)+ Mathf.Pow(objectPosition.y - handBasePosition.y, 2f)+ Mathf.Pow(objectPosition.z - handBasePosition.z, 2f));
         Vector3 dirVector = (objectPosition - handBasePosition).normalized;
 
-        if (Physics.Raycast(handBasePosition, dirVector, out hit, distance, layerMask))
+        if (Physics.Raycast(handBasePosition, dirVector, out hit, distance*10f, layerMask))
         {
             if (hit.transform.gameObject == manager.GrabbedObject)
             {
@@ -84,7 +92,15 @@ public class PlayerRenderer : MonoBehaviour
 
     public void DetachHand()
     {
+        leftHandNeedGrab = false;
+        rightHandNeedGrab = false;
+
         leftArm.HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         rightArm.HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+    }
+
+    public RopeBuilder RightArm
+    {
+        get => rightArm;
     }
 }
