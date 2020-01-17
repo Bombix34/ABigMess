@@ -124,6 +124,17 @@ public class InteractObject : MonoBehaviour
                 ToolSettings tool = (ToolSettings)Settings;
                 tool.ApplyEvent(toolObj);
             }
+            else if (Settings.IsTool() && Settings.NeedsToBePlugged())
+            {
+                if (toolObj.GetComponent<ObjectState>() != null)
+                {
+                    if (toolObj.GetComponent<ObjectState>().Plugged)
+                    {
+                        ToolSettings tool = (ToolSettings)Settings;
+                        tool.ApplyEvent(toolObj);
+                    }
+                }
+            }
         }
     }
 

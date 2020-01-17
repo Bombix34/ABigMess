@@ -29,7 +29,8 @@ public class ObjectSettings : ScriptableObject
     
     public bool NeedsToBePlugged()
     {
-        return objectType == ObjectType.toolStationaryElectricWashing; //maybe fridge and shit
+        return objectType == ObjectType.toolStationaryElectricWashing
+            || objectType == ObjectType.toolOwen; //maybe fridge and shit
     }
 
     public enum ObjectWeight
