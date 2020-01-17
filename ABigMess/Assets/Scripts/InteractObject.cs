@@ -47,7 +47,11 @@ public class InteractObject : MonoBehaviour
         body = GetComponent<Rigidbody>();
         initMass = body.mass;
         outline = gameObject.AddComponent<SimpleOutline>();
-        canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        GameObject canvasObj = GameObject.Find("Canvas");
+        if(canvasObj!=null)
+        {
+            canvas = canvasObj.GetComponent<Canvas>();
+        }
         if (canvas == null)
         {
             Debug.LogError("Define a canvas for InteractObject: " + name);
@@ -192,6 +196,8 @@ public class InteractObject : MonoBehaviour
 
     public void Highlight(ObjectSettings grabbedObject)
     {
+        if (canvas == null)
+            return;
         holdMaterial = HOLD_TIME;
         if (interactButtonOverlayInstance == null)
         {
