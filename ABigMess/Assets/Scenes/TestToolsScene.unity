@@ -132,8 +132,8 @@ GameObject:
   - component: {fileID: 116295319}
   - component: {fileID: 116295318}
   - component: {fileID: 116295317}
-  - component: {fileID: 116295321}
   - component: {fileID: 116295322}
+  - component: {fileID: 116295321}
   m_Layer: 2
   m_Name: KitchenPlatform
   m_TagString: Untagged
@@ -223,14 +223,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 116295316}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b42a5c99586362245ab67c59fc6cfe07, type: 3}
+  m_Script: {fileID: 11500000, guid: deabe486b5c94a148b4f90bd41326236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collideEvent:
+  collisionEnterEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1319233177}
-        m_MethodName: OnCollisionTask
+        m_MethodName: OnCollisionEnterTask
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 116295316}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  collisionExitEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1319233177}
+        m_MethodName: OnCollisionExitTask
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 116295316}
@@ -807,8 +823,8 @@ GameObject:
   - component: {fileID: 895156367}
   - component: {fileID: 895156366}
   - component: {fileID: 895156365}
-  - component: {fileID: 895156364}
   - component: {fileID: 895156363}
+  - component: {fileID: 895156364}
   m_Layer: 2
   m_Name: BedRoomPlatform
   m_TagString: Untagged
@@ -838,14 +854,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 895156362}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b42a5c99586362245ab67c59fc6cfe07, type: 3}
+  m_Script: {fileID: 11500000, guid: deabe486b5c94a148b4f90bd41326236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collideEvent:
+  collisionEnterEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1319233177}
-        m_MethodName: OnCollisionTask
+        m_MethodName: OnCollisionEnterTask
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 895156362}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  collisionExitEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1319233177}
+        m_MethodName: OnCollisionExitTask
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 895156362}
@@ -973,14 +1005,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b42ebbced4d7a49b7fd3ca6714be6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectTasks:
-  - {fileID: 11400000, guid: 97866fe8be0874f4c9f17804af9da67e, type: 2}
-  - {fileID: 11400000, guid: 3383407da762220439ce4155b0044709, type: 2}
-  - {fileID: 11400000, guid: 4cada5f1a7534814b97228b5267ee8ac, type: 2}
-  - {fileID: 11400000, guid: d2d9f7bcdc5e90e408cf89dac249cc3d, type: 2}
-  - {fileID: 11400000, guid: 6329cf2c75de9f04ea13238a81c8c0eb, type: 2}
+  objectTasksGroup: {fileID: 11400000, guid: 2dc5d5553a0f89548a64ebb750fc1dbf, type: 2}
   taskPrefab: {fileID: 8891248061887366941, guid: 6f519ff0c576cff429e48e4c0272d27e,
     type: 3}
+  marginX: 25
+  marginY: 25
 --- !u!1 &1449997452 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7146837521137475702, guid: fd0acc2ff0404284886656aa7db96d11,
@@ -1322,7 +1351,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 788429770047800575}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1731866153
+--- !u!114 &1731866160
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1331,10 +1360,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1731866152}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b42a5c99586362245ab67c59fc6cfe07, type: 3}
+  m_Script: {fileID: 11500000, guid: deabe486b5c94a148b4f90bd41326236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collideEvent:
+  collisionEnterEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 701594442}
@@ -1349,7 +1378,23 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1319233177}
-        m_MethodName: OnCollisionTask
+        m_MethodName: OnCollisionEnterTask
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1731866152}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  collisionExitEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1319233177}
+        m_MethodName: OnCollisionExitTask
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1731866152}
@@ -1800,6 +1845,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -8.299988
+      objectReference: {fileID: 0}
+    - target: {fileID: 1218077499467806263, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
+        type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8141022348820483020, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
         type: 3}
