@@ -9,7 +9,7 @@ public class MusicManager : MonoBehaviour
 
     void Awake()
     {
-        AkSoundEngine.PostEvent("Play_musique_test", gameObject);
+        //AkSoundEngine.PostEvent("Play_musique_test", gameObject);
         AkSoundEngine.SetState("MUTE", "down");
     }
 

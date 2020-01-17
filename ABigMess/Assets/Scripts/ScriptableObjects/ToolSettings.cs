@@ -13,9 +13,9 @@ public class ToolSettings : ObjectSettings
 
     public void ApplyEvent(InteractObject objConcerned)
     {
-        if(interactionsList.Count == 0)
-        {
-            return;
+        if(interactionsList.Count == 0)
+        {
+            return;
         }
         for(int index=0; index<interactionsList.Count;index++)
         {
