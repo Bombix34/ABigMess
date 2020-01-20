@@ -200,6 +200,9 @@ public class PlayerManager : ObjectManager
         grabbedObject.GetComponent<FixedJoint>().connectedBody = renderer.RightArm.HandPosition.GetComponent<Rigidbody>();
     }
 
+    /// <summary>
+    /// We don't use that anymore
+    /// </summary>
     private void SwitchGrabbedObject()
     {
         //Update position according to weight
@@ -240,11 +243,13 @@ public class PlayerManager : ObjectManager
     /// </summary>
     public void DropBringObject()
     {
+        /*
         if (inputs.GetGrabInputDown() && grabbedObject != null && interactObject != null )
         {
             SwitchGrabbedObject();
         }
         else
+        */
         if ((inputs.GetGrabInputDown() && grabbedObject != null) || (!movement.IsGrounded() && isGrabbedObjectColliding))
         {
             grabbedObject.transform.parent = null;

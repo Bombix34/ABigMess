@@ -59,36 +59,13 @@ public class InteractObject : MonoBehaviour
     }
     private void Start()
     {
-        outline.OutlineMode = SimpleOutline.Mode.OutlineVisible;
-        outline.OutlineWidth = 0;
+        InitHighlight();
         SetupWeight();
     }
 
     private void Update()
     {
-        holdMaterial -= Time.deltaTime;
-        if (holdMaterial <= 0)
-        {
-            holdMaterial = HOLD_TIME;
-            ResetHighlight();
-        }
-        // We start the counter by setting it to time.deltaTIme wich is > 0
-        if (decreaseOutline)
-        {
-            outline.OutlineWidth = outlineAnimation.Evaluate(outlineTime) * outlineWidth;
-            if (outlineTime > 0)
-            {
-                outlineTime -= Time.deltaTime * outlineSpeed;
-            }
-        }
-        else
-        {
-            outline.OutlineWidth = outlineAnimation.Evaluate(outlineTime) * outlineWidth;
-            if (outlineTime < 1)
-            {
-                outlineTime += Time.deltaTime * outlineSpeed;
-            }
-        }
+        UpdateHighlight();
         UpdateOverlayPosition();
     }
 
@@ -200,6 +177,20 @@ public class InteractObject : MonoBehaviour
 
     #region HIGHLIGHT_SYSTEM
 
+    private void InitHighlight()
+    {
+        outline.OutlineMode = SimpleOutline.Mode.OutlineVisible;
+        outline.OutlineWidth = 0;
+        if (settings.IsTool())
+        {
+            outline.OutlineColor = Color.green;
+        }
+        else
+        {
+            outline.OutlineColor = Color.white;
+        }
+    }
+
     public void Highlight(GameObject grabbedObject)
     {
         Highlight(grabbedObject.GetComponent<InteractObject>().Settings);
@@ -231,6 +222,33 @@ public class InteractObject : MonoBehaviour
             Vector3 overlayPos = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, transform.localScale.y, 0));
 
             interactButtonOverlayInstance.transform.position = overlayPos;
+        }
+    }
+
+    private void UpdateHighlight()
+    {
+        holdMaterial -= Time.deltaTime;
+        if (holdMaterial <= 0)
+        {
+            holdMaterial = HOLD_TIME;
+            ResetHighlight();
+        }
+        // We start the counter by setting it to time.deltaTIme wich is > 0
+        if (decreaseOutline)
+        {
+            outline.OutlineWidth = outlineAnimation.Evaluate(outlineTime) * outlineWidth;
+            if (outlineTime > 0)
+            {
+                outlineTime -= Time.deltaTime * outlineSpeed;
+            }
+        }
+        else
+        {
+            outline.OutlineWidth = outlineAnimation.Evaluate(outlineTime) * outlineWidth;
+            if (outlineTime < 1)
+            {
+                outlineTime += Time.deltaTime * outlineSpeed;
+            }
         }
     }
 
