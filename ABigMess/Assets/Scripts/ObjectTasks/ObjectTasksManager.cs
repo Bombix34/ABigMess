@@ -186,16 +186,17 @@ public class ObjectTasksManager : MonoBehaviour
 
     public void OnCollisionExitTask(GameObject platform)
     {
+        Debug.Log("Collision Exit Task from " + platform + " on " + platform.gameObject.GetComponent<OnTriggerEvents>().collider.name);
         TaskDone(platform, false);
     }
 
     private void TaskDone(GameObject platform, bool done)
     {
         // Get the collision that collided with the platform
-        Collision collision = platform.gameObject.GetComponent<UnPlugEvent>().collision;
+        Collider collider = platform.gameObject.GetComponent<OnTriggerEvents>().collider;
 
         // Get the object that collided with the platform        
-        InteractObject interactObject = collision.gameObject.GetComponent<InteractObject>();
+        InteractObject interactObject = collider.gameObject.GetComponent<InteractObject>();
 
         // No task should work without an interactObject
         if (interactObject == null)
@@ -216,8 +217,9 @@ public class ObjectTasksManager : MonoBehaviour
                 continue;
             }
 
+            //Debug.Log("Has ObjectState: " + (collider.gameObject.GetComponent<ObjectState>() == null).ToString());
             // If the object has no state, then no need to compare a state
-            if (collision.gameObject.GetComponent<ObjectState>() == null)
+            if (collider.gameObject.GetComponent<ObjectState>() == null)
             {
                 // Check if the task destination is the same as the passed plateform 
                 if (actualTask.destination.Equals(platform.name))
@@ -232,7 +234,7 @@ public class ObjectTasksManager : MonoBehaviour
             }
 
             // If the object has a state, then veryfy if the states of the object correspond with what is wanted
-            if (VerifyStates(actualTask, collision.gameObject.GetComponent<ObjectState>().states))
+            if (VerifyStates(actualTask, collider.gameObject.GetComponent<ObjectState>().states))
             {
                 //print(gameObject.name + "  " + actualTask.destination);
                 if (actualTask.destination.Equals(platform.name))
@@ -244,6 +246,17 @@ public class ObjectTasksManager : MonoBehaviour
                     TasksDoneOrUndone(done, i);
                 }
             }
+            /*else if (!done && !VerifyStates(actualTask, collider.gameObject.GetComponent<ObjectState>().states))
+            {
+                if (actualTask.destination.Equals(platform.name))
+                {
+                    TasksDoneOrUndone(done, i);
+                }
+                else if (actualTask.destination.Equals(""))
+                {
+                    TasksDoneOrUndone(done, i);
+                }
+            }*/
         }
     }
 
@@ -285,7 +298,7 @@ public class ObjectTasksManager : MonoBehaviour
     /// <summary>
     /// Verify if each state needs to be set: if it needs to be set and the value is different
     /// Then return false
-    /// else (if we chacked that every state is of the true value) return true
+    /// else (if we checked that every state is of the true value) return true
     /// </summary>
     /// <param name="actualTask"></param>
     /// <param name="states"></param>

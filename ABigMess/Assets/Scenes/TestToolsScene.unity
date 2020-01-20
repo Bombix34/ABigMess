@@ -131,9 +131,8 @@ GameObject:
   - component: {fileID: 116295320}
   - component: {fileID: 116295319}
   - component: {fileID: 116295318}
-  - component: {fileID: 116295317}
-  - component: {fileID: 116295321}
   - component: {fileID: 116295322}
+  - component: {fileID: 116295317}
   m_Layer: 2
   m_Name: KitchenPlatform
   m_TagString: Untagged
@@ -141,20 +140,51 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &116295317
-MeshCollider:
+--- !u!114 &116295317
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 116295316}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deabe486b5c94a148b4f90bd41326236, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionEnterEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1319233177}
+        m_MethodName: OnCollisionEnterTask
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 116295316}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  collisionExitEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1319233177}
+        m_MethodName: OnCollisionExitTask
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 116295316}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  collider: {fileID: 0}
 --- !u!23 &116295318
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -214,34 +244,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &116295321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 116295316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b42a5c99586362245ab67c59fc6cfe07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collideEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1319233177}
-        m_MethodName: OnCollisionTask
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 116295316}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!65 &116295322
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -317,18 +319,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collideEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 701594442}
-        m_MethodName: OnCollide
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 399454940}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &503489141
@@ -459,52 +450,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collideEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 701594442}
-        m_MethodName: OnCollide
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 505457973}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
---- !u!1 &513983928 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 126496659579575114, guid: 62dd56433002a994da33e65a1c7e2ac7,
-    type: 3}
-  m_PrefabInstance: {fileID: 1871350547}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &513983936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 513983928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b42a5c99586362245ab67c59fc6cfe07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collideEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 701594442}
-        m_MethodName: OnCollide
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 513983928}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1001 &555644857
@@ -900,9 +846,8 @@ GameObject:
   - component: {fileID: 895156368}
   - component: {fileID: 895156367}
   - component: {fileID: 895156366}
-  - component: {fileID: 895156365}
-  - component: {fileID: 895156364}
   - component: {fileID: 895156363}
+  - component: {fileID: 895156364}
   m_Layer: 2
   m_Name: BedRoomPlatform
   m_TagString: Untagged
@@ -932,14 +877,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 895156362}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b42a5c99586362245ab67c59fc6cfe07, type: 3}
+  m_Script: {fileID: 11500000, guid: deabe486b5c94a148b4f90bd41326236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collideEvent:
+  collisionEnterEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1319233177}
-        m_MethodName: OnCollisionTask
+        m_MethodName: OnCollisionEnterTask
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 895156362}
@@ -951,20 +896,23 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!64 &895156365
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 895156362}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  collisionExitEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1319233177}
+        m_MethodName: OnCollisionExitTask
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 895156362}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  collider: {fileID: 0}
 --- !u!23 &895156366
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1067,14 +1015,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b42ebbced4d7a49b7fd3ca6714be6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectTasks:
-  - {fileID: 11400000, guid: 97866fe8be0874f4c9f17804af9da67e, type: 2}
-  - {fileID: 11400000, guid: 3383407da762220439ce4155b0044709, type: 2}
-  - {fileID: 11400000, guid: 4cada5f1a7534814b97228b5267ee8ac, type: 2}
-  - {fileID: 11400000, guid: d2d9f7bcdc5e90e408cf89dac249cc3d, type: 2}
-  - {fileID: 11400000, guid: 6329cf2c75de9f04ea13238a81c8c0eb, type: 2}
+  objectTasksGroup: {fileID: 11400000, guid: fa4990f654a84734b925ba1da9d0cf3e, type: 2}
+  allTasks: []
   taskPrefab: {fileID: 8891248061887366941, guid: 6f519ff0c576cff429e48e4c0272d27e,
     type: 3}
+  marginX: 25
+  marginY: 25
 --- !u!1 &1449997452 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7146837521137475702, guid: fd0acc2ff0404284886656aa7db96d11,
@@ -1095,18 +1041,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collideEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 701594442}
-        m_MethodName: OnCollide
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1449997452}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &1518790427
@@ -1307,7 +1242,7 @@ MonoBehaviour:
   m_listeners:
     initialListenerList: []
     useDefaultListeners: 1
-  isEnvironmentAware: 0
+  isEnvironmentAware: 1
   isStaticObject: 0
   m_positionOffsetData:
     KeepMe: 0
@@ -1327,6 +1262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   players:
+  - {fileID: 185735573}
   - {fileID: 185735573}
   middlePlayers: {fileID: 198408650}
 --- !u!114 &1561084194
@@ -1425,25 +1361,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1731866152}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b42a5c99586362245ab67c59fc6cfe07, type: 3}
+  m_Script: {fileID: 11500000, guid: deabe486b5c94a148b4f90bd41326236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collideEvent:
+  collisionEnterEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 701594442}
-        m_MethodName: OnCollide
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1731866152}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1319233177}
-        m_MethodName: OnCollisionTask
+        m_MethodName: OnCollisionEnterTask
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1731866152}
@@ -1455,6 +1380,23 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  collisionExitEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1319233177}
+        m_MethodName: OnCollisionExitTask
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1731866152}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  collider: {fileID: 0}
 --- !u!1001 &1739708362
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1745,46 +1687,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
-        type: 3}
-      propertyPath: m_textInfo.spaceCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
-        type: 3}
-      propertyPath: m_enableAutoSizing
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
-        type: 3}
-      propertyPath: m_firstOverflowCharacterIndex
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 19.35
-      objectReference: {fileID: 0}
     - target: {fileID: 1218077499467806261, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1889,6 +1791,46 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
+        type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
+        type: 3}
+      propertyPath: m_firstOverflowCharacterIndex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251731371525657412, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 19.35
       objectReference: {fileID: 0}
     - target: {fileID: 3456408759719031508, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
         type: 3}
@@ -2711,6 +2653,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plug
       objectReference: {fileID: 0}
+    - target: {fileID: 3588645767099757943, guid: 9a9c60fbcb2a0db4ba1dd3297b9731bb,
+        type: 3}
+      propertyPath: m_Name
+      value: PlugTrigger
+      objectReference: {fileID: 0}
     - target: {fileID: 788429769429543635, guid: 9a9c60fbcb2a0db4ba1dd3297b9731bb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2765,6 +2712,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5744068081165052799, guid: 9a9c60fbcb2a0db4ba1dd3297b9731bb,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4342402442252233360, guid: 9a9c60fbcb2a0db4ba1dd3297b9731bb,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 463478371781844647, guid: 9a9c60fbcb2a0db4ba1dd3297b9731bb,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a9c60fbcb2a0db4ba1dd3297b9731bb, type: 3}
