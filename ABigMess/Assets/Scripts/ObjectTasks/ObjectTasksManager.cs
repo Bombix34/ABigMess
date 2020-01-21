@@ -31,6 +31,9 @@ public class ObjectTasksManager : MonoBehaviour
     [Range(0, 100)]
     public float marginY = 25;
 
+    public float SweepAwayTasksTime = 2f;
+    private float sweepAwayTasksTime;
+
     void Start()
     {
         canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
@@ -108,11 +111,17 @@ public class ObjectTasksManager : MonoBehaviour
             SetupTasksPositions();
         }
 
-        if (actualObjectTasksGroup != null)
+        if(sweepAwayTasksTime > 0)
+        {
+            sweepAwayTasksTime -= Time.deltaTime;
+        }
+
+        if (actualObjectTasksGroup != null && sweepAwayTasksTime <= 0)
         {
             if (ActualTasksDone())
             {
                 ClearTasksGroup();
+                sweepAwayTasksTime = SweepAwayTasksTime;
                 countTasks += actualObjectTasksGroup.objectTasks.Count;
 
                 // When tasks from a group are done
@@ -127,6 +136,7 @@ public class ObjectTasksManager : MonoBehaviour
                 AddTasks();
             }
         }
+
     }
 
     public void SetupTasksPositions()

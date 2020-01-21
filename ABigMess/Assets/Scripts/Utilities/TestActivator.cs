@@ -6,6 +6,7 @@ public class TestActivator : MonoBehaviour
 {
     public GameObject selectedObject;
     public ToolSettings noToolInHand;
+    public float objectHeight;
 
     // Start is called before the first frame update
     void Start()
@@ -28,12 +29,13 @@ public class TestActivator : MonoBehaviour
             if (hit.collider != null && hit.collider.gameObject != null)
             {
                 selectedObject = hit.collider.gameObject;
+                objectHeight = 1f;
             } 
         }
 
         if (Input.GetMouseButton(0) && selectedObject != null)
         {
-            Plane plane = new Plane(Vector3.up, new Vector3(0, 0.5f, 0));
+            Plane plane = new Plane(Vector3.up, new Vector3(0, objectHeight, 0));
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             float distance;
@@ -61,6 +63,14 @@ public class TestActivator : MonoBehaviour
                 GameObject gameObject = hit.collider.gameObject;
                 noToolInHand.ApplyEvent(gameObject.GetComponent<InteractObject>());
             }
+        }
+
+        if(Input.mouseScrollDelta.y  > 0)
+        {
+            objectHeight += 0.5f;
+        } else if(Input.mouseScrollDelta.y < 0)
+        {
+            objectHeight -= 0.5f;
         }
     }
 
