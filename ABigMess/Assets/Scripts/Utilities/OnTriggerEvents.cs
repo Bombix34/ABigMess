@@ -10,6 +10,11 @@ public class OnTriggerEvents : MonoBehaviour
     [SerializeField] UnityEvent collisionExitEvent;
     public Collider collider;
 
+    private void Awake()
+    {
+        
+    }
+
     public void OnTriggerEnter(Collider other)
     {
         collider = other;

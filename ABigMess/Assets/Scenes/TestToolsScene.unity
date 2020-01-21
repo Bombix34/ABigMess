@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 116295322}
   - component: {fileID: 116295317}
   m_Layer: 2
-  m_Name: KitchenPlatform
+  m_Name: Kitchen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,7 +155,7 @@ MonoBehaviour:
   collisionEnterEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1319233177}
+      - m_Target: {fileID: 1934575550}
         m_MethodName: OnCollisionEnterTask
         m_Mode: 2
         m_Arguments:
@@ -171,7 +171,7 @@ MonoBehaviour:
   collisionExitEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1319233177}
+      - m_Target: {fileID: 1934575550}
         m_MethodName: OnCollisionExitTask
         m_Mode: 2
         m_Arguments:
@@ -242,7 +242,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &116295322
 BoxCollider:
@@ -297,7 +297,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &399454940 stripped
 GameObject:
@@ -319,7 +319,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collideEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 701594442}
+        m_MethodName: OnCollide
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 399454940}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &503489141
@@ -428,7 +439,7 @@ Transform:
   m_LocalScale: {x: 10, y: 2, z: 0.25}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &505457973 stripped
 GameObject:
@@ -572,7 +583,7 @@ PrefabInstance:
     - target: {fileID: 3203167558946244180, guid: 0dd16eb86a455564db0ba3793c4579a0,
         type: 3}
       propertyPath: m_RootOrder
-      value: 19
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 3203167558946244180, guid: 0dd16eb86a455564db0ba3793c4579a0,
         type: 3}
@@ -849,7 +860,7 @@ GameObject:
   - component: {fileID: 895156363}
   - component: {fileID: 895156364}
   m_Layer: 2
-  m_Name: BedRoomPlatform
+  m_Name: Room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -883,7 +894,7 @@ MonoBehaviour:
   collisionEnterEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1319233177}
+      - m_Target: {fileID: 1934575550}
         m_MethodName: OnCollisionEnterTask
         m_Mode: 2
         m_Arguments:
@@ -899,7 +910,7 @@ MonoBehaviour:
   collisionExitEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1319233177}
+      - m_Target: {fileID: 1934575550}
         m_MethodName: OnCollisionExitTask
         m_Mode: 2
         m_Arguments:
@@ -970,57 +981,8 @@ Transform:
   m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1319233175
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1319233176}
-  - component: {fileID: 1319233177}
-  m_Layer: 0
-  m_Name: ObjectTasksManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1319233176
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1319233175}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1319233177
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1319233175}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59b42ebbced4d7a49b7fd3ca6714be6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectTasksGroup: {fileID: 11400000, guid: fa4990f654a84734b925ba1da9d0cf3e, type: 2}
-  allTasks: []
-  taskPrefab: {fileID: 8891248061887366941, guid: 6f519ff0c576cff429e48e4c0272d27e,
-    type: 3}
-  marginX: 25
-  marginY: 25
 --- !u!1 &1449997452 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7146837521137475702, guid: fd0acc2ff0404284886656aa7db96d11,
@@ -1041,7 +1003,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collideEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 701594442}
+        m_MethodName: OnCollide
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1449997452}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &1518790427
@@ -1133,7 +1106,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1561084188
 GameObject:
@@ -1327,7 +1300,7 @@ PrefabInstance:
     - target: {fileID: 8039857299736457054, guid: a2992034a97ec1440b6fb2510b24bb24,
         type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 8039857299736457054, guid: a2992034a97ec1440b6fb2510b24bb24,
         type: 3}
@@ -1367,7 +1340,7 @@ MonoBehaviour:
   collisionEnterEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1319233177}
+      - m_Target: {fileID: 1934575550}
         m_MethodName: OnCollisionEnterTask
         m_Mode: 2
         m_Arguments:
@@ -1383,7 +1356,7 @@ MonoBehaviour:
   collisionExitEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1319233177}
+      - m_Target: {fileID: 1934575550}
         m_MethodName: OnCollisionExitTask
         m_Mode: 2
         m_Arguments:
@@ -2369,6 +2342,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92eb305b328bddd4393a5d0c2acfe3c0, type: 3}
+--- !u!114 &1934575550 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 374606597370817197, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1934575549}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b42ebbced4d7a49b7fd3ca6714be6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2007835205
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2493,7 +2478,7 @@ PrefabInstance:
     - target: {fileID: 8019272326029214897, guid: c9ee65ce6d64d624a824c3b7441cc057,
         type: 3}
       propertyPath: m_RootOrder
-      value: 18
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 8019272326029214897, guid: c9ee65ce6d64d624a824c3b7441cc057,
         type: 3}
@@ -2622,7 +2607,7 @@ PrefabInstance:
     - target: {fileID: 2337026022228640619, guid: 0d549188695766a469850e7f9ce5ecb6,
         type: 3}
       propertyPath: m_RootOrder
-      value: 20
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 2337026022228640619, guid: 0d549188695766a469850e7f9ce5ecb6,
         type: 3}
@@ -2696,7 +2681,7 @@ PrefabInstance:
     - target: {fileID: 788429769429543635, guid: 9a9c60fbcb2a0db4ba1dd3297b9731bb,
         type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 788429769429543635, guid: 9a9c60fbcb2a0db4ba1dd3297b9731bb,
         type: 3}
