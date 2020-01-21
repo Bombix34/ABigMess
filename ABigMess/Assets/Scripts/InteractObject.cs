@@ -46,6 +46,7 @@ public class InteractObject : MonoBehaviour
 
     private void Awake()
     {
+        attachedPlayers = new List<GameObject>();
         body = GetComponent<Rigidbody>();
         initMass = body.mass;
         body.isKinematic = false;
@@ -142,6 +143,8 @@ public class InteractObject : MonoBehaviour
             Debug.Log("Settings of the object " + this.gameObject.name + " missing");
             return;
         }
+        this.transform.parent = null;
+        body.mass = initMass;
         body.useGravity = true;
         body.isKinematic = false;
     }
@@ -152,19 +155,11 @@ public class InteractObject : MonoBehaviour
         attachedPlayers.Add(player);
         if (settings != null)
         {
-            if (IsHeavy())
+            if (IsHeavy)
             {
                 if (attachedPlayers.Count > 1)
                 {
-                    //body.isKinematic = false;
-                    if (attachedPlayers.Count == 2)
-                    {
-                        SetupHeavyObjectBringed();
-                    }
-                    else
-                    {
-                        this.gameObject.GetComponent<MultiplayerBring>().UpdatePlayers(attachedPlayers);
-                    }
+                    UpdateHeavyObjectBringed();
                 }
                 else
                 {
@@ -175,34 +170,30 @@ public class InteractObject : MonoBehaviour
             {
                 if (!settings.isOneHandedCarrying)
                 {
-                    body.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+                    body.constraints = RigidbodyConstraints.FreezePosition; 
                     body.useGravity = false;
                 }
                 else
                 {
                     body.mass = 0f;
+
                 }
             }
-        }
-        else
-        {
-            body.isKinematic = false;
-        }
-        ResetHighlight();
-        if (!settings.isOneHandedCarrying)
-        {
-            body.isKinematic = true;
-        }
-        else
-        {
-            body.mass = 0f;
         }
         ResetHighlight();
     }
 
-    public void SetupHeavyObjectBringed()
+    public void UpdateHeavyObjectBringed()
     {
-        MultiplayerBring bringSystem = this.gameObject.AddComponent<MultiplayerBring>();
+        MultiplayerBring bringSystem;
+        if (this.gameObject.GetComponent<MultiplayerBring>()==null)
+        {
+            bringSystem = this.gameObject.AddComponent<MultiplayerBring>();
+        }
+        else
+        {
+            bringSystem = this.GetComponent<MultiplayerBring>();
+        }
         bringSystem.UpdatePlayers(attachedPlayers);
         bringSystem.SetMovementSettings(attachedPlayers[0].GetComponent<PlayerManager>().Reglages);
     }
@@ -212,7 +203,7 @@ public class InteractObject : MonoBehaviour
         grabbed = false;
         body.constraints = RigidbodyConstraints.None;
         attachedPlayers.Remove(player);
-        if (IsHeavy())
+        if (IsHeavy)
         {
             MultiplayerBring bringSystem = this.gameObject.GetComponent<MultiplayerBring>();
             if (bringSystem != null)
@@ -396,9 +387,9 @@ public class InteractObject : MonoBehaviour
         get => settings.weightType;
     }
 
-    public bool IsHeavy()
+    public bool IsHeavy
     {
-        return (settings.weightType == ObjectSettings.ObjectWeight.heavy);
+        get => (settings.weightType == ObjectSettings.ObjectWeight.heavy);
     }
 
 

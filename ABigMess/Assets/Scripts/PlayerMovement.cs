@@ -48,8 +48,11 @@ public class PlayerMovement : MonoBehaviour
         Vector3 heading = (rightMove + upMove).normalized;
 
         float amplitude = new Vector2(playerInputs.x, playerInputs.z).magnitude;
-        
-        RotatePlayer(playerInputs.z, -playerInputs.x);
+
+        if (canRotate)
+        {
+            RotatePlayer(playerInputs.z, -playerInputs.x);
+        }
         currentVelocity = Vector3.zero;
         currentVelocity += heading * amplitude * (reglages.moveSpeed / 5f);
         rigidBody.MovePosition(transform.position + currentVelocity);
@@ -107,6 +110,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void RotateTorso(bool isMoving)
     {
+        if (!canRotateTorso)
+        {
+            return;
+        }
         Quaternion currentRotation = torso.transform.rotation;
         Quaternion desiredRotation;
         Quaternion finalDesiredRotation;

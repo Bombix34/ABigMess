@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class MultiplayerBring : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class MultiplayerBring : MonoBehaviour
     private void Awake()
     {
         body = GetComponent<Rigidbody>();
+        players = new List<GameObject>();
         initWeight = body.mass;
         objectMovement = this.gameObject.AddComponent<PlayerMovement>();
         objectMovement.CanRotateTorso = false;
@@ -22,18 +24,18 @@ public class MultiplayerBring : MonoBehaviour
 
     void Start()
     {
-
+        body.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
     }
 
     void Update()
     {
         SetupMovementInput();
         UpdatePlayersProperty();
-            objectMovement.DoMove(playersInput);
-            foreach (var player in players)
-            {
-              player.GetComponent<PlayerManager>().Movement.DoMove(playersInput);
-
+        objectMovement.DoMove(playersInput);
+        
+        foreach (var player in players)
+        {
+           // player.GetComponent<PlayerManager>().Movement.DoMove(playersInput);
             PlayerManager manager = player.GetComponent<PlayerManager>();
         }
         
@@ -56,19 +58,41 @@ public class MultiplayerBring : MonoBehaviour
 
     private void UpdatePlayersProperty()
     {
+        if(players.Count<1)
+        {
+            return;
+        }
         body.mass = players[0].GetComponent<Rigidbody>().mass;
         foreach (var player in players)
         {
             PlayerManager manager = player.GetComponent<PlayerManager>();
             if (manager.GetCurrentState().stateName != "PLAYER_HEAVY_BRING_OBJECT")
             {
-                manager.Movement.CanMove = true;
+                manager.Movement.CanMove = false;
                 manager.Movement.CanRotate = false;
+                manager.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+                player.transform.SetParent(this.transform, true);
+                SetupPlayerConstraint(player);
                 manager.ChangeState(new PlayerHeavyBringState(manager, this.GetComponent<InteractObject>()));
                // player.transform.localScale = Vector3.one;
-                player.transform.SetParent(this.transform, true);
             }
         }
+    }
+
+    private void SetupPlayerConstraint(GameObject player)
+    {
+        PositionConstraint constraintPos = player.GetComponent<PositionConstraint>();
+        if (constraintPos==null)
+        {
+            constraintPos=player.AddComponent<PositionConstraint>();
+        }
+        ConstraintSource contraintTransform=new ConstraintSource();
+        contraintTransform.sourceTransform = this.transform;
+        contraintTransform.weight = 1;
+        Vector3 posOffset = player.transform.localPosition;
+        constraintPos.AddSource(contraintTransform);
+        constraintPos.translationOffset = posOffset;
+        constraintPos.constraintActive = true;
     }
 
     public void EndMovement()
@@ -77,6 +101,7 @@ public class MultiplayerBring : MonoBehaviour
         {
             player.GetComponent<PlayerManager>().Movement.CanMove = true;
             player.GetComponent<PlayerManager>().Movement.CanRotate = true;
+            Destroy(player.GetComponent<PositionConstraint>());
             player.transform.parent = null;
         }
         Destroy(objectMovement);

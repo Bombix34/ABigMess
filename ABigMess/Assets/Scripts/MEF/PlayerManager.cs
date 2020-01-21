@@ -238,8 +238,7 @@ public class PlayerManager : ObjectManager
     }
 
     /// <summary>
-    /// If no object is highlight, drop the object on the ground
-    /// else switch the object in hand with the highlighted one
+    /// drop the object on the ground
     /// </summary>
     public void DropBringObject()
     {
@@ -253,6 +252,10 @@ public class PlayerManager : ObjectManager
         if ((inputs.GetGrabInputDown() && grabbedObject != null) || (!movement.IsGrounded() && isGrabbedObjectColliding))
         {
             grabbedObject.transform.parent = null;
+            if(grabbedObject.GetComponent<FixedJoint>()!=null)
+            {
+                Destroy(grabbedObject.GetComponent<FixedJoint>());
+            }
             renderer.DetachHand();
             grabbedObject.GetComponent<InteractObject>().Dropdown(this.gameObject);
             grabbedObject = null;
