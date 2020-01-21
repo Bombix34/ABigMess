@@ -194,7 +194,11 @@ public class InteractObject : MonoBehaviour
         {
             bringSystem = this.GetComponent<MultiplayerBring>();
         }
-        bringSystem.UpdatePlayers(attachedPlayers);
+        foreach(var player in attachedPlayers)
+        {
+            bringSystem.UpdatePlayers(player, true);
+        }
+        //bringSystem.UpdatePlayers(attachedPlayers);
         bringSystem.SetMovementSettings(attachedPlayers[0].GetComponent<PlayerManager>().Reglages);
     }
 
@@ -208,10 +212,11 @@ public class InteractObject : MonoBehaviour
             MultiplayerBring bringSystem = this.gameObject.GetComponent<MultiplayerBring>();
             if (bringSystem != null)
             {
-                bringSystem.UpdatePlayers(attachedPlayers);
+                bringSystem.UpdatePlayers(player, false);
                 if (attachedPlayers.Count < 2)
                 {
-                    this.GetComponent<MultiplayerBring>().EndMovement();
+                    bringSystem.EndMovement();
+                    bringSystem.DetachPlayer(player);
                     attachedPlayers[0].GetComponent<PlayerManager>().Movement.CanMove = false;
                 }
             }

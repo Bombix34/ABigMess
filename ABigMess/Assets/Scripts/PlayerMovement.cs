@@ -15,6 +15,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private GameObject torso;
 
+    //to apply a modif to the rotation speed
+    private float modifRotationSpeed = 1f;
+
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
@@ -88,7 +91,6 @@ public class PlayerMovement : MonoBehaviour
     public void ResetVelocity()
     {
         rigidBody.MovePosition(transform.position);
-        //  animator.SetFloat("MoveSpeed", 0f);
     }
 
     #region ROTATION
@@ -105,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 dir = new Vector3(-y, 0, x);
         SaveRotation();
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(dir), (reglages.rotationSpeed * 100) * Time.deltaTime);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(dir), (reglages.rotationSpeed * 100 * modifRotationSpeed) * Time.deltaTime);
     }
 
     private void RotateTorso(bool isMoving)
@@ -204,6 +206,15 @@ public class PlayerMovement : MonoBehaviour
         set
         {
             canRotateTorso = value;
+        }
+    }
+
+    public float ModificationRotationSpeed
+    {
+        get => modifRotationSpeed;
+        set
+        {
+            modifRotationSpeed = value;
         }
     }
 

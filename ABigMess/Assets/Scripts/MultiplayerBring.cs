@@ -20,6 +20,7 @@ public class MultiplayerBring : MonoBehaviour
         initWeight = body.mass;
         objectMovement = this.gameObject.AddComponent<PlayerMovement>();
         objectMovement.CanRotateTorso = false;
+        objectMovement.ModificationRotationSpeed = 0.1f;
     }
 
     void Start()
@@ -30,7 +31,6 @@ public class MultiplayerBring : MonoBehaviour
     void Update()
     {
         SetupMovementInput();
-        UpdatePlayersProperty();
         objectMovement.DoMove(playersInput);
         
         foreach (var player in players)
@@ -58,10 +58,6 @@ public class MultiplayerBring : MonoBehaviour
 
     private void UpdatePlayersProperty()
     {
-        if(players.Count<1)
-        {
-            return;
-        }
         body.mass = players[0].GetComponent<Rigidbody>().mass;
         foreach (var player in players)
         {
@@ -95,17 +91,25 @@ public class MultiplayerBring : MonoBehaviour
         constraintPos.constraintActive = true;
     }
 
+    /// <summary>
+    /// function called when there is 1 players attached to the object
+    /// </summary>
     public void EndMovement()
     {
         foreach (var player in players)
         {
-            player.GetComponent<PlayerManager>().Movement.CanMove = true;
-            player.GetComponent<PlayerManager>().Movement.CanRotate = true;
-            Destroy(player.GetComponent<PositionConstraint>());
-            player.transform.parent = null;
+            DetachPlayer(player);
         }
         Destroy(objectMovement);
         Destroy(this);
+    }
+
+    public void DetachPlayer(GameObject player)
+    {
+        player.GetComponent<PlayerManager>().Movement.CanMove = true;
+        player.GetComponent<PlayerManager>().Movement.CanRotate = true;
+        Destroy(player.GetComponent<PositionConstraint>());
+        player.transform.parent = null;
     }
 
     #region GET/SET
@@ -126,21 +130,6 @@ public class MultiplayerBring : MonoBehaviour
         }
         UpdatePlayersProperty();
     }
-
-    public void UpdatePlayers(List<GameObject> curPlayers)
-    {
-        if(players==null)
-        {
-            players = new List<GameObject>();
-        }
-        else
-        {
-            players.Clear();
-        }
-        players = curPlayers;
-        UpdatePlayersProperty();
-    }
-    
 
     public void SetMovementSettings(PlayerReglages reglages)
     {
