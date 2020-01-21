@@ -42,6 +42,7 @@ public class TestActivator : MonoBehaviour
             {
                 selectedObject.transform.position = ray.origin + (ray.direction * distance);
                 selectedObject.transform.rotation = Quaternion.identity;
+                selectedObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
             }
             //Vector3 objPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f));
             //objPos.y = 0.5f;
@@ -69,8 +70,16 @@ public class TestActivator : MonoBehaviour
     {
         if (selectedObject != null)
         {
-            print(gameObject.name + " collided with " + selectedObject.name);
-            selectedObject.GetComponent<InteractObject>().Interact(gameObject);
+            print(selectedObject.name + " collided with " + gameObject.name);
+            if (gameObject.GetComponent<CollideEvent>().collision != null)
+            {
+                selectedObject.GetComponent<InteractObject>().Interact(gameObject.GetComponent<CollideEvent>().collision.gameObject);
+            }
+            if (selectedObject.GetComponent<InteractObject>() != null)
+            {
+                selectedObject.GetComponent<InteractObject>().Interact(gameObject);
+            } 
+
         }
     }
 
