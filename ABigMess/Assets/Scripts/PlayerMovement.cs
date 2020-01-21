@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody rigidBody;
     private bool canMove = true;
+    private bool canRotate = true;
+    private bool canRotateTorso = true;
     private PlayerReglages reglages;
     private Vector3 currentVelocity;
 
@@ -177,6 +179,24 @@ public class PlayerMovement : MonoBehaviour
         set
         {
             canMove = value;
+        }
+    }
+
+    public bool CanRotate
+    {
+        get => canRotate;
+        set
+        {
+            canRotate = value;
+        }
+    }
+
+    public bool CanRotateTorso
+    {
+        get => canRotateTorso;
+        set
+        {
+            canRotateTorso = value;
         }
     }
 

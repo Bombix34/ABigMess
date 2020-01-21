@@ -42,10 +42,13 @@ public class InteractObject : MonoBehaviour
 
     private float initMass;
 
+    private List<GameObject> attachedPlayers;
+
     private void Awake()
     {
         body = GetComponent<Rigidbody>();
         initMass = body.mass;
+        body.isKinematic = false;
         outline = gameObject.AddComponent<SimpleOutline>();
         GameObject canvasObj = GameObject.Find("Canvas");
         if(canvasObj!=null)
@@ -134,25 +137,59 @@ public class InteractObject : MonoBehaviour
 
     private void SetupWeight()
     {
-        if(settings==null)
+        if (settings == null)
         {
-            Debug.Log("Settings of the object "+ this.gameObject.name  +" missing");
+            Debug.Log("Settings of the object " + this.gameObject.name + " missing");
             return;
         }
-        if(settings.weightType == ObjectSettings.ObjectWeight.heavy)
+        body.useGravity = true;
+        body.isKinematic = false;
+    }
+
+    public void Grab(GameObject player)
+    {
+        grabbed = true;
+        attachedPlayers.Add(player);
+        if (settings != null)
         {
-            body.isKinematic = true;
+            if (IsHeavy())
+            {
+                if (attachedPlayers.Count > 1)
+                {
+                    //body.isKinematic = false;
+                    if (attachedPlayers.Count == 2)
+                    {
+                        SetupHeavyObjectBringed();
+                    }
+                    else
+                    {
+                        this.gameObject.GetComponent<MultiplayerBring>().UpdatePlayers(attachedPlayers);
+                    }
+                }
+                else
+                {
+                    attachedPlayers[0].GetComponent<PlayerManager>().Movement.CanMove = false;
+                }
+            }
+            else
+            {
+                if (!settings.isOneHandedCarrying)
+                {
+                    body.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+                    body.useGravity = false;
+                }
+                else
+                {
+                    body.mass = 0f;
+                }
+            }
         }
         else
         {
             body.isKinematic = false;
         }
-    }
-
-    public void Grab()
-    {
-        grabbed = true;
-        if(!settings.isOneHandedCarrying)
+        ResetHighlight();
+        if (!settings.isOneHandedCarrying)
         {
             body.isKinematic = true;
         }
@@ -163,14 +200,30 @@ public class InteractObject : MonoBehaviour
         ResetHighlight();
     }
 
-    public void Dropdown()
+    public void SetupHeavyObjectBringed()
+    {
+        MultiplayerBring bringSystem = this.gameObject.AddComponent<MultiplayerBring>();
+        bringSystem.UpdatePlayers(attachedPlayers);
+        bringSystem.SetMovementSettings(attachedPlayers[0].GetComponent<PlayerManager>().Reglages);
+    }
+
+    public void Dropdown(GameObject player)
     {
         grabbed = false;
-        if (settings.isOneHandedCarrying)
+        body.constraints = RigidbodyConstraints.None;
+        attachedPlayers.Remove(player);
+        if (IsHeavy())
         {
-            body.mass = initMass;
-            Destroy(GetComponent<FixedJoint>());
-            transform.parent = null;
+            MultiplayerBring bringSystem = this.gameObject.GetComponent<MultiplayerBring>();
+            if (bringSystem != null)
+            {
+                bringSystem.UpdatePlayers(attachedPlayers);
+                if (attachedPlayers.Count < 2)
+                {
+                    this.GetComponent<MultiplayerBring>().EndMovement();
+                    attachedPlayers[0].GetComponent<PlayerManager>().Movement.CanMove = false;
+                }
+            }
         }
         SetupWeight();
     }
@@ -342,6 +395,13 @@ public class InteractObject : MonoBehaviour
     {
         get => settings.weightType;
     }
+
+    public bool IsHeavy()
+    {
+        return (settings.weightType == ObjectSettings.ObjectWeight.heavy);
+    }
+
+
 
     #endregion
 }

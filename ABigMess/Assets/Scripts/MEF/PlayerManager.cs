@@ -130,7 +130,7 @@ public class PlayerManager : ObjectManager
                 return;
             }
             grabbedObject = interactObject;
-            grabbedObject.GetComponent<InteractObject>().Grab();
+            grabbedObject.GetComponent<InteractObject>().Grab(this.gameObject);
             ResetRaycastedObjects();
             interactObject = null;
             movement.ResetTorso();
@@ -227,7 +227,7 @@ public class PlayerManager : ObjectManager
                 grabbedObject.transform.position = switchObjectPosition;
 
                 grabbedObject.transform.parent = null;
-                grabbedObject.GetComponent<InteractObject>().Dropdown();
+                grabbedObject.GetComponent<InteractObject>().Dropdown(this.gameObject);
 
                 isGrabbedObjectColliding = false;
                 grabbedObject.transform.parent = null;
@@ -254,7 +254,7 @@ public class PlayerManager : ObjectManager
         {
             grabbedObject.transform.parent = null;
             renderer.DetachHand();
-            grabbedObject.GetComponent<InteractObject>().Dropdown();
+            grabbedObject.GetComponent<InteractObject>().Dropdown(this.gameObject);
             grabbedObject = null;
             isGrabbedObjectColliding = false;
             movement.CanMove = true;
@@ -371,9 +371,19 @@ public class PlayerManager : ObjectManager
 
     #region GET/SET
 
-    public PlayerInputManager GetInputManager()
+    public PlayerInputManager Inputs
     {
-        return inputs;
+        get => inputs;
+    }
+
+    public PlayerReglages Reglages
+    {
+        get => reglages;
+    }
+
+    public PlayerMovement Movement
+    {
+        get => movement;
     }
 
     public int CurrentRoomNb
