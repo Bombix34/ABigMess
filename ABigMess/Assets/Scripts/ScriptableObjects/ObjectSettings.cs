@@ -23,6 +23,7 @@ public class ObjectSettings : ScriptableObject
             || objectType == ObjectType.toolStationaryElectricWashing
             || objectType == ObjectType.toolStationaryWashing
             || objectType == ObjectType.toolWashing
+            || objectType == ObjectType.sponge
             || objectType == ObjectType.toolWatering
             || objectType == ObjectType.plug; //-------------
     }
@@ -74,6 +75,7 @@ public class ObjectSettings : ScriptableObject
         dirtPiles,
         pumpkin,
         electricPlug,
+        sponge
         
 
     }
