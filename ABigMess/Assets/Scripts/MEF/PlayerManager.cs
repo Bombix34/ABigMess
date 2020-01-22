@@ -130,7 +130,7 @@ public class PlayerManager : ObjectManager
                 return;
             }
             grabbedObject = interactObject;
-            grabbedObject.GetComponent<InteractObject>().Grab();
+            grabbedObject.GetComponent<InteractObject>().Grab(this.gameObject);
             ResetRaycastedObjects();
             interactObject = null;
             movement.ResetTorso();
@@ -200,6 +200,9 @@ public class PlayerManager : ObjectManager
         grabbedObject.GetComponent<FixedJoint>().connectedBody = renderer.RightArm.HandPosition.GetComponent<Rigidbody>();
     }
 
+    /// <summary>
+    /// We don't use that anymore
+    /// </summary>
     private void SwitchGrabbedObject()
     {
         //Update position according to weight
@@ -224,7 +227,7 @@ public class PlayerManager : ObjectManager
                 grabbedObject.transform.position = switchObjectPosition;
 
                 grabbedObject.transform.parent = null;
-                grabbedObject.GetComponent<InteractObject>().Dropdown();
+                grabbedObject.GetComponent<InteractObject>().Dropdown(this.gameObject);
 
                 isGrabbedObjectColliding = false;
                 grabbedObject.transform.parent = null;
@@ -235,21 +238,26 @@ public class PlayerManager : ObjectManager
     }
 
     /// <summary>
-    /// If no object is highlight, drop the object on the ground
-    /// else switch the object in hand with the highlighted one
+    /// drop the object on the ground
     /// </summary>
     public void DropBringObject()
     {
+        /*
         if (inputs.GetGrabInputDown() && grabbedObject != null && interactObject != null )
         {
             SwitchGrabbedObject();
         }
         else
+        */
         if ((inputs.GetGrabInputDown() && grabbedObject != null) || (!movement.IsGrounded() && isGrabbedObjectColliding))
         {
             grabbedObject.transform.parent = null;
+            if(grabbedObject.GetComponent<FixedJoint>()!=null)
+            {
+                Destroy(grabbedObject.GetComponent<FixedJoint>());
+            }
             renderer.DetachHand();
-            grabbedObject.GetComponent<InteractObject>().Dropdown();
+            grabbedObject.GetComponent<InteractObject>().Dropdown(this.gameObject);
             grabbedObject = null;
             isGrabbedObjectColliding = false;
             movement.CanMove = true;
@@ -366,9 +374,19 @@ public class PlayerManager : ObjectManager
 
     #region GET/SET
 
-    public PlayerInputManager GetInputManager()
+    public PlayerInputManager Inputs
     {
-        return inputs;
+        get => inputs;
+    }
+
+    public PlayerReglages Reglages
+    {
+        get => reglages;
+    }
+
+    public PlayerMovement Movement
+    {
+        get => movement;
     }
 
     public int CurrentRoomNb
