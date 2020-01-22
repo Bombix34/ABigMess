@@ -12,6 +12,8 @@ public class ObjectTask : ScriptableObject
     public string destination;
     public ObjectSettings.ObjectType objectType;
 
+    public List<Sprite> taskIcons;
+
     [Header("States of the object")]
     [SerializeField] public BoolPair washed;
     [SerializeField] public BoolPair burnt;
