@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Grown : MonoBehaviour
 {
-
     public Vector3 initialScale;
+    public int maxTimesScaled = 5;
+    public int timesScaled = 0;
 
     void Start()
     {
@@ -19,7 +20,13 @@ public class Grown : MonoBehaviour
 
     public void ScaleUp()
     {
-        transform.localScale = transform.localScale * 1.125f;
+        if (timesScaled < maxTimesScaled)
+        {
+            timesScaled++;
+            // Debug.Log( Mathf.Log(25 - timesScaled) - 2);
+            // The more I grow the harder it becomes to grow
+            transform.localScale = transform.localScale * (Mathf.Log(26 - timesScaled) - 2f);
+        }
     }
 
     public void OnDestroy()
