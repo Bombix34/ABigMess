@@ -6,6 +6,7 @@ public class TestActivator : MonoBehaviour
 {
     public GameObject selectedObject;
     public ToolSettings noToolInHand;
+    public float objectHeight;
 
     // Start is called before the first frame update
     void Start()
@@ -28,12 +29,13 @@ public class TestActivator : MonoBehaviour
             if (hit.collider != null && hit.collider.gameObject != null)
             {
                 selectedObject = hit.collider.gameObject;
+                objectHeight = 1f;
             } 
         }
 
         if (Input.GetMouseButton(0) && selectedObject != null)
         {
-            Plane plane = new Plane(Vector3.up, new Vector3(0, 0.5f, 0));
+            Plane plane = new Plane(Vector3.up, new Vector3(0, objectHeight, 0));
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             float distance;
@@ -42,6 +44,7 @@ public class TestActivator : MonoBehaviour
             {
                 selectedObject.transform.position = ray.origin + (ray.direction * distance);
                 selectedObject.transform.rotation = Quaternion.identity;
+                selectedObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
             }
             //Vector3 objPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f));
             //objPos.y = 0.5f;
@@ -61,6 +64,14 @@ public class TestActivator : MonoBehaviour
                 noToolInHand.ApplyEvent(gameObject.GetComponent<InteractObject>());
             }
         }
+
+        if(Input.mouseScrollDelta.y  > 0)
+        {
+            objectHeight += 0.5f;
+        } else if(Input.mouseScrollDelta.y < 0)
+        {
+            objectHeight -= 0.5f;
+        }
     }
 
 
@@ -69,8 +80,16 @@ public class TestActivator : MonoBehaviour
     {
         if (selectedObject != null)
         {
-            print(gameObject.name + " collided with " + selectedObject.name);
-            selectedObject.GetComponent<InteractObject>().Interact(gameObject);
+            print(selectedObject.name + " collided with " + gameObject.name);
+            if (gameObject.GetComponent<CollideEvent>().collision != null)
+            {
+                selectedObject.GetComponent<InteractObject>().Interact(gameObject.GetComponent<CollideEvent>().collision.gameObject);
+            }
+            if (selectedObject.GetComponent<InteractObject>() != null)
+            {
+                selectedObject.GetComponent<InteractObject>().Interact(gameObject);
+            } 
+
         }
     }
 

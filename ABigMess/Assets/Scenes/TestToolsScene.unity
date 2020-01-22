@@ -305,34 +305,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 861176626}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &399454948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 399454940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b42a5c99586362245ab67c59fc6cfe07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collideEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 701594442}
-        m_MethodName: OnCollide
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 399454940}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!1 &503489141
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,18 +574,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0dd16eb86a455564db0ba3793c4579a0, type: 3}
---- !u!114 &701594442 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7268138803441061376, guid: a4cca6df45d75bb499d17b1aaabd2f8e,
-    type: 3}
-  m_PrefabInstance: {fileID: 7268138804098577738}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f09bfaa9545564f4fb8632763821d162, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &842786616
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -895,34 +855,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1739708362}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1449997461
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1449997452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b42a5c99586362245ab67c59fc6cfe07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collideEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 701594442}
-        m_MethodName: OnCollide
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1449997452}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!1 &1518790427
 GameObject:
   m_ObjectHideFlags: 0
@@ -1716,11 +1648,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -8.299988
       objectReference: {fileID: 0}
-    - target: {fileID: 1218077499467806263, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
-        type: 3}
-      propertyPath: m_MatchWidthOrHeight
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8141022348820483020, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -2249,6 +2176,11 @@ PrefabInstance:
     - target: {fileID: 7230313101150089006, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
         type: 3}
       propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1218077499467806263, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
+        type: 3}
+      propertyPath: m_MatchWidthOrHeight
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
