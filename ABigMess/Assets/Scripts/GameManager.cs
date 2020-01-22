@@ -7,6 +7,11 @@ public class GameManager : Singleton<GameManager>
     MusicManager musicManager;
 
     [SerializeField]
+    private LevelDatabase levels;
+
+    private float currentPlayersTime;
+
+    [SerializeField]
     List<PlayerManager> players;
     
     [SerializeField]
@@ -26,6 +31,28 @@ public class GameManager : Singleton<GameManager>
     private void Update()
     {
         middlePlayers.transform.position = GetPositionBetweenPlayers();
+        currentPlayersTime += Time.fixedDeltaTime;
+        //to remove
+        DebugNextLevelInput();
+        //_________
+    }
+
+    public void WinCurrentLevel()
+    {
+        levels.CurrentLevel.PlayerTime = levels.CurrentLevel.startChrono - currentPlayersTime;
+        levels.LoadNextLevel();
+    }
+
+    public void DebugNextLevelInput()
+    {
+        foreach(PlayerManager player in players)
+        {
+            if(player.Inputs.GetStartInput())
+            {
+                print("wow");
+                WinCurrentLevel();
+            }
+        }
     }
 
     #region PLAYERS_GESTION

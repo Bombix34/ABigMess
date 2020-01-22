@@ -56,7 +56,7 @@ public class CameraManager : Singleton<CameraManager>
     public bool SwitchCamera(int roomNb)
     {
         ResetCamerasPriority();
-        if (GameManager.Instance.PlayerInSameRoom())
+        if (GameManager.Instance.PlayerInSameRoom() && roomCameras.Count>0)
         {
             roomCameras[roomNb].Priority = 10;
             isMainCameraActive = false;

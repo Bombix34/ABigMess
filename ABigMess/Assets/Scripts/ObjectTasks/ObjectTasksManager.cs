@@ -228,7 +228,11 @@ public class ObjectTasksManager : MonoBehaviour
             Debug.LogError("You should use an interact object to do a task");
             return;
         }
-
+        else if(interactObject.Settings==null)
+        {
+            Debug.LogError("Missing object settings");
+            return;
+        }
         ObjectSettings.ObjectType collisionObjectType = interactObject.Settings.objectType;
 
         for (int i = countTasks; i < allTasks.Count; i++)

@@ -21,7 +21,10 @@ public class PlugTrigger : MonoBehaviour
 
             if (interactObject != null)
             {
-                //Debug.Log("Object Type : " + interactObject.Settings.objectType);
+                if(interactObject.Settings==null)
+                {
+                    return;
+                }
                 if (interactObject.Settings.objectType == ObjectSettings.ObjectType.plug)
                 {
                     if(plugged != null)
