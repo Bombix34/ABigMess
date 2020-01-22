@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -9,13 +10,16 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private LevelDatabase levels;
 
-    private float currentPlayersTime;
+    [SerializeField]
+    private float currentPlayersTime=0f;
 
     [SerializeField]
     List<PlayerManager> players;
     
     [SerializeField]
     GameObject middlePlayers;       //Position between players for cameras
+
+    private UIManager uiManager;
 
     private void Awake()
     {
@@ -24,6 +28,14 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
+        uiManager = UIManager.Instance;
+        for (int i = 0; i < levels.levels.Count; ++i)
+        {
+            if (levels.levels[i].sceneToLoad == SceneManager.GetActiveScene().name)
+            {
+                levels.CurrentLevelIndex = i;
+            }
+        }
         Application.targetFrameRate = 50;
         QualitySettings.vSyncCount = 0;
     }
@@ -31,10 +43,11 @@ public class GameManager : Singleton<GameManager>
     private void Update()
     {
         middlePlayers.transform.position = GetPositionBetweenPlayers();
-        currentPlayersTime += Time.fixedDeltaTime;
+        currentPlayersTime += Time.deltaTime;
         //to remove
         DebugNextLevelInput();
         //_________
+        uiManager.UpdateChronoUI(levels.CurrentLevel.startChrono - currentPlayersTime);
     }
 
     public void WinCurrentLevel()
@@ -49,7 +62,6 @@ public class GameManager : Singleton<GameManager>
         {
             if(player.Inputs.GetStartInput())
             {
-                print("wow");
                 WinCurrentLevel();
             }
         }
