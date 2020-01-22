@@ -19,7 +19,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        Application.targetFrameRate = 30;
+        Application.targetFrameRate = 50;
         QualitySettings.vSyncCount = 0;
     }
 
