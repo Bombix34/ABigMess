@@ -9,8 +9,7 @@ public class PlugCollider : MonoBehaviour
     {
         if (other.CompareTag("GrabObject") && other.GetComponent<ObjectState>() != null)
         {
-            print(this.transform.parent.gameObject + " collided with " + other.name);
-            other.gameObject.GetComponent<ObjectState>().Plugged = true;
+
         }
     }
 
@@ -18,7 +17,6 @@ public class PlugCollider : MonoBehaviour
     {
         if (other.CompareTag("GrabObject") && other.GetComponent<ObjectState>() != null)
         {
-            other.gameObject.GetComponent<ObjectState>().Plugged = false;
 
         }
     }

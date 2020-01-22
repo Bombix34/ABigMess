@@ -3,22 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class UnPlugEvent : MonoBehaviour
+public class OnTriggerEvents : MonoBehaviour
 {
 
     [SerializeField] UnityEvent collisionEnterEvent;
     [SerializeField] UnityEvent collisionExitEvent;
-    public Collision collision;
+    public Collider collider;
 
-    public void OnCollisionEnter(Collision collision)
+    private void Awake()
     {
-        this.collision = collision;
+        
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        collider = other;
         collisionEnterEvent.Invoke();
     }
 
-    public void OnCollisionExit(Collision collision)
+    public void OnTriggerExit(Collider other)
     {
-        this.collision = collision;
+        collider = other;
         collisionExitEvent.Invoke();
     }
+
+
 }
