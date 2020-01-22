@@ -70,7 +70,7 @@ public class ObjectTasksManager : MonoBehaviour
             taskInstanceRect.anchoredPosition =
                 new Vector2(-width / 2 - taskInstanceRect.sizeDelta.x / 2
                 , height / 2 + (taskInstanceRect.sizeDelta.y / 2));
-            taskUI.SetText(allTasks[i].description);
+            taskUI.SetObjectTask(allTasks[i]);
             tasksUI.Add(i, taskUI);
             taskInstances.Add(i, taskInstance);
             tasksToDo.Add(i, allTasks[i]);
