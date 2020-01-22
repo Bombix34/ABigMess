@@ -7,11 +7,16 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody rigidBody;
     private bool canMove = true;
+    private bool canRotate = true;
+    private bool canRotateTorso = true;
     private PlayerReglages reglages;
     private Vector3 currentVelocity;
 
     [SerializeField]
     private GameObject torso;
+
+    //to apply a modif to the rotation speed
+    private float modifRotationSpeed = 1f;
 
     private void Awake()
     {
@@ -46,8 +51,11 @@ public class PlayerMovement : MonoBehaviour
         Vector3 heading = (rightMove + upMove).normalized;
 
         float amplitude = new Vector2(playerInputs.x, playerInputs.z).magnitude;
-        
-        RotatePlayer(playerInputs.z, -playerInputs.x);
+
+        if (canRotate)
+        {
+            RotatePlayer(playerInputs.z, -playerInputs.x);
+        }
         currentVelocity = Vector3.zero;
         currentVelocity += heading * amplitude * (reglages.moveSpeed / 5f);
         rigidBody.MovePosition(transform.position + currentVelocity);
@@ -83,7 +91,6 @@ public class PlayerMovement : MonoBehaviour
     public void ResetVelocity()
     {
         rigidBody.MovePosition(transform.position);
-        //  animator.SetFloat("MoveSpeed", 0f);
     }
 
     #region ROTATION
@@ -100,11 +107,15 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 dir = new Vector3(-y, 0, x);
         SaveRotation();
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(dir), (reglages.rotationSpeed * 100) * Time.deltaTime);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(dir), (reglages.rotationSpeed * 100 * modifRotationSpeed) * Time.deltaTime);
     }
 
     private void RotateTorso(bool isMoving)
     {
+        if (!canRotateTorso)
+        {
+            return;
+        }
         Quaternion currentRotation = torso.transform.rotation;
         Quaternion desiredRotation;
         Quaternion finalDesiredRotation;
@@ -177,6 +188,33 @@ public class PlayerMovement : MonoBehaviour
         set
         {
             canMove = value;
+        }
+    }
+
+    public bool CanRotate
+    {
+        get => canRotate;
+        set
+        {
+            canRotate = value;
+        }
+    }
+
+    public bool CanRotateTorso
+    {
+        get => canRotateTorso;
+        set
+        {
+            canRotateTorso = value;
+        }
+    }
+
+    public float ModificationRotationSpeed
+    {
+        get => modifRotationSpeed;
+        set
+        {
+            modifRotationSpeed = value;
         }
     }
 

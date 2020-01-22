@@ -7,7 +7,7 @@ public class PlugCollider : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("GrabObject")&&other.GetComponent<InteractObject>()!=null)
+        if (other.CompareTag("GrabObject") && other.GetComponent<ObjectState>() != null)
         {
 
         }
@@ -15,7 +15,7 @@ public class PlugCollider : MonoBehaviour
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("GrabObject") && other.GetComponent<InteractObject>() != null)
+        if (other.CompareTag("GrabObject") && other.GetComponent<ObjectState>() != null)
         {
 
         }

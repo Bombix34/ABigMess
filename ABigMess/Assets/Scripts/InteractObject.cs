@@ -42,10 +42,14 @@ public class InteractObject : MonoBehaviour
 
     private float initMass;
 
+    private List<GameObject> attachedPlayers;
+
     private void Awake()
     {
+        attachedPlayers = new List<GameObject>();
         body = GetComponent<Rigidbody>();
         initMass = body.mass;
+        body.isKinematic = false;
         outline = gameObject.AddComponent<SimpleOutline>();
         GameObject canvasObj = GameObject.Find("Canvas");
         if(canvasObj!=null)
@@ -59,36 +63,13 @@ public class InteractObject : MonoBehaviour
     }
     private void Start()
     {
-        outline.OutlineMode = SimpleOutline.Mode.OutlineVisible;
-        outline.OutlineWidth = 0;
+        InitHighlight();
         SetupWeight();
     }
 
     private void Update()
     {
-        holdMaterial -= Time.deltaTime;
-        if (holdMaterial <= 0)
-        {
-            holdMaterial = HOLD_TIME;
-            ResetHighlight();
-        }
-        // We start the counter by setting it to time.deltaTIme wich is > 0
-        if (decreaseOutline)
-        {
-            outline.OutlineWidth = outlineAnimation.Evaluate(outlineTime) * outlineWidth;
-            if (outlineTime > 0)
-            {
-                outlineTime -= Time.deltaTime * outlineSpeed;
-            }
-        }
-        else
-        {
-            outline.OutlineWidth = outlineAnimation.Evaluate(outlineTime) * outlineWidth;
-            if (outlineTime < 1)
-            {
-                outlineTime += Time.deltaTime * outlineSpeed;
-            }
-        }
+        UpdateHighlight();
         UpdateOverlayPosition();
     }
 
@@ -167,48 +148,107 @@ public class InteractObject : MonoBehaviour
 
     private void SetupWeight()
     {
-        if(settings==null)
+        if (settings == null)
         {
-            Debug.Log("Settings of the object "+ this.gameObject.name  +" missing");
+            Debug.Log("Settings of the object " + this.gameObject.name + " missing");
             return;
         }
-        if(settings.weightType == ObjectSettings.ObjectWeight.heavy)
-        {
-            body.isKinematic = true;
-        }
-        else
-        {
-            body.isKinematic = false;
-        }
+        this.transform.parent = null;
+        body.mass = initMass;
+        body.useGravity = true;
+        body.isKinematic = false;
     }
 
-    public void Grab()
+    public void Grab(GameObject player)
     {
         grabbed = true;
-        if(!settings.isOneHandedCarrying)
+        attachedPlayers.Add(player);
+        if (settings != null)
         {
-            body.isKinematic = true;
-        }
-        else
-        {
-            body.mass = 0f;
+            if (IsHeavy)
+            {
+                if (attachedPlayers.Count > 1)
+                {
+                    UpdateHeavyObjectBringed();
+                }
+                else
+                {
+                    attachedPlayers[0].GetComponent<PlayerManager>().Movement.CanMove = false;
+                }
+            }
+            else
+            {
+                if (!settings.isOneHandedCarrying)
+                {
+                    body.constraints = RigidbodyConstraints.FreezePosition; 
+                    body.useGravity = false;
+                }
+                else
+                {
+                    body.mass = 0f;
+
+                }
+            }
         }
         ResetHighlight();
     }
 
-    public void Dropdown()
+    public void UpdateHeavyObjectBringed()
+    {
+        MultiplayerBring bringSystem;
+        if (this.gameObject.GetComponent<MultiplayerBring>()==null)
+        {
+            bringSystem = this.gameObject.AddComponent<MultiplayerBring>();
+        }
+        else
+        {
+            bringSystem = this.GetComponent<MultiplayerBring>();
+        }
+        foreach(var player in attachedPlayers)
+        {
+            bringSystem.UpdatePlayers(player, true);
+        }
+        //bringSystem.UpdatePlayers(attachedPlayers);
+        bringSystem.SetMovementSettings(attachedPlayers[0].GetComponent<PlayerManager>().Reglages);
+    }
+
+    public void Dropdown(GameObject player)
     {
         grabbed = false;
-        if (settings.isOneHandedCarrying)
+        body.constraints = RigidbodyConstraints.None;
+        attachedPlayers.Remove(player);
+        if (IsHeavy)
         {
-            body.mass = initMass;
-            Destroy(GetComponent<FixedJoint>());
-            transform.parent = null;
+            MultiplayerBring bringSystem = this.gameObject.GetComponent<MultiplayerBring>();
+            if (bringSystem != null)
+            {
+                bringSystem.UpdatePlayers(player, false);
+                if (attachedPlayers.Count < 2)
+                {
+                    bringSystem.EndMovement();
+                    bringSystem.DetachPlayer(player);
+                    attachedPlayers[0].GetComponent<PlayerManager>().Movement.CanMove = false;
+                }
+            }
         }
         SetupWeight();
     }
 
     #region HIGHLIGHT_SYSTEM
+
+    private void InitHighlight()
+    {
+        outline.OutlineMode = SimpleOutline.Mode.OutlineVisible;
+        outline.OutlineWidth = 0;
+        if (settings.IsTool())
+        {
+            outline.OutlineColor = Color.green;
+        }
+        else
+        {
+            outline.OutlineColor = Color.white;
+        }
+    }
 
     public void Highlight(GameObject grabbedObject)
     {
@@ -241,6 +281,33 @@ public class InteractObject : MonoBehaviour
             Vector3 overlayPos = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, transform.localScale.y, 0));
 
             interactButtonOverlayInstance.transform.position = overlayPos;
+        }
+    }
+
+    private void UpdateHighlight()
+    {
+        holdMaterial -= Time.deltaTime;
+        if (holdMaterial <= 0)
+        {
+            holdMaterial = HOLD_TIME;
+            ResetHighlight();
+        }
+        // We start the counter by setting it to time.deltaTIme wich is > 0
+        if (decreaseOutline)
+        {
+            outline.OutlineWidth = outlineAnimation.Evaluate(outlineTime) * outlineWidth;
+            if (outlineTime > 0)
+            {
+                outlineTime -= Time.deltaTime * outlineSpeed;
+            }
+        }
+        else
+        {
+            outline.OutlineWidth = outlineAnimation.Evaluate(outlineTime) * outlineWidth;
+            if (outlineTime < 1)
+            {
+                outlineTime += Time.deltaTime * outlineSpeed;
+            }
         }
     }
 
@@ -334,6 +401,13 @@ public class InteractObject : MonoBehaviour
     {
         get => settings.weightType;
     }
+
+    public bool IsHeavy
+    {
+        get => (settings.weightType == ObjectSettings.ObjectWeight.heavy);
+    }
+
+
 
     #endregion
 }
