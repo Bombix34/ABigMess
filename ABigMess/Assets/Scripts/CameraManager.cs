@@ -22,6 +22,9 @@ public class CameraManager : Singleton<CameraManager>
     {
         manager = GameManager.Instance;
         mainCameraTransposer = mainCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
+        ResetCamerasPriority();
+        mainCamera.Priority = 10;
+        isMainCameraActive = true;
     }
 
     private void Update()
