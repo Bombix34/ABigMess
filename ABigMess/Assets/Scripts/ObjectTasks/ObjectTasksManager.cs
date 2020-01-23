@@ -237,7 +237,11 @@ public class ObjectTasksManager : MonoBehaviour
             //Debug.LogError("You should define settings for the object");
             return;
         }
-
+        else if(interactObject.Settings==null)
+        {
+            Debug.LogError("Missing object settings");
+            return;
+        }
         ObjectSettings.ObjectType collisionObjectType = interactObject.Settings.objectType;
 
         for (int i = countTasks; i < allTasks.Count; i++)

@@ -125,6 +125,10 @@ public class InteractObject : MonoBehaviour
         // Only if the object is not holded it can collide and apply his states to surrounding objects
         if (attachedPlayers.Count == 0)
         {
+            if(settings==null)
+            {
+                return;
+            }
             GameObject enteredObject = collision.gameObject;
             if (Settings.objectType == ObjectSettings.ObjectType.sponge && !Settings.NeedsToBePlugged() && enteredObject.GetComponent<InteractObject>() != null)
             {
@@ -244,6 +248,10 @@ public class InteractObject : MonoBehaviour
     {
         outline.OutlineMode = SimpleOutline.Mode.OutlineVisible;
         outline.OutlineWidth = 0;
+        if(settings==null)
+        {
+            return;
+        }
         if (settings.IsTool())
         {
             outline.OutlineColor = Color.green;

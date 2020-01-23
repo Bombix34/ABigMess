@@ -22,6 +22,9 @@ public class CameraManager : Singleton<CameraManager>
     {
         manager = GameManager.Instance;
         mainCameraTransposer = mainCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
+        ResetCamerasPriority();
+        mainCamera.Priority = 10;
+        isMainCameraActive = true;
     }
 
     private void Update()
@@ -56,7 +59,7 @@ public class CameraManager : Singleton<CameraManager>
     public bool SwitchCamera(int roomNb)
     {
         ResetCamerasPriority();
-        if (GameManager.Instance.PlayerInSameRoom())
+        if (GameManager.Instance.PlayerInSameRoom() && roomCameras.Count>0)
         {
             roomCameras[roomNb].Priority = 10;
             isMainCameraActive = false;
