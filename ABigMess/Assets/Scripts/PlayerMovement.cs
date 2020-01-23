@@ -182,6 +182,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public Rigidbody Body
+    {
+        get => rigidBody;
+    }
+
     public bool CanMove
     {
         get => canMove;
