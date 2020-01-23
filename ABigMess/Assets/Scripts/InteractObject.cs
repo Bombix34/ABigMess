@@ -52,7 +52,7 @@ public class InteractObject : MonoBehaviour
         body.isKinematic = false;
         outline = gameObject.AddComponent<SimpleOutline>();
         GameObject canvasObj = GameObject.Find("Canvas");
-        if(canvasObj!=null)
+        if (canvasObj != null)
         {
             canvas = canvasObj.GetComponent<Canvas>();
         }
@@ -84,7 +84,7 @@ public class InteractObject : MonoBehaviour
         if (toolObj.Settings.IsTool() && !toolObj.Settings.NeedsToBePlugged())
         {
             ToolSettings tool = (ToolSettings)toolObj.Settings;
-            tool.ApplyEvent(this);
+            StartCoroutine(tool.ApplyEvent(this));
         }
         else if (toolObj.Settings.IsTool() && toolObj.Settings.NeedsToBePlugged())
         {
@@ -93,9 +93,9 @@ public class InteractObject : MonoBehaviour
                 if (toolObj.GetComponent<ObjectState>().Plugged)
                 {
                     ToolSettings tool = (ToolSettings)toolObj.Settings;
-                    tool.ApplyEvent(this);
+                    StartCoroutine(tool.ApplyEvent(this));
                 }
-            } 
+            }
         }
         else
         {
@@ -103,7 +103,7 @@ public class InteractObject : MonoBehaviour
             if (Settings.IsTool() && !Settings.NeedsToBePlugged())
             {
                 ToolSettings tool = (ToolSettings)Settings;
-                tool.ApplyEvent(toolObj);
+                StartCoroutine(tool.ApplyEvent(toolObj));
             }
             else if (Settings.IsTool() && Settings.NeedsToBePlugged())
             {
@@ -112,7 +112,7 @@ public class InteractObject : MonoBehaviour
                     if (toolObj.GetComponent<ObjectState>().Plugged)
                     {
                         ToolSettings tool = (ToolSettings)Settings;
-                        tool.ApplyEvent(toolObj);
+                        StartCoroutine(tool.ApplyEvent(toolObj));
                     }
                 }
             }
@@ -184,7 +184,7 @@ public class InteractObject : MonoBehaviour
             {
                 if (!settings.isOneHandedCarrying)
                 {
-                    body.constraints = RigidbodyConstraints.FreezePosition; 
+                    body.constraints = RigidbodyConstraints.FreezePosition;
                     body.useGravity = false;
                 }
                 else
@@ -200,7 +200,7 @@ public class InteractObject : MonoBehaviour
     public void UpdateHeavyObjectBringed()
     {
         MultiplayerBring bringSystem;
-        if (this.gameObject.GetComponent<MultiplayerBring>()==null)
+        if (this.gameObject.GetComponent<MultiplayerBring>() == null)
         {
             bringSystem = this.gameObject.AddComponent<MultiplayerBring>();
         }
@@ -208,7 +208,7 @@ public class InteractObject : MonoBehaviour
         {
             bringSystem = this.GetComponent<MultiplayerBring>();
         }
-        foreach(var player in attachedPlayers)
+        foreach (var player in attachedPlayers)
         {
             bringSystem.UpdatePlayers(player, true);
         }

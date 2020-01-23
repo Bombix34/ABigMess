@@ -11,17 +11,17 @@ public class ToolSettings : ObjectSettings
     [HideInInspector]
     public List<Interaction> interactionsList;
 
-    public void ApplyEvent(InteractObject objConcerned)
+    public IEnumerator ApplyEvent(InteractObject objConcerned)
     {
-        if(interactionsList.Count == 0)
-        {
-            return;
+        if(interactionsList.Count == 0)
+        {
+            yield return null;
         }
         for(int index=0; index<interactionsList.Count;index++)
         {
             if(interactionsList[index].objectConcerned==objConcerned.Settings.objectType)
             {
-                interactionsList[index].LaunchEvents(objConcerned.gameObject);
+                yield return interactionsList[index].LaunchEvents(objConcerned.gameObject);
             }
         }
     }
