@@ -227,7 +227,14 @@ public class ObjectTasksManager : MonoBehaviour
         // No task should work without an interactObject
         if (interactObject == null)
         {
-            Debug.LogError("You should use an interact object to do a task");
+            //Debug.LogError("You should use an interact object to do a task, object name = " + collider.gameObject.name + " on platform = " + platform.name);
+            //Debug.LogError("You should use an interact object to do a task");
+            return;
+        }
+
+        if(interactObject.Settings == null)
+        {
+            //Debug.LogError("You should define settings for the object");
             return;
         }
 
