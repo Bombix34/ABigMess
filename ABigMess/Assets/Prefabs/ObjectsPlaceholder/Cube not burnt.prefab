@@ -124,7 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactButtonOverlayPrefab: {fileID: 1379215672641199259, guid: c68c3ed3cdef8584fb8e77aabc7143e0,
     type: 3}
-  settings: {fileID: 11400000, guid: 37cbcfab471226a45b0c29b6142ba3c2, type: 2}
+  settings: {fileID: 11400000, guid: 2f3e2cc7552c747428f11a40cb423357, type: 2}
   outlineAnimation:
     serializedVersion: 2
     m_Curve:
@@ -172,12 +172,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2059e7b8be60b554c9324bdf690007e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  washed: 0
-  burnt: 0
-  smuged: 0
-  cooked: 0
-  grown: 0
-  colored: 0
-  broken: 0
-  opened: 0
-  plugged: 0
+  states:
+    washed: 0
+    burnt: 0
+    smuged: 0
+    cooked: 0
+    grown: 0
+    colored: 0
+    broken: 0
+    opened: 0
+    plugged: 0

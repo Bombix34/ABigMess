@@ -88,8 +88,6 @@ GameObject:
   - component: {fileID: 788429769429543635}
   - component: {fileID: 788429769429543636}
   - component: {fileID: 788429769429543637}
-  - component: {fileID: 788429769429543638}
-  - component: {fileID: 788429769429543633}
   - component: {fileID: 788429769429543634}
   m_Layer: 2
   m_Name: Plug
@@ -161,42 +159,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &788429769429543638
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 788429769429543639}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &788429769429543633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 788429769429543639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67cd42b004709454faa4a979280a2e96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactButtonOverlayPrefab: {fileID: 1379215672641199259, guid: c68c3ed3cdef8584fb8e77aabc7143e0,
-    type: 3}
-  settings: {fileID: 11400000, guid: c3d1c2c63f1c949438c90f49858a330c, type: 2}
-  outlineAnimation:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  outlineWidth: 8
-  outlineSpeed: 2
 --- !u!54 &788429769429543634
 Rigidbody:
   m_ObjectHideFlags: 0
