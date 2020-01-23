@@ -9,15 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 700f429a1bf32014d865e190835bdb98, type: 3}
-  m_Name: BringWateringCan
+  m_Script: {fileID: 11500000, guid: b608688e6aae9e145b2d142c0fd09905, type: 3}
+  m_Name: EVENT_TIMER_2S
   m_EditorClassIdentifier: 
-  description: Bring Watering Can to somewhere else
-  destination: 
-  objectType: 8
-  taskIcons:
-  - {fileID: 21300000, guid: 65cdb1f9bea9c7b499d88803540138d6, type: 3}
-  - {fileID: 21300000, guid: 7062a6359039a5743a64cd5c51ec7491, type: 3}
   washed:
     Key: 0
     Value: 0
@@ -45,3 +39,6 @@ MonoBehaviour:
   plugged:
     Key: 0
     Value: 0
+  particleFX: {fileID: 0}
+  chronoBeforeKillingParticles: 0.25
+  delay: 2

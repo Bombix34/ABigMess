@@ -19,7 +19,7 @@ public class ObjectTasksManager : MonoBehaviour
     private CanvasGroup tasksPanel;
     public GameObject taskPrefab;
 
-    public Dictionary<int, TextMeshProUGUI> taskTexts;
+    public Dictionary<int, TaskUI> tasksUI;
     public Dictionary<int, GameObject> taskInstances;
     public Dictionary<int, ObjectTask> tasksToDo;
 
@@ -38,7 +38,7 @@ public class ObjectTasksManager : MonoBehaviour
     {
         canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         tasksPanel = canvas.transform.Find("Tasks").GetComponent<CanvasGroup>();
-        taskTexts = new Dictionary<int, TextMeshProUGUI>();
+        tasksUI = new Dictionary<int, TaskUI>();
         taskInstances = new Dictionary<int, GameObject>();
         tasksToDo = new Dictionary<int, ObjectTask>();
         allTasks = new List<ObjectTask>();
@@ -66,12 +66,12 @@ public class ObjectTasksManager : MonoBehaviour
         {
             GameObject taskInstance = Instantiate(taskPrefab, tasksPanel.transform);
             RectTransform taskInstanceRect = taskInstance.GetComponent<RectTransform>();
-            TextMeshProUGUI taskText = taskInstance.GetComponentInChildren<TextMeshProUGUI>();
+            TaskUI taskUI = taskInstance.GetComponent<TaskUI>();
             taskInstanceRect.anchoredPosition =
                 new Vector2(-width / 2 - taskInstanceRect.sizeDelta.x / 2
                 , height / 2 + (taskInstanceRect.sizeDelta.y / 2));
-            taskText.text = allTasks[i].description;
-            taskTexts.Add(i, taskText);
+            taskUI.SetObjectTask(allTasks[i]);
+            tasksUI.Add(i, taskUI);
             taskInstances.Add(i, taskInstance);
             tasksToDo.Add(i, allTasks[i]);
         }
@@ -157,10 +157,11 @@ public class ObjectTasksManager : MonoBehaviour
     {
         if (tasksToDo.ContainsKey(taskId))
         {
-            taskTexts[taskId].text = "OK! " + allTasks[taskId].description;
-            taskTexts[taskId].color = Color.yellow;
+            tasksUI[taskId].TaskDone();
 
             tasksToDo.Remove(taskId);
+
+            sweepAwayTasksTime = SweepAwayTasksTime;
         }
     }
 
@@ -168,10 +169,11 @@ public class ObjectTasksManager : MonoBehaviour
     {
         if (!tasksToDo.ContainsKey(taskId))
         {
-            taskTexts[taskId].text = taskTexts[taskId].text.Remove(0, 4);
-            taskTexts[taskId].color = Color.white;
+            tasksUI[taskId].TaskUnDone();
 
             tasksToDo.Add(taskId, allTasks[taskId]);
+
+            sweepAwayTasksTime = SweepAwayTasksTime;
         }
     }
 
@@ -225,7 +227,14 @@ public class ObjectTasksManager : MonoBehaviour
         // No task should work without an interactObject
         if (interactObject == null)
         {
-            Debug.LogError("You should use an interact object to do a task");
+            //Debug.LogError("You should use an interact object to do a task, object name = " + collider.gameObject.name + " on platform = " + platform.name);
+            //Debug.LogError("You should use an interact object to do a task");
+            return;
+        }
+
+        if(interactObject.Settings == null)
+        {
+            //Debug.LogError("You should define settings for the object");
             return;
         }
 
@@ -310,7 +319,7 @@ public class ObjectTasksManager : MonoBehaviour
             taskDisplay.DOAnchorPosX(-width / 2 - taskDisplay.sizeDelta.x / 2, 0.5f);
             Destroy(taskDisplay.gameObject, 0.5f);
 
-            taskTexts.Remove(i + countTasks);
+            tasksUI.Remove(i + countTasks);
             taskInstances.Remove(i + countTasks);
             tasksToDo.Remove(i + countTasks);
             //allTasks.Remove(allTasks[i + countTasks]);

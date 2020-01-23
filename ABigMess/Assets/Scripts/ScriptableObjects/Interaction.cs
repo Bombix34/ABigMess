@@ -12,13 +12,25 @@ public class Interaction
 
     public List<InteractEvent> eventsToLaunch;
 
-    public void LaunchEvents(GameObject obj)
+    public IEnumerator LaunchEvents(GameObject obj)
     {
         for(int index=0; index<eventsToLaunch.Count;index++)
         {
-            eventsToLaunch[index].InteractionEvent(obj);
+            if (eventsToLaunch[index] is TimerEvent)
+            {
+                TimerEvent timerEvent = (TimerEvent)eventsToLaunch[index];
+                Debug.Log("Timer Event : " + timerEvent);
+                yield return new WaitForSeconds(timerEvent.delay);
+            }
+            else
+            {
+                eventsToLaunch[index].InteractionEvent(obj);
+                yield return null;
+            }
         }
     }
+
+
 
 }
 
