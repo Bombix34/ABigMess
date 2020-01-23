@@ -9,13 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 700f429a1bf32014d865e190835bdb98, type: 3}
-  m_Name: BringCube
+  m_Script: {fileID: 11500000, guid: b608688e6aae9e145b2d142c0fd09905, type: 3}
+  m_Name: EVENT_TIMER_0.5S
   m_EditorClassIdentifier: 
-  done: 0
-  description: Bring cube to Kitchen
-  destination: KitchenPlatform
-  objectType: 4
   washed:
     Key: 0
     Value: 0
@@ -43,3 +39,6 @@ MonoBehaviour:
   plugged:
     Key: 0
     Value: 0
+  particleFX: {fileID: 0}
+  chronoBeforeKillingParticles: 0.25
+  delay: 0.5
