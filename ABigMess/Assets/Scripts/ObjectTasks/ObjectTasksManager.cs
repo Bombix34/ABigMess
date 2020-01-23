@@ -118,7 +118,7 @@ public class ObjectTasksManager : MonoBehaviour
             sweepAwayTasksTime -= Time.deltaTime;
         }
 
-        /*if (actualObjectTasksGroup != null && sweepAwayTasksTime <= 0)
+        if (actualObjectTasksGroup != null && sweepAwayTasksTime <= 0)
         {
             if (ActualTasksDone())
             {
@@ -137,7 +137,7 @@ public class ObjectTasksManager : MonoBehaviour
 
                 AddTasks();
             }
-        }*/
+        }
 
     }
 
