@@ -50,8 +50,6 @@ public class TaskUI : MonoBehaviour
             return;
         }
 
-        //text.text = objectTask.description;
-
         foreach (Sprite s in objectTask.taskIcons)
         {
             GameObject image = Instantiate(imagePrefab, transform);
@@ -59,6 +57,11 @@ public class TaskUI : MonoBehaviour
             imageRectTransform.anchoredPosition =  new Vector2(-rectTransform.sizeDelta.x /2 + imageRectTransform.sizeDelta.x /2 + (i * size) + marginX, 0 - marginY);
             image.GetComponent<Image>().sprite = s;
             i++;
+        }
+
+        if(i == 0)
+        {
+            text.text = objectTask.description;
         }
 
     }
