@@ -75,8 +75,8 @@ public class ObjectSettings : ScriptableObject
         dirtPiles,
         pumpkin,
         electricPlug,
-        sponge
-        
-
+        sponge,
+        fork,
+        muralClock
     }
 }
