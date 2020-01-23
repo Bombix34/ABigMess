@@ -9,25 +9,21 @@ public class PlugTrigger : MonoBehaviour
     {
         if (other.CompareTag("GrabObject") && other.GetComponent<InteractObject>() != null)
         {
-            //print(this.transform.parent.gameObject + " collided with " + other.name);
+            print(this.transform.parent.gameObject + " is the plug for " + other.name);
             ObjectState objectState = other.gameObject.GetComponent<ObjectState>();
-            if(objectState != null)
+            if (objectState != null)
             {
                 objectState.Plugged = true;
             }
 
-            InteractObject interactObject = transform.parent.gameObject.GetComponent<InteractObject>();
             Plugged plugged = other.gameObject.GetComponent<Plugged>();
 
-            if (interactObject != null)
+            if (other.gameObject.GetComponent<InteractObject>().Settings.NeedsToBePlugged())
             {
                 //Debug.Log("Object Type : " + interactObject.Settings.objectType);
-                if (interactObject.Settings.objectType == ObjectSettings.ObjectType.plug)
+                if (plugged != null)
                 {
-                    if(plugged != null)
-                    {
-                        plugged.plug = transform.parent.gameObject;
-                    }
+                    plugged.plug = transform.parent.gameObject;
                 }
             }
         }
