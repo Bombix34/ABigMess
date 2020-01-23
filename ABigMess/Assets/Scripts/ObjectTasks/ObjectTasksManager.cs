@@ -13,7 +13,7 @@ public class ObjectTasksManager : MonoBehaviour
     private ObjectTaskGroup actualObjectTasksGroup;
     private int countTasks;
     public ObjectTaskGroup objectTasksGroup;
-    public List<ObjectTask> allTasks;
+    private List<ObjectTask> allTasks;
 
     private Canvas canvas;
     private CanvasGroup tasksPanel;
@@ -77,6 +77,8 @@ public class ObjectTasksManager : MonoBehaviour
         }
 
         AddTasks();
+
+        Debug.Log("all tasks count: " + allTasks.Count);
     }
 
     private void AddTasks()
@@ -116,7 +118,7 @@ public class ObjectTasksManager : MonoBehaviour
             sweepAwayTasksTime -= Time.deltaTime;
         }
 
-        if (actualObjectTasksGroup != null && sweepAwayTasksTime <= 0)
+        /*if (actualObjectTasksGroup != null && sweepAwayTasksTime <= 0)
         {
             if (ActualTasksDone())
             {
@@ -135,7 +137,7 @@ public class ObjectTasksManager : MonoBehaviour
 
                 AddTasks();
             }
-        }
+        }*/
 
     }
 
@@ -227,7 +229,7 @@ public class ObjectTasksManager : MonoBehaviour
         // No task should work without an interactObject
         if (interactObject == null)
         {
-            //Debug.LogError("You should use an interact object to do a task, object name = " + collider.gameObject.name + " on platform = " + platform.name);
+            Debug.LogError("You should use an interact object to do a task, object name = " + collider.gameObject.name + " on platform = " + platform.name);
             //Debug.LogError("You should use an interact object to do a task");
             return;
         }
@@ -237,12 +239,14 @@ public class ObjectTasksManager : MonoBehaviour
             //Debug.LogError("You should define settings for the object");
             return;
         }
-        else if(interactObject.Settings==null)
-        {
-            Debug.LogError("Missing object settings");
-            return;
-        }
+
         ObjectSettings.ObjectType collisionObjectType = interactObject.Settings.objectType;
+
+        //Debug.Log("all tasks count: " + allTasks.Count);
+        foreach(var item in allTasks)
+        {
+            print(item);
+        }
 
         for (int i = countTasks; i < allTasks.Count; i++)
         {
