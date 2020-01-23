@@ -36,6 +36,7 @@ public class GameManager : Singleton<GameManager>
                 levels.CurrentLevelIndex = i;
             }
         }
+        InvokeRepeating("DetectStressTime", 1f, 1f);
         Application.targetFrameRate = 50;
         QualitySettings.vSyncCount = 0;
     }
@@ -64,6 +65,14 @@ public class GameManager : Singleton<GameManager>
             {
                 WinCurrentLevel();
             }
+        }
+    }
+
+    private void DetectStressTime()
+    {
+        if(levels.CurrentLevel.startChrono - currentPlayersTime <= 20f)
+        {
+            musicManager.StressChronoSound();
         }
     }
 
@@ -111,6 +120,7 @@ public class GameManager : Singleton<GameManager>
     #endregion
 
     #region GET/SET
+
     public MusicManager MusicManager
     {
         get => musicManager;

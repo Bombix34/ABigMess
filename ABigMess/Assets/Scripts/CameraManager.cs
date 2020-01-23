@@ -97,5 +97,10 @@ public class CameraManager : Singleton<CameraManager>
         }
     }
 
+    public int CameraCount
+    {
+        get => roomCameras.Count;
+    }
+
     #endregion
 }

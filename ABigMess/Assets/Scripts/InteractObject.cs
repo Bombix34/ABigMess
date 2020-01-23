@@ -188,7 +188,7 @@ public class InteractObject : MonoBehaviour
             {
                 if (!settings.isOneHandedCarrying)
                 {
-                    body.constraints = RigidbodyConstraints.FreezePosition; 
+                    body.constraints = RigidbodyConstraints.FreezeAll;  
                     body.useGravity = false;
                 }
                 else
@@ -216,7 +216,6 @@ public class InteractObject : MonoBehaviour
         {
             bringSystem.UpdatePlayers(player, true);
         }
-        //bringSystem.UpdatePlayers(attachedPlayers);
         bringSystem.SetMovementSettings(attachedPlayers[0].GetComponent<PlayerManager>().Reglages);
     }
 
@@ -240,6 +239,15 @@ public class InteractObject : MonoBehaviour
             }
         }
         SetupWeight();
+    }
+
+    public void DetachPlayer()
+    {
+        if (IsHeavy)
+        {
+            return;
+        }
+        attachedPlayers[0].GetComponent<PlayerManager>().DropBringObject(true);
     }
 
     #region HIGHLIGHT_SYSTEM
@@ -417,6 +425,11 @@ public class InteractObject : MonoBehaviour
     public bool IsHeavy
     {
         get => (settings.weightType == ObjectSettings.ObjectWeight.heavy);
+    }
+
+    public int AttachedPlayersCount
+    {
+        get => attachedPlayers.Count;
     }
 
 
