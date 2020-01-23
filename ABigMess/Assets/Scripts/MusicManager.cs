@@ -34,6 +34,12 @@ public class MusicManager : MonoBehaviour
         radioSystem.StopRadio();
     }
 
+    public void StressChronoSound()
+    {
+        Debug.Log("BIP");
+        //APPEL DE LEVENT STRESS SOUND
+    }
+
 }
 
 #region RadioClass

@@ -27,7 +27,7 @@ public class PlayerManager : ObjectManager
     private GameObject bringPosition;
 
     [SerializeField]
-    private int currentRoomNb = 0;
+    private int currentRoomNb = -1;
 
     private Ray lastRaycastRay;
     
@@ -130,11 +130,16 @@ public class PlayerManager : ObjectManager
                 return;
             }
             grabbedObject = interactObject;
-            grabbedObject.GetComponent<InteractObject>().Grab(this.gameObject);
+            InteractObject obj = grabbedObject.GetComponent<InteractObject>();
+            if (obj.AttachedPlayersCount > 0 && obj.Settings.weightType!=ObjectSettings.ObjectWeight.heavy)
+            {
+                obj.DetachPlayer();
+            }
+            obj.Grab(this.gameObject);
             ResetRaycastedObjects();
             interactObject = null;
             movement.ResetTorso();
-            bool isGrabOneHand = grabbedObject.GetComponent<InteractObject>().Settings.isOneHandedCarrying;
+            bool isGrabOneHand = obj.Settings.isOneHandedCarrying;
             if(isGrabOneHand)
             {
                 AttachGrabbedObjectOneHanded();
@@ -143,7 +148,7 @@ public class PlayerManager : ObjectManager
             {
                 AttachGrabbedObjectTwoHanded();
             }
-            ChangeState(new PlayerBringState(this, grabbedObject.GetComponent<InteractObject>()));
+            ChangeState(new PlayerBringState(this, obj));
         }
     }
 
@@ -242,17 +247,32 @@ public class PlayerManager : ObjectManager
     /// </summary>
     public void DropBringObject()
     {
-        /*
-        if (inputs.GetGrabInputDown() && grabbedObject != null && interactObject != null )
-        {
-            SwitchGrabbedObject();
-        }
-        else
-        */
         if ((inputs.GetGrabInputDown() && grabbedObject != null) || (!movement.IsGrounded() && isGrabbedObjectColliding))
         {
             grabbedObject.transform.parent = null;
             if(grabbedObject.GetComponent<FixedJoint>()!=null)
+            {
+                Destroy(grabbedObject.GetComponent<FixedJoint>());
+            }
+            renderer.DetachHand();
+            grabbedObject.GetComponent<InteractObject>().Dropdown(this.gameObject);
+            grabbedObject = null;
+            isGrabbedObjectColliding = false;
+            movement.CanMove = true;
+            ChangeState(new PlayerBaseState(this));
+        }
+    }
+
+    /// <summary>
+    /// this function help forcing detach player
+    /// </summary>
+    /// <param name="isForcing"></param>
+    public void DropBringObject(bool isForcing)
+    {
+        if ((isForcing)||(inputs.GetGrabInputDown() && grabbedObject != null) || (!movement.IsGrounded() && isGrabbedObjectColliding))
+        {
+            grabbedObject.transform.parent = null;
+            if (grabbedObject.GetComponent<FixedJoint>() != null)
             {
                 Destroy(grabbedObject.GetComponent<FixedJoint>());
             }

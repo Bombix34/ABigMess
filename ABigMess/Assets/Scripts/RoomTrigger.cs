@@ -51,6 +51,7 @@ public class RoomTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             ModifyWallsMaterial(false);
+            other.gameObject.GetComponent<PlayerManager>().CurrentRoomNb = -1;
         }
     }
 
