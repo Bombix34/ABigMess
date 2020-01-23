@@ -17,14 +17,20 @@ public class OnTriggerEvents : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        collider = other;
-        collisionEnterEvent.Invoke();
+        if (other.GetComponent<InteractObject>() != null)
+        {
+            collider = other;
+            collisionEnterEvent.Invoke();
+        }
     }
 
     public void OnTriggerExit(Collider other)
     {
-        collider = other;
-        collisionExitEvent.Invoke();
+        if (other.GetComponent<InteractObject>() != null)
+        {
+            collider = other;
+            collisionExitEvent.Invoke();
+        }
     }
 
 
