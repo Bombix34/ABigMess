@@ -14,6 +14,10 @@ public class RadioEvent : InteractEvent
             return;
         }
         radioManager.SwitchRadio();
+        if(objConcerned.GetComponent<Animator>()!=null)
+        {
+            objConcerned.GetComponent<Animator>().SetBool("IsOn", true);
+        }
         TryInstantiateParticleFX(objConcerned);
     }
 }

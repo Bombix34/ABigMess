@@ -138,7 +138,7 @@ public class InteractObject : MonoBehaviour
         {
             //no tools in hand
             ToolSettings noObjEvents = player.reglages.noObjectInHandEventsList;
-            noObjEvents.ApplyEvent(this);
+            StartCoroutine(noObjEvents.ApplyEvent(this));
         }
         else
         {

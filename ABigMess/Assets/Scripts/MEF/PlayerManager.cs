@@ -89,8 +89,11 @@ public class PlayerManager : ObjectManager
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = new Color(0f, 0f, 1f, 0.75f);
-        Gizmos.DrawSphere(movement.GetFrontPosition(), reglages.raycastRadius);
+        if(Application.isPlaying)
+        {
+            Gizmos.color = new Color(0f, 0f, 1f, 0.75f);
+            Gizmos.DrawSphere(movement.GetFrontPosition(), reglages.raycastRadius);
+        }
     }
 
     #region INTERACTION_SYSTEM
