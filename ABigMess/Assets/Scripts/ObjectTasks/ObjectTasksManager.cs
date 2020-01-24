@@ -135,7 +135,11 @@ public class ObjectTasksManager : MonoBehaviour
                 }
 
                 actualObjectTasksGroup = actualObjectTasksGroup.nextTasks;
-
+                if(actualObjectTasksGroup==null)
+                {
+                    GameManager.Instance.WinCurrentLevel();
+                }
+                    
                 AddTasks();
             }
         }
