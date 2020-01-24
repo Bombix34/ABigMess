@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class CameraManager : Singleton<CameraManager>
 {
     private GameManager manager;
+
+    private DepthOfField depthOfFieldLayer;
 
     [SerializeField]
     CameraSettings settings;
@@ -25,11 +28,17 @@ public class CameraManager : Singleton<CameraManager>
         ResetCamerasPriority();
         mainCamera.Priority = 10;
         isMainCameraActive = true;
+
+        //Init Post Process DoF
+        PostProcessVolume volume = Camera.main.GetComponent<PostProcessVolume>();
+        volume.profile.TryGetSettings(out depthOfFieldLayer);
     }
 
     private void Update()
     {
         UpdateMainCameraZoom();
+
+        UpdateCameraDoF();
     }
 
     private void UpdateMainCameraZoom()
@@ -46,6 +55,11 @@ public class CameraManager : Singleton<CameraManager>
                 mainCameraTransposer.m_CameraDistance = settings.maxZoomIn;
             }
         }
+    }
+
+    private void UpdateCameraDoF()
+    {
+        depthOfFieldLayer.focusDistance.value = Vector3.Distance(manager.GetPositionBetweenPlayers(), Camera.main.transform.position);
     }
 
     /// <summary>
