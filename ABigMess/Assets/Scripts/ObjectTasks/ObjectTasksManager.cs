@@ -135,7 +135,11 @@ public class ObjectTasksManager : MonoBehaviour
                 }
 
                 actualObjectTasksGroup = actualObjectTasksGroup.nextTasks;
-
+                if(actualObjectTasksGroup==null)
+                {
+                    GameManager.Instance.WinCurrentLevel();
+                }
+                    
                 AddTasks();
             }
         }
@@ -163,7 +167,7 @@ public class ObjectTasksManager : MonoBehaviour
             objectsInTask[taskId].Add(g);
         }
 
-        //Debug.Log(objectsInTask[taskId].Count + " -- " + tasksToDo[taskId].count);
+        Debug.Log(objectsInTask[taskId].Count + " -- " + tasksToDo[taskId].count);
         if (objectsInTask[taskId].Count >= allTasks[taskId].count)
         {
             tasksUI[taskId].TaskDone();
@@ -184,7 +188,7 @@ public class ObjectTasksManager : MonoBehaviour
             objectsInTask[taskId].Remove(g);
         }
 
-        Debug.Log("UNDONE : " + objectsInTask[taskId].Count + " -- " + allTasks[taskId].count);
+        //Debug.Log("UNDONE : " + objectsInTask[taskId].Count + " -- " + allTasks[taskId].count);
         // Verify tasks done or undone
 
         if (objectsInTask[taskId].Count < allTasks[taskId].count)
@@ -229,25 +233,38 @@ public class ObjectTasksManager : MonoBehaviour
     private void TaskDone(GameObject platform, bool done)
     {
         // Get the collision that collided with the platform
-        Collider collider;
+        Collider collider = null;
+        GameObject colliderGameObject = null;
         if (platform.gameObject.GetComponent<OnTriggerEvents>() != null)
         {
             collider = platform.gameObject.GetComponent<OnTriggerEvents>().collider;
         }
-        else
+        else if (platform.gameObject.GetComponentInChildren<OnTriggerEvents>() != null)
         {
             collider = platform.gameObject.GetComponentInChildren<OnTriggerEvents>().collider;
         }
 
-        if (collider == null)
+        if (platform.gameObject.GetComponent<PlayerManager>() != null)
+        {
+            
+        }
+        else if (collider == null)
         {
             Debug.LogError("You should use a Trigger event with the apropriate gameObject passed as parameter");
             return;
         }
 
         // Get the object that collided with the platform        
-        InteractObject interactObject = collider.gameObject.GetComponent<InteractObject>();
-        //Debug.Log("Interact Object name : " + collider.gameObject.GetComponent<InteractObject>());
+        InteractObject interactObject = null;
+        if (platform.gameObject.GetComponent<PlayerManager>() != null)
+        {
+            interactObject = platform.GetComponent<PlayerManager>().GrabbedObject.GetComponent<InteractObject>();
+            colliderGameObject = platform.GetComponent<PlayerManager>().GrabbedObject;
+        } else {
+            interactObject = collider.gameObject.GetComponent<InteractObject>();
+            colliderGameObject = collider.gameObject;
+        }
+        Debug.Log("Interact Object name : " + interactObject.name);
 
         // No task should work without an interactObject
         if (interactObject == null)
@@ -277,42 +294,42 @@ public class ObjectTasksManager : MonoBehaviour
 
             //Debug.Log("Has ObjectState: " + (collider.gameObject.GetComponent<ObjectState>() == null).ToString());
             // If the object has no state, then no need to compare a state
-            if (collider.gameObject.GetComponent<ObjectState>() == null)
+            if (colliderGameObject.GetComponent<ObjectState>() == null)
             {
                 // Check if the task destination is the same as the passed plateform 
                 if (actualTask.destination.Equals(platform.name))
                 {
-                    TasksDoneOrUndone(collider.gameObject, done, taskId);
+                    TasksDoneOrUndone(colliderGameObject, done, taskId);
                 }
                 else if (actualTask.destination.Equals("")) // If no destination has been set, any platform works
                 {
-                    TasksDoneOrUndone(collider.gameObject, done, taskId);
+                    TasksDoneOrUndone(colliderGameObject, done, taskId);
                 }
                 continue;
             }
 
             // If the object has a state, then veryfy if the states of the object correspond with what is wanted
-            if (done && VerifyStates(actualTask, collider.gameObject.GetComponent<ObjectState>().states))
+            if (done && VerifyStates(actualTask, colliderGameObject.GetComponent<ObjectState>().states))
             {
                 //print(gameObject.name + "  " + actualTask.destination);
                 if (actualTask.destination.Equals(platform.name))
                 {
-                    TasksDoneOrUndone(collider.gameObject, done, taskId);
+                    TasksDoneOrUndone(colliderGameObject, done, taskId);
                 }
                 else if (actualTask.destination.Equals(""))
                 {
-                    TasksDoneOrUndone(collider.gameObject, done, taskId);
+                    TasksDoneOrUndone(colliderGameObject, done, taskId);
                 }
             }
             else if (!done)
             {
                 if (actualTask.destination.Equals(platform.name))
                 {
-                    TasksDoneOrUndone(collider.gameObject, done, taskId);
+                    TasksDoneOrUndone(colliderGameObject, done, taskId);
                 }
                 else if (actualTask.destination.Equals(""))
                 {
-                    TasksDoneOrUndone(collider.gameObject, done, taskId);
+                    TasksDoneOrUndone(colliderGameObject, done, taskId);
                 }
             }
         }
