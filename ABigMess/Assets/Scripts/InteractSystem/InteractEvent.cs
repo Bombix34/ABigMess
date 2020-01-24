@@ -22,6 +22,9 @@ public abstract class InteractEvent : ScriptableObject
     [SerializeField]
     float chronoBeforeKillingParticles = 0.25f;
 
+    [SerializeField]
+    public Sprite icon;
+
 
     /// <summary>
     /// Script for interaction object that need to be set when the game launch
