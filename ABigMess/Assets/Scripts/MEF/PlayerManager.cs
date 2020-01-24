@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerInputManager))]
 [RequireComponent(typeof(PlayerRenderer))]
@@ -37,6 +38,9 @@ public class PlayerManager : ObjectManager
 
     private List<InteractObject> raycastedObjects;
     private int raycastIndex = 0;
+
+    [SerializeField]
+    private UnityEvent onInteract;
 
     private void Awake()
     {
@@ -108,6 +112,7 @@ public class PlayerManager : ObjectManager
             }
             //Interact object is an object near the player that he wants to interact with
             interactObject.GetComponent<InteractObject>().Interact(this);
+            onInteract.Invoke();
         }
     }
     #endregion
