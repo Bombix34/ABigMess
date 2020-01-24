@@ -7,8 +7,7 @@ public class ObjectState : MonoBehaviour
 {
 
     public ObjectStates states;
-
-
+    
     private void Start()
     {
         UpdateState();
@@ -197,4 +196,17 @@ public class ObjectState : MonoBehaviour
     }
     
     #endregion
+
+    public enum State
+    {
+        washed,
+        burnt,
+        smuged,
+        cooked,
+        grown,
+        colored,
+        broken,
+        opened,
+        plugged
+    }
 }
