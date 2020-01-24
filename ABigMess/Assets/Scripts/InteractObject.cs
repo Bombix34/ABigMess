@@ -16,6 +16,9 @@ public class InteractObject : MonoBehaviour
 
     [SerializeField]
     private ObjectSettings settings;
+    [SerializeField]
+    private OutlineSettings outlineSettings;
+
     private Rigidbody body;
 
     private static float HOLD_TIME = 0.125f;
@@ -26,19 +29,8 @@ public class InteractObject : MonoBehaviour
 
     private SimpleOutline outline;
 
-    [SerializeField]
-    private AnimationCurve outlineAnimation;
-
     private float outlineTime;
     private bool decreaseOutline = true;
-
-    [SerializeField]
-    [Range(1, 15)]
-    private float outlineWidth = 8;
-
-    [SerializeField]
-    [Range(1, 10)]
-    private float outlineSpeed = 2;
 
     private float initMass;
 
@@ -315,18 +307,18 @@ public class InteractObject : MonoBehaviour
         // We start the counter by setting it to time.deltaTIme wich is > 0
         if (decreaseOutline)
         {
-            outline.OutlineWidth = outlineAnimation.Evaluate(outlineTime) * outlineWidth;
+            outline.OutlineWidth = outlineSettings.outlineAnimation.Evaluate(outlineTime) * outlineSettings.outlineWidth;
             if (outlineTime > 0)
             {
-                outlineTime -= Time.deltaTime * outlineSpeed;
+                outlineTime -= Time.deltaTime * outlineSettings.outlineSpeed;
             }
         }
         else
         {
-            outline.OutlineWidth = outlineAnimation.Evaluate(outlineTime) * outlineWidth;
+            outline.OutlineWidth = outlineSettings.outlineAnimation.Evaluate(outlineTime) * outlineSettings.outlineWidth;
             if (outlineTime < 1)
             {
-                outlineTime += Time.deltaTime * outlineSpeed;
+                outlineTime += Time.deltaTime * outlineSettings.outlineSpeed;
             }
         }
     }
