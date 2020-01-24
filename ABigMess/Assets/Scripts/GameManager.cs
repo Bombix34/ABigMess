@@ -46,7 +46,7 @@ public class GameManager : Singleton<GameManager>
         middlePlayers.transform.position = GetPositionBetweenPlayers();
         currentPlayersTime += Time.deltaTime;
         //to remove
-        DebugNextLevelInput();
+        //DebugNextLevelInput();
         //_________
         uiManager.UpdateChronoUI(levels.CurrentLevel.startChrono - currentPlayersTime);
     }

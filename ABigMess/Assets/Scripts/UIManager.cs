@@ -10,6 +10,10 @@ public class UIManager : Singleton<UIManager>
 
     public void UpdateChronoUI(float currentTime)
     {
+        if(currentTime<0)
+        {
+            currentTime = 0f;
+        }
         int minutes = (int)(currentTime / 60f);
         int seconds = (int)(currentTime % 60f);
         if(seconds < 10)

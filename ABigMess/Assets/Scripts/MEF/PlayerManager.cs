@@ -347,7 +347,7 @@ public class PlayerManager : ObjectManager
                 // A ray that verifies that we are not rycasting through a wall
                 GameObject raycastedObject= hitColliders[i].gameObject;
                 RaycastHit hit;
-                Physics.Raycast(transform.position, raycastedObject.transform.position - transform.position, out hit, 5f);
+                Physics.Raycast(transform.position, (raycastedObject.transform.position - transform.position).normalized, out hit, 5f);
 
                 if (hit.collider!=null && !hit.collider.CompareTag("Wall")) // If we are not going through a wall
                 {
