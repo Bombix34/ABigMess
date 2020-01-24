@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InteractButtonOverlay : MonoBehaviour
 {
     [SerializeField]
     TextMeshProUGUI text;
+
+    [SerializeField]
+    Image image;
     // Start is called before the first frame update
     void Awake()
     {
@@ -23,6 +27,11 @@ public class InteractButtonOverlay : MonoBehaviour
     {
         this.text.text = text;
         this.text.color = Color.white;
+    }
+
+    public void SetImage(Sprite image)
+    {
+        this.image.sprite = image;
     }
 
     public void SetErrorText(string text)

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerInputManager))]
 [RequireComponent(typeof(PlayerRenderer))]
@@ -37,6 +38,9 @@ public class PlayerManager : ObjectManager
 
     private List<InteractObject> raycastedObjects;
     private int raycastIndex = 0;
+
+    [SerializeField]
+    private UnityEvent onInteract;
 
     private void Awake()
     {
@@ -89,8 +93,11 @@ public class PlayerManager : ObjectManager
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = new Color(0f, 0f, 1f, 0.75f);
-        Gizmos.DrawSphere(movement.GetFrontPosition(), reglages.raycastRadius);
+        if(Application.isPlaying)
+        {
+            Gizmos.color = new Color(0f, 0f, 1f, 0.75f);
+            Gizmos.DrawSphere(movement.GetFrontPosition(), reglages.raycastRadius);
+        }
     }
 
     #region INTERACTION_SYSTEM
@@ -105,6 +112,7 @@ public class PlayerManager : ObjectManager
             }
             //Interact object is an object near the player that he wants to interact with
             interactObject.GetComponent<InteractObject>().Interact(this);
+            onInteract.Invoke();
         }
     }
     #endregion
@@ -339,7 +347,7 @@ public class PlayerManager : ObjectManager
                 // A ray that verifies that we are not rycasting through a wall
                 GameObject raycastedObject= hitColliders[i].gameObject;
                 RaycastHit hit;
-                Physics.Raycast(transform.position, raycastedObject.transform.position - transform.position, out hit, 5f);
+                Physics.Raycast(transform.position, (raycastedObject.transform.position - transform.position).normalized, out hit, 5f);
 
                 if (hit.collider!=null && !hit.collider.CompareTag("Wall")) // If we are not going through a wall
                 {

@@ -10,6 +10,7 @@ public class ObjectTask : ScriptableObject
     [Header("Task")]
     public string description;
     public string destination;
+    public int count = 1;
     public ObjectSettings.ObjectType objectType;
 
     public List<Sprite> taskIcons;

@@ -19,9 +19,10 @@ public class ObjectTasksManager : MonoBehaviour
     private CanvasGroup tasksPanel;
     public GameObject taskPrefab;
 
-    public Dictionary<int, TaskUI> tasksUI;
-    public Dictionary<int, GameObject> taskInstances;
-    public Dictionary<int, ObjectTask> tasksToDo;
+    private Dictionary<int, TaskUI> tasksUI;
+    private Dictionary<int, GameObject> taskInstances;
+    private Dictionary<int, ObjectTask> tasksToDo;
+    private Dictionary<int, List<GameObject>> objectsInTask;
 
     private float lastScreenWidth;
     private float lastScreenHeight;
@@ -42,6 +43,7 @@ public class ObjectTasksManager : MonoBehaviour
         taskInstances = new Dictionary<int, GameObject>();
         tasksToDo = new Dictionary<int, ObjectTask>();
         allTasks = new List<ObjectTask>();
+        objectsInTask = new Dictionary<int, List<GameObject>>();
 
         actualObjectTasksGroup = objectTasksGroup;
 
@@ -74,11 +76,10 @@ public class ObjectTasksManager : MonoBehaviour
             tasksUI.Add(i, taskUI);
             taskInstances.Add(i, taskInstance);
             tasksToDo.Add(i, allTasks[i]);
+            objectsInTask.Add(i, new List<GameObject>());
         }
 
         AddTasks();
-
-        Debug.Log("all tasks count: " + allTasks.Count);
     }
 
     private void AddTasks()
@@ -113,7 +114,7 @@ public class ObjectTasksManager : MonoBehaviour
             SetupTasksPositions();
         }
 
-        if(sweepAwayTasksTime > 0)
+        if (sweepAwayTasksTime > 0)
         {
             sweepAwayTasksTime -= Time.deltaTime;
         }
@@ -134,7 +135,11 @@ public class ObjectTasksManager : MonoBehaviour
                 }
 
                 actualObjectTasksGroup = actualObjectTasksGroup.nextTasks;
-
+                if(actualObjectTasksGroup==null)
+                {
+                    GameManager.Instance.WinCurrentLevel();
+                }
+                    
                 AddTasks();
             }
         }
@@ -155,28 +160,49 @@ public class ObjectTasksManager : MonoBehaviour
         }*/
     }
 
-    private void TaskDone(int taskId)
+    private void TaskDone(GameObject g, int taskId)
     {
-        if (tasksToDo.ContainsKey(taskId))
+        if (!objectsInTask[taskId].Contains(g))
+        {
+            objectsInTask[taskId].Add(g);
+        }
+
+        Debug.Log(objectsInTask[taskId].Count + " -- " + tasksToDo[taskId].count);
+        if (objectsInTask[taskId].Count >= allTasks[taskId].count)
         {
             tasksUI[taskId].TaskDone();
 
-            tasksToDo.Remove(taskId);
+            if (tasksToDo.ContainsKey(taskId))
+            {
+                tasksToDo.Remove(taskId);
 
-            sweepAwayTasksTime = SweepAwayTasksTime;
+                sweepAwayTasksTime = SweepAwayTasksTime;
+            }
         }
     }
 
-    private void TaskUnDone(int taskId)
+    private void TaskUnDone(GameObject g, int taskId)
     {
-        if (!tasksToDo.ContainsKey(taskId))
+        if (objectsInTask[taskId].Contains(g))
+        {
+            objectsInTask[taskId].Remove(g);
+        }
+
+        //Debug.Log("UNDONE : " + objectsInTask[taskId].Count + " -- " + allTasks[taskId].count);
+        // Verify tasks done or undone
+
+        if (objectsInTask[taskId].Count < allTasks[taskId].count)
         {
             tasksUI[taskId].TaskUnDone();
+        }
 
+        if (!tasksToDo.ContainsKey(taskId))
+        {
             tasksToDo.Add(taskId, allTasks[taskId]);
 
             sweepAwayTasksTime = SweepAwayTasksTime;
         }
+
     }
 
     public void OnCollisionEnterTask(GameObject platform)
@@ -207,24 +233,38 @@ public class ObjectTasksManager : MonoBehaviour
     private void TaskDone(GameObject platform, bool done)
     {
         // Get the collision that collided with the platform
-        Collider collider;
+        Collider collider = null;
+        GameObject colliderGameObject = null;
         if (platform.gameObject.GetComponent<OnTriggerEvents>() != null)
         {
             collider = platform.gameObject.GetComponent<OnTriggerEvents>().collider;
-        } else
+        }
+        else if (platform.gameObject.GetComponentInChildren<OnTriggerEvents>() != null)
         {
             collider = platform.gameObject.GetComponentInChildren<OnTriggerEvents>().collider;
         }
 
-        if(collider == null)
+        if (platform.gameObject.GetComponent<PlayerManager>() != null)
+        {
+            
+        }
+        else if (collider == null)
         {
             Debug.LogError("You should use a Trigger event with the apropriate gameObject passed as parameter");
             return;
         }
 
         // Get the object that collided with the platform        
-        InteractObject interactObject = collider.gameObject.GetComponent<InteractObject>();
-        //Debug.Log("Interact Object name : " + collider.gameObject.GetComponent<InteractObject>());
+        InteractObject interactObject = null;
+        if (platform.gameObject.GetComponent<PlayerManager>() != null)
+        {
+            interactObject = platform.GetComponent<PlayerManager>().GrabbedObject.GetComponent<InteractObject>();
+            colliderGameObject = platform.GetComponent<PlayerManager>().GrabbedObject;
+        } else {
+            interactObject = collider.gameObject.GetComponent<InteractObject>();
+            colliderGameObject = collider.gameObject;
+        }
+        Debug.Log("Interact Object name : " + interactObject.name);
 
         // No task should work without an interactObject
         if (interactObject == null)
@@ -234,7 +274,7 @@ public class ObjectTasksManager : MonoBehaviour
             return;
         }
 
-        if(interactObject.Settings == null)
+        if (interactObject.Settings == null)
         {
             //Debug.LogError("You should define settings for the object");
             return;
@@ -242,15 +282,9 @@ public class ObjectTasksManager : MonoBehaviour
 
         ObjectSettings.ObjectType collisionObjectType = interactObject.Settings.objectType;
 
-        //Debug.Log("all tasks count: " + allTasks.Count);
-        foreach(var item in allTasks)
+        for (int taskId = countTasks; taskId < allTasks.Count; taskId++)
         {
-            print(item);
-        }
-
-        for (int i = countTasks; i < allTasks.Count; i++)
-        {
-            ObjectTask actualTask = allTasks[i];
+            ObjectTask actualTask = allTasks[taskId];
 
             //Debug.Log(collisionObjectType + " != " + actualTask.objectType);
             if (collisionObjectType != actualTask.objectType)
@@ -260,56 +294,57 @@ public class ObjectTasksManager : MonoBehaviour
 
             //Debug.Log("Has ObjectState: " + (collider.gameObject.GetComponent<ObjectState>() == null).ToString());
             // If the object has no state, then no need to compare a state
-            if (collider.gameObject.GetComponent<ObjectState>() == null)
+            if (colliderGameObject.GetComponent<ObjectState>() == null)
             {
                 // Check if the task destination is the same as the passed plateform 
                 if (actualTask.destination.Equals(platform.name))
                 {
-                    TasksDoneOrUndone(done, i);
+                    TasksDoneOrUndone(colliderGameObject, done, taskId);
                 }
                 else if (actualTask.destination.Equals("")) // If no destination has been set, any platform works
                 {
-                    TasksDoneOrUndone(done, i);
+                    TasksDoneOrUndone(colliderGameObject, done, taskId);
                 }
                 continue;
             }
 
             // If the object has a state, then veryfy if the states of the object correspond with what is wanted
-            if (done && VerifyStates(actualTask, collider.gameObject.GetComponent<ObjectState>().states))
+            if (done && VerifyStates(actualTask, colliderGameObject.GetComponent<ObjectState>().states))
             {
                 //print(gameObject.name + "  " + actualTask.destination);
                 if (actualTask.destination.Equals(platform.name))
                 {
-                    TasksDoneOrUndone(done, i);
+                    TasksDoneOrUndone(colliderGameObject, done, taskId);
                 }
                 else if (actualTask.destination.Equals(""))
                 {
-                    TasksDoneOrUndone(done, i);
+                    TasksDoneOrUndone(colliderGameObject, done, taskId);
                 }
             }
             else if (!done)
             {
                 if (actualTask.destination.Equals(platform.name))
                 {
-                    TasksDoneOrUndone(done, i);
+                    TasksDoneOrUndone(colliderGameObject, done, taskId);
                 }
                 else if (actualTask.destination.Equals(""))
                 {
-                    TasksDoneOrUndone(done, i);
+                    TasksDoneOrUndone(colliderGameObject, done, taskId);
                 }
             }
         }
+
     }
 
-    private void TasksDoneOrUndone(bool done, int i)
+    private void TasksDoneOrUndone(GameObject g, bool done, int i)
     {
         if (done)
         {
-            TaskDone(i);
+            TaskDone(g, i);
         }
         else
         {
-            TaskUnDone(i);
+            TaskUnDone(g, i);
         }
     }
 
