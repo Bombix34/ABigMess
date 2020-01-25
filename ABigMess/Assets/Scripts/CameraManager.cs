@@ -59,7 +59,16 @@ public class CameraManager : Singleton<CameraManager>
 
     private void UpdateCameraDoF()
     {
-        depthOfFieldLayer.focusDistance.value = Vector3.Distance(manager.GetPositionBetweenPlayers(), Camera.main.transform.position);
+        //Focus on player middle point
+        float focusDist;
+        focusDist = Vector3.Distance(manager.GetPositionBetweenPlayers(), Camera.main.transform.position);
+        depthOfFieldLayer.focusDistance.value = focusDist;
+
+        //Change aperture depending on focus distance - Min Dist = 5.1 - Max Dist = 9
+        float lerpAperture;
+        lerpAperture = (focusDist - 5.1f) / (9f - 5.1f);
+        lerpAperture = Mathf.Clamp(lerpAperture, 0, 1);
+        depthOfFieldLayer.aperture.value = Mathf.Lerp(2.6f, 0.93f, lerpAperture);
     }
 
     /// <summary>
