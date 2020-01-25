@@ -17,9 +17,17 @@ public class CameraManager : Singleton<CameraManager>
     public List<CinemachineVirtualCamera> roomCameras;
     public CinemachineVirtualCamera mainCamera;
 
+    [Range(0.1f, 10.0f)]
+    public float minDistFocus = 5.1f;
+
+    [Range(0.1f,10.0f)]
+    public float maxAperture = 2.6f;
+
     CinemachineFramingTransposer mainCameraTransposer;
 
     private bool isMainCameraActive = false;
+
+    private float apertureInitValue;
 
     private void Start()
     {
@@ -32,6 +40,7 @@ public class CameraManager : Singleton<CameraManager>
         //Init Post Process DoF
         PostProcessVolume volume = Camera.main.GetComponent<PostProcessVolume>();
         volume.profile.TryGetSettings(out depthOfFieldLayer);
+        apertureInitValue = depthOfFieldLayer.aperture.value;
     }
 
     private void Update()
@@ -66,9 +75,9 @@ public class CameraManager : Singleton<CameraManager>
 
         //Change aperture depending on focus distance - Min Dist = 5.1 - Max Dist = 9
         float lerpAperture;
-        lerpAperture = (focusDist - 5.1f) / (9f - 5.1f);
+        lerpAperture = (focusDist - minDistFocus) / (9f - minDistFocus);
         lerpAperture = Mathf.Clamp(lerpAperture, 0, 1);
-        depthOfFieldLayer.aperture.value = Mathf.Lerp(2.6f, 0.93f, lerpAperture);
+        depthOfFieldLayer.aperture.value = Mathf.Lerp(maxAperture, apertureInitValue, lerpAperture);
     }
 
     /// <summary>
