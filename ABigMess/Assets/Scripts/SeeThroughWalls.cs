@@ -18,7 +18,7 @@ public class SeeThroughWalls : MonoBehaviour
         RaycastHit hit;
         if(Physics.Raycast(camPos, (this.transform.position- camPos).normalized,out hit, Mathf.Infinity, mask))
         {
-            if((hit.collider.gameObject==this.gameObject || hit.collider.gameObject==this.transform.parent.gameObject))
+            if((hit.collider.gameObject==this.gameObject || hit.collider.gameObject.layer==this.gameObject.layer || !hit.collider.gameObject.CompareTag("Wall")))
             {
                 isActive = false;
                 StartCoroutine(SphereAnim(false));
@@ -45,7 +45,7 @@ public class SeeThroughWalls : MonoBehaviour
         {
             while (this.transform.localScale.x > 0f)
             {
-                this.transform.localScale = new Vector3(this.transform.localScale.x - (Time.deltaTime * speedAnim), this.transform.localScale.x - (Time.deltaTime * speedAnim), this.transform.localScale.x - Time.deltaTime);
+                this.transform.localScale = new Vector3(this.transform.localScale.x - (Time.deltaTime * speedAnim*5f), this.transform.localScale.x - (Time.deltaTime * speedAnim * 5f), this.transform.localScale.x - Time.deltaTime * 5f);
                 yield return new WaitForSeconds(0.001f);
             }
         }

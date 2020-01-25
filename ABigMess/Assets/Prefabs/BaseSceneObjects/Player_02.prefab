@@ -50076,6 +50076,11 @@ MonoBehaviour:
   reglages: {fileID: 11400000, guid: d3863845642211448ab49e1596d2bc61, type: 2}
   bringPosition: {fileID: 5164896187577919223}
   currentRoomNb: -1
+  onInteract:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &8393715178341559814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50093,6 +50098,9 @@ MonoBehaviour:
   rightArm: {fileID: 5164896186728931522}
   leftHandPositionForBring: {fileID: 5164896188178019362}
   rightHandPositionForBring: {fileID: 5164896187412266650}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!114 &4713290639860980404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76299,7 +76307,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &9184213610241301174
 Transform:
   m_ObjectHideFlags: 0
@@ -76388,7 +76396,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1843
   maskSize: {x: 1.8, y: 1.8, z: 1.8}
-  speedAnim: 3
+  speedAnim: 5
 --- !u!1 &6929194676127705527
 GameObject:
   m_ObjectHideFlags: 0
