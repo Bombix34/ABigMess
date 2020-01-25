@@ -111,6 +111,10 @@ public class PlayerInputManager : MonoBehaviour
     {
         return player.GetButtonDown("Start");
     }
+    public bool GetStartInputUp()
+    {
+        return player.GetButtonUp("Start");
+    }
 
     //Any
     public bool GetPressAnyButton()

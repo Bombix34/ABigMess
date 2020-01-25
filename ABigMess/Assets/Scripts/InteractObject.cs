@@ -57,6 +57,7 @@ public class InteractObject : MonoBehaviour
     {
         InitHighlight();
         SetupWeight();
+        SceneObjectDatas.Instance.AddObject(this);
     }
 
     private void Update()

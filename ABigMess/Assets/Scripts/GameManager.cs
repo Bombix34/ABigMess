@@ -45,9 +45,7 @@ public class GameManager : Singleton<GameManager>
     {
         middlePlayers.transform.position = GetPositionBetweenPlayers();
         currentPlayersTime += Time.deltaTime;
-        //to remove
-        //DebugNextLevelInput();
-        //_________
+        DebugDisplayInput();
         uiManager.UpdateChronoUI(levels.CurrentLevel.startChrono - currentPlayersTime);
     }
 
@@ -57,13 +55,13 @@ public class GameManager : Singleton<GameManager>
         levels.LoadNextLevel();
     }
 
-    public void DebugNextLevelInput()
+    public void DebugDisplayInput()
     {
         foreach(PlayerManager player in players)
         {
             if(player.Inputs.GetStartInput())
             {
-                WinCurrentLevel();
+                GetComponent<DebugDisplay>().IsShowingDebug = !GetComponent<DebugDisplay>().IsShowingDebug;
             }
         }
     }

@@ -2,10 +2,47 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SceneObjectDatas : MonoBehaviour
+public class SceneObjectDatas : Singleton<SceneObjectDatas>
 {
-    [SerializeField]
     private List<InteractObject> objectsInScene;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        objectsInScene = new List<InteractObject>();
+    }
+
+    public void AddObject(InteractObject obj)
+    {
+        objectsInScene.Add(obj);
+    }
+
+    public void RemoveObject(InteractObject obj)
+    {
+        objectsInScene.Remove(obj);
+    }
+
+    public string ObjectsToString()
+    {
+        string returnVal = "";
+        foreach(var obj in objectsInScene)
+        {
+            char[] toChar = obj.ToString().ToCharArray();
+            string final = "";
+            char prevChar = ' ';
+            foreach(char c in toChar)
+            {
+                if(prevChar==' '&& c=='(')
+                {
+                    break;
+                }
+                final += c;
+                prevChar = c;
+            }
+            returnVal += final + "\n";
+        }
+        return returnVal;
+    }
 
     public List<InteractObject> GetObjectsOfTypeInState(ObjectSettings.ObjectType objectType, ObjectState.State objectState)
     {
