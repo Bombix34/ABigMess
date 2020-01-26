@@ -73,7 +73,6 @@ public class PlayerRenderer : MonoBehaviour
 
         if (Physics.Raycast(handBasePosition, dirVector, out hit, distance*10f, layerMask))
         {
-            print(hit.transform.gameObject);
             if (hit.transform.gameObject == manager.GrabbedObject)
             {
                 currentHand.HandPosition.position = hit.point;

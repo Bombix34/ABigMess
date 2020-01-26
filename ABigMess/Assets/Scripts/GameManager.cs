@@ -5,7 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    MusicManager musicManager;
+    public MusicManager MusicManager { get; set;  }
+    public SceneObjectDatas ObjectsDatas { get; set; }
+    private ObjectTasksManager taskManager;
 
     [SerializeField]
     private LevelDatabase levels;
@@ -21,9 +23,12 @@ public class GameManager : Singleton<GameManager>
 
     private UIManager uiManager;
 
-    private void Awake()
+    protected override void Awake()
     {
-        musicManager = GetComponent<MusicManager>();
+        base.Awake();
+        MusicManager = GetComponent<MusicManager>();
+        ObjectsDatas = GetComponent<SceneObjectDatas>();
+        taskManager = GetComponent<ObjectTasksManager>();
     }
 
     private void Start()
@@ -70,7 +75,7 @@ public class GameManager : Singleton<GameManager>
     {
         if(levels.CurrentLevel.startChrono - currentPlayersTime <= 20f)
         {
-            musicManager.StressChronoSound();
+            MusicManager.StressChronoSound();
         }
     }
 
@@ -117,12 +122,14 @@ public class GameManager : Singleton<GameManager>
 
     #endregion
 
-    #region GET/SET
 
-    public MusicManager MusicManager
+    public ObjectTasksManager TasksManager
     {
-        get => musicManager;
-        set { MusicManager = value; }
+        get => taskManager;
+        set
+        {
+            taskManager = value;
+        }
     }
-    #endregion
+
 }

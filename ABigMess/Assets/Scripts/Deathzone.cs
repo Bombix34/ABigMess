@@ -17,6 +17,7 @@ public class Deathzone : MonoBehaviour
         {
             sceneObjects.RemoveObject(other.GetComponent<InteractObject>());
             Destroy(other.gameObject);
+            GameManager.Instance.TasksManager.UpdateTasksState();
         }
     }
 }

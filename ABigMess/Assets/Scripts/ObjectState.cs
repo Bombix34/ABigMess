@@ -10,6 +10,7 @@ public class ObjectState : MonoBehaviour
     
     private void Start()
     {
+        InitStates();
         UpdateState();
     }
 
@@ -19,8 +20,17 @@ public class ObjectState : MonoBehaviour
 
     }
 
+    private void InitStates()
+    {
+        states=new ObjectStates();
+    }
+
     public void UpdateState()
     {
+        if(states==null)
+        {
+            return;
+        }
         if (states.washed && GetComponent<Washed>() == null)
         {
             gameObject.AddComponent<Washed>();
@@ -207,6 +217,7 @@ public class ObjectState : MonoBehaviour
         colored,
         broken,
         opened,
-        plugged
+        plugged,
+        none
     }
 }
