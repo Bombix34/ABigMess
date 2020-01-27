@@ -267,6 +267,11 @@ public class InteractObject : MonoBehaviour
         }
     }
 
+    public void SetHighlightColor(Color newColor)
+    {
+        outline.OutlineColor = newColor;
+    }
+
     public void Highlight(GameObject grabbedObject)
     {
         Highlight(grabbedObject.GetComponent<InteractObject>().Settings);
@@ -274,20 +279,24 @@ public class InteractObject : MonoBehaviour
 
     public void Highlight(ObjectSettings grabbedObject)
     {
-        if (canvas == null)
-            return;
         holdMaterial = HOLD_TIME;
+        //interactButtonOverlayInstance
+        decreaseOutline = false;
+    }
+
+    public void SetUIActionIcon(Sprite newIcon)
+    {
         if (interactButtonOverlayInstance == null)
         {
             interactButtonOverlayInstance = Instantiate(interactButtonOverlayPrefab, canvas.transform);
-            UpdateOverlayText(grabbedObject);
+            //UpdateOverlayText(grabbedObject);
         }
         else
         {
             interactButtonOverlayInstance.SetActive(true);
-            UpdateOverlayText(grabbedObject);
+            //UpdateOverlayText(grabbedObject);
         }
-        decreaseOutline = false;
+        interactButtonOverlayInstance.GetComponent<InteractButtonOverlay>().SetActionIcon(newIcon);
     }
 
 
@@ -333,15 +342,16 @@ public class InteractObject : MonoBehaviour
         if (interactButtonOverlayInstance != null)
         {
             interactButtonOverlayInstance.SetActive(false);
-            outline.OutlineWidth = 0;
-            decreaseOutline = true;
         }
-
+        outline.OutlineWidth = 0;
+        decreaseOutline = true;
     }
 
     #endregion
 
     #region INTERACT_BUTTON_OVERLAY_TEXT
+
+    /*
     private void UpdateOverlayText(ObjectSettings grabbedObject)
     {
         bool containsObjConcerned = false;
@@ -391,6 +401,8 @@ public class InteractObject : MonoBehaviour
             interactButtonOverlay.SetErrorText("Not a tool");
         }
     }
+    */
+
     #endregion
 
     #region GET/SET

@@ -9,6 +9,11 @@ public class PlayerRenderer : MonoBehaviour
     private PlayerManager manager;
 
     [SerializeField]
+    private Color highlightToolsColor;
+    [SerializeField]
+    private Color highlightObjectsColor;
+
+    [SerializeField]
     private Animator animator;
 
     [SerializeField]
@@ -104,5 +109,15 @@ public class PlayerRenderer : MonoBehaviour
     public RopeBuilder RightArm
     {
         get => rightArm;
+    }
+
+    public Color HighlightToolsColor
+    {
+        get => highlightToolsColor;
+    }
+
+    public Color HighlightObjectsColor
+    {
+        get => highlightObjectsColor;
     }
 }

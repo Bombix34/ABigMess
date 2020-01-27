@@ -13,6 +13,9 @@ public class UIManager : Singleton<UIManager>
 
     List<ObjectTask> currentTasks;
 
+    [SerializeField]
+    TaskIcons taskIcons;
+
     public void UpdateChronoUI(float currentTime)
     {
         if(currentTime<0)
@@ -36,7 +39,7 @@ public class UIManager : Singleton<UIManager>
         currentTasks = newTasks;
         for(int i = 0; i < newTasks.Count;++i)
         {
-            taskUI[i].DisplayTask(newTasks[i]);
+            taskUI[i].DisplayTask(newTasks[i], taskIcons.GetIcons(newTasks[i]));
             taskUI[i].UpdateTaskColor();
         }
     }
@@ -48,4 +51,5 @@ public class UIManager : Singleton<UIManager>
             taskUI[i].UpdateTaskColor();
         }
     }
+
 }
