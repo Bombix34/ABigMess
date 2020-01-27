@@ -7,7 +7,7 @@
 
 		SubShader{
 		//the material is completely non-transparent and is rendered at the same time as the other opaque geometry
-		Tags{ "RenderType" = "Opaque" "Queue" = "Geometry-1"}
+		Tags{ "RenderType" = "Transparent" "Queue" = "Geometry-1"}
 
 		//stencil operation
 		Stencil{

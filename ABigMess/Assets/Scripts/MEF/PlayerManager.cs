@@ -113,6 +113,7 @@ public class PlayerManager : ObjectManager
             //Interact object is an object near the player that he wants to interact with
             interactObject.GetComponent<InteractObject>().Interact(this);
             onInteract.Invoke();
+            GameManager.Instance.TasksManager.UpdateTasksState();
         }
     }
     #endregion

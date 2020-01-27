@@ -23,6 +23,7 @@ public class PlayerBringState : PlayerState
 
     public override void Enter()
     {
+        GameManager.Instance.TasksManager.UpdateTasksState();
     }
 
     public override void Execute()

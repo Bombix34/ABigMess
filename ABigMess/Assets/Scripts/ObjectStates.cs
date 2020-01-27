@@ -8,6 +8,19 @@ using System.Threading.Tasks;
 [Serializable]
 public class ObjectStates
 {
+    public ObjectStates()
+    {
+        washed = false;
+        burnt = false;
+        smuged = false;
+        cooked = false;
+        grown = false;
+        colored = false;
+        broken = false;
+        opened = false;
+        plugged = false;
+    }
+
     public bool washed;
     public bool burnt;
     public bool smuged;

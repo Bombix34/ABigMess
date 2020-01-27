@@ -52,11 +52,16 @@ public class InteractObject : MonoBehaviour
         {
             Debug.LogError("Define a canvas for InteractObject: " + name);
         }
+        if(this.GetComponent<ObjectState>()==null)
+        {
+            this.gameObject.AddComponent<ObjectState>();
+        }
     }
     private void Start()
     {
         InitHighlight();
         SetupWeight();
+        SceneObjectDatas.Instance.AddObject(this);
     }
 
     private void Update()

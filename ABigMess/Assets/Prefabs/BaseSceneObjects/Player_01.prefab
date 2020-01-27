@@ -14916,7 +14916,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &874748654687202371
 Transform:
   m_ObjectHideFlags: 0
@@ -15003,9 +15003,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mask:
     serializedVersion: 2
-    m_Bits: 1843
+    m_Bits: 1795
   maskSize: {x: 1.8, y: 1.8, z: 1.8}
-  speedAnim: 3
+  speedAnim: 5
 --- !u!1 &1403733441908858348
 GameObject:
   m_ObjectHideFlags: 0
@@ -89458,6 +89458,11 @@ MonoBehaviour:
   reglages: {fileID: 11400000, guid: d3863845642211448ab49e1596d2bc61, type: 2}
   bringPosition: {fileID: 7606492754127370487}
   currentRoomNb: -1
+  onInteract:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &6511820333993668614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89475,6 +89480,9 @@ MonoBehaviour:
   rightArm: {fileID: 7606492753144233666}
   leftHandPositionForBring: {fileID: 7606492753519667746}
   rightHandPositionForBring: {fileID: 7606492752955302042}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!114 &8019272326029214900
 MonoBehaviour:
   m_ObjectHideFlags: 0

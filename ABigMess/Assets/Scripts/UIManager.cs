@@ -8,6 +8,11 @@ public class UIManager : Singleton<UIManager>
     [SerializeField]
     private Text chronoField;
 
+    [SerializeField]
+    List<TaskUI> taskUI;
+
+    List<ObjectTask> currentTasks;
+
     public void UpdateChronoUI(float currentTime)
     {
         if(currentTime<0)
@@ -23,6 +28,24 @@ public class UIManager : Singleton<UIManager>
         else
         {
             chronoField.text ="0"+minutes.ToString()+":"+seconds.ToString();  
+        }
+    }
+
+    public void InitTasksUI(List<ObjectTask> newTasks)
+    {
+        currentTasks = newTasks;
+        for(int i = 0; i < newTasks.Count;++i)
+        {
+            taskUI[i].DisplayTask(newTasks[i]);
+            taskUI[i].UpdateTaskColor();
+        }
+    }
+
+    public void UpdateTasksUI()
+    {
+        for(int i = 0; i < taskUI.Count;i++)
+        {
+            taskUI[i].UpdateTaskColor();
         }
     }
 }

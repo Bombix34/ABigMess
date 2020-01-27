@@ -17,6 +17,9 @@ public class PlayerRenderer : MonoBehaviour
     [SerializeField]
     private Transform leftHandPositionForBring, rightHandPositionForBring;
 
+    [SerializeField]
+    private LayerMask layerMask;
+
     private bool leftHandNeedGrab = false;
     private bool rightHandNeedGrab = false;
 
@@ -64,7 +67,6 @@ public class PlayerRenderer : MonoBehaviour
     private bool AttachOneHand(Vector3 handBasePosition, RopeBuilder currentHand)
     {
         RaycastHit hit;
-        LayerMask layerMask = ~(0 << LayerMask.NameToLayer("Player"));
         Vector3 objectPosition = manager.GrabbedObject.transform.position;
         float distance = Mathf.Sqrt(Mathf.Pow(objectPosition.x-handBasePosition.x,2f)+ Mathf.Pow(objectPosition.y - handBasePosition.y, 2f)+ Mathf.Pow(objectPosition.z - handBasePosition.z, 2f));
         Vector3 dirVector = (objectPosition - handBasePosition).normalized;

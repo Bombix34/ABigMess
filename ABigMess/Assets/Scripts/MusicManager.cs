@@ -36,7 +36,7 @@ public class MusicManager : MonoBehaviour
 
     public void StressChronoSound()
     {
-        Debug.Log("BIP");
+        //Debug.Log("BIP");
         //APPEL DE LEVENT STRESS SOUND
     }
 

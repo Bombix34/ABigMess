@@ -9,7 +9,63 @@ using UnityEngine.Events;
 
 public class ObjectTasksManager : MonoBehaviour
 {
+    [SerializeField]
+    ObjectTaskGroup currentTasks;
 
+    GameManager manager;
+
+    private SceneObjectDatas objectsDatas;
+
+    private void Awake()
+    {
+        manager = GetComponent<GameManager>();
+        objectsDatas = this.GetComponent<SceneObjectDatas>();
+        InitTaskDoneValue();
+    }
+
+    private void Start()
+    {
+        UIManager.Instance.InitTasksUI(currentTasks.objectTasks);
+    }
+
+    public void InitTaskDoneValue()
+    {
+        foreach (ObjectTask task in currentTasks.objectTasks)
+        {
+            task.IsDone = false;
+        }
+    }
+
+    public void UpdateTasksState()
+    {
+        int cptTask = 0;
+        foreach(ObjectTask task in currentTasks.objectTasks)
+        {
+            if(task.IsTaskDone(objectsDatas))
+            {
+                cptTask++;
+            }
+        }
+        if(cptTask>=currentTasks.objectTasks.Count)
+        {
+            LoadNextTaskGroup();
+        }
+        UIManager.Instance.UpdateTasksUI();
+    }
+
+    private void LoadNextTaskGroup()
+    {
+        currentTasks = currentTasks.nextTasks;
+        if(currentTasks==null)
+        {
+            GameManager.Instance.WinCurrentLevel();
+            return;
+        }
+        InitTaskDoneValue();
+    }
+
+    #region OLD_CODE
+    /*
     private ObjectTaskGroup actualObjectTasksGroup;
     private int countTasks;
     public ObjectTaskGroup objectTasksGroup;
@@ -157,7 +213,7 @@ public class ObjectTasksManager : MonoBehaviour
             taskInstanceRect.anchoredPosition =
                 new Vector2(-width / 2 + taskInstanceRect.sizeDelta.x / 2 + marginX
                 , height / 2 - (taskInstanceRect.sizeDelta.y / 2) - (taskInstanceRect.sizeDelta.y * i) - marginY);
-        }*/
+        }
     }
 
     private void TaskDone(GameObject g, int taskId)
@@ -232,6 +288,7 @@ public class ObjectTasksManager : MonoBehaviour
 
     private void TaskDone(GameObject platform, bool done)
     {
+       
         // Get the collision that collided with the platform
         Collider collider = null;
         GameObject colliderGameObject = null;
@@ -333,7 +390,7 @@ public class ObjectTasksManager : MonoBehaviour
                 }
             }
         }
-
+        
     }
 
     private void TasksDoneOrUndone(GameObject g, bool done, int i)
@@ -418,12 +475,16 @@ public class ObjectTasksManager : MonoBehaviour
             return false;
         }
         return true;
+       
     }
 
     bool CheckBoolPairState(BoolPair pair, bool state)
     {
         return pair.Key && pair.Value != state;
     }
-
+    */
+    #endregion
 
 }
+
+

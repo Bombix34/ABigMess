@@ -5,7 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    MusicManager musicManager;
+    public MusicManager MusicManager { get; set;  }
+    public SceneObjectDatas ObjectsDatas { get; set; }
+    private ObjectTasksManager taskManager;
 
     [SerializeField]
     private LevelDatabase levels;
@@ -21,9 +23,12 @@ public class GameManager : Singleton<GameManager>
 
     private UIManager uiManager;
 
-    private void Awake()
+    protected override void Awake()
     {
-        musicManager = GetComponent<MusicManager>();
+        base.Awake();
+        MusicManager = GetComponent<MusicManager>();
+        ObjectsDatas = GetComponent<SceneObjectDatas>();
+        taskManager = GetComponent<ObjectTasksManager>();
     }
 
     private void Start()
@@ -45,9 +50,7 @@ public class GameManager : Singleton<GameManager>
     {
         middlePlayers.transform.position = GetPositionBetweenPlayers();
         currentPlayersTime += Time.deltaTime;
-        //to remove
-        //DebugNextLevelInput();
-        //_________
+        DebugDisplayInput();
         uiManager.UpdateChronoUI(levels.CurrentLevel.startChrono - currentPlayersTime);
     }
 
@@ -57,13 +60,13 @@ public class GameManager : Singleton<GameManager>
         levels.LoadNextLevel();
     }
 
-    public void DebugNextLevelInput()
+    public void DebugDisplayInput()
     {
         foreach(PlayerManager player in players)
         {
             if(player.Inputs.GetStartInput())
             {
-                WinCurrentLevel();
+                GetComponent<DebugDisplay>().IsShowingDebug = !GetComponent<DebugDisplay>().IsShowingDebug;
             }
         }
     }
@@ -72,7 +75,7 @@ public class GameManager : Singleton<GameManager>
     {
         if(levels.CurrentLevel.startChrono - currentPlayersTime <= 20f)
         {
-            musicManager.StressChronoSound();
+            MusicManager.StressChronoSound();
         }
     }
 
@@ -119,12 +122,14 @@ public class GameManager : Singleton<GameManager>
 
     #endregion
 
-    #region GET/SET
 
-    public MusicManager MusicManager
+    public ObjectTasksManager TasksManager
     {
-        get => musicManager;
-        set { MusicManager = value; }
+        get => taskManager;
+        set
+        {
+            taskManager = value;
+        }
     }
-    #endregion
+
 }
