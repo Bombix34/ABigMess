@@ -10,28 +10,26 @@ public class InteractButtonOverlay : MonoBehaviour
     TextMeshProUGUI text;
 
     [SerializeField]
-    Image image;
-    // Start is called before the first frame update
+    private Image actionIcon;
+
     void Awake()
     {
         text.text = Random.Range(1, 99999).ToString();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    
     public void SetText(string text)
     {
         this.text.text = text;
         this.text.color = Color.white;
     }
 
-    public void SetImage(Sprite image)
+    public void SetActionIcon(Sprite image)
     {
-        this.image.sprite = image;
+        if(image==null)
+        {
+            return;
+        }
+        this.actionIcon.sprite = image;
     }
 
     public void SetErrorText(string text)

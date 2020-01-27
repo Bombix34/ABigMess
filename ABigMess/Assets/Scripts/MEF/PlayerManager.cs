@@ -39,9 +39,6 @@ public class PlayerManager : ObjectManager
     private List<InteractObject> raycastedObjects;
     private int raycastIndex = 0;
 
-    [SerializeField]
-    private UnityEvent onInteract;
-
     private void Awake()
     {
         inputs = GetComponent<PlayerInputManager>();
@@ -112,7 +109,6 @@ public class PlayerManager : ObjectManager
             }
             //Interact object is an object near the player that he wants to interact with
             interactObject.GetComponent<InteractObject>().Interact(this);
-            onInteract.Invoke();
             GameManager.Instance.TasksManager.UpdateTasksState();
         }
     }
@@ -373,13 +369,57 @@ public class PlayerManager : ObjectManager
             interactObject = raycastedObjects[raycastIndex].gameObject;
             if (interactObject != grabbedObject) // Never highlight an object in my hands
             {
+                InteractObject concernedObject = interactObject.GetComponent<InteractObject>();
+                //if i don't have any object in hand
                 if (grabbedObject == null)
                 {
-                    interactObject.GetComponent<InteractObject>().Highlight(reglages.noObjectInHandEventsList);
+                    //if i raycast a tool
+                    if (concernedObject.Settings.IsTool())
+                    {
+                        concernedObject.SetHighlightColor(renderer.HighlightToolsColor);
+                        concernedObject.Highlight(reglages.noObjectInHandEventsList);
+                    }
+                    //if i raycast an immobile object with casual interaction
+                    else if (concernedObject.Settings.weightType == ObjectSettings.ObjectWeight.immobile)
+                    {
+                        if (reglages.noObjectInHandEventsList.IsInteractionExisting(concernedObject.Settings.objectType))
+                        {
+                            concernedObject.SetHighlightColor(renderer.HighlightToolsColor);
+                            concernedObject.Highlight(reglages.noObjectInHandEventsList);
+                            concernedObject.SetUIActionIcon(reglages.noObjectInHandEventsList.ActionIcon);
+                        }
+                    }
+                    //if i raycast any normal object
+                    else
+                    {
+                        concernedObject.SetHighlightColor(renderer.HighlightObjectsColor);
+                        concernedObject.Highlight(reglages.noObjectInHandEventsList);
+                        if (reglages.noObjectInHandEventsList.IsInteractionExisting(concernedObject.Settings.objectType))
+                        {
+                            concernedObject.SetUIActionIcon(reglages.noObjectInHandEventsList.ActionIcon);
+                        }
+                    }
                 }
+                //if i have an object in hand
                 else
                 {
-                    interactObject.GetComponent<InteractObject>().Highlight(grabbedObject);
+                    InteractObject objectInHand = grabbedObject.GetComponent<InteractObject>();
+                    //if object in hand is a tool
+                    if (objectInHand.Settings.IsTool() && !concernedObject.Settings.IsTool())
+                    {
+                        concernedObject.SetHighlightColor(renderer.HighlightToolsColor);
+                        concernedObject.Highlight(grabbedObject);
+                        ToolSettings toolInHandSettings = (ToolSettings)objectInHand.Settings;
+                        concernedObject.SetUIActionIcon(toolInHandSettings.ActionIcon);
+                    }
+                    //if object in hand is not a tool and raycasted object is a stationnary tool
+                    else if(concernedObject.Settings.IsTool() && concernedObject.Settings.weightType==ObjectSettings.ObjectWeight.immobile)
+                    {
+                        ToolSettings stationnaryToolsSettings = (ToolSettings)concernedObject.Settings;
+                        objectInHand.SetHighlightColor(renderer.HighlightToolsColor);
+                        objectInHand.Highlight(concernedObject.gameObject);
+                        objectInHand.SetUIActionIcon(stationnaryToolsSettings.ActionIcon);
+                    }
                 }
             }
         }

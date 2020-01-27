@@ -11,6 +11,9 @@ public class ToolSettings : ObjectSettings
     [HideInInspector]
     public List<Interaction> interactionsList;
 
+    [SerializeField]
+    private Sprite actionIcon;
+
     public IEnumerator ApplyEvent(InteractObject objConcerned)
     {
         if(interactionsList.Count == 0)
@@ -24,5 +27,23 @@ public class ToolSettings : ObjectSettings
                 yield return interactionsList[index].LaunchEvents(objConcerned.gameObject);
             }
         }
+    }
+
+    public bool IsInteractionExisting(ObjectType objectType)
+    {
+        bool toReturn = false;
+        foreach(Interaction interaction in interactionsList)
+        {
+            if(interaction.objectConcerned==objectType)
+            {
+                toReturn = true;
+            }
+        }
+        return toReturn;
+    }
+
+    public Sprite ActionIcon
+    {
+        get => actionIcon;
     }
 }
