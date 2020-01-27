@@ -5,11 +5,13 @@ using UnityEngine;
 public class SceneObjectDatas : Singleton<SceneObjectDatas>
 {
     private List<InteractObject> objectsInScene;
+    private List<ObjectZoneArea> areasInScene;
 
     protected override void Awake()
     {
         base.Awake();
         objectsInScene = new List<InteractObject>();
+        areasInScene = new List<ObjectZoneArea>();
     }
 
     public void AddObject(InteractObject obj)
@@ -20,6 +22,16 @@ public class SceneObjectDatas : Singleton<SceneObjectDatas>
     public void RemoveObject(InteractObject obj)
     {
         objectsInScene.Remove(obj);
+    }
+
+    public void AddZoneArea(ObjectZoneArea area)
+    {
+        areasInScene.Add(area);
+    }
+
+    public void RemoveZoneArea(ObjectZoneArea area)
+    {
+        areasInScene.Remove(area);
     }
 
     public string ObjectsToString()
@@ -235,19 +247,11 @@ public class SceneObjectDatas : Singleton<SceneObjectDatas>
         return toReturn;
     }
 
-    public List<InteractObject> GetObjectsOfTypeInZone(ObjectSettings.ObjectType objectType, ObjectSettings.ObjectType objectZoneArea)
+    public List<InteractObject> GetObjectsOfTypeInZone(ObjectSettings.ObjectType objectType, ObjectZoneArea.ZoneAreaType objectZoneArea)
     {
         List<InteractObject> toReturn = new List<InteractObject>();
-        List<InteractObject> objectZonePotential = GetObjectsOfType(objectZoneArea);
-        List<ObjectZoneArea> objectZone = new List<ObjectZoneArea>();
-        foreach (InteractObject obj in objectZonePotential)
-        {
-            if(obj.GetComponentInChildren<ObjectZoneArea>()!=null)
-            {
-                objectZone.Add(obj.GetComponentInChildren<ObjectZoneArea>());
-            }
-        }
-        foreach(ObjectZoneArea zone in objectZone)
+        List<ObjectZoneArea> objectZone = GetZoneOfType(objectZoneArea);
+        foreach (ObjectZoneArea zone in objectZone)
         {
             List<InteractObject> concernedToAdd = GetObjectsOfType(objectType, zone.GetObjectsInZone());
             foreach(var item in concernedToAdd)
@@ -258,24 +262,29 @@ public class SceneObjectDatas : Singleton<SceneObjectDatas>
         return toReturn;
     }
 
-    public List<InteractObject> GetObjectsOfTypeInStateInZone(ObjectSettings.ObjectType objectType, ObjectState.State objectState, ObjectSettings.ObjectType objectZoneArea)
+    public List<InteractObject> GetObjectsOfTypeInStateInZone(ObjectSettings.ObjectType objectType, ObjectState.State objectState, ObjectZoneArea.ZoneAreaType objectZoneArea)
     {
         List<InteractObject> toReturn = new List<InteractObject>();
-        List<InteractObject> objectZonePotential = GetObjectsOfType(objectZoneArea);
-        List<ObjectZoneArea> objectZone = new List<ObjectZoneArea>();
-        foreach (InteractObject obj in objectZonePotential)
-        {
-            if (obj.GetComponentInChildren<ObjectZoneArea>() != null)
-            {
-                objectZone.Add(obj.GetComponentInChildren<ObjectZoneArea>());
-            }
-        }
+        List<ObjectZoneArea> objectZone = GetZoneOfType(objectZoneArea);
         foreach (ObjectZoneArea zone in objectZone)
         {
             List<InteractObject> concernedToAdd = GetObjectsOfTypeInState(objectType, objectState, zone.GetObjectsInZone());
             foreach (var item in concernedToAdd)
             {
                 toReturn.Add(item);
+            }
+        }
+        return toReturn;
+    }
+
+    public List<ObjectZoneArea> GetZoneOfType(ObjectZoneArea.ZoneAreaType areaType)
+    {
+        List<ObjectZoneArea> toReturn = new List<ObjectZoneArea>();
+        foreach(ObjectZoneArea area in areasInScene)
+        {
+            if(area.AreaType == areaType)
+            {
+                toReturn.Add(area);
             }
         }
         return toReturn;

@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class ObjectZoneArea : MonoBehaviour
 {
+    [SerializeField]
+    private ZoneAreaType areaType;
+
     private List<InteractObject> objectsInZone;
 
     private void Awake()
     {
         objectsInZone = new List<InteractObject>();
+    }
+
+    private void Start()
+    {
+        SceneObjectDatas.Instance.AddZoneArea(this);
     }
 
     public void OnTriggerEnter(Collider other)
@@ -51,7 +59,18 @@ public class ObjectZoneArea : MonoBehaviour
         return objectsInZone;
     }
 
+    public ZoneAreaType AreaType
+    {
+        get => areaType;
+    }
+
     #endregion
 
-
+    public enum ZoneAreaType
+    {
+        wallClock,
+        table,
+        garden,
+        kitchen
+    }
 }

@@ -52,7 +52,8 @@ public class ObjectTaskEditor : Editor
         EditorGUILayout.Space();
         if (eventTypeProp.intValue == (int)ObjectTask.EventKeyWord.bring)
         {
-            AddPopup(ref destinationForBringProp, "Destination :", typeof(ObjectSettings.ObjectType));
+            EditorGUILayout.LabelField("Warning : make sure there is area zone of type "+objectTask.destinationForBring +" in scene");
+            AddPopup(ref destinationForBringProp, "Destination :", typeof(ObjectZoneArea.ZoneAreaType));
         }
         GetTarget.ApplyModifiedProperties();
     }
