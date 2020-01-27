@@ -13,7 +13,7 @@ public class ObjectTask : ScriptableObject
     public int count = 1;
     public ObjectState.State stateConcerned;
     public ObjectSettings.ObjectType objectTypeConcerned;
-    public ObjectSettings.ObjectType destinationForBring;
+    public ObjectZoneArea.ZoneAreaType destinationForBring;
 
     public List<Sprite> taskIcons;
 
