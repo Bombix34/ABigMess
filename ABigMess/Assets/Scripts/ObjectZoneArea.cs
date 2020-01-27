@@ -12,6 +12,10 @@ public class ObjectZoneArea : MonoBehaviour
     private void Awake()
     {
         objectsInZone = new List<InteractObject>();
+    }
+
+    private void Start()
+    {
         SceneObjectDatas.Instance.AddZoneArea(this);
     }
 
