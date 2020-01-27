@@ -17,6 +17,9 @@ class TaskIcons : ScriptableObject
     [SerializeField]
     private List<EventTypeIcon> eventTypeIcons;
 
+    [SerializeField]
+    private List<ZoneAreaTypeIcon> zoneAreaTypeIcons;
+
     public List<Sprite> GetIcons(ObjectTask currentTask)
     {
         List<Sprite> icons = new List<Sprite>();
@@ -40,10 +43,10 @@ class TaskIcons : ScriptableObject
             icons.Add(emptyIcon);
         }
 
-        ObjectTypeIcon destinationTypeIcon = objectTypeIcons.Find(s => s.objectType.Equals(currentTask.destinationForBring));
+        ZoneAreaTypeIcon destinationTypeIcon = zoneAreaTypeIcons.Find(s => s.zoneAreaType.Equals(currentTask.destinationForBring));
         if (destinationTypeIcon != null)
         {
-            icons.Add(destinationTypeIcon.spriteObjectType);
+            icons.Add(destinationTypeIcon.spriteZoneAreaType);
         }
         else
         {
@@ -69,3 +72,9 @@ public class EventTypeIcon
     public Sprite spriteEventType;
 }
 
+[Serializable]
+public class ZoneAreaTypeIcon
+{
+    public ObjectZoneArea.ZoneAreaType zoneAreaType;
+    public Sprite spriteZoneAreaType;
+}
