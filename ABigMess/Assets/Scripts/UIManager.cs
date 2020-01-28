@@ -16,14 +16,8 @@ public class UIManager : Singleton<UIManager>
     [SerializeField]
     TaskIcons taskIcons;
 
-    public void UpdateChronoUI(float currentTime)
+    public void UpdateChronoUI(int minutes, int seconds)
     {
-        if(currentTime<0)
-        {
-            currentTime = 0f;
-        }
-        int minutes = (int)(currentTime / 60f);
-        int seconds = (int)(currentTime % 60f);
         if(seconds < 10)
         {
             chronoField.text = "0" + minutes.ToString() + ":0" + seconds.ToString();

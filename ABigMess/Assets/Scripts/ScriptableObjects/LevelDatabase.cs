@@ -13,6 +13,11 @@ public class LevelDatabase : ScriptableObject
     [Header("Drag n drop the settings of scenes to load in order")]
     public List<Level> levels;
 
+    public Level GetCurrentLevel()
+    {
+        return levels[curLevelIndex];
+    }
+
     public void LoadNextLevel()
     {
         curLevelIndex++;
@@ -42,6 +47,11 @@ public class LevelDatabase : ScriptableObject
                 curLevelIndex = 0;
             }
         }
+    }
+
+    public bool IsFinalLevel()
+    {
+        return curLevelIndex == levels.Count - 1;
     }
 
     public Level CurrentLevel
