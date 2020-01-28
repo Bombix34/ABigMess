@@ -51,10 +51,14 @@ public class TaskUI : MonoBehaviour
                 actionIcon.SetActive(list[1] != null ? true : false);
                 actionIcon.GetComponent<Image>().sprite = list[1] != null ? list[1] : actionIcon.GetComponent<Image>().sprite;
             }
-            if (list.Count >= 3)
+            if (task.eventType==ObjectTask.EventKeyWord.bring)
             {
-                destinationIcon.SetActive(list[2] != null ? true : false);
-                destinationIcon.GetComponent<Image>().sprite = list[2] != null ? list[2] : destinationIcon.GetComponent<Image>().sprite;
+                destinationIcon.SetActive(true);
+                destinationIcon.GetComponent<Image>().sprite = task.destinationSprite;
+            }
+            else
+            {
+                destinationIcon.SetActive(false);
             }
         }
         this.gameObject.SetActive(true);

@@ -15,6 +15,8 @@ public class ObjectTask : ScriptableObject
     public ObjectSettings.ObjectType objectTypeConcerned;
     public ObjectZoneArea.ZoneAreaType destinationForBring;
 
+    public Sprite destinationSprite;
+
     public List<Sprite> taskIcons;
 
     public bool IsDone { get; set; }

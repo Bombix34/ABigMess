@@ -3202,7 +3202,7 @@ GameObject:
   - component: {fileID: 604469822}
   - component: {fileID: 604469821}
   m_Layer: 0
-  m_Name: TriggerGarden (1)
+  m_Name: TriggerClock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3247,7 +3247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3664a30f7dd23241a0dcd852aa2734f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  areaType: 0
+  areaType: 1
 --- !u!1001 &614106022
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3368,6 +3368,22 @@ PrefabInstance:
     - target: {fileID: 1218077499467806261, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
         type: 3}
       propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676424106, guid: 92eb305b328bddd4393a5d0c2acfe3c0, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676424106, guid: 92eb305b328bddd4393a5d0c2acfe3c0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676424106, guid: 92eb305b328bddd4393a5d0c2acfe3c0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676424106, guid: 92eb305b328bddd4393a5d0c2acfe3c0, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 374606597370817197, guid: 92eb305b328bddd4393a5d0c2acfe3c0,
@@ -23606,7 +23622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3664a30f7dd23241a0dcd852aa2734f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  areaType: 2
+  areaType: 0
 --- !u!43 &1594765129
 Mesh:
   m_ObjectHideFlags: 0

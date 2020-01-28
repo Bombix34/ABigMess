@@ -68,9 +68,11 @@ public class ObjectZoneArea : MonoBehaviour
 
     public enum ZoneAreaType
     {
-        wallClock,
-        table,
-        garden,
-        kitchen
+        area01,
+        area02,
+        area03,
+        area04,
+        area05,
+        area06
     }
 }

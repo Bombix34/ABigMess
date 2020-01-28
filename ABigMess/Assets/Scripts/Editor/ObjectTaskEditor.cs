@@ -16,6 +16,7 @@ public class ObjectTaskEditor : Editor
     SerializedProperty stateConcernedProp;
     SerializedProperty objectTypeConcernedProp;
     SerializedProperty destinationForBringProp;
+    SerializedProperty destinationSpriteProp;
 
     private void OnEnable()
     {
@@ -28,6 +29,7 @@ public class ObjectTaskEditor : Editor
         stateConcernedProp = GetTarget.FindProperty("stateConcerned");
         objectTypeConcernedProp = GetTarget.FindProperty("objectTypeConcerned");
         destinationForBringProp = GetTarget.FindProperty("destinationForBring");
+        destinationSpriteProp = GetTarget.FindProperty("destinationSprite");
     }
 
     public override void OnInspectorGUI()
@@ -54,6 +56,7 @@ public class ObjectTaskEditor : Editor
         {
             EditorGUILayout.LabelField("Warning : make sure there is area zone of type "+objectTask.destinationForBring +" in scene");
             AddPopup(ref destinationForBringProp, "Destination :", typeof(ObjectZoneArea.ZoneAreaType));
+            EditorGUILayout.ObjectField(destinationSpriteProp);
         }
         GetTarget.ApplyModifiedProperties();
     }
