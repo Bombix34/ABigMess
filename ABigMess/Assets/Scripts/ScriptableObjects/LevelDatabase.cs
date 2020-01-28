@@ -6,7 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "BIGMESS/Levels/new database of level")]
 public class LevelDatabase : ScriptableObject
 {
-
     [SerializeField]
     private int curLevelIndex = 0;
 
