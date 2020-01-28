@@ -43,7 +43,7 @@ public class InteractObject : MonoBehaviour
         initMass = body.mass;
         body.isKinematic = false;
         outline = gameObject.AddComponent<SimpleOutline>();
-        GameObject canvasObj = GameObject.Find("Canvas");
+        GameObject canvasObj = UIManager.Instance.gameObject;
         if (canvasObj != null)
         {
             canvas = canvasObj.GetComponent<Canvas>();

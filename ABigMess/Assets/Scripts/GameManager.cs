@@ -38,6 +38,7 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         uiManager = UIManager.Instance;
+        uiManager.FadeOut();
         for (int i = 0; i < levels.levels.Count; ++i)
         {
             if (levels.levels[i].sceneToLoad == SceneManager.GetActiveScene().name)
@@ -76,7 +77,9 @@ public class GameManager : Singleton<GameManager>
 
     private IEnumerator LoadNewLevel()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(0.75f);
+        uiManager.FadeIn();
+        yield return new WaitForSeconds(1.5f);
         levels.LoadNextLevel();
     }
 

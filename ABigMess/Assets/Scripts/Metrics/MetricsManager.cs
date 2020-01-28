@@ -60,12 +60,20 @@ public class MetricsManager : ScriptableObject
     public void AddLine(string levelName, string playerTime)
     {
         CsvLine csvLine = new CsvLine(ConvertToListLine(levelName,playerTime));
+        if(csvText==null)
+        {
+            InitCSVText();
+        }
         csvText.Add(csvLine);
     }
 
     public void AddInfoToLine(string levelName, string newInfo)
     {
-        foreach(CsvLine line in csvText)
+        if (csvText == null)
+        {
+            InitCSVText();
+        }
+        foreach (CsvLine line in csvText)
         {
             if(line.GetField(0)==levelName)
             {

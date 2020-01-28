@@ -16,6 +16,9 @@ public class UIManager : Singleton<UIManager>
     [SerializeField]
     TaskIcons taskIcons;
 
+    [SerializeField]
+    GameObject transitionPanel;
+
     public void UpdateChronoUI(int minutes, int seconds)
     {
         if(seconds < 10)
@@ -44,6 +47,22 @@ public class UIManager : Singleton<UIManager>
         {
             taskUI[i].UpdateTaskColor();
         }
+    }
+
+    public void FadeIn()
+    {
+        transitionPanel.SetActive(true);
+        Animator transitionAnim = transitionPanel.GetComponent<Animator>();
+        transitionAnim.SetTrigger("FadeIn");
+        transitionAnim.SetInteger("TransitionNb", 1);
+    }
+
+    public void FadeOut()
+    {
+        transitionPanel.SetActive(true);
+        Animator transitionAnim = transitionPanel.GetComponent<Animator>();
+        transitionAnim.SetTrigger("FadeOut");
+        transitionAnim.SetInteger("TransitionNb",1);
     }
 
 }
