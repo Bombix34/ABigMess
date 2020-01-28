@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
+    public bool saveMetrics = false;
     public MusicManager MusicManager { get; set;  }
     public SceneObjectDatas ObjectsDatas { get; set; }
     private ObjectTasksManager taskManager;
@@ -42,6 +43,7 @@ public class GameManager : Singleton<GameManager>
             }
         }
         InvokeRepeating("DetectStressTime", 1f, 1f);
+
         Application.targetFrameRate = 50;
         QualitySettings.vSyncCount = 0;
     }
@@ -51,12 +53,30 @@ public class GameManager : Singleton<GameManager>
         middlePlayers.transform.position = GetPositionBetweenPlayers();
         currentPlayersTime += Time.deltaTime;
         DebugDisplayInput();
-        uiManager.UpdateChronoUI(levels.CurrentLevel.startChrono - currentPlayersTime);
+        uiManager.UpdateChronoUI(GetCurrentTime()[0],GetCurrentTime()[1]);
     }
 
     public void WinCurrentLevel()
     {
         levels.CurrentLevel.PlayerTime = levels.CurrentLevel.startChrono - currentPlayersTime;
+        print(levels.CurrentLevel.sceneToLoad +" - "+ GetCurrentTime()[0] +":"+ GetCurrentTime()[1]);
+        if(saveMetrics)
+        {
+            MetricsManager metrics = new MetricsManager();
+            metrics.InitCSVText();
+            string playerTime= GetCurrentTime()[0] + ":" + GetCurrentTime()[1];
+            metrics.AddLine(levels.CurrentLevel.sceneToLoad, playerTime);
+            if(levels.IsFinalLevel())
+            {
+                StartCoroutine(metrics.CreateArchiveCSV("METRICS_" + System.DateTime.Now));
+            }
+        }
+        StartCoroutine(LoadNewLevel());
+    }
+
+    private IEnumerator LoadNewLevel()
+    {
+        yield return new WaitForSeconds(3f);
         levels.LoadNextLevel();
     }
 
@@ -130,6 +150,21 @@ public class GameManager : Singleton<GameManager>
         {
             taskManager = value;
         }
+    }
+
+    public List<int> GetCurrentTime()
+    {
+        float currentTime = levels.CurrentLevel.startChrono - currentPlayersTime;
+        if (currentTime < 0)
+        {
+            currentTime = 0f;
+        }
+        int minutes = (int)(currentTime / 60f);
+        int seconds = (int)(currentTime % 60f);
+        List<int> toReturn = new List<int>();
+        toReturn.Add(minutes);
+        toReturn.Add(seconds);
+        return toReturn;
     }
 
 }

@@ -57,7 +57,6 @@ public class TaskUI : MonoBehaviour
                 destinationIcon.GetComponent<Image>().sprite = list[2] != null ? list[2] : destinationIcon.GetComponent<Image>().sprite;
             }
         }
-        print("wow");
         this.gameObject.SetActive(true);
     }
 
