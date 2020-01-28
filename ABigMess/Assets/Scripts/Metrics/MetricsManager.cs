@@ -4,9 +4,10 @@ using UnityEngine;
 using System.IO;
 using System;
 
-public class MetricsManager 
+public class MetricsManager : ScriptableObject
 {
 
+    public bool saveMetrics = false;
     private List<CsvLine> csvText;
 
     public void Reset()
@@ -26,7 +27,7 @@ public class MetricsManager
 
     private string GetPath(string archiveName)
     {
-        return Application.persistentDataPath + "/" + archiveName + ".csv";
+        return Application.dataPath + "/" + archiveName + ".csv";
     }
 
     public IEnumerator CreateArchiveCSV(string archiveName)
@@ -35,7 +36,6 @@ public class MetricsManager
 
         if (File.Exists(rootFile))
         {
-            Debug.Log("DELETE");
             File.Delete(rootFile);
         }
 

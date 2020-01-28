@@ -5,7 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    public bool saveMetrics = false;
+
+    [SerializeField]
+    private MetricsManager metricsManager;
+
     public MusicManager MusicManager { get; set;  }
     public SceneObjectDatas ObjectsDatas { get; set; }
     private ObjectTasksManager taskManager;
@@ -59,16 +62,13 @@ public class GameManager : Singleton<GameManager>
     public void WinCurrentLevel()
     {
         levels.CurrentLevel.PlayerTime = levels.CurrentLevel.startChrono - currentPlayersTime;
-        print(levels.CurrentLevel.sceneToLoad +" - "+ GetCurrentTime()[0] +":"+ GetCurrentTime()[1]);
-        if(saveMetrics)
+        if(metricsManager.saveMetrics)
         {
-            MetricsManager metrics = new MetricsManager();
-            metrics.InitCSVText();
             string playerTime= GetCurrentTime()[0] + ":" + GetCurrentTime()[1];
-            metrics.AddLine(levels.CurrentLevel.sceneToLoad, playerTime);
+            metricsManager.AddLine(levels.CurrentLevel.sceneToLoad, playerTime);
             if(levels.IsFinalLevel())
             {
-                StartCoroutine(metrics.CreateArchiveCSV("METRICS_" + System.DateTime.Now));
+                StartCoroutine(metricsManager.CreateArchiveCSV("METRICS_" + System.DateTime.Now.ToString("HH:mm")));
             }
         }
         StartCoroutine(LoadNewLevel());

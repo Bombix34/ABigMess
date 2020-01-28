@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-[CreateAssetMenu(menuName = "BIGMESS/Levels/new level")]
+[CreateAssetMenu(menuName = "BIGMESS_LEVELS/Levels/new level")]
 public class Level : ScriptableObject
 {
     [Header("write the name of scene to load")]
