@@ -9,6 +9,11 @@ public class MetricsManager
 
     private List<CsvLine> csvText;
 
+    public void Reset()
+    {
+        csvText = null;
+    }
+
     public void InitCSVText()
     {
         if(csvText==null)
@@ -21,9 +26,6 @@ public class MetricsManager
 
     private string GetPath(string archiveName)
     {
-        #if UNITY_EDITOR
-        return Application.dataPath + "/" + archiveName + ".csv";
-        #endif
         return Application.persistentDataPath + "/" + archiveName + ".csv";
     }
 
