@@ -17,6 +17,8 @@ public class ObjectTask : ScriptableObject
 
     public Sprite destinationSprite;
 
+    private int interfaceCount = 0;
+
     public List<Sprite> taskIcons;
 
     public bool IsDone { get; set; }
@@ -39,8 +41,10 @@ public class ObjectTask : ScriptableObject
                 List<InteractObject> totalNumberOfObject = datas.GetObjectsOfType(objectTypeConcerned);
                 if (numberDesired == NumberType.number)
                 {
+                    interfaceCount = count-concernedObject.Count;
                     if (totalNumberOfObject.Count < count)
                     {
+                        interfaceCount =totalNumberOfObject.Count - concernedObject.Count;
                         if (concernedObject.Count >= totalNumberOfObject.Count)
                         {
                             IsDone = true;
@@ -48,11 +52,13 @@ public class ObjectTask : ScriptableObject
                     }
                     else if (concernedObject.Count >= count)
                     {
+                        interfaceCount = 0;
                         IsDone = true;
                     }
                 }
                 else
                 {
+                    interfaceCount = totalNumberOfObject.Count - concernedObject.Count;
                     if (concernedObject.Count >= totalNumberOfObject.Count)
                     {
                         IsDone = true;
@@ -72,6 +78,7 @@ public class ObjectTask : ScriptableObject
                 }
                 if(concernedObject.Count==0)
                 {
+                    interfaceCount = 0;
                     IsDone = true;
                 }
                 else
@@ -80,25 +87,31 @@ public class ObjectTask : ScriptableObject
                     //si on cherche un nombre spécifique
                     if(numberDesired==NumberType.number)
                     {
+                        interfaceCount = count-concernedObjectsInState.Count;
                         //si le nombre total d'objet concerné est inférieur au nombre voulu
                         if (concernedObject.Count < count)
                         {
+                            interfaceCount = concernedObject.Count-concernedObjectsInState.Count;
                             if (concernedObjectsInState.Count >= concernedObject.Count)
                             {
+                                interfaceCount = 0;
                                 IsDone = true;
                             }
                         }
                         // si le nombre d'objet dans l'état souhaité est supérieur ou égal
                         else if(concernedObjectsInState.Count>=count)
                         {
+                            interfaceCount = 0;
                             IsDone = true;
                         }
                     }
                     //si on cherche tous les objets d'un type
                     else
                     {
+                        interfaceCount = concernedObject.Count-concernedObjectsInState.Count;
                         if (concernedObjectsInState.Count >= concernedObject.Count)
                         {
+                            interfaceCount = 0;
                             IsDone = true;
                         }
                     }
@@ -138,6 +151,11 @@ public class ObjectTask : ScriptableObject
                 break;
         }
         return toReturn;
+    }
+
+    public int GetCountForInterface()
+    {
+        return interfaceCount;
     }
 
     public enum EventKeyWord
