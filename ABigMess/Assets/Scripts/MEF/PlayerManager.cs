@@ -37,7 +37,6 @@ public class PlayerManager : ObjectManager
     private bool isGrabbedObjectColliding;
 
     private List<InteractObject> raycastedObjects;
-    private int raycastIndex = 0;
 
     private void Awake()
     {
@@ -362,11 +361,7 @@ public class PlayerManager : ObjectManager
         }
         else
         {
-            if (raycastIndex >= raycastedObjects.Count)
-            {
-                raycastIndex = 0;
-            }
-            interactObject = raycastedObjects[raycastIndex].gameObject;
+            interactObject = GetUpperRaycastedObject(raycastedObjects).gameObject;
             if (interactObject != grabbedObject) // Never highlight an object in my hands
             {
                 InteractObject concernedObject = interactObject.GetComponent<InteractObject>();
@@ -425,23 +420,32 @@ public class PlayerManager : ObjectManager
         }
     }
 
+    
+    public InteractObject GetUpperRaycastedObject(List<InteractObject> raycastedObjects)
+    {
+        InteractObject result = raycastedObjects[0];
+        for (int i =1; i < raycastedObjects.Count; ++i)
+        {
+            if(raycastedObjects[i].transform.position.y > result.transform.position.y)
+            {
+                result = raycastedObjects[i];
+            }
+        }
+        return result;
+    }
+    
+
     public void SwitchRaycastedObject()
     {
         if (inputs.GetSwitchInputDown() && raycastedObjects.Count > 0)
         {
             interactObject.GetComponent<InteractObject>().ResetHighlight();
-            raycastIndex++;
-            if (raycastIndex >= raycastedObjects.Count)
-            {
-                raycastIndex = 0;
-            }
         }
     }
 
     private void ResetRaycastedObjects()
     {
         raycastedObjects.Clear();
-        raycastIndex = 0;
         interactObject = null;
     }
 

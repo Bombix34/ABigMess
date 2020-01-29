@@ -184,81 +184,61 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: d8f724ebd01aca43968faaf35d3b837f
     GuidInternal: 
-    m_lastTime: -8586223438909720481
+    m_lastTime: -8586212990361962108
     List: []
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 0f2a0ca1a300644f9d0e66377c7a9207
     GuidInternal: 
-    m_lastTime: -8586269099275592149
+    m_lastTime: -8586212990358132346
     List:
-    - name: ABM_radio
-      guid: 81bdc1a4529ded46acba6c71c01e41ac
-      id: 4116217585
-      PathAndIcons:
-      - ElementName: Default Work Unit
-        ObjectType: 12
-      - ElementName: ABM_radio
-        ObjectType: 7
-      Path: Default Work Unit\ABM_radio
-    - name: ABM_test
+    - name: Bigmess_music
       guid: 3de1b763af55174ba5cc31eb22d1527d
-      id: 3265541676
+      id: 3356657249
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: ABM_test
+      - ElementName: Bigmess_music
         ObjectType: 7
-      Path: Default Work Unit\ABM_test
+      Path: Default Work Unit\Bigmess_music
+    - name: Bigmess_radio
+      guid: 81bdc1a4529ded46acba6c71c01e41ac
+      id: 3720504097
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Bigmess_radio
+        ObjectType: 7
+      Path: Default Work Unit\Bigmess_radio
   EventWwu:
+  - PhysicalPath: Events\Amb.wwu
+    ParentPhysicalPath: 
+    guid: 901646cfc81c8345b4a4d18f8b1c5ce2
+    GuidInternal: 
+    m_lastTime: -8586212990362241355
+    List: []
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 2e0b19a433a3384db4191777c4d33194
     GuidInternal: 
-    m_lastTime: -8586223438909939886
-    List:
-    - name: Play_alien_voice
-      guid: c713cd4f037ad74ea9b696953c383ff9
-      id: 3570971296
-      PathAndIcons:
-      - ElementName: Default Work Unit
-        ObjectType: 12
-      - ElementName: Play_alien_voice
-        ObjectType: 3
-      Path: Default Work Unit\Play_alien_voice
-      maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+    m_lastTime: -8586212990362271275
+    List: []
   - PhysicalPath: Events\Music.wwu
     ParentPhysicalPath: 
     guid: 989c4f7b6a08564c950aaf2152d17c74
     GuidInternal: 
-    m_lastTime: -8586223438909909966
+    m_lastTime: -8586212990362191489
     List:
-    - name: Play_musique_test
-      guid: 96c84e736c252c4db841a79c047da1bf
-      id: 1760975142
+    - name: Play_music_noon
+      guid: ed1a39945b287b4eb919f56fce9d964f
+      id: 508480304
       PathAndIcons:
       - ElementName: Music
         ObjectType: 12
-      - ElementName: Play_musique_test
+      - ElementName: Play_music_noon
         ObjectType: 3
-      Path: Music\Play_musique_test
-      maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
-    - name: Play_radio_RTPC
-      guid: 736800628170ca4b871287961c3ec7d3
-      id: 1264013275
-      PathAndIcons:
-      - ElementName: Music
-        ObjectType: 12
-      - ElementName: Radio
-        ObjectType: 4
-      - ElementName: Play_radio_RTPC
-        ObjectType: 3
-      Path: Music\Radio\Play_radio_RTPC
+      Path: Music\Play_music_noon
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -318,6 +298,66 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
+    - name: Set_switch_noon_music01
+      guid: 85c90bd6bef8dd4395376e7b2adc16d6
+      id: 1236176242
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Set_switch_noon_music01
+        ObjectType: 3
+      Path: Music\Set_switch_noon_music01
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Set_switch_noon_music02
+      guid: b5b0360434039748bf06b88fe08d7d08
+      id: 1236176241
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Set_switch_noon_music02
+        ObjectType: 3
+      Path: Music\Set_switch_noon_music02
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Set_switch_noon_music03
+      guid: 3e17bb4505b30f4aaacab232f993e800
+      id: 1236176240
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Set_switch_noon_music03
+        ObjectType: 3
+      Path: Music\Set_switch_noon_music03
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Set_switch_noon_music04
+      guid: 758df112848322479d0d11fd34ebbfe7
+      id: 1236176247
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Set_switch_noon_music04
+        ObjectType: 3
+      Path: Music\Set_switch_noon_music04
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Set_switch_noon_music05
+      guid: 06d7481da6effb44964b7960c6659e34
+      id: 1236176246
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Set_switch_noon_music05
+        ObjectType: 3
+      Path: Music\Set_switch_noon_music05
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Stop_radio_stations
       guid: 9f2b4bfc5b4fbe44b1312ed44aab8135
       id: 3703828323
@@ -332,22 +372,40 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
+  - PhysicalPath: Events\SFX.wwu
+    ParentPhysicalPath: 
+    guid: f432dde08975134db82eaaa1eddfe4e7
+    GuidInternal: 
+    m_lastTime: -8586212990362221407
+    List:
+    - name: Play_alien_voice
+      guid: c713cd4f037ad74ea9b696953c383ff9
+      id: 3570971296
+      PathAndIcons:
+      - ElementName: SFX
+        ObjectType: 12
+      - ElementName: Play_alien_voice
+        ObjectType: 3
+      Path: SFX\Play_alien_voice
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
   RtpcWwu:
   - PhysicalPath: Game Parameters\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 50118bca76311f4d8c36b826beb145d9
     GuidInternal: 
-    m_lastTime: -8586269099280937850
+    m_lastTime: -8586212990362191489
     List:
-    - name: station_number
-      guid: 936fb51854b3214fb4b09e20a7521f92
-      id: 1640804097
+    - name: DuckingRadio
+      guid: f624135c709b5147a8f43c19699e878a
+      id: 3949723815
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: station_number
+      - ElementName: DuckingRadio
         ObjectType: 13
-      Path: Default Work Unit\station_number
+      Path: Default Work Unit\DuckingRadio
   - PhysicalPath: Game Parameters\Factory SoundSeed Air Game Syncs.wwu
     ParentPhysicalPath: 
     guid: 5577163b42fb8b4598bf96f557afb3b9
@@ -449,39 +507,8 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: c4521f62a23b9243be27545589d49544
     GuidInternal: 
-    m_lastTime: -8586269099275442543
+    m_lastTime: -8586212990358042590
     List:
-    - name: Pause_effect
-      guid: daf48d0a0b43fe47b79bad54b32267e2
-      id: 2518961899
-      PathAndIcons:
-      - ElementName: Default Work Unit
-        ObjectType: 12
-      - ElementName: Pause_effect
-        ObjectType: 9
-      Path: Default Work Unit\Pause_effect
-      values:
-      - name: Game
-        guid: fc082fa67bde2945bb98e2311170d23a
-        id: 702482391
-        PathAndIcons:
-        - ElementName: Game
-          ObjectType: 8
-      - name: None
-        guid: bc3c7e86db619643a412af29259f9686
-        id: 748895195
-        PathAndIcons:
-        - ElementName: None
-          ObjectType: 8
-      - name: Pause
-        guid: 74340dc036611842821ad00444eae25a
-        id: 3092587493
-        PathAndIcons:
-        - ElementName: Pause
-          ObjectType: 8
-      ValueGuids: []
-      ValueIcons: []
-      valuesInternal: []
     - name: radio_station
       guid: 53256cffc9428f4887c86b2273cd6023
       id: 166680927
@@ -530,8 +557,69 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 2495d1397172a6449a60dc120bd78572
     GuidInternal: 
-    m_lastTime: -8586269099275382702
-    List: []
+    m_lastTime: -8586212990357992726
+    List:
+    - name: music_noon
+      guid: 5fd6811cd43a874487dd36eba8500316
+      id: 4048822807
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: music_noon
+        ObjectType: 11
+      Path: Default Work Unit\music_noon
+      values:
+      - name: step01
+        guid: 2dfdfb816ddca74da107bd1f6835d488
+        id: 1062722166
+        PathAndIcons:
+        - ElementName: step01
+          ObjectType: 10
+      - name: step02
+        guid: a60382254af29746856ca5e650a56744
+        id: 1062722165
+        PathAndIcons:
+        - ElementName: step02
+          ObjectType: 10
+      - name: step03
+        guid: 10e971f1435c984d9f89faa937811531
+        id: 1062722164
+        PathAndIcons:
+        - ElementName: step03
+          ObjectType: 10
+      - name: step04
+        guid: 2243d8420ff1fb438a19e03baf2a2431
+        id: 1062722163
+        PathAndIcons:
+        - ElementName: step04
+          ObjectType: 10
+      - name: step05
+        guid: abde9318b2e34844b908c6472046f201
+        id: 1062722162
+        PathAndIcons:
+        - ElementName: step05
+          ObjectType: 10
+      - name: step06
+        guid: 33e97db993830e4fb76d0e4c5cc2cd98
+        id: 1062722161
+        PathAndIcons:
+        - ElementName: step06
+          ObjectType: 10
+      - name: step07
+        guid: b85c437fd00d2241985d2e23420006b1
+        id: 1062722160
+        PathAndIcons:
+        - ElementName: step07
+          ObjectType: 10
+      - name: step08
+        guid: 06d835458d22cb418bddc1db77826b1a
+        id: 1062722175
+        PathAndIcons:
+        - ElementName: step08
+          ObjectType: 10
+      ValueGuids: []
+      ValueIcons: []
+      valuesInternal: []
   TriggerWwu:
   - PhysicalPath: Triggers\Default Work Unit.wwu
     ParentPhysicalPath: 
@@ -543,8 +631,8 @@ MonoBehaviour:
   - /M2_A_Big_Mess
   - /M2_A_Big_Mess/Events
   - /M2_A_Big_Mess/Events/Music
-  - /M2_A_Big_Mess/Events/Music/Radio
-  - /M2_A_Big_Mess/SoundBanks
-  - /M2_A_Big_Mess/SoundBanks/Default Work Unit
+  - /M2_A_Big_Mess/Switches
+  - /M2_A_Big_Mess/Switches/Default Work Unit
+  - /M2_A_Big_Mess/Switches/Default Work Unit/music_noon
   autoPopulateEnabled: 1
   CurrentPluginConfig: 

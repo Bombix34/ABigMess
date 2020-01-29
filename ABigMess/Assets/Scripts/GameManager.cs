@@ -69,7 +69,7 @@ public class GameManager : Singleton<GameManager>
             metricsManager.AddLine(levels.CurrentLevel.sceneToLoad, playerTime);
             if(levels.IsFinalLevel())
             {
-                StartCoroutine(metricsManager.CreateArchiveCSV("METRICS_" + System.DateTime.Now.ToString("HH:mm")));
+                StartCoroutine(metricsManager.CreateArchiveCSV("METRICS_" + System.DateTime.Now.ToString("yyyy MMMM")));
             }
         }
         StartCoroutine(LoadNewLevel());
