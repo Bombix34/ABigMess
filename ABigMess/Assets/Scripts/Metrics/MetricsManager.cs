@@ -54,7 +54,7 @@ public class MetricsManager : ScriptableObject
 
         yield return new WaitForSeconds(0.5f);
 
-        Application.OpenURL(rootFile);
+        //Application.OpenURL(rootFile);
     }
 
     public void AddLine(string levelName, string playerTime)
