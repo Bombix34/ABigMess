@@ -68,6 +68,7 @@ public class InteractObject : MonoBehaviour
     {
         UpdateHighlight();
         UpdateOverlayPosition();
+        UpdateFixedJoint();
     }
 
     /// <summary>
@@ -191,7 +192,6 @@ public class InteractObject : MonoBehaviour
                 else
                 {
                     body.mass = 0f;
-
                 }
             }
         }
@@ -245,6 +245,17 @@ public class InteractObject : MonoBehaviour
             return;
         }
         attachedPlayers[0].GetComponent<PlayerManager>().DropBringObject(true);
+    }
+
+    private void UpdateFixedJoint()
+    {
+        if(settings.isOneHandedCarrying && attachedPlayers.Count>0)
+        {
+            if(GetComponent<FixedJoint>()!=null && GetComponent<FixedJoint>().connectedBody==null)
+            {
+                GetComponent<FixedJoint>().connectedBody = transform.parent.GetComponent<Rigidbody>();
+            }
+        }
     }
 
     #region HIGHLIGHT_SYSTEM
