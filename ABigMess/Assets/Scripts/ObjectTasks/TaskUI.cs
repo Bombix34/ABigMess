@@ -42,7 +42,7 @@ public class TaskUI : MonoBehaviour
             textField.text = newTask.taskName;
         } else
         {
-            textField.text = newTask.taskName;
+            textField.gameObject.SetActive(false);
 
             numberField.text = newTask.GetCountForInterface().ToString();
 

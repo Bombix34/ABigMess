@@ -58,6 +58,7 @@ public class ObjectTask : ScriptableObject
                 }
                 else
                 {
+                    interfaceCount = totalNumberOfObject.Count - concernedObject.Count;
                     if (concernedObject.Count >= totalNumberOfObject.Count)
                     {
                         IsDone = true;
