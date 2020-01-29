@@ -7,10 +7,14 @@ public class ObjectState : MonoBehaviour
 {
 
     public ObjectStates states;
-    
+
+    private void Awake()
+    {
+
+    }
+
     private void Start()
     {
-        InitStates();
         UpdateState();
     }
 
@@ -22,7 +26,7 @@ public class ObjectState : MonoBehaviour
 
     private void InitStates()
     {
-        states=new ObjectStates();
+        states = new ObjectStates();
     }
 
     public void UpdateState()
