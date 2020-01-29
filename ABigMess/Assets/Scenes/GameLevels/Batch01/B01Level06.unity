@@ -1149,8 +1149,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   areaType: 1
---- !u!65 &312300501
-BoxCollider:
+--- !u!135 &312300501
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1160,8 +1160,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.7820823, y: 1.5334544, z: 1.6001835}
-  m_Center: {x: -0.013850093, y: -0.2667272, z: 0.0046167374}
+  m_Radius: 1.83
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &416948461
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23304,17 +23304,17 @@ PrefabInstance:
     - target: {fileID: 9134152348451593438, guid: 54a2d1cd3c6106541b7aeefd3b65f6db,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.595
+      value: -2.1739998
       objectReference: {fileID: 0}
     - target: {fileID: 9134152348451593438, guid: 54a2d1cd3c6106541b7aeefd3b65f6db,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.257
+      value: 2.249
       objectReference: {fileID: 0}
     - target: {fileID: 9134152348451593438, guid: 54a2d1cd3c6106541b7aeefd3b65f6db,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.604
+      value: 3.8270004
       objectReference: {fileID: 0}
     - target: {fileID: 9134152348451593438, guid: 54a2d1cd3c6106541b7aeefd3b65f6db,
         type: 3}
@@ -23379,7 +23379,7 @@ PrefabInstance:
     - target: {fileID: 7146837521137475660, guid: 2ee14e4a2d8d2dd4d8578a792bdcbc9e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.176
+      value: -2.08
       objectReference: {fileID: 0}
     - target: {fileID: 7146837521137475660, guid: 2ee14e4a2d8d2dd4d8578a792bdcbc9e,
         type: 3}
@@ -23389,7 +23389,7 @@ PrefabInstance:
     - target: {fileID: 7146837521137475660, guid: 2ee14e4a2d8d2dd4d8578a792bdcbc9e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.7269998
+      value: 3.88
       objectReference: {fileID: 0}
     - target: {fileID: 7146837521137475660, guid: 2ee14e4a2d8d2dd4d8578a792bdcbc9e,
         type: 3}
