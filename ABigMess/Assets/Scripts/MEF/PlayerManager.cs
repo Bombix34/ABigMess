@@ -207,49 +207,12 @@ public class PlayerManager : ObjectManager
         }
     }
 
-    private void AttachGrabbedObjectOneHanded()
+    public void AttachGrabbedObjectOneHanded()
     {
         grabbedObject.transform.position = renderer.RightArm.HandPosition.position;
         grabbedObject.transform.parent = renderer.RightArm.HandPosition;
         grabbedObject.AddComponent<FixedJoint>();
         grabbedObject.GetComponent<FixedJoint>().connectedBody = renderer.RightArm.HandPosition.GetComponent<Rigidbody>();
-    }
-
-    /// <summary>
-    /// We don't use that anymore
-    /// </summary>
-    private void SwitchGrabbedObject()
-    {
-        //Update position according to weight
-        ObjectSettings.ObjectWeight weight = ObjectSettings.ObjectWeight.light;
-        if (interactObject.GetComponent<InteractObject>().Settings == null)
-        {
-            Debug.LogError("Define settings for the object: " + grabbedObject.name);
-        }
-        else
-        {
-            weight = interactObject.GetComponent<InteractObject>().Settings.weightType;
-        }
-        switch (weight)
-        {
-            case ObjectSettings.ObjectWeight.heavy:
-                break;
-            default:
-                // Grabbed Object is exchanged
-                // Interact Object becomes the object holded by the player
-                Vector3 switchObjectPosition = interactObject.transform.position;
-                interactObject.transform.position = grabbedObject.transform.position;
-                grabbedObject.transform.position = switchObjectPosition;
-
-                grabbedObject.transform.parent = null;
-                grabbedObject.GetComponent<InteractObject>().Dropdown(this.gameObject);
-
-                isGrabbedObjectColliding = false;
-                grabbedObject.transform.parent = null;
-
-                GrabInteractObject();
-                break;
-        }
     }
 
     /// <summary>
@@ -361,6 +324,10 @@ public class PlayerManager : ObjectManager
         }
         else
         {
+            if(interactObject!=null)
+            {
+                interactObject.GetComponent<InteractObject>().ResetHighlight();
+            }
             interactObject = GetUpperRaycastedObject(raycastedObjects).gameObject;
             if (interactObject != grabbedObject) // Never highlight an object in my hands
             {
@@ -432,15 +399,6 @@ public class PlayerManager : ObjectManager
             }
         }
         return result;
-    }
-    
-
-    public void SwitchRaycastedObject()
-    {
-        if (inputs.GetSwitchInputDown() && raycastedObjects.Count > 0)
-        {
-            interactObject.GetComponent<InteractObject>().ResetHighlight();
-        }
     }
 
     private void ResetRaycastedObjects()
