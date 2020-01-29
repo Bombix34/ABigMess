@@ -26,6 +26,7 @@ public class ObjectTasksManager : MonoBehaviour
     private void Start()
     {
         UIManager.Instance.InitTasksUI(currentTasks.objectTasks);
+        UpdateTasksState();
     }
 
     public void InitTaskDoneValue()

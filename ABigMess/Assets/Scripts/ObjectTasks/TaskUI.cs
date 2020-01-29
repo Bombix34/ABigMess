@@ -11,6 +11,9 @@ public class TaskUI : MonoBehaviour
     private Text textField;
 
     [SerializeField]
+    private Text numberField;
+
+    [SerializeField]
     private GameObject objectIcon;
 
     [SerializeField]
@@ -39,7 +42,9 @@ public class TaskUI : MonoBehaviour
             textField.text = newTask.taskName;
         } else
         {
-            textField.text = String.Empty;
+            textField.text = newTask.taskName;
+
+            numberField.text = newTask.GetCountForInterface().ToString();
 
             if (list.Count >= 1)
             {
@@ -62,6 +67,15 @@ public class TaskUI : MonoBehaviour
             }
         }
         this.gameObject.SetActive(true);
+    }
+
+    public void UpdateNumber()
+    {
+        if(task==null)
+        {
+            return;
+        }
+        numberField.text = task.GetCountForInterface().ToString();
     }
 
     public void UpdateTaskColor()

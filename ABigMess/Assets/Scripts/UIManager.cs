@@ -46,6 +46,7 @@ public class UIManager : Singleton<UIManager>
         for(int i = 0; i < taskUI.Count;i++)
         {
             taskUI[i].UpdateTaskColor();
+            taskUI[i].UpdateNumber();
         }
     }
 
