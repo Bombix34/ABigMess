@@ -146,7 +146,7 @@ public class CsvLine
             }
             else
             {
-                toReturn += fields[i] + fieldSeperator;
+                toReturn += fields[i] +" "+ fieldSeperator + " ";
             }
         }
         toReturn += lineSeperater;

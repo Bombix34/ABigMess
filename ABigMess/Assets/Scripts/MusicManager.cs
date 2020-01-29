@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class MusicManager : MonoBehaviour
 {
-
     Radio radioSystem;
+    
 
-    void Awake()
+    void Start()
     {
-        //AkSoundEngine.PostEvent("Play_musique_test", gameObject);
-       // AkSoundEngine.SetState("MUTE", "down");
+        AkSoundEngine.PostEvent("Play_music_noon", gameObject);
+        //AkSoundEngine.SetSwitch("music_noon","step01", gameObject);
     }
 
     /// <summary>
