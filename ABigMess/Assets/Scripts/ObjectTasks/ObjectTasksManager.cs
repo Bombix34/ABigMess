@@ -36,6 +36,12 @@ public class ObjectTasksManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Keypad0))
+        {
+            print("Win ");
+            LoadNextTaskGroup();
+        }
+
         if (!win)
         {
             if (loadNextTaskGroupDelay > 0)
@@ -88,9 +94,7 @@ public class ObjectTasksManager : MonoBehaviour
     {
         loadNextTaskGroupDelay = delay;
 
-
         currentTasks = currentTasks.nextTasks;
-
     }
 
     #region OLD_CODE

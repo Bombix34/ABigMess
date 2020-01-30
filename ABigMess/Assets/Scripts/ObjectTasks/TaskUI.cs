@@ -31,11 +31,6 @@ public class TaskUI : MonoBehaviour
 
     public void DisplayTask(ObjectTask newTask, List<Sprite> list)
     {
-        if(newTask==null)
-        {
-            this.gameObject.SetActive(false);
-            return;
-        }
         task = newTask;
         if (list.Count == 0)
         {
@@ -66,7 +61,6 @@ public class TaskUI : MonoBehaviour
                 destinationIcon.SetActive(false);
             }
         }
-        this.gameObject.SetActive(true);
     }
 
     public void UpdateNumber()
