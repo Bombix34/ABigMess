@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 46827f0dc51c13b488efffe4fa531fde
+guid: 0714a4fd7d2a30841bcebccd12ca3102
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -10,23 +10,22 @@ ScriptedImporter:
   script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
   version: 23
   mGraphInstanceData:
-  - graphLabel: Walls
-    prototypeName: Walls
+  - graphLabel: woodfloor_new
+    prototypeName: woodfloor_new
     graphDescIndex: 0
     generateAllOutputs: 0
     generateMipMaps: 1
-    preset: " <sbspreset pkgurl=\"pkg://Walls\" label=\"\" >\n  <presetinput identifier=\"$outputsize\"
-      uid=\"760565187\" type=\"8\" value=\"9,9\" />\n  <presetinput identifier=\"x_tiles\"
-      uid=\"1178665773\" type=\"4\" value=\"6\" />\n  <presetinput identifier=\"y_tiles\"
-      uid=\"1178665823\" type=\"4\" value=\"6\" />\n </sbspreset>\n"
+    preset: " <sbspreset pkgurl=\"pkg://woodfloor_new\" label=\"\" >\n  <presetinput
+      identifier=\"$outputsize\" uid=\"3182574853\" type=\"8\" value=\"9,9\" />\n
+      </sbspreset>\n"
     shaderName: Standard
     materialProperties:
       shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-      shaderKeywords: _MAINTEX _NORMALMAP _PARALLAXMAP
+      shaderKeywords: _MAINTEX _NORMALMAP _OCCLUSIONMAP _PARALLAXMAP
       lightmapFlags: 4
       texEnvs:
       - name: _BumpMap
-        texture: {fileID: 5871383560343728185, guid: 46827f0dc51c13b488efffe4fa531fde,
+        texture: {fileID: -7549298147615713379, guid: 0714a4fd7d2a30841bcebccd12ca3102,
           type: 3}
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
@@ -47,7 +46,7 @@ ScriptedImporter:
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
       - name: _MainTex
-        texture: {fileID: -2722043554132669187, guid: 46827f0dc51c13b488efffe4fa531fde,
+        texture: {fileID: -6995568155251872083, guid: 0714a4fd7d2a30841bcebccd12ca3102,
           type: 3}
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
@@ -56,11 +55,12 @@ ScriptedImporter:
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
       - name: _OcclusionMap
-        texture: {instanceID: 0}
+        texture: {fileID: -1538463530261260867, guid: 0714a4fd7d2a30841bcebccd12ca3102,
+          type: 3}
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
       - name: _ParallaxMap
-        texture: {fileID: 337319303902830216, guid: 46827f0dc51c13b488efffe4fa531fde,
+        texture: {fileID: -8095813651388740103, guid: 0714a4fd7d2a30841bcebccd12ca3102,
           type: 3}
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
@@ -76,7 +76,7 @@ ScriptedImporter:
       - name: _GlossMapScale
         float: 1
       - name: _Glossiness
-        float: 0.662
+        float: 0.5
       - name: _GlossyReflections
         float: 1
       - name: _Metallic
@@ -139,6 +139,15 @@ ScriptedImporter:
       bImage: 1
       bNumerical: 0
       bLinear: 1
+    - outputName: ambientOcclusion
+      identifier: ambientocclusion
+      usageName: ambientOcclusion
+      channelStr: ambientOcclusion
+      label: Ambient Occlusion
+      usage: 5
+      bImage: 1
+      bNumerical: 0
+      bLinear: 1
     texturePackingList:
     - targetName: baseColor
       components:
@@ -160,20 +169,29 @@ ScriptedImporter:
       - sourceName: height
         from: 0
         to: 3
+    - targetName: ambientOcclusion
+      components:
+      - sourceName: ambientOcclusion
+        from: 0
+        to: 3
     textureParameters:
-    - textureName: Walls - baseColor
+    - textureName: woodfloor_new - baseColor
       wrapMode: 0
       filterMode: 1
       aniso: 1
-    - textureName: Walls - normal
+    - textureName: woodfloor_new - normal
       wrapMode: 0
       filterMode: 1
       aniso: 1
-    - textureName: Walls - roughness
+    - textureName: woodfloor_new - roughness
       wrapMode: 0
       filterMode: 1
       aniso: 1
-    - textureName: Walls - height
+    - textureName: woodfloor_new - height
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: woodfloor_new - ambientOcclusion
       wrapMode: 0
       filterMode: 1
       aniso: 1
@@ -188,9 +206,10 @@ ScriptedImporter:
       textureFormatMode: 0
       normalCompressed: 0
       bGenerateOnLoad: 1
-    material: {fileID: -978160288850237216, guid: 46827f0dc51c13b488efffe4fa531fde,
+    material: {fileID: -7265380511923497725, guid: 0714a4fd7d2a30841bcebccd12ca3102,
       type: 3}
     generatedTextures:
-    - {fileID: -2722043554132669187, guid: 46827f0dc51c13b488efffe4fa531fde, type: 3}
-    - {fileID: 5871383560343728185, guid: 46827f0dc51c13b488efffe4fa531fde, type: 3}
-    - {fileID: 337319303902830216, guid: 46827f0dc51c13b488efffe4fa531fde, type: 3}
+    - {fileID: -6995568155251872083, guid: 0714a4fd7d2a30841bcebccd12ca3102, type: 3}
+    - {fileID: -7549298147615713379, guid: 0714a4fd7d2a30841bcebccd12ca3102, type: 3}
+    - {fileID: -8095813651388740103, guid: 0714a4fd7d2a30841bcebccd12ca3102, type: 3}
+    - {fileID: -1538463530261260867, guid: 0714a4fd7d2a30841bcebccd12ca3102, type: 3}
