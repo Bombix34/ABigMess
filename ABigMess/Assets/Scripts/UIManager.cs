@@ -34,10 +34,20 @@ public class UIManager : Singleton<UIManager>
     public void InitTasksUI(List<ObjectTask> newTasks)
     {
         currentTasks = newTasks;
+        //clear all tasks
+        for (int i = 0; i < taskUI.Count; i++)
+        {
+            taskUI[i].gameObject.SetActive(false);
+        }
+
         for(int i = 0; i < newTasks.Count;++i)
         {
-            taskUI[i].DisplayTask(newTasks[i], taskIcons.GetIcons(newTasks[i]));
-            taskUI[i].UpdateTaskColor();
+            if (newTasks[i] != null)
+            {
+                taskUI[i].gameObject.SetActive(true);
+                taskUI[i].DisplayTask(newTasks[i], taskIcons.GetIcons(newTasks[i]));
+                taskUI[i].UpdateTaskColor();
+            }
         }
     }
 
