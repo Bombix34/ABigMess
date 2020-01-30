@@ -12,6 +12,9 @@ public class ObjectTasksManager : MonoBehaviour
     [SerializeField]
     ObjectTaskGroup currentTasks;
 
+    [SerializeField]
+    private float delay = 0.5f;
+
     GameManager manager;
 
     private SceneObjectDatas objectsDatas;
@@ -47,6 +50,7 @@ public class ObjectTasksManager : MonoBehaviour
                 cptTask++;
             }
         }
+        
         if(cptTask>=currentTasks.objectTasks.Count)
         {
             LoadNextTaskGroup();
@@ -57,12 +61,17 @@ public class ObjectTasksManager : MonoBehaviour
     private void LoadNextTaskGroup()
     {
         currentTasks = currentTasks.nextTasks;
-        if(currentTasks==null)
+
+        if (currentTasks==null)
         {
             GameManager.Instance.WinCurrentLevel();
             return;
         }
+
         InitTaskDoneValue();
+        UIManager.Instance.InitTasksUI(currentTasks.objectTasks);
+        UpdateTasksState();
+        
     }
 
     #region OLD_CODE
