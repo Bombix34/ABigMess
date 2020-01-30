@@ -13,7 +13,9 @@ public class ObjectTasksManager : MonoBehaviour
     ObjectTaskGroup currentTasks;
 
     [SerializeField]
-    private float delay = 0.5f;
+    private float delay = 1f;
+    private float loadNextTaskGroupDelay;
+    private bool win;
 
     GameManager manager;
 
@@ -30,6 +32,30 @@ public class ObjectTasksManager : MonoBehaviour
     {
         UIManager.Instance.InitTasksUI(currentTasks.objectTasks);
         UpdateTasksState();
+    }
+
+    private void Update()
+    {
+        if (!win)
+        {
+            if (loadNextTaskGroupDelay > 0)
+            {
+                loadNextTaskGroupDelay -= Time.deltaTime;
+            }
+            else
+            {
+                if (currentTasks == null)
+                {
+                    GameManager.Instance.WinCurrentLevel();
+                    win = true;
+                    return;
+                }
+
+                InitTaskDoneValue();
+                UIManager.Instance.InitTasksUI(currentTasks.objectTasks);
+                UpdateTasksState();
+            }
+        }
     }
 
     public void InitTaskDoneValue()
@@ -60,18 +86,11 @@ public class ObjectTasksManager : MonoBehaviour
 
     private void LoadNextTaskGroup()
     {
+        loadNextTaskGroupDelay = delay;
+
+
         currentTasks = currentTasks.nextTasks;
 
-        if (currentTasks==null)
-        {
-            GameManager.Instance.WinCurrentLevel();
-            return;
-        }
-
-        InitTaskDoneValue();
-        UIManager.Instance.InitTasksUI(currentTasks.objectTasks);
-        UpdateTasksState();
-        
     }
 
     #region OLD_CODE
