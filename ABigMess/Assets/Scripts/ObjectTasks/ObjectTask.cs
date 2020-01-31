@@ -21,6 +21,8 @@ public class ObjectTask : ScriptableObject
 
     public List<Sprite> taskIcons;
 
+    public bool showCounterUI = true;
+
     public bool IsDone { get; set; }
 
     public bool IsTaskDone(SceneObjectDatas datas)
@@ -30,6 +32,11 @@ public class ObjectTask : ScriptableObject
         {
             case EventKeyWord.bring:
                 List<InteractObject> concernedObject = new List<InteractObject>();
+                if(datas.GetZoneOfType(destinationForBring).Count==0)
+                {
+                    IsDone = true;
+                    return IsDone;
+                }
                 if (stateConcerned == ObjectState.State.none)
                 {
                     concernedObject = datas.GetObjectsOfTypeInZone(objectTypeConcerned, destinationForBring);

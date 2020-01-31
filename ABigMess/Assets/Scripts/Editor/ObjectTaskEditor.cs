@@ -17,6 +17,7 @@ public class ObjectTaskEditor : Editor
     SerializedProperty objectTypeConcernedProp;
     SerializedProperty destinationForBringProp;
     SerializedProperty destinationSpriteProp;
+    SerializedProperty showCounterUIProp;
 
     private void OnEnable()
     {
@@ -30,6 +31,7 @@ public class ObjectTaskEditor : Editor
         objectTypeConcernedProp = GetTarget.FindProperty("objectTypeConcerned");
         destinationForBringProp = GetTarget.FindProperty("destinationForBring");
         destinationSpriteProp = GetTarget.FindProperty("destinationSprite");
+        showCounterUIProp = GetTarget.FindProperty("showCounterUI");
     }
 
     public override void OnInspectorGUI()
@@ -48,6 +50,7 @@ public class ObjectTaskEditor : Editor
         {
             countProp.intValue = EditorGUILayout.IntField("Count :", countProp.intValue);
         }
+        showCounterUIProp.boolValue=EditorGUILayout.Toggle("Show counter in UI : ",showCounterUIProp.boolValue);
         EditorGUILayout.Space();
         AddPopup(ref stateConcernedProp, "State of object :", typeof(ObjectState.State));
         AddPopup(ref objectTypeConcernedProp, "Objects concerned :", typeof(ObjectSettings.ObjectType));

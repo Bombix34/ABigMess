@@ -19,5 +19,9 @@ public class Deathzone : MonoBehaviour
             Destroy(other.gameObject);
             GameManager.Instance.TasksManager.UpdateTasksState();
         }
+        else if(other.GetComponent<PlayerManager>()!=null)
+        {
+            GameManager.Instance.ReloadLevel();
+        }
     }
 }

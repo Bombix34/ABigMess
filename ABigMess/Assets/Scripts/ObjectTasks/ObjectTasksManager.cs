@@ -13,9 +13,8 @@ public class ObjectTasksManager : MonoBehaviour
     ObjectTaskGroup currentTasks;
 
     [SerializeField]
-    private float delay = 1f;
+    private static float DELAY = 1f;
     private float loadNextTaskGroupDelay;
-    private bool win;
 
     GameManager manager;
 
@@ -32,36 +31,6 @@ public class ObjectTasksManager : MonoBehaviour
     {
         UIManager.Instance.InitTasksUI(currentTasks.objectTasks);
         UpdateTasksState();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Keypad0))
-        {
-            print("Win ");
-            LoadNextTaskGroup();
-        }
-
-        if (!win)
-        {
-            if (loadNextTaskGroupDelay > 0)
-            {
-                loadNextTaskGroupDelay -= Time.deltaTime;
-            }
-            else
-            {
-                if (currentTasks == null)
-                {
-                    GameManager.Instance.WinCurrentLevel();
-                    win = true;
-                    return;
-                }
-
-                InitTaskDoneValue();
-                UIManager.Instance.InitTasksUI(currentTasks.objectTasks);
-                UpdateTasksState();
-            }
-        }
     }
 
     public void InitTaskDoneValue()
@@ -92,9 +61,27 @@ public class ObjectTasksManager : MonoBehaviour
 
     private void LoadNextTaskGroup()
     {
-        loadNextTaskGroupDelay = delay;
+        StartCoroutine(WaitForNextTask());
+    }
 
+    private IEnumerator WaitForNextTask()
+    {
+        bool winLevel = false;
+        loadNextTaskGroupDelay = DELAY;
         currentTasks = currentTasks.nextTasks;
+        yield return new WaitForSeconds(loadNextTaskGroupDelay);
+        if (currentTasks == null)
+        {
+            GameManager.Instance.WinCurrentLevel();
+            winLevel = true;
+        }
+        if(!winLevel)
+        {
+            InitTaskDoneValue();
+            UIManager.Instance.InitTasksUI(currentTasks.objectTasks);
+            yield return new WaitForSeconds(0.3f);
+            UpdateTasksState();
+        }
     }
 
     #region OLD_CODE

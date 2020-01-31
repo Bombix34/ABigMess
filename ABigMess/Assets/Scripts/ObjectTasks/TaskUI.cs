@@ -65,11 +65,14 @@ public class TaskUI : MonoBehaviour
 
     public void UpdateNumber()
     {
-        if(task==null)
+        if(task==null )
         {
             return;
         }
-        numberField.text = task.GetCountForInterface().ToString();
+        if(task.showCounterUI)
+        {
+            numberField.text = task.GetCountForInterface().ToString();
+        }
     }
 
     public void UpdateTaskColor()

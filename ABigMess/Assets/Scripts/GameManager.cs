@@ -83,6 +83,11 @@ public class GameManager : Singleton<GameManager>
         levels.LoadNextLevel();
     }
 
+    public void ReloadLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     public void DebugDisplayInput()
     {
         foreach(PlayerManager player in players)
