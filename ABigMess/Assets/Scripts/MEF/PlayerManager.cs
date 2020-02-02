@@ -15,6 +15,7 @@ public class PlayerManager : ObjectManager
 
     private PlayerMovement movement;
     private PlayerRenderer renderer;
+    private PlayerRaycast raycast;
 
     private GameObject interactObject = null;           //raycasted object in front of player
     private GameObject grabbedObject = null;            //object currently hold/grabb
@@ -36,16 +37,14 @@ public class PlayerManager : ObjectManager
 
     private bool isGrabbedObjectColliding;
 
-    private List<InteractObject> raycastedObjects;
-
     private void Awake()
     {
         inputs = GetComponent<PlayerInputManager>();
         movement = GetComponent<PlayerMovement>();
         renderer = GetComponent<PlayerRenderer>();
+        raycast = GetComponentInChildren<PlayerRaycast>();
         movement.Reglages = reglages;
         playerCollider = GetComponent<CapsuleCollider>();
-        raycastedObjects = new List<InteractObject>();
         ChangeState(new PlayerBaseState(this));
     }
 
@@ -146,7 +145,6 @@ public class PlayerManager : ObjectManager
                 obj.DetachPlayer();
             }
             obj.Grab(this.gameObject);
-            ResetRaycastedObjects();
             interactObject = null;
             movement.ResetTorso();
             bool isGrabOneHand = obj.Settings.isOneHandedCarrying;
@@ -294,33 +292,9 @@ public class PlayerManager : ObjectManager
 
     public void RaycastObject()
     {
-        raycastedObjects.Clear();
-        Vector3 testPosition = movement.GetFrontPosition();
-        Vector3 capsuleUpPosition = new Vector3(testPosition.x, testPosition.y * 1.3f, testPosition.z);
-        Collider[] hitColliders = Physics.OverlapCapsule(testPosition, capsuleUpPosition, reglages.raycastRadius);
-        int i = 0;
-        while (i < hitColliders.Length)
+        if (raycast.GetRaycastedObjectsCount() == 0)
         {
-            if (hitColliders[i].gameObject.GetComponent<InteractObject>() != null)
-            {
-                // A ray that verifies that we are not rycasting through a wall
-                GameObject raycastedObject= hitColliders[i].gameObject;
-                RaycastHit hit;
-                Physics.Raycast(transform.position, (raycastedObject.transform.position - transform.position).normalized, out hit, 5f);
-
-                if (hit.collider!=null && !hit.collider.CompareTag("Wall")) // If we are not going through a wall
-                {
-                    if (raycastedObject != grabbedObject)
-                    {
-                        raycastedObjects.Add(raycastedObject.GetComponent<InteractObject>());
-                    }
-                }
-            }
-            ++i;
-        }
-        if (raycastedObjects.Count == 0)
-        {
-            ResetRaycastedObjects();
+            interactObject = null;
         }
         else
         {
@@ -328,7 +302,7 @@ public class PlayerManager : ObjectManager
             {
                 interactObject.GetComponent<InteractObject>().ResetHighlight();
             }
-            interactObject = GetUpperRaycastedObject(raycastedObjects).gameObject;
+            interactObject = raycast.GetUpperRaycastedObject().gameObject;
             if (interactObject != grabbedObject) // Never highlight an object in my hands
             {
                 InteractObject concernedObject = interactObject.GetComponent<InteractObject>();
@@ -385,26 +359,6 @@ public class PlayerManager : ObjectManager
                 }
             }
         }
-    }
-
-    
-    public InteractObject GetUpperRaycastedObject(List<InteractObject> raycastedObjects)
-    {
-        InteractObject result = raycastedObjects[0];
-        for (int i =1; i < raycastedObjects.Count; ++i)
-        {
-            if(raycastedObjects[i].transform.position.y > result.transform.position.y)
-            {
-                result = raycastedObjects[i];
-            }
-        }
-        return result;
-    }
-
-    private void ResetRaycastedObjects()
-    {
-        raycastedObjects.Clear();
-        interactObject = null;
     }
 
     #endregion
