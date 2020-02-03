@@ -44,6 +44,10 @@ public class ObjectTasksManager : MonoBehaviour
     public void UpdateTasksState()
     {
         int cptTask = 0;
+        if(currentTasks==null)
+        {
+            return;
+        }
         foreach(ObjectTask task in currentTasks.objectTasks)
         {
             if(task.IsTaskDone(objectsDatas))

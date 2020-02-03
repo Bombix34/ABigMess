@@ -38,7 +38,7 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         uiManager = UIManager.Instance;
-        uiManager.FadeOut();
+        uiManager.FadeOutTransition();
         for (int i = 0; i < levels.levels.Count; ++i)
         {
             if (levels.levels[i].sceneToLoad == SceneManager.GetActiveScene().name)
@@ -78,8 +78,17 @@ public class GameManager : Singleton<GameManager>
     private IEnumerator LoadNewLevel()
     {
         yield return new WaitForSeconds(0.75f);
-        uiManager.FadeIn();
-        yield return new WaitForSeconds(1.5f);
+        uiManager.FadeInTransition();
+        yield return new WaitForSeconds(1f);
+        bool endLevel = false;
+        while(!endLevel)
+        {
+            if(PlayersPressValidateInput())
+            {
+                endLevel = true;
+            }
+            yield return new WaitForSeconds(0.01f);
+        }
         levels.LoadNextLevel();
     }
 
@@ -160,6 +169,19 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public bool PlayersPressValidateInput()
+    {
+        bool result = false;
+        foreach (PlayerManager player in players)
+        {
+            if (player.Inputs.GetGrabInput())
+            {
+                result = true;
+            }
+        }
+        return result;
+    }
+
     public List<int> GetCurrentTime()
     {
         float currentTime = levels.CurrentLevel.startChrono - currentPlayersTime;
@@ -173,6 +195,11 @@ public class GameManager : Singleton<GameManager>
         toReturn.Add(minutes);
         toReturn.Add(seconds);
         return toReturn;
+    }
+
+    public Level GetCurrentLevel()
+    {
+        return levels.GetCurrentLevel();
     }
 
 }

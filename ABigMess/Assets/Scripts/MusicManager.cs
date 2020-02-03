@@ -9,7 +9,7 @@ public class MusicManager : MonoBehaviour
 
     void Start()
     {
-        AkSoundEngine.PostEvent("Play_music_noon", gameObject);
+        //AkSoundEngine.PostEvent("Play_music_noon", gameObject);
         //AkSoundEngine.SetSwitch("music_noon","step01", gameObject);
     }
 
