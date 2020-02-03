@@ -49,6 +49,7 @@ public class UIManager : Singleton<UIManager>
         for (int i = 0; i < taskUI.Count; i++)
         {
             taskUI[i].gameObject.SetActive(false);
+            
         }
 
         for(int i = 0; i < newTasks.Count;++i)
@@ -56,6 +57,7 @@ public class UIManager : Singleton<UIManager>
             if (newTasks[i] != null)
             {
                 taskUI[i].gameObject.SetActive(true);
+                taskUI[i].Appear();
                 taskUI[i].DisplayTask(newTasks[i], taskIcons.GetIcons(newTasks[i]));
                 taskUI[i].UpdateTaskColor();
             }
@@ -67,6 +69,10 @@ public class UIManager : Singleton<UIManager>
         for(int i = 0; i < taskUI.Count;i++)
         {
             taskUI[i].UpdateTaskColor();
+
+            taskUI[i].Appear();
+            taskUI[i].Disapear();
+            
             taskUI[i].UpdateNumber();
         }
     }

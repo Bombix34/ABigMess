@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class TaskUI : MonoBehaviour
 {
@@ -24,8 +25,12 @@ public class TaskUI : MonoBehaviour
 
     ObjectTask task;
 
+    RectTransform rectTransform;
+
     void Awake()
     {
+        rectTransform = GetComponent<RectTransform>();
+        rectTransform.anchoredPosition.Set(rectTransform.anchoredPosition.x, rectTransform.sizeDelta.y);
         GetComponent<Image>().color = Color.white;
     }
 
@@ -63,6 +68,22 @@ public class TaskUI : MonoBehaviour
         }
     }
 
+    internal void Disapear()
+    {
+        if (task!= null && task.IsDone)
+        {
+            rectTransform.DOAnchorPosY(rectTransform.sizeDelta.y, 1);
+        }
+    }
+
+    public void Appear()
+    {
+        if (task == null || !task.IsDone)
+        {
+            rectTransform.DOAnchorPosY(-rectTransform.sizeDelta.y / 2, 1);
+        }
+    }
+
     public void UpdateNumber()
     {
         if(task==null )
@@ -82,15 +103,6 @@ public class TaskUI : MonoBehaviour
             return;
         }
         GetComponent<Image>().color = task.IsDone ? Color.yellow : Color.white;
-    }
-
-    public void SetText(string description)
-    {
-    }
-
-    public void SetObjectTask(ObjectTask objectTask)
-    {
-        
     }
 
     #region GET/SET
