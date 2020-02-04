@@ -111,7 +111,10 @@ public class UIManager : Singleton<UIManager>
         if (GameManager.instance.Levels.GetNextLevel() != null)
         {
             TransitionScreen nextLevelTransition = GameManager.instance.Levels.GetNextLevel().introScreen;
-            backgroundTransitionPanel.color = new Color(nextLevelTransition.backgroundColor.r, nextLevelTransition.backgroundColor.g, nextLevelTransition.backgroundColor.b, 0f);
+            if(nextLevelTransition!=null)
+            {
+                backgroundTransitionPanel.color = new Color(nextLevelTransition.backgroundColor.r, nextLevelTransition.backgroundColor.g, nextLevelTransition.backgroundColor.b, 0f);
+            }
         }
         else
         {
