@@ -15,8 +15,9 @@ GameObject:
   - component: {fileID: 2991788101634229579}
   - component: {fileID: 5507639499417867891}
   - component: {fileID: 5584542452631219826}
+  - component: {fileID: 2065209219087907742}
   m_Layer: 0
-  m_Name: lamp2
+  m_Name: lamp02
   m_TagString: GrabObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,10 +94,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.21529852
-  m_Height: 1.6382918
+  m_Radius: 0.024834365
+  m_Height: 1.1517279
   m_Direction: 1
-  m_Center: {x: -0.0071406364, y: 0.84385085, z: 0}
+  m_Center: {x: -0.0023390204, y: 0.7670249, z: 0}
 --- !u!65 &2991788101634229579
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -108,8 +109,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.35036543, y: 0.2030716, z: 0.38394222}
-  m_Center: {x: -0.04725644, y: 0.1015358, z: 0.0010755658}
+  m_Size: {x: 0.35036543, y: 0.14225113, z: 0.38394222}
+  m_Center: {x: -0.04725644, y: 0.07112557, z: 0.0010755658}
 --- !u!54 &5507639499417867891
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -142,3 +143,16 @@ MonoBehaviour:
     type: 3}
   settings: {fileID: 11400000, guid: 8c4e133b15455ed4ba5c9296f0cb79bd, type: 2}
   outlineSettings: {fileID: 11400000, guid: 98d4310e4cf8fc440aad3684d6abc4b0, type: 2}
+--- !u!65 &2065209219087907742
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8091510854922349210}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3439633, y: 0.31190848, z: 0.38394222}
+  m_Center: {x: -0.005642429, y: 1.5100104, z: 0.0010755658}
