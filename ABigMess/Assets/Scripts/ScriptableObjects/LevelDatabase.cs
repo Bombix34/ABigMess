@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 [CreateAssetMenu(menuName = "BIGMESS/Levels/new database of level")]
@@ -12,6 +13,8 @@ public class LevelDatabase : ScriptableObject
     [Header("Drag n drop the settings of scenes to load in order")]
     public List<Level> levels;
 
+    public string endLevel;
+
     public Level GetCurrentLevel()
     {
         return levels[curLevelIndex];
@@ -22,7 +25,8 @@ public class LevelDatabase : ScriptableObject
         curLevelIndex++;
         if(curLevelIndex>=levels.Count)
         {
-            curLevelIndex = 0;
+            SceneManager.LoadScene(endLevel);
+            return;
         }
         levels[curLevelIndex].LoadScene();
     }
