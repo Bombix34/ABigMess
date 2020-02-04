@@ -71,16 +71,14 @@ public class PlayerRenderer : MonoBehaviour
     /// <returns></returns>
     private bool AttachOneHand(Vector3 handBasePosition, RopeBuilder currentHand)
     {
-        RaycastHit hit;
-        Vector3 objectPosition = manager.GrabbedObject.transform.position;
-        float distance = Mathf.Sqrt(Mathf.Pow(objectPosition.x-handBasePosition.x,2f)+ Mathf.Pow(objectPosition.y - handBasePosition.y, 2f)+ Mathf.Pow(objectPosition.z - handBasePosition.z, 2f));
-        Vector3 dirVector = (objectPosition - handBasePosition).normalized;
-
-        if (Physics.Raycast(handBasePosition, dirVector, out hit, distance*10f, layerMask))
+        Vector3 dirVector = (manager.Movement.GetFrontPosition() - handBasePosition);
+        float distance = dirVector.magnitude;
+        RaycastHit[] hits = Physics.RaycastAll(handBasePosition,dirVector.normalized,distance*10f);
+        for(int i = 0; i < hits.Length; ++i)
         {
-            if (hit.transform.gameObject == manager.GrabbedObject)
+            if(hits[i].transform.gameObject == manager.GrabbedObject)
             {
-                currentHand.HandPosition.position = hit.point;
+                currentHand.HandPosition.position = hits[i].point;
                 currentHand.HandPosition.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 return true;
             }

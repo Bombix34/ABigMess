@@ -20,18 +20,13 @@ public class PlayerManager : ObjectManager
     private GameObject interactObject = null;           //raycasted object in front of player
     private GameObject grabbedObject = null;            //object currently hold/grabb
 
-    private CapsuleCollider playerCollider = null;      // The player collider
-
-    private BoxCollider grabbedObjectCollider = null;   // Added collider to the player
-    private BoxCollider grabbedObjectTrigger = null;    // Added collider to the player
+    private CapsuleCollider playerCollider;      // The player collider
 
     [SerializeField]
     private GameObject bringPosition;
 
     [SerializeField]
     private int currentRoomNb = -1;
-
-    private Ray lastRaycastRay;
     
     private float grabSpeed = 0.03f; // The lesser the speed the faster the grab
 
