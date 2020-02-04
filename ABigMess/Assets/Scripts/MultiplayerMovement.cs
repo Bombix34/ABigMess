@@ -100,13 +100,11 @@ public class MultiplayerMovement : MonoBehaviour
         float diffAngle = transform.rotation.eulerAngles.y - Quaternion.LookRotation(dir).eulerAngles.y;
         if(Mathf.Abs(diffAngle)>120)
         {
-            RotateObject(-x, -y);
-            return;
+            //RotateObject(-x, -y);
+            dir = new Vector3(y, 0, -x);
+            //return;
         }
-        else
-        {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(dir), (reglages.rotationSpeed * 100 * modifRotationSpeed) * Time.deltaTime);
-        }
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(dir), (reglages.rotationSpeed * 100 * modifRotationSpeed) * Time.deltaTime);
     }
 
     #endregion
