@@ -28,10 +28,17 @@ public class MainMenuScript : MonoBehaviour
     {
         foreach(var inputPlayer in inputManagers)
         {
-            if(inputPlayer.GetPressAnyButton())
+            if(inputPlayer.GetPressAnyButtonDown())
             {
-                SceneManager.LoadScene(nextScene);
+                StartCoroutine(LoadFirstLevel());
             }
         }
+    }
+
+    IEnumerator LoadFirstLevel()
+    {
+        yield return new WaitForSeconds(0.2f);
+        levels.CurrentLevelIndex = 0;
+        SceneManager.LoadScene(nextScene);
     }
 }

@@ -27,6 +27,8 @@ public class GameManager : Singleton<GameManager>
 
     private UIManager uiManager;
 
+    private bool isLaunch = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -47,6 +49,7 @@ public class GameManager : Singleton<GameManager>
                 levels.CurrentLevelIndex = i;
             }
         }
+        print(levels.CurrentLevelIndex);
         InvokeRepeating("DetectStressTime", 1f, 1f);
 
         Application.targetFrameRate = 50;
@@ -56,9 +59,12 @@ public class GameManager : Singleton<GameManager>
     private void Update()
     {
         middlePlayers.transform.position = GetPositionBetweenPlayers();
-        currentPlayersTime += Time.deltaTime;
         DebugDisplayInput();
-        uiManager.UpdateChronoUI(GetCurrentTime()[0],GetCurrentTime()[1]);
+        if(isLaunch)
+        {
+            currentPlayersTime += Time.deltaTime;
+            uiManager.UpdateChronoUI(GetCurrentTime()[0],GetCurrentTime()[1]);
+        }
     }
 
     public void WinCurrentLevel()
@@ -74,6 +80,16 @@ public class GameManager : Singleton<GameManager>
             }
         }
         StartCoroutine(LoadNewLevel());
+    }
+
+    /// <summary>
+    /// when the transition screen UI is ended
+    /// we start chrono, music etc
+    /// </summary>
+    public void LaunchLevel()
+    {
+        MusicManager.TransitionLevel(false);
+        isLaunch = true;
     }
 
     private IEnumerator LoadNewLevel()

@@ -141,6 +141,7 @@ public class UIManager : Singleton<UIManager>
             {
                 yield return new WaitForSeconds(0.01f);
             }
+            GameManager.instance.LaunchLevel();
             float alphaAmount = 1f;
             while (backgroundTransitionPanel.color.a > 0.001f)
             {
