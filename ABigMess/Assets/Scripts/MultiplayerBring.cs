@@ -5,7 +5,7 @@ using UnityEngine.Animations;
 
 public class MultiplayerBring : MonoBehaviour
 {
-    PlayerMovement objectMovement;
+    MultiplayerMovement objectMovement;
     List<GameObject> players;
     List<Quaternion> playersRotation;
 
@@ -20,8 +20,7 @@ public class MultiplayerBring : MonoBehaviour
         players = new List<GameObject>();
         playersRotation = new List<Quaternion>();
         initWeight = body.mass;
-        objectMovement = this.gameObject.AddComponent<PlayerMovement>();
-        objectMovement.CanRotateTorso = false;
+        objectMovement = this.gameObject.AddComponent<MultiplayerMovement>();
         objectMovement.ModificationRotationSpeed = 0.1f;
     }
 
@@ -136,7 +135,7 @@ public class MultiplayerBring : MonoBehaviour
     {
         if(objectMovement==null)
         {
-            objectMovement = this.gameObject.AddComponent<PlayerMovement>();
+            objectMovement = this.gameObject.AddComponent<MultiplayerMovement>();
         }
         objectMovement.Reglages = reglages;
     }
