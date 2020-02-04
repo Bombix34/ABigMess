@@ -21,7 +21,7 @@ public class Level : ScriptableObject
 
     private float playerTime;
 
-    public TransitionScreen endScreen;
+    public TransitionScreen introScreen;
 
     public void LoadScene()
     {
