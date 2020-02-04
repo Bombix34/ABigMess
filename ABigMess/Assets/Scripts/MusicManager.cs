@@ -8,18 +8,8 @@ public class MusicManager : Singleton<MusicManager>
     
     void Start()
     {
-        //AkSoundEngine.PostEvent("Play_music_noon", gameObject);
-        //AkSoundEngine.SetSwitch("music_noon","step01", gameObject);
     }
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Return))
-        {
-            AkSoundEngine.PostEvent("Play_music_noon", gameObject);
-        }
-    }
-
+   
     /// <summary>
     /// Function to start and switch radio station
     /// </summary>
@@ -48,6 +38,19 @@ public class MusicManager : Singleton<MusicManager>
     {
         //Debug.Log("BIP");
         //APPEL DE LEVENT STRESS SOUND
+    }
+
+    public void SwitchStateMusicNoon()
+    {
+        int curLevelIndex = GameManager.instance.Levels.CurrentLevelIndex;
+        if(curLevelIndex==0)
+        {
+            AkSoundEngine.PostEvent("Play_music_noon", gameObject);
+        }
+        else if(curLevelIndex<7)
+        {
+            AkSoundEngine.PostEvent("Set_state_noon_0" + (curLevelIndex + 1),gameObject);
+        }
     }
 
 }

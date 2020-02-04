@@ -37,8 +37,9 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         uiManager = UIManager.Instance;
-        uiManager.FadeOutTransition();
+        uiManager.IntroScreenTransition();
         MusicManager = MusicManager.Instance;
+        MusicManager.SwitchStateMusicNoon();
         for (int i = 0; i < levels.levels.Count; ++i)
         {
             if (levels.levels[i].sceneToLoad == SceneManager.GetActiveScene().name)
@@ -78,18 +79,9 @@ public class GameManager : Singleton<GameManager>
     private IEnumerator LoadNewLevel()
     {
         yield return new WaitForSeconds(0.75f);
-        uiManager.FadeInTransition();
+        uiManager.EndLevelTransition();
         MusicManager.ShutRadio();
         yield return new WaitForSeconds(1f);
-        bool endLevel = false;
-        while(!endLevel)
-        {
-            if(PlayersPressValidateInput())
-            {
-                endLevel = true;
-            }
-            yield return new WaitForSeconds(0.01f);
-        }
         levels.LoadNextLevel();
     }
 
@@ -201,6 +193,11 @@ public class GameManager : Singleton<GameManager>
     public Level GetCurrentLevel()
     {
         return levels.GetCurrentLevel();
+    }
+
+    public LevelDatabase Levels
+    {
+        get => levels;
     }
 
 }
