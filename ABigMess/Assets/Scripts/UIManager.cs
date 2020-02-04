@@ -70,8 +70,11 @@ public class UIManager : Singleton<UIManager>
         {
             taskUI[i].UpdateTaskColor();
 
-            taskUI[i].Appear();
-            taskUI[i].Disapear();
+            if(taskUI[i].gameObject.active)
+            {
+                taskUI[i].Appear();
+                taskUI[i].Disapear();
+            }
             
             taskUI[i].UpdateNumber();
         }
