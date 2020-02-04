@@ -49,7 +49,6 @@ public class UIManager : Singleton<UIManager>
         for (int i = 0; i < taskUI.Count; i++)
         {
             taskUI[i].gameObject.SetActive(false);
-            
         }
 
         for(int i = 0; i < newTasks.Count;++i)
@@ -64,18 +63,20 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
+
+    public void DisappearTasksUI()
+    {
+        for (int i = 0; i < taskUI.Count; i++)
+        {
+            taskUI[i].Disapear();
+        }
+    }
+
     public void UpdateTasksUI()
     {
         for(int i = 0; i < taskUI.Count;i++)
         {
-            taskUI[i].UpdateTaskColor();
-
-            if(taskUI[i].gameObject.active)
-            {
-                taskUI[i].Appear();
-                taskUI[i].Disapear();
-            }
-            
+            taskUI[i].UpdateTaskColor();            
             taskUI[i].UpdateNumber();
         }
     }
@@ -110,7 +111,10 @@ public class UIManager : Singleton<UIManager>
         if (GameManager.instance.Levels.GetNextLevel() != null)
         {
             TransitionScreen nextLevelTransition = GameManager.instance.Levels.GetNextLevel().introScreen;
-            backgroundTransitionPanel.color = new Color(nextLevelTransition.backgroundColor.r, nextLevelTransition.backgroundColor.g, nextLevelTransition.backgroundColor.b, 0f);
+            if(nextLevelTransition!=null)
+            {
+                backgroundTransitionPanel.color = new Color(nextLevelTransition.backgroundColor.r, nextLevelTransition.backgroundColor.g, nextLevelTransition.backgroundColor.b, 0f);
+            }
         }
         else
         {

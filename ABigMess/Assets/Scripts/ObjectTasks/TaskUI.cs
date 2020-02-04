@@ -30,6 +30,8 @@ public class TaskUI : MonoBehaviour
 
     Sequence appearDisappearSequence;
 
+    private Vector2 initialSizeDelta;
+
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -38,6 +40,7 @@ public class TaskUI : MonoBehaviour
         image.color = Color.white;
 
         appearDisappearSequence = DOTween.Sequence();
+        initialSizeDelta = rectTransform.sizeDelta;
     }
 
     public void DisplayTask(ObjectTask newTask, List<Sprite> list)
@@ -80,7 +83,6 @@ public class TaskUI : MonoBehaviour
         if ((task != null && task.IsDone))
         {
             appearDisappearSequence.Kill();
-            appearDisappearSequence.Append(image.DOColor(Color.green, 1));
             appearDisappearSequence.AppendInterval(1f);
             appearDisappearSequence.Append(rectTransform.DOAnchorPosY(rectTransform.sizeDelta.y, 1));
         }
@@ -115,7 +117,9 @@ public class TaskUI : MonoBehaviour
         {
             return;
         }
-        //image.color = task.IsDone ? Color.green : Color.white;
+        appearDisappearSequence.Kill();
+        appearDisappearSequence.Append(image.DOColor(task.IsDone ? Color.green : Color.white, 1));
+        appearDisappearSequence.Append(rectTransform.DOSizeDelta(task.IsDone ? initialSizeDelta * 1.125f : initialSizeDelta, 1f).SetEase(Ease.InElastic));
     }
 
     #region GET/SET

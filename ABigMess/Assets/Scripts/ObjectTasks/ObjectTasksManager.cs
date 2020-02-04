@@ -76,6 +76,7 @@ public class ObjectTasksManager : MonoBehaviour
         yield return new WaitForSeconds(loadNextTaskGroupDelay);
         if (currentTasks == null)
         {
+            UIManager.Instance.DisappearTasksUI();
             GameManager.Instance.WinCurrentLevel();
             winLevel = true;
         }
