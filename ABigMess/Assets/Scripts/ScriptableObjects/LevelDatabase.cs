@@ -58,4 +58,16 @@ public class LevelDatabase : ScriptableObject
         get => levels[curLevelIndex];
     }
 
+    public Level GetNextLevel()
+    {
+        if(curLevelIndex == levels.Count-1)
+        {
+            return null;
+        }
+        else
+        {
+            return levels[curLevelIndex + 1];
+        }
+    }
+
 }

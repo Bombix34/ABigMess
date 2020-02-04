@@ -184,14 +184,14 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: d8f724ebd01aca43968faaf35d3b837f
     GuidInternal: 
-    m_lastTime: -8586212990361962108
+    m_lastTime: -8586207821122676691
     List: []
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 0f2a0ca1a300644f9d0e66377c7a9207
     GuidInternal: 
-    m_lastTime: -8586212990358132346
+    m_lastTime: -8586207821121170726
     List:
     - name: Bigmess_music
       guid: 3de1b763af55174ba5cc31eb22d1527d
@@ -228,17 +228,33 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 989c4f7b6a08564c950aaf2152d17c74
     GuidInternal: 
-    m_lastTime: -8586212990362191489
+    m_lastTime: -8586207821122866181
     List:
+    - name: Play_Music_morning
+      guid: 35ddba7fefb6a64abaa98bdeb8e54d04
+      id: 3093640346
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Music_morning
+        ObjectType: 4
+      - ElementName: Play_Music_morning
+        ObjectType: 3
+      Path: Music\Music_morning\Play_Music_morning
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Play_music_noon
       guid: ed1a39945b287b4eb919f56fce9d964f
       id: 508480304
       PathAndIcons:
       - ElementName: Music
         ObjectType: 12
+      - ElementName: Music_noon
+        ObjectType: 4
       - ElementName: Play_music_noon
         ObjectType: 3
-      Path: Music\Play_music_noon
+      Path: Music\Music_noon\Play_music_noon
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -298,63 +314,227 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
-    - name: Set_switch_noon_music01
-      guid: 85c90bd6bef8dd4395376e7b2adc16d6
-      id: 1236176242
+    - name: Set_state_music_morning_01
+      guid: 6bbdd04dfc00cb4792cca2f2ee4e50c6
+      id: 2966616398
       PathAndIcons:
       - ElementName: Music
         ObjectType: 12
-      - ElementName: Set_switch_noon_music01
+      - ElementName: Music_morning
+        ObjectType: 4
+      - ElementName: Set_state_music_morning_01
         ObjectType: 3
-      Path: Music\Set_switch_noon_music01
+      Path: Music\Music_morning\Set_state_music_morning_01
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
-    - name: Set_switch_noon_music02
-      guid: b5b0360434039748bf06b88fe08d7d08
-      id: 1236176241
+    - name: Set_state_music_morning_02
+      guid: 05e1ce1a6c971641b9e495ab22051bbc
+      id: 2966616397
       PathAndIcons:
       - ElementName: Music
         ObjectType: 12
-      - ElementName: Set_switch_noon_music02
+      - ElementName: Music_morning
+        ObjectType: 4
+      - ElementName: Set_state_music_morning_02
         ObjectType: 3
-      Path: Music\Set_switch_noon_music02
+      Path: Music\Music_morning\Set_state_music_morning_02
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
-    - name: Set_switch_noon_music03
-      guid: 3e17bb4505b30f4aaacab232f993e800
-      id: 1236176240
+    - name: Set_state_music_morning_03
+      guid: 4aba3f7bd6c7ad4984a1944610bb3957
+      id: 2966616396
       PathAndIcons:
       - ElementName: Music
         ObjectType: 12
-      - ElementName: Set_switch_noon_music03
+      - ElementName: Music_morning
+        ObjectType: 4
+      - ElementName: Set_state_music_morning_03
         ObjectType: 3
-      Path: Music\Set_switch_noon_music03
+      Path: Music\Music_morning\Set_state_music_morning_03
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
-    - name: Set_switch_noon_music04
-      guid: 758df112848322479d0d11fd34ebbfe7
-      id: 1236176247
+    - name: Set_state_music_morning_04
+      guid: 7a08bd86a2a026479252c592ea82220f
+      id: 2966616395
       PathAndIcons:
       - ElementName: Music
         ObjectType: 12
-      - ElementName: Set_switch_noon_music04
+      - ElementName: Music_morning
+        ObjectType: 4
+      - ElementName: Set_state_music_morning_04
         ObjectType: 3
-      Path: Music\Set_switch_noon_music04
+      Path: Music\Music_morning\Set_state_music_morning_04
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
-    - name: Set_switch_noon_music05
-      guid: 06d7481da6effb44964b7960c6659e34
-      id: 1236176246
+    - name: Set_state_music_morning_05
+      guid: 3371bb8af64fcc40bdf40e3d7f171515
+      id: 2966616394
       PathAndIcons:
       - ElementName: Music
         ObjectType: 12
-      - ElementName: Set_switch_noon_music05
+      - ElementName: Music_morning
+        ObjectType: 4
+      - ElementName: Set_state_music_morning_05
         ObjectType: 3
-      Path: Music\Set_switch_noon_music05
+      Path: Music\Music_morning\Set_state_music_morning_05
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Set_state_noon_01
+      guid: a29d452fc4f8244f9d7ce1e4f7918153
+      id: 2973358472
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Music_noon
+        ObjectType: 4
+      - ElementName: Set_state_noon_01
+        ObjectType: 3
+      Path: Music\Music_noon\Set_state_noon_01
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Set_state_noon_02
+      guid: 1fffe00f12ea0247b1a6cdd19881fec8
+      id: 2973358475
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Music_noon
+        ObjectType: 4
+      - ElementName: Set_state_noon_02
+        ObjectType: 3
+      Path: Music\Music_noon\Set_state_noon_02
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Set_state_noon_03
+      guid: 2bdb3638cc8bdd4ba160f9bb39b163b6
+      id: 2973358474
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Music_noon
+        ObjectType: 4
+      - ElementName: Set_state_noon_03
+        ObjectType: 3
+      Path: Music\Music_noon\Set_state_noon_03
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Set_state_noon_04
+      guid: 26d58225659bce419db00124da93520d
+      id: 2973358477
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Music_noon
+        ObjectType: 4
+      - ElementName: Set_state_noon_04
+        ObjectType: 3
+      Path: Music\Music_noon\Set_state_noon_04
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Set_state_noon_05
+      guid: aa0ec57a043d26429c2cd1a6bf402e8f
+      id: 2973358476
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Music_noon
+        ObjectType: 4
+      - ElementName: Set_state_noon_05
+        ObjectType: 3
+      Path: Music\Music_noon\Set_state_noon_05
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Set_state_noon_06
+      guid: 91d9ddc3a373264b840caff4c688cb23
+      id: 2973358479
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Music_noon
+        ObjectType: 4
+      - ElementName: Set_state_noon_06
+        ObjectType: 3
+      Path: Music\Music_noon\Set_state_noon_06
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Set_state_noon_07
+      guid: 15c42ca1bc922e4281eea5751d661669
+      id: 2973358478
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Music_noon
+        ObjectType: 4
+      - ElementName: Set_state_noon_07
+        ObjectType: 3
+      Path: Music\Music_noon\Set_state_noon_07
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Set_state_noon_08
+      guid: 0bbb3bd39a115843b3664e0b81e9558e
+      id: 2973358465
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Music_noon
+        ObjectType: 4
+      - ElementName: Set_state_noon_08
+        ObjectType: 3
+      Path: Music\Music_noon\Set_state_noon_08
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Stop_music_morning
+      guid: afd6d9f460884d44945dda9717a3229f
+      id: 362766060
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Music_morning
+        ObjectType: 4
+      - ElementName: Stop_music_morning
+        ObjectType: 3
+      Path: Music\Music_morning\Stop_music_morning
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Stop_music_noon
+      guid: 98f6d52e2218e14587d0aec3554589d8
+      id: 1940321634
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Music_noon
+        ObjectType: 4
+      - ElementName: Stop_music_noon
+        ObjectType: 3
+      Path: Music\Music_noon\Stop_music_noon
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Stop_radio_level
+      guid: 22f25a82dea5ff4c81105a1accd5ef97
+      id: 1749933030
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Radio
+        ObjectType: 4
+      - ElementName: Stop_radio_level
+        ObjectType: 3
+      Path: Music\Radio\Stop_radio_level
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -372,11 +552,35 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
+    - name: Transition_level_in
+      guid: 31c049ea6b67e6449060522a7782ee5d
+      id: 1379993931
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Transition_level_in
+        ObjectType: 3
+      Path: Music\Transition_level_in
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Transition_level_out
+      guid: 0dc0e30170fa924f9a95d9e1e70bffd8
+      id: 3495077062
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Transition_level_out
+        ObjectType: 3
+      Path: Music\Transition_level_out
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
   - PhysicalPath: Events\SFX.wwu
     ParentPhysicalPath: 
     guid: f432dde08975134db82eaaa1eddfe4e7
     GuidInternal: 
-    m_lastTime: -8586212990362221407
+    m_lastTime: -8586207821122935993
     List:
     - name: Play_alien_voice
       guid: c713cd4f037ad74ea9b696953c383ff9
@@ -390,12 +594,36 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
+    - name: Play_burn_SFX
+      guid: cb5915c4b465b845b38c91d4ea705707
+      id: 1188830101
+      PathAndIcons:
+      - ElementName: SFX
+        ObjectType: 12
+      - ElementName: Play_burn_SFX
+        ObjectType: 3
+      Path: SFX\Play_burn_SFX
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_wash_SFX
+      guid: a3ba2f85068c8343a2d20fa77ccceb21
+      id: 4080261691
+      PathAndIcons:
+      - ElementName: SFX
+        ObjectType: 12
+      - ElementName: Play_wash_SFX
+        ObjectType: 3
+      Path: SFX\Play_wash_SFX
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
   RtpcWwu:
   - PhysicalPath: Game Parameters\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 50118bca76311f4d8c36b826beb145d9
     GuidInternal: 
-    m_lastTime: -8586212990362191489
+    m_lastTime: -8586207821122866181
     List:
     - name: DuckingRadio
       guid: f624135c709b5147a8f43c19699e878a
@@ -406,6 +634,15 @@ MonoBehaviour:
       - ElementName: DuckingRadio
         ObjectType: 13
       Path: Default Work Unit\DuckingRadio
+    - name: transition_music
+      guid: 743fc913a2209b4aab540fa6833866b9
+      id: 3735096532
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: transition_music
+        ObjectType: 13
+      Path: Default Work Unit\transition_music
   - PhysicalPath: Game Parameters\Factory SoundSeed Air Game Syncs.wwu
     ParentPhysicalPath: 
     guid: 5577163b42fb8b4598bf96f557afb3b9
@@ -507,7 +744,7 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: c4521f62a23b9243be27545589d49544
     GuidInternal: 
-    m_lastTime: -8586212990358042590
+    m_lastTime: -8586207821120941341
     List:
     - name: radio_station
       guid: 53256cffc9428f4887c86b2273cd6023
@@ -552,74 +789,135 @@ MonoBehaviour:
       ValueGuids: []
       ValueIcons: []
       valuesInternal: []
+  - PhysicalPath: States\Music.wwu
+    ParentPhysicalPath: 
+    guid: ba0000eaecdb3d408d5326b749a79b1d
+    GuidInternal: 
+    m_lastTime: -8586207821121090937
+    List:
+    - name: music_morning
+      guid: fdcfdeb1cd378343a02630dcf9ffed91
+      id: 2271209915
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: music_morning
+        ObjectType: 9
+      Path: Music\music_morning
+      values:
+      - name: None
+        guid: 14cad38baff8c74d97a481d3af282b74
+        id: 748895195
+        PathAndIcons:
+        - ElementName: None
+          ObjectType: 8
+      - name: step01
+        guid: b4b6306cb1afe744a42806cc5319f151
+        id: 1062722166
+        PathAndIcons:
+        - ElementName: step01
+          ObjectType: 8
+      - name: step02
+        guid: 4e6120fe026c174381a135cf891c3937
+        id: 1062722165
+        PathAndIcons:
+        - ElementName: step02
+          ObjectType: 8
+      - name: step03
+        guid: 43b87bf0444d324ba727f780988e9a66
+        id: 1062722164
+        PathAndIcons:
+        - ElementName: step03
+          ObjectType: 8
+      - name: step04
+        guid: 3eb070e04d448a4da757ff2c177dab6b
+        id: 1062722163
+        PathAndIcons:
+        - ElementName: step04
+          ObjectType: 8
+      - name: step05
+        guid: d82d132d8b3af94caaff07371c58cc12
+        id: 1062722162
+        PathAndIcons:
+        - ElementName: step05
+          ObjectType: 8
+      ValueGuids: []
+      ValueIcons: []
+      valuesInternal: []
+    - name: music_noon
+      guid: 93193de9b91f614aafb9bca6d58ec849
+      id: 4048822807
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: music_noon
+        ObjectType: 9
+      Path: Music\music_noon
+      values:
+      - name: None
+        guid: fea7dd1c16189c42baaeac5cbd9ec231
+        id: 748895195
+        PathAndIcons:
+        - ElementName: None
+          ObjectType: 8
+      - name: step01
+        guid: b78b9d970c9a3a40a2ef01258d4e2c1d
+        id: 1062722166
+        PathAndIcons:
+        - ElementName: step01
+          ObjectType: 8
+      - name: step02
+        guid: 6f02c8e12fd4724693d133ee56e451d2
+        id: 1062722165
+        PathAndIcons:
+        - ElementName: step02
+          ObjectType: 8
+      - name: step03
+        guid: d40b0e8cb5e20447a318e7bb2f917695
+        id: 1062722164
+        PathAndIcons:
+        - ElementName: step03
+          ObjectType: 8
+      - name: step04
+        guid: b2a5f7a09d090d41a1c63e9b1c1e8da9
+        id: 1062722163
+        PathAndIcons:
+        - ElementName: step04
+          ObjectType: 8
+      - name: step05
+        guid: 3d708e722f6a80419ddb517b4b704308
+        id: 1062722162
+        PathAndIcons:
+        - ElementName: step05
+          ObjectType: 8
+      - name: step06
+        guid: ab459207433f9f41990ac137f0d62f5b
+        id: 1062722161
+        PathAndIcons:
+        - ElementName: step06
+          ObjectType: 8
+      - name: step07
+        guid: 06b60e31b2926b43b50f5b6fc915d15f
+        id: 1062722160
+        PathAndIcons:
+        - ElementName: step07
+          ObjectType: 8
+      - name: step08
+        guid: 9dc20b81f2693942a392497b2ddc4e31
+        id: 1062722175
+        PathAndIcons:
+        - ElementName: step08
+          ObjectType: 8
+      ValueGuids: []
+      ValueIcons: []
+      valuesInternal: []
   SwitchWwu:
   - PhysicalPath: Switches\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 2495d1397172a6449a60dc120bd78572
     GuidInternal: 
-    m_lastTime: -8586212990357992726
-    List:
-    - name: music_noon
-      guid: 5fd6811cd43a874487dd36eba8500316
-      id: 4048822807
-      PathAndIcons:
-      - ElementName: Default Work Unit
-        ObjectType: 12
-      - ElementName: music_noon
-        ObjectType: 11
-      Path: Default Work Unit\music_noon
-      values:
-      - name: step01
-        guid: 2dfdfb816ddca74da107bd1f6835d488
-        id: 1062722166
-        PathAndIcons:
-        - ElementName: step01
-          ObjectType: 10
-      - name: step02
-        guid: a60382254af29746856ca5e650a56744
-        id: 1062722165
-        PathAndIcons:
-        - ElementName: step02
-          ObjectType: 10
-      - name: step03
-        guid: 10e971f1435c984d9f89faa937811531
-        id: 1062722164
-        PathAndIcons:
-        - ElementName: step03
-          ObjectType: 10
-      - name: step04
-        guid: 2243d8420ff1fb438a19e03baf2a2431
-        id: 1062722163
-        PathAndIcons:
-        - ElementName: step04
-          ObjectType: 10
-      - name: step05
-        guid: abde9318b2e34844b908c6472046f201
-        id: 1062722162
-        PathAndIcons:
-        - ElementName: step05
-          ObjectType: 10
-      - name: step06
-        guid: 33e97db993830e4fb76d0e4c5cc2cd98
-        id: 1062722161
-        PathAndIcons:
-        - ElementName: step06
-          ObjectType: 10
-      - name: step07
-        guid: b85c437fd00d2241985d2e23420006b1
-        id: 1062722160
-        PathAndIcons:
-        - ElementName: step07
-          ObjectType: 10
-      - name: step08
-        guid: 06d835458d22cb418bddc1db77826b1a
-        id: 1062722175
-        PathAndIcons:
-        - ElementName: step08
-          ObjectType: 10
-      ValueGuids: []
-      ValueIcons: []
-      valuesInternal: []
+    m_lastTime: -8586207821121031094
+    List: []
   TriggerWwu:
   - PhysicalPath: Triggers\Default Work Unit.wwu
     ParentPhysicalPath: 
@@ -631,8 +929,5 @@ MonoBehaviour:
   - /M2_A_Big_Mess
   - /M2_A_Big_Mess/Events
   - /M2_A_Big_Mess/Events/Music
-  - /M2_A_Big_Mess/Switches
-  - /M2_A_Big_Mess/Switches/Default Work Unit
-  - /M2_A_Big_Mess/Switches/Default Work Unit/music_noon
   autoPopulateEnabled: 1
   CurrentPluginConfig: 

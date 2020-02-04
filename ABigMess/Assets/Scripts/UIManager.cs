@@ -23,7 +23,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField]
     private Text transitionText;
     [SerializeField]
-    private Text transitionInstruction;
+    private Image transitionInstruction;
 
     private void Start()
     {
@@ -82,65 +82,79 @@ public class UIManager : Singleton<UIManager>
     }
 
     /// <summary>
-    /// End level transition
+    /// Beggining level transition
     /// </summary>
-    public void FadeInTransition()
+    public void IntroScreenTransition()
     {
         transitionPanel.SetActive(true);
-        TransitionScreen currentLevelTransition = GameManager.Instance.GetCurrentLevel().endScreen;
-        transitionInstruction.gameObject.SetActive(false);
+        TransitionScreen currentLevelTransition = GameManager.Instance.GetCurrentLevel().introScreen;
+        //transitionInstruction.gameObject.SetActive(true);
         if (currentLevelTransition != null)
         {
-            backgroundTransitionPanel.color = new Color(currentLevelTransition.backgroundColor.r, currentLevelTransition.backgroundColor.g, currentLevelTransition.backgroundColor.b, 0f);
+            backgroundTransitionPanel.color = new Color(currentLevelTransition.backgroundColor.r, currentLevelTransition.backgroundColor.g, currentLevelTransition.backgroundColor.b, 1f);
             transitionText.text = currentLevelTransition.textDescription;
-            StartCoroutine(TransitionFade(currentLevelTransition,true));
+            StartCoroutine(TransitionFade(false));
         }
         else
         {
             backgroundTransitionPanel.color = Color.black;
             transitionText.text = "";
+            StartCoroutine(TransitionFade(false));
         }
     }
 
-    IEnumerator TransitionFade(TransitionScreen transitionProperty, bool isFadeIn)
+    /// <summary>
+    /// End level transition
+    /// </summary>
+    public void EndLevelTransition()
+    {
+        if (GameManager.instance.Levels.GetNextLevel() != null)
+        {
+            TransitionScreen nextLevelTransition = GameManager.instance.Levels.GetNextLevel().introScreen;
+            backgroundTransitionPanel.color = new Color(nextLevelTransition.backgroundColor.r, nextLevelTransition.backgroundColor.g, nextLevelTransition.backgroundColor.b, 0f);
+        }
+        else
+        {
+            backgroundTransitionPanel.color = new Color(0f, 0f, 0f, 0f);
+        }
+        transitionInstruction.gameObject.SetActive(false);
+        transitionText.text = "";
+        transitionPanel.SetActive(true);
+        StartCoroutine(TransitionFade(true));
+    }
+
+    IEnumerator TransitionFade(bool isFadeIn)
     {
         if(isFadeIn)
         {
             float alphaAmount = 0f;
             while(backgroundTransitionPanel.color.a<1f)
             {
-                backgroundTransitionPanel.color = new Color(transitionProperty.backgroundColor.r, transitionProperty.backgroundColor.g, transitionProperty.backgroundColor.b,alphaAmount);
+                backgroundTransitionPanel.color = new Color(backgroundTransitionPanel.color.r, backgroundTransitionPanel.color.g, backgroundTransitionPanel.color.b,alphaAmount);
                 transitionText.color = new Color(1f, 1f, 1f, alphaAmount);
                 alphaAmount += Time.fixedDeltaTime*2f;
-                if(GameManager.Instance.PlayersPressValidateInput())
-                {
-                    backgroundTransitionPanel.color = transitionProperty.backgroundColor;
-                    transitionText.color = Color.white;
-                }
                 yield return new WaitForSeconds(0.01f);
             }
-            transitionInstruction.gameObject.SetActive(true);
         }
         else
         {
+            while (!GameManager.Instance.PlayersPressValidateInput())
+            {
+                yield return new WaitForSeconds(0.01f);
+            }
+            GameManager.instance.LaunchLevel();
             float alphaAmount = 1f;
-            transitionText.text = "";
             while (backgroundTransitionPanel.color.a > 0.001f)
             {
                 backgroundTransitionPanel.color = new Color(0f,0f,0f, alphaAmount);
+                transitionInstruction.color = new Color(transitionInstruction.color.r, transitionInstruction.color.g, transitionInstruction.color.b, alphaAmount * 2f);
+                transitionText.color = new Color(transitionText.color.r, transitionText.color.g, transitionText.color.b, alphaAmount*2f);
                 alphaAmount -= Time.fixedDeltaTime;
                 yield return new WaitForSeconds(0.01f);
             }
         }
     }
 
-    /// <summary>
-    /// Begin level transition
-    /// </summary>
-    public void FadeOutTransition()
-    {
-        transitionPanel.SetActive(true);
-        StartCoroutine(TransitionFade(null, false));
-    }
+    
 
 }

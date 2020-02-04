@@ -2,17 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MusicManager : MonoBehaviour
+public class MusicManager : Singleton<MusicManager> 
 {
     Radio radioSystem;
     
-
-    void Start()
-    {
-        //AkSoundEngine.PostEvent("Play_music_noon", gameObject);
-        //AkSoundEngine.SetSwitch("music_noon","step01", gameObject);
-    }
-
     /// <summary>
     /// Function to start and switch radio station
     /// </summary>
@@ -31,13 +24,42 @@ public class MusicManager : MonoBehaviour
 
     public void ShutRadio()
     {
-        radioSystem.StopRadio();
+        if(radioSystem!=null)
+        {
+            radioSystem.StopRadio();
+        }
     }
 
     public void StressChronoSound()
     {
         //Debug.Log("BIP");
         //APPEL DE LEVENT STRESS SOUND
+    }
+
+    public void SwitchStateMusicNoon()
+    {
+        int curLevelIndex = GameManager.instance.Levels.CurrentLevelIndex;
+        if(curLevelIndex==0)
+        {
+            AkSoundEngine.PostEvent("Play_music_noon", gameObject);
+        }
+        else if(curLevelIndex<7)
+        {
+            AkSoundEngine.PostEvent("Set_state_noon_0" + (curLevelIndex + 1),gameObject);
+        }
+        TransitionLevel(true);
+    }
+
+    public void TransitionLevel(bool isIn)
+    {
+        if(isIn)
+        {
+            AkSoundEngine.PostEvent("Transition_level_in", gameObject);
+        }
+        else
+        {
+            AkSoundEngine.PostEvent("Transition_level_out", gameObject);
+        }
     }
 
 }

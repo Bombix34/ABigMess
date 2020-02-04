@@ -10,7 +10,7 @@ public abstract class Singleton<T> : MonoBehaviour where T : Component
 	/// <summary>
 	/// The instance.
 	/// </summary>
-	private static T instance;
+	protected static T instance;
 
 	#endregion
 
@@ -50,12 +50,25 @@ public abstract class Singleton<T> : MonoBehaviour where T : Component
 		if ( instance == null )
 		{
 			instance = this as T;
-		}
+        }
 		else
 		{
 			Destroy ( gameObject );
 		}
 	}
+
+    protected void AwakeDontDestroy()
+    {
+        if (instance == null)
+        {
+            instance = this as T;
+            DontDestroyOnLoad(instance);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
 	#endregion
 	

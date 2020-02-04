@@ -117,9 +117,9 @@ public class PlayerInputManager : MonoBehaviour
     }
 
     //Any
-    public bool GetPressAnyButton()
+    public bool GetPressAnyButtonDown()
     {
-        return player.GetAnyButton();
+        return player.GetAnyButtonDown();
     }
 
     #endregion
