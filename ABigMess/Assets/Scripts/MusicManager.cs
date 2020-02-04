@@ -2,15 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MusicManager : MonoBehaviour
+public class MusicManager : Singleton<MusicManager> 
 {
     Radio radioSystem;
     
-
     void Start()
     {
-        AkSoundEngine.PostEvent("Play_music_noon", gameObject);
+        //AkSoundEngine.PostEvent("Play_music_noon", gameObject);
         //AkSoundEngine.SetSwitch("music_noon","step01", gameObject);
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Return))
+        {
+            AkSoundEngine.PostEvent("Play_music_noon", gameObject);
+        }
     }
 
     /// <summary>
@@ -31,7 +38,10 @@ public class MusicManager : MonoBehaviour
 
     public void ShutRadio()
     {
-        radioSystem.StopRadio();
+        if(radioSystem!=null)
+        {
+            radioSystem.StopRadio();
+        }
     }
 
     public void StressChronoSound()

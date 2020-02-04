@@ -18,6 +18,17 @@ public class UIManager : Singleton<UIManager>
 
     [SerializeField]
     GameObject transitionPanel;
+    [SerializeField]
+    private Image backgroundTransitionPanel;
+    [SerializeField]
+    private Text transitionText;
+    [SerializeField]
+    private Text transitionInstruction;
+
+    private void Start()
+    {
+        transitionInstruction.gameObject.SetActive(false);
+    }
 
     public void UpdateChronoUI(int minutes, int seconds)
     {
@@ -59,27 +70,76 @@ public class UIManager : Singleton<UIManager>
         {
             taskUI[i].UpdateTaskColor();
 
-            taskUI[i].Appear();
-            taskUI[i].Disapear();
+            if(taskUI[i].gameObject.active)
+            {
+                taskUI[i].Appear();
+                taskUI[i].Disapear();
+            }
             
             taskUI[i].UpdateNumber();
         }
     }
 
-    public void FadeIn()
+    /// <summary>
+    /// End level transition
+    /// </summary>
+    public void FadeInTransition()
     {
         transitionPanel.SetActive(true);
-        Animator transitionAnim = transitionPanel.GetComponent<Animator>();
-        transitionAnim.SetTrigger("FadeIn");
-        transitionAnim.SetInteger("TransitionNb", 1);
+        TransitionScreen currentLevelTransition = GameManager.Instance.GetCurrentLevel().endScreen;
+        transitionInstruction.gameObject.SetActive(false);
+        if (currentLevelTransition != null)
+        {
+            backgroundTransitionPanel.color = new Color(currentLevelTransition.backgroundColor.r, currentLevelTransition.backgroundColor.g, currentLevelTransition.backgroundColor.b, 0f);
+            transitionText.text = currentLevelTransition.textDescription;
+            StartCoroutine(TransitionFade(currentLevelTransition,true));
+        }
+        else
+        {
+            backgroundTransitionPanel.color = Color.black;
+            transitionText.text = "";
+        }
     }
 
-    public void FadeOut()
+    IEnumerator TransitionFade(TransitionScreen transitionProperty, bool isFadeIn)
+    {
+        if(isFadeIn)
+        {
+            float alphaAmount = 0f;
+            while(backgroundTransitionPanel.color.a<1f)
+            {
+                backgroundTransitionPanel.color = new Color(transitionProperty.backgroundColor.r, transitionProperty.backgroundColor.g, transitionProperty.backgroundColor.b,alphaAmount);
+                transitionText.color = new Color(1f, 1f, 1f, alphaAmount);
+                alphaAmount += Time.fixedDeltaTime*2f;
+                if(GameManager.Instance.PlayersPressValidateInput())
+                {
+                    backgroundTransitionPanel.color = transitionProperty.backgroundColor;
+                    transitionText.color = Color.white;
+                }
+                yield return new WaitForSeconds(0.01f);
+            }
+            transitionInstruction.gameObject.SetActive(true);
+        }
+        else
+        {
+            float alphaAmount = 1f;
+            transitionText.text = "";
+            while (backgroundTransitionPanel.color.a > 0.001f)
+            {
+                backgroundTransitionPanel.color = new Color(0f,0f,0f, alphaAmount);
+                alphaAmount -= Time.fixedDeltaTime;
+                yield return new WaitForSeconds(0.01f);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Begin level transition
+    /// </summary>
+    public void FadeOutTransition()
     {
         transitionPanel.SetActive(true);
-        Animator transitionAnim = transitionPanel.GetComponent<Animator>();
-        transitionAnim.SetTrigger("FadeOut");
-        transitionAnim.SetInteger("TransitionNb",1);
+        StartCoroutine(TransitionFade(null, false));
     }
 
 }
