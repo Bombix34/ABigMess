@@ -30,7 +30,6 @@ public class GameManager : Singleton<GameManager>
     protected override void Awake()
     {
         base.Awake();
-        MusicManager = GetComponent<MusicManager>();
         ObjectsDatas = GetComponent<SceneObjectDatas>();
         taskManager = GetComponent<ObjectTasksManager>();
     }
@@ -39,6 +38,7 @@ public class GameManager : Singleton<GameManager>
     {
         uiManager = UIManager.Instance;
         uiManager.FadeOutTransition();
+        MusicManager = MusicManager.Instance;
         for (int i = 0; i < levels.levels.Count; ++i)
         {
             if (levels.levels[i].sceneToLoad == SceneManager.GetActiveScene().name)
@@ -79,6 +79,7 @@ public class GameManager : Singleton<GameManager>
     {
         yield return new WaitForSeconds(0.75f);
         uiManager.FadeInTransition();
+        MusicManager.ShutRadio();
         yield return new WaitForSeconds(1f);
         bool endLevel = false;
         while(!endLevel)
