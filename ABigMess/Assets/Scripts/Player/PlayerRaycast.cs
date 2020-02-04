@@ -9,10 +9,13 @@ public class PlayerRaycast : MonoBehaviour
 
     List<GameObject> raycastTemporary;
 
+    PlayerManager manager;
+
     void Start()
     {
         raycastedObjects = new List<InteractObject>();
         raycastTemporary = new List<GameObject>();
+        manager = this.GetComponentInParent<PlayerManager>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -20,6 +23,15 @@ public class PlayerRaycast : MonoBehaviour
         if(other.GetComponent<InteractObject>()!=null || other.CompareTag("Wall"))
         {
             raycastTemporary.Add(other.gameObject);
+            FilterRaycastedList();
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.GetComponent<InteractObject>()!=null && !raycastedObjects.Contains(other.GetComponent<InteractObject>()))
+        {
+            raycastedObjects.Add(other.GetComponent<InteractObject>());
             FilterRaycastedList();
         }
     }
@@ -52,7 +64,7 @@ public class PlayerRaycast : MonoBehaviour
         {
             for (int j = 0; j < raycastTemporary.Count; ++j)
             {
-                if(raycastTemporary[j].GetComponent<InteractObject>()!=null)
+                if (raycastTemporary[j] != manager.GrabbedObject)
                 {
                     raycastedObjects.Add(raycastTemporary[j].GetComponent<InteractObject>());
                 }
@@ -80,10 +92,22 @@ public class PlayerRaycast : MonoBehaviour
                     }
                     if(canAdd)
                     {
-                        raycastedObjects.Add(raycastTemporary[j].GetComponent<InteractObject>());
+                        if(raycastTemporary[j]!=manager.GrabbedObject)
+                        {
+                            raycastedObjects.Add(raycastTemporary[j].GetComponent<InteractObject>());
+                        }
                     }
                 }
             }
+        }
+    }
+
+    public void RemoveFromRaycast(InteractObject other)
+    {
+        if (raycastedObjects.Contains(other))
+        {
+            raycastedObjects.Remove(other);
+            FilterRaycastedList();
         }
     }
 

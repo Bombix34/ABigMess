@@ -135,6 +135,7 @@ public class PlayerManager : ObjectManager
             }
             grabbedObject = interactObject;
             InteractObject obj = grabbedObject.GetComponent<InteractObject>();
+            raycast.RemoveFromRaycast(obj);
             if (obj.AttachedPlayersCount > 0 && obj.Settings.weightType!=ObjectSettings.ObjectWeight.heavy)
             {
                 obj.DetachPlayer();
