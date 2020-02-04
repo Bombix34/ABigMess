@@ -6,10 +6,6 @@ public class MusicManager : Singleton<MusicManager>
 {
     Radio radioSystem;
     
-    void Start()
-    {
-    }
-   
     /// <summary>
     /// Function to start and switch radio station
     /// </summary>
@@ -50,6 +46,19 @@ public class MusicManager : Singleton<MusicManager>
         else if(curLevelIndex<7)
         {
             AkSoundEngine.PostEvent("Set_state_noon_0" + (curLevelIndex + 1),gameObject);
+        }
+        TransitionLevel(true);
+    }
+
+    public void TransitionLevel(bool isIn)
+    {
+        if(isIn)
+        {
+            AkSoundEngine.PostEvent("Transition_level_in", gameObject);
+        }
+        else
+        {
+            AkSoundEngine.PostEvent("Transition_level_out", gameObject);
         }
     }
 
