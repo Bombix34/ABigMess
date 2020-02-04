@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 7146837521137475696}
   - component: {fileID: 7146837521137475703}
   - component: {fileID: 7146837521137475661}
-  - component: {fileID: 4744949177273176540}
+  - component: {fileID: 8820892751815128754}
+  - component: {fileID: 6637396344586841329}
   m_Layer: 0
   m_Name: Couch
   m_TagString: GrabObject
@@ -135,8 +136,8 @@ MonoBehaviour:
     broken: 0
     opened: 0
     plugged: 0
---- !u!64 &4744949177273176540
-MeshCollider:
+--- !u!65 &8820892751815128754
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -145,7 +146,19 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4388764060803798945, guid: 973eb87f792e27e43861b4117aceb784, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 4.2256083, y: 1.23602, z: 1.3898811}
+  m_Center: {x: 1.2959836, y: 0.65770775, z: -0.07775164}
+--- !u!65 &6637396344586841329
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7146837521137475702}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5225034, y: 1.23602, z: 1.6415207}
+  m_Center: {x: -0.055569172, y: 0.65770775, z: 1.4361492}

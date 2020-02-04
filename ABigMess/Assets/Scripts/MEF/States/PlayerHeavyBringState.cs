@@ -25,6 +25,7 @@ public class PlayerHeavyBringState : PlayerState
 
     public override void Enter()
     {
+        manager.Movement.ResetVelocity();
     }
 
     public override void Execute()
