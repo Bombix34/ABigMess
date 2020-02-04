@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 8488455022784631590}
   - component: {fileID: 7237377262074128909}
   - component: {fileID: 6259075779453170140}
+  - component: {fileID: 660330028982581305}
+  - component: {fileID: 1373902718474499085}
   m_Layer: 0
   m_Name: Buffet_open
   m_TagString: GrabObject
@@ -130,8 +132,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.88955134, y: 0.9051986, z: 0.7764742}
-  m_Center: {x: 0.000000029802322, y: 0.45534253, z: -0.04357949}
+  m_Size: {x: 0.88955134, y: 0.88116264, z: 0.7764742}
+  m_Center: {x: 0.000000029802322, y: 0.44354928, z: -0.04357949}
 --- !u!65 &7237377262074128909
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -161,6 +163,32 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!65 &660330028982581305
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6980456336920047260}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.041272044, y: 0.37319088, z: 0.5166371}
+  m_Center: {x: -0.42413962, y: 1.0684491, z: -0.17349797}
+--- !u!65 &1373902718474499085
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6980456336920047260}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.034954548, y: 0.37021446, z: 0.5145944}
+  m_Center: {x: 0.42729843, y: 1.0699373, z: -0.17451933}
 --- !u!1 &7853295994519306096
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,7 +200,6 @@ GameObject:
   - component: {fileID: 6679219584218964169}
   - component: {fileID: 5830143621799450055}
   - component: {fileID: 3455087455785124355}
-  - component: {fileID: 1025143887097541543}
   m_Layer: 0
   m_Name: Sdoor
   m_TagString: Untagged
@@ -239,19 +266,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &1025143887097541543
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7853295994519306096}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.41594976, y: 0.56607735, z: 0.056457013}
-  m_Center: {x: -0.20860007, y: 0.283198, z: 0.009547368}
 --- !u!1 &8465910359649865957
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,7 +277,6 @@ GameObject:
   - component: {fileID: 5741034164509163818}
   - component: {fileID: 5905489355121746844}
   - component: {fileID: 5437661445694045263}
-  - component: {fileID: 2436846532885753525}
   m_Layer: 0
   m_Name: Sdoor1
   m_TagString: Untagged
@@ -330,16 +343,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &2436846532885753525
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8465910359649865957}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.4159498, y: 0.56607735, z: 0.04786122}
-  m_Center: {x: 0.20860006, y: 0.283198, z: 0.0052494705}
