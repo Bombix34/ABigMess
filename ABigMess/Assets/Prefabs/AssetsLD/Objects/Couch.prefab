@@ -11,11 +11,13 @@ GameObject:
   - component: {fileID: 7146837521137475660}
   - component: {fileID: 7146837521137475699}
   - component: {fileID: 7146837521137475698}
-  - component: {fileID: 7146837521137475697}
-  - component: {fileID: 7940127519744205724}
   - component: {fileID: 7146837521137475696}
   - component: {fileID: 7146837521137475703}
   - component: {fileID: 7146837521137475661}
+  - component: {fileID: 3672550350487437842}
+  - component: {fileID: 1453836020138197682}
+  - component: {fileID: 6399819901760764304}
+  - component: {fileID: 161032505346280466}
   m_Layer: 0
   m_Name: Couch
   m_TagString: GrabObject
@@ -44,7 +46,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7146837521137475702}
-  m_Mesh: {fileID: -1550514412580984892, guid: 6d5258d4dff972642bc97a7b2508826b, type: 3}
+  m_Mesh: {fileID: 4388764060803798945, guid: 973eb87f792e27e43861b4117aceb784, type: 3}
 --- !u!23 &7146837521137475698
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -62,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7aa3731b44963104a8975ac8becdd243, type: 2}
+  - {fileID: 7304911219798188424, guid: 6fe9c85590d5caf4cae2697d80875c35, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -82,32 +84,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &7146837521137475697
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7146837521137475702}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.9573908, y: 1.007435, z: 1.0042219}
-  m_Center: {x: 0.4786954, y: 0.50091463, z: -0.002110958}
---- !u!65 &7940127519744205724
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7146837521137475702}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.9521935, y: 0.96748173, z: 0.8787861}
-  m_Center: {x: 1.481294, y: 0.48917967, z: -0.9479351}
 --- !u!54 &7146837521137475696
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -162,3 +138,55 @@ MonoBehaviour:
     broken: 0
     opened: 0
     plugged: 0
+--- !u!65 &3672550350487437842
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7146837521137475702}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1.2687969, y: 0.32662958, z: 0.6195091}
+  m_Center: {x: 0.94557595, y: 0.18316367, z: -0.0045866966}
+--- !u!65 &1453836020138197682
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7146837521137475702}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.6631898, y: 0.32662886, z: 0.7048538}
+  m_Center: {x: -0.025032133, y: 0.18316332, z: 0.6567868}
+--- !u!65 &6399819901760764304
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7146837521137475702}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.12965804, y: 0.2635079, z: 1.0452614}
+  m_Center: {x: -0.29179803, y: 0.4789581, z: 0.486583}
+--- !u!65 &161032505346280466
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7146837521137475702}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1.534555, y: 0.28853136, z: 0.122744665}
+  m_Center: {x: 0.7717054, y: 0.49146983, z: -0.2497172}
