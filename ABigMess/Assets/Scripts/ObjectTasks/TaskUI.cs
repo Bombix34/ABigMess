@@ -104,6 +104,10 @@ public class TaskUI : MonoBehaviour
         {
             numberField.text = task.GetCountForInterface().ToString();
         }
+        else
+        {
+            numberField.text = "";
+        }
     }
 
     public void UpdateTaskColor()
