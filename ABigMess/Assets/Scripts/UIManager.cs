@@ -24,6 +24,10 @@ public class UIManager : Singleton<UIManager>
     private Text transitionText;
     [SerializeField]
     private Image transitionInstruction;
+    private int currentTextPosition = 0;
+
+    [SerializeField]
+    private static float letterApparitionDelay = 0.1f;
 
     private void Start()
     {
@@ -92,7 +96,7 @@ public class UIManager : Singleton<UIManager>
         if (currentLevelTransition != null)
         {
             backgroundTransitionPanel.color = new Color(currentLevelTransition.backgroundColor.r, currentLevelTransition.backgroundColor.g, currentLevelTransition.backgroundColor.b, 1f);
-            transitionText.text = currentLevelTransition.textDescription;
+            StartCoroutine(WriteTextAnimation(currentLevelTransition.textDescription));
             StartCoroutine(TransitionFade(false));
         }
         else
@@ -100,6 +104,16 @@ public class UIManager : Singleton<UIManager>
             backgroundTransitionPanel.color = Color.black;
             transitionText.text = "";
             StartCoroutine(TransitionFade(false));
+        }
+    }
+
+    public IEnumerator WriteTextAnimation(string textDescription)
+    {
+        while (currentTextPosition < textDescription.Length)
+        {
+            transitionText.text += textDescription[currentTextPosition];
+            currentTextPosition++;
+            yield return new WaitForSeconds(letterApparitionDelay);
         }
     }
 
