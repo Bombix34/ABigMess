@@ -15,8 +15,13 @@ public class Deathzone : MonoBehaviour
     {
         if(other.GetComponent<InteractObject>()!=null)
         {
-            sceneObjects.RemoveObject(other.GetComponent<InteractObject>());
-            if(other.GetComponent<InteractObject>().Settings.objectType==ObjectSettings.ObjectType.radio)
+            InteractObject concernedObj = other.GetComponent<InteractObject>();
+            sceneObjects.RemoveObject(concernedObj);
+            if(concernedObj.GetComponentInChildren<ObjectZoneArea>()!=null)
+            {
+                sceneObjects.RemoveZoneArea(concernedObj.GetComponentInChildren<ObjectZoneArea>());
+            }
+            if(concernedObj.Settings.objectType==ObjectSettings.ObjectType.radio)
             {
                 GameManager.Instance.MusicManager.ShutRadio();
             }
