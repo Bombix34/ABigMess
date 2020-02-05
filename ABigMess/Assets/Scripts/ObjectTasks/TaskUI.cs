@@ -28,8 +28,6 @@ public class TaskUI : MonoBehaviour
     RectTransform rectTransform;
     Image image;
 
-    Sequence appearDisappearSequence;
-
     private Vector2 initialSizeDelta;
 
     void Awake()
@@ -39,7 +37,6 @@ public class TaskUI : MonoBehaviour
         rectTransform.anchoredPosition.Set(rectTransform.anchoredPosition.x, rectTransform.sizeDelta.y);
         image.color = Color.white;
 
-        appearDisappearSequence = DOTween.Sequence();
         initialSizeDelta = rectTransform.sizeDelta;
     }
 
@@ -82,9 +79,8 @@ public class TaskUI : MonoBehaviour
     {
         if ((task != null && task.IsDone))
         {
-            appearDisappearSequence.Kill();
-            appearDisappearSequence.AppendInterval(1f);
-            appearDisappearSequence.Append(rectTransform.DOAnchorPosY(rectTransform.sizeDelta.y, 1));
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(rectTransform.DOAnchorPosY(rectTransform.sizeDelta.y, 1));
         }
     }
 
@@ -92,10 +88,9 @@ public class TaskUI : MonoBehaviour
     {
         if ((task == null || !task.IsDone))
         {
-            appearDisappearSequence.Kill();
-            appearDisappearSequence.Append(image.DOColor(Color.white, 1));
-            appearDisappearSequence.AppendInterval(1f);
-            appearDisappearSequence.Append(rectTransform.DOAnchorPosY(-rectTransform.sizeDelta.y / 2, 1));
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(image.DOColor(Color.white, 1));
+            sequence.Join(rectTransform.DOAnchorPosY(-rectTransform.sizeDelta.y / 2, 1));
         }
     }
 
@@ -117,9 +112,10 @@ public class TaskUI : MonoBehaviour
         {
             return;
         }
-        appearDisappearSequence.Kill();
-        appearDisappearSequence.Append(image.DOColor(task.IsDone ? Color.green : Color.white, 1));
-        appearDisappearSequence.Append(rectTransform.DOSizeDelta(task.IsDone ? initialSizeDelta * 1.125f : initialSizeDelta, 1f).SetEase(Ease.InElastic));
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(image.DOColor(task.IsDone ? Color.green : Color.white, 1));
+        sequence.Join(rectTransform.DOSizeDelta(task.IsDone ? initialSizeDelta * 1.125f : initialSizeDelta, 1f).SetEase(Ease.InElastic));
+        
     }
 
     #region GET/SET
