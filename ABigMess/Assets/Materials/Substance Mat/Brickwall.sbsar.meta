@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7bde4d255b3f7ff46a15cc20dabf6197
+guid: 6716410314396114286d15e91272a635
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -10,15 +10,13 @@ ScriptedImporter:
   script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
   version: 23
   mGraphInstanceData:
-  - graphLabel: Wood_02
-    prototypeName: Wood_02
+  - graphLabel: Brickwall
+    prototypeName: Brickwall
     graphDescIndex: 0
     generateAllOutputs: 0
     generateMipMaps: 1
-    preset: " <sbspreset pkgurl=\"pkg://Wood_02\" label=\"\" >\n  <presetinput identifier=\"$outputsize\"
-      uid=\"1831863171\" type=\"8\" value=\"9,9\" />\n  <presetinput identifier=\"Stripes_white\"
-      uid=\"106179473\" type=\"4\" value=\"16\" />\n  <presetinput identifier=\"Base_color_selection_123\"
-      uid=\"102947490\" type=\"4\" value=\"2\" />\n </sbspreset>\n"
+    preset: " <sbspreset pkgurl=\"pkg://Brickwall\" label=\"\" >\n  <presetinput identifier=\"$outputsize\"
+      uid=\"1545423481\" type=\"8\" value=\"9,9\" />\n </sbspreset>\n"
     shaderName: Standard
     materialProperties:
       shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
@@ -26,7 +24,7 @@ ScriptedImporter:
       lightmapFlags: 4
       texEnvs:
       - name: _BumpMap
-        texture: {fileID: -2146320507859179079, guid: 7bde4d255b3f7ff46a15cc20dabf6197,
+        texture: {fileID: -469673826744262557, guid: 6716410314396114286d15e91272a635,
           type: 3}
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
@@ -47,7 +45,7 @@ ScriptedImporter:
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
       - name: _MainTex
-        texture: {fileID: 862033711718105673, guid: 7bde4d255b3f7ff46a15cc20dabf6197,
+        texture: {fileID: -5849106273620452888, guid: 6716410314396114286d15e91272a635,
           type: 3}
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
@@ -56,12 +54,12 @@ ScriptedImporter:
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
       - name: _OcclusionMap
-        texture: {fileID: 8454896346883142941, guid: 7bde4d255b3f7ff46a15cc20dabf6197,
+        texture: {fileID: 2515496286346915986, guid: 6716410314396114286d15e91272a635,
           type: 3}
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
       - name: _ParallaxMap
-        texture: {fileID: -6987028077134174117, guid: 7bde4d255b3f7ff46a15cc20dabf6197,
+        texture: {fileID: 5619055679991848608, guid: 6716410314396114286d15e91272a635,
           type: 3}
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
@@ -176,23 +174,23 @@ ScriptedImporter:
         from: 0
         to: 3
     textureParameters:
-    - textureName: Wood_02 - baseColor
+    - textureName: Brickwall - baseColor
       wrapMode: 0
       filterMode: 1
       aniso: 1
-    - textureName: Wood_02 - normal
+    - textureName: Brickwall - normal
       wrapMode: 0
       filterMode: 1
       aniso: 1
-    - textureName: Wood_02 - roughness
+    - textureName: Brickwall - roughness
       wrapMode: 0
       filterMode: 1
       aniso: 1
-    - textureName: Wood_02 - height
+    - textureName: Brickwall - height
       wrapMode: 0
       filterMode: 1
       aniso: 1
-    - textureName: Wood_02 - ambientOcclusion
+    - textureName: Brickwall - ambientOcclusion
       wrapMode: 0
       filterMode: 1
       aniso: 1
@@ -207,10 +205,10 @@ ScriptedImporter:
       textureFormatMode: 0
       normalCompressed: 0
       bGenerateOnLoad: 1
-    material: {fileID: 6272020332430762805, guid: 7bde4d255b3f7ff46a15cc20dabf6197,
+    material: {fileID: 2385084581805738782, guid: 6716410314396114286d15e91272a635,
       type: 3}
     generatedTextures:
-    - {fileID: 862033711718105673, guid: 7bde4d255b3f7ff46a15cc20dabf6197, type: 3}
-    - {fileID: -2146320507859179079, guid: 7bde4d255b3f7ff46a15cc20dabf6197, type: 3}
-    - {fileID: -6987028077134174117, guid: 7bde4d255b3f7ff46a15cc20dabf6197, type: 3}
-    - {fileID: 8454896346883142941, guid: 7bde4d255b3f7ff46a15cc20dabf6197, type: 3}
+    - {fileID: -5849106273620452888, guid: 6716410314396114286d15e91272a635, type: 3}
+    - {fileID: -469673826744262557, guid: 6716410314396114286d15e91272a635, type: 3}
+    - {fileID: 5619055679991848608, guid: 6716410314396114286d15e91272a635, type: 3}
+    - {fileID: 2515496286346915986, guid: 6716410314396114286d15e91272a635, type: 3}
