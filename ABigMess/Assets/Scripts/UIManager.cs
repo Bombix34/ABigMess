@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class UIManager : Singleton<UIManager>
 {
@@ -134,8 +135,6 @@ public class UIManager : Singleton<UIManager>
             backgroundTransitionPanel.color = new Color(0f, 0f, 0f, 0f);
         }
         transitionInstruction.gameObject.SetActive(false);
-        grandmaImage.gameObject.SetActive(false);
-        bubbleImage.gameObject.SetActive(false);
         transitionText.text = "";
         transitionPanel.SetActive(true);
         StartCoroutine(TransitionFade(true));
@@ -145,14 +144,13 @@ public class UIManager : Singleton<UIManager>
     {
         if(isFadeIn)
         {
-            float alphaAmount = 0f;
-            while(backgroundTransitionPanel.color.a<1f)
-            {
-                backgroundTransitionPanel.color = new Color(backgroundTransitionPanel.color.r, backgroundTransitionPanel.color.g, backgroundTransitionPanel.color.b,alphaAmount);
-                transitionText.color = new Color(1f, 1f, 1f, alphaAmount);
-                alphaAmount += Time.fixedDeltaTime*2f;
-                yield return new WaitForSeconds(0.01f);
-            }
+            backgroundTransitionPanel.color = new Color(backgroundTransitionPanel.color.r, backgroundTransitionPanel.color.g, backgroundTransitionPanel.color.b, 1);
+            transitionText.color = new Color(1f, 1f, 1f, 1f);
+            RectTransform transitionPanelRectTransform = transitionPanel.GetComponent<RectTransform>();
+            print(-transitionPanelRectTransform.rect.height);
+            transitionPanelRectTransform.DOAnchorPosY(0, 1f).SetEase(Ease.Linear);
+            bubbleImage.GetComponent<Image>().DOFade(0f, 1f).Complete();
+            bubbleImage.GetComponent<Image>().DOFade(1f, 1f);
         }
         else
         {
@@ -176,19 +174,13 @@ public class UIManager : Singleton<UIManager>
             {
                 yield return new WaitForSeconds(0.01f);
             }
+
+           
+            RectTransform transitionPanelRectTransform = transitionPanel.GetComponent<RectTransform>();
+            transitionPanelRectTransform.DOAnchorPosY(transitionPanelRectTransform.rect.height, 1f).SetEase(Ease.Linear);
             transitionInstruction.gameObject.SetActive(false);
             GameManager.instance.LaunchLevel();
-            float alphaAmount = 1f;
-            while (backgroundTransitionPanel.color.a > 0.001f)
-            {
-                backgroundTransitionPanel.color = new Color(0f,0f,0f, alphaAmount);
-                grandmaImage.color = new Color(grandmaImage.color.r, grandmaImage.color.g, grandmaImage.color.b, alphaAmount);
-                bubbleImage.color = new Color(bubbleImage.color.r, bubbleImage.color.g, bubbleImage.color.b, alphaAmount);
-                //ansitionInstruction.color = new Color(transitionInstruction.color.r, transitionInstruction.color.g, transitionInstruction.color.b, alphaAmount * 2f);
-                transitionText.color = new Color(transitionText.color.r, transitionText.color.g, transitionText.color.b, alphaAmount*2f);
-                alphaAmount -= Time.fixedDeltaTime;
-                yield return new WaitForSeconds(0.01f);
-            }
+            
         }
     }
 
