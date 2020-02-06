@@ -186,8 +186,8 @@ public class InteractObject : MonoBehaviour
             {
                 if (!settings.isOneHandedCarrying)
                 {
-                    body.constraints = RigidbodyConstraints.FreezeAll;  
-                    body.useGravity = false;
+                    body.constraints = RigidbodyConstraints.FreezeAll;
+                    body.useGravity = true;
                 }
                 else
                 {

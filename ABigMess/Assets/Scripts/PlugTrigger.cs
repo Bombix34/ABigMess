@@ -25,7 +25,6 @@ public class PlugTrigger : MonoBehaviour
 
             if (otherIO.Settings.NeedsToBePlugged())
             {
-                //Debug.Log("Object Type : " + interactObject.Settings.objectType);
                 if (objectState != null)
                 {
                     objectState.Plugged = true;
