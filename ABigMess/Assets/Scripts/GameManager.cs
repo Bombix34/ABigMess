@@ -58,7 +58,7 @@ public class GameManager : Singleton<GameManager>
     private void Update()
     {
         middlePlayers.transform.position = GetPositionBetweenPlayers();
-        //DebugDisplayInput();
+        DebugSwitchSceneInput();
         if(isLaunch)
         {
             currentPlayersTime += Time.deltaTime;
