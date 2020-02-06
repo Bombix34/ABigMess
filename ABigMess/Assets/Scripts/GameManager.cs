@@ -49,7 +49,6 @@ public class GameManager : Singleton<GameManager>
                 levels.CurrentLevelIndex = i;
             }
         }
-        print(levels.CurrentLevelIndex);
         InvokeRepeating("DetectStressTime", 1f, 1f);
 
         Application.targetFrameRate = 50;
@@ -59,7 +58,7 @@ public class GameManager : Singleton<GameManager>
     private void Update()
     {
         middlePlayers.transform.position = GetPositionBetweenPlayers();
-        DebugDisplayInput();
+        //DebugDisplayInput();
         if(isLaunch)
         {
             currentPlayersTime += Time.deltaTime;
@@ -113,6 +112,17 @@ public class GameManager : Singleton<GameManager>
             if(player.Inputs.GetStartInput())
             {
                 GetComponent<DebugDisplay>().IsShowingDebug = !GetComponent<DebugDisplay>().IsShowingDebug;
+            }
+        }
+    }
+
+    public void DebugSwitchSceneInput()
+    {
+        foreach (PlayerManager player in players)
+        {
+            if (player.Inputs.GetStartInput())
+            {
+                WinCurrentLevel();
             }
         }
     }

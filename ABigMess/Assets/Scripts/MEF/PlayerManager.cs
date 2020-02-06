@@ -336,6 +336,10 @@ public class PlayerManager : ObjectManager
                 else
                 {
                     InteractObject objectInHand = grabbedObject.GetComponent<InteractObject>();
+                    if(objectInHand.Settings.weightType==ObjectSettings.ObjectWeight.heavy)
+                    {
+                        return;
+                    }
                     //if object in hand is a tool
                     if (objectInHand.Settings.IsTool() && !concernedObject.Settings.IsTool())
                     {
@@ -345,8 +349,12 @@ public class PlayerManager : ObjectManager
                         concernedObject.SetUIActionIcon(toolInHandSettings.ActionIcon);
                     }
                     //if object in hand is not a tool and raycasted object is a stationnary tool
-                    else if(concernedObject.Settings.IsTool() && concernedObject.Settings.weightType==ObjectSettings.ObjectWeight.immobile)
+                    else if(concernedObject.Settings.IsTool() && concernedObject.Settings.IsStationnaryTool())
                     {
+                        if (concernedObject.Settings.NeedsToBePlugged()&& !concernedObject.GetComponent<ObjectState>().Plugged)
+                        {
+                            return;
+                        }
                         ToolSettings stationnaryToolsSettings = (ToolSettings)concernedObject.Settings;
                         objectInHand.SetHighlightColor(renderer.HighlightToolsColor);
                         objectInHand.Highlight(concernedObject.gameObject);

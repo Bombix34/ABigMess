@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 6949719488589480512}
   - component: {fileID: 8446976487116648765}
   - component: {fileID: 2216496216549829706}
+  - component: {fileID: 5520499041930752210}
   m_Layer: 0
   m_Name: lamp01
   m_TagString: GrabObject
@@ -183,3 +184,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.36094466, y: 0.30899894, z: 0.350726}
   m_Center: {x: 0.005052045, y: 0.6212451, z: 0.0038032457}
+--- !u!114 &5520499041930752210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8379106612801205067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2059e7b8be60b554c9324bdf690007e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  states:
+    washed: 0
+    burnt: 0
+    smuged: 0
+    cooked: 0
+    grown: 0
+    colored: 0
+    broken: 0
+    opened: 0
+    plugged: 0
