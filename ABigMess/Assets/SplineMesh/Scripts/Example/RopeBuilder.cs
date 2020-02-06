@@ -106,8 +106,10 @@ namespace SplineMesh {
                 seg.transform.Translate(0, 0, localSpacing);
 
                 var segRB = seg.GetComponent<Rigidbody>();
+                segRB.collisionDetectionMode = CollisionDetectionMode.Continuous;
                 // we fix the first segment so that the rope won't fall
                 if (i == 0 && isPositionFreeze) {
+                    print("oui");
                     firstSegment = seg;
                     segRB.constraints = RigidbodyConstraints.FreezePosition;
                 }

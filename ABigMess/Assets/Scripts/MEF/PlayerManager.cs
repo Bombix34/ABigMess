@@ -74,6 +74,7 @@ public class PlayerManager : ObjectManager
         if (inputs.GetQuackInputDown())
         {
             AkSoundEngine.SetState("MUTE", "up");
+            renderer.QuackAnim();
         }
         else if (inputs.GetQuackInputUp())
         {
