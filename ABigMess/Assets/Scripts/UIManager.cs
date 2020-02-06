@@ -37,6 +37,8 @@ public class UIManager : Singleton<UIManager>
 
     private void Start()
     {
+        grandmaImage.color = new Color(1f, 1f, 1f, 0f);
+        bubbleImage.color = grandmaImage.color;
     }
 
     public void UpdateChronoUI(int minutes, int seconds)
@@ -98,8 +100,11 @@ public class UIManager : Singleton<UIManager>
         transitionPanel.SetActive(true);
         transitionInstruction.gameObject.SetActive(true);
         grandmaImage.gameObject.SetActive(true);
+        grandmaImage.color = new Color(1f, 1f, 1f, 0f);
+        grandmaImage.DOFade(1f, 0.8f);
         bubbleImage.gameObject.SetActive(true);
-        grandmaImage.color = new Color(grandmaImage.color.r, grandmaImage.color.g, grandmaImage.color.b, 1f);
+        bubbleImage.color = grandmaImage.color;
+        bubbleImage.DOFade(1f, 0.8f);
         TransitionScreen currentLevelTransition = GameManager.Instance.GetCurrentLevel().introScreen;
         //transitionInstruction.gameObject.SetActive(true);
         if (currentLevelTransition != null)
@@ -137,6 +142,8 @@ public class UIManager : Singleton<UIManager>
         transitionInstruction.gameObject.SetActive(false);
         transitionText.text = "";
         transitionPanel.SetActive(true);
+        grandmaImage.gameObject.SetActive(false);
+        bubbleImage.gameObject.SetActive(false);
         StartCoroutine(TransitionFade(true));
     }
 
@@ -148,7 +155,7 @@ public class UIManager : Singleton<UIManager>
             transitionText.color = new Color(1f, 1f, 1f, 1f);
             RectTransform transitionPanelRectTransform = transitionPanel.GetComponent<RectTransform>();
             print(-transitionPanelRectTransform.rect.height);
-            transitionPanelRectTransform.DOAnchorPosY(0, 1f).SetEase(Ease.Linear);
+            transitionPanelRectTransform.DOAnchorPosY(0, 0.6f).SetEase(Ease.Linear);
             bubbleImage.GetComponent<Image>().DOFade(0f, 1f).Complete();
             bubbleImage.GetComponent<Image>().DOFade(1f, 1f);
         }
@@ -177,7 +184,7 @@ public class UIManager : Singleton<UIManager>
 
            
             RectTransform transitionPanelRectTransform = transitionPanel.GetComponent<RectTransform>();
-            transitionPanelRectTransform.DOAnchorPosY(transitionPanelRectTransform.rect.height, 1f).SetEase(Ease.Linear);
+            transitionPanelRectTransform.DOAnchorPosY(transitionPanelRectTransform.rect.height, 0.6f).SetEase(Ease.Linear);
             transitionInstruction.gameObject.SetActive(false);
             GameManager.instance.LaunchLevel();
             
