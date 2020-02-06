@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3242129131763521881}
   - component: {fileID: 1146014279045091088}
   - component: {fileID: 7725880476004135741}
+  - component: {fileID: 3878891174802684014}
   m_Layer: 0
   m_Name: Pumpkin
   m_TagString: GrabObject
@@ -141,3 +142,25 @@ MonoBehaviour:
     type: 3}
   settings: {fileID: 11400000, guid: 2f3e2cc7552c747428f11a40cb423357, type: 2}
   outlineSettings: {fileID: 11400000, guid: 98d4310e4cf8fc440aad3684d6abc4b0, type: 2}
+--- !u!114 &3878891174802684014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6064117354858572827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2059e7b8be60b554c9324bdf690007e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  states:
+    washed: 0
+    burnt: 0
+    smuged: 0
+    cooked: 0
+    grown: 0
+    colored: 0
+    broken: 0
+    opened: 0
+    plugged: 0

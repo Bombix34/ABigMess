@@ -62,13 +62,6 @@ namespace SplineMesh {
                 Generate();
                 UpdateSpline();
             }
-
-            // balancing
-            /*
-            if (Application.isPlaying) {
-                firstSegment.transform.localPosition = new Vector3(Mathf.Sin(Time.time) * 3, 0, 0);
-            }
-            */
         }
 
         private void FixedUpdate()
@@ -113,8 +106,10 @@ namespace SplineMesh {
                 seg.transform.Translate(0, 0, localSpacing);
 
                 var segRB = seg.GetComponent<Rigidbody>();
+                segRB.collisionDetectionMode = CollisionDetectionMode.Continuous;
                 // we fix the first segment so that the rope won't fall
                 if (i == 0 && isPositionFreeze) {
+                    print("oui");
                     firstSegment = seg;
                     segRB.constraints = RigidbodyConstraints.FreezePosition;
                 }

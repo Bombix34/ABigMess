@@ -105,9 +105,9 @@ public class InteractObject : MonoBehaviour
             }
             else if (Settings.IsTool() && Settings.NeedsToBePlugged())
             {
-                if (toolObj.GetComponent<ObjectState>() != null)
+                if (this.GetComponent<ObjectState>() != null)
                 {
-                    if (toolObj.GetComponent<ObjectState>().Plugged)
+                    if (this.GetComponent<ObjectState>().Plugged)
                     {
                         ToolSettings tool = (ToolSettings)Settings;
                         StartCoroutine(tool.ApplyEvent(toolObj));
@@ -186,7 +186,7 @@ public class InteractObject : MonoBehaviour
             {
                 if (!settings.isOneHandedCarrying)
                 {
-                    body.constraints = RigidbodyConstraints.FreezeAll;  
+                    body.constraints = RigidbodyConstraints.FreezeAll;
                     body.useGravity = false;
                 }
                 else

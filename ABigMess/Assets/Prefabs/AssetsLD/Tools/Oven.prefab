@@ -107,8 +107,9 @@ GameObject:
   - component: {fileID: 5636329481573740957}
   - component: {fileID: 3233206329324012985}
   - component: {fileID: 3804731635557310238}
+  - component: {fileID: 3612703699972974314}
   m_Layer: 0
-  m_Name: Oven_open
+  m_Name: Oven
   m_TagString: GrabObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -239,3 +240,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.960906, y: 1.1361616, z: 0.9707788}
   m_Center: {x: 0, y: 0.5703157, z: -0.000000029802322}
+--- !u!114 &3612703699972974314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8012305008801187587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2059e7b8be60b554c9324bdf690007e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  states:
+    washed: 0
+    burnt: 0
+    smuged: 0
+    cooked: 0
+    grown: 0
+    colored: 0
+    broken: 0
+    opened: 0
+    plugged: 0
