@@ -27,6 +27,13 @@ public class ObjectSettings : ScriptableObject
             || objectType == ObjectType.toolWatering
             || objectType == ObjectType.plug; //-------------
     }
+
+    public bool IsStationnaryTool()
+    {
+        return objectType == ObjectType.toolStationaryWashing
+            || objectType == ObjectType.toolStationaryElectricWashing
+            || objectType == ObjectType.toolOwen;
+    }
     
     public bool NeedsToBePlugged()
     {
