@@ -58,8 +58,8 @@ public class GameManager : Singleton<GameManager>
     private void Update()
     {
         middlePlayers.transform.position = GetPositionBetweenPlayers();
-        DebugSwitchSceneInput();
-        if(isLaunch)
+        DebugDisplayInput();
+        if (isLaunch)
         {
             currentPlayersTime += Time.deltaTime;
             uiManager.UpdateChronoUI(GetCurrentTime()[0],GetCurrentTime()[1]);
