@@ -22,6 +22,8 @@ public class PlugTrigger : MonoBehaviour
 
 
             Plugged plugged = other.gameObject.GetComponent<Plugged>();
+            //print("This is the plug: " + gameObject.GetComponent<InteractObject>() + " interacting with " + other.gameObject.GetComponent<InteractObject>());
+            //gameObject.GetComponent<InteractObject>().Interact(other.gameObject);
 
             if (otherIO.Settings.NeedsToBePlugged())
             {
