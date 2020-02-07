@@ -182,7 +182,8 @@ public class UIManager : Singleton<UIManager>
                 yield return new WaitForSeconds(0.01f);
             }
 
-           
+            MusicManager.Instance.TransitionLevel(false);
+
             RectTransform transitionPanelRectTransform = transitionPanel.GetComponent<RectTransform>();
             transitionPanelRectTransform.DOAnchorPosY(transitionPanelRectTransform.rect.height, 0.6f).SetEase(Ease.Linear);
             transitionInstruction.gameObject.SetActive(false);

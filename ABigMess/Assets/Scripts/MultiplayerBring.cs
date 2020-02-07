@@ -27,6 +27,7 @@ public class MultiplayerBring : MonoBehaviour
     void Start()
     {
         body.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        MusicManager.Instance.GetSoundManager().PlayHeavyBringObject(true);
     }
 
     void Update()

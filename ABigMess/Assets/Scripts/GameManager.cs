@@ -87,7 +87,6 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     public void LaunchLevel()
     {
-        MusicManager.TransitionLevel(false);
         isLaunch = true;
     }
 
@@ -95,6 +94,7 @@ public class GameManager : Singleton<GameManager>
     {
         yield return new WaitForSeconds(0.75f);
         uiManager.EndLevelTransition();
+        MusicManager.TransitionLevel(true);
         MusicManager.ShutRadio();
         yield return new WaitForSeconds(1f);
         levels.LoadNextLevel();
