@@ -5,7 +5,14 @@ using UnityEngine;
 public class MusicManager : Singleton<MusicManager> 
 {
     Radio radioSystem;
-    
+
+    private SoundManager soundManager;
+
+    private void Start()
+    {
+        soundManager = this.GetComponent<SoundManager>();
+    }
+
     /// <summary>
     /// Function to start and switch radio station
     /// </summary>
@@ -47,7 +54,10 @@ public class MusicManager : Singleton<MusicManager>
         {
             AkSoundEngine.PostEvent("Set_state_noon_0" + (curLevelIndex + 1),gameObject);
         }
-        TransitionLevel(true);
+        else
+        {
+            AkSoundEngine.PostEvent("Set_state_noon_08", gameObject);
+        }
     }
 
     public void TransitionLevel(bool isIn)
@@ -60,6 +70,11 @@ public class MusicManager : Singleton<MusicManager>
         {
             AkSoundEngine.PostEvent("Transition_level_out", gameObject);
         }
+    }
+
+    public SoundManager GetSoundManager()
+    {
+        return soundManager;
     }
 
 }

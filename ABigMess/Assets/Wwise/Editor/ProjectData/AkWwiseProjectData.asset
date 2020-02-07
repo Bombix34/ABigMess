@@ -191,7 +191,7 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 0f2a0ca1a300644f9d0e66377c7a9207
     GuidInternal: 
-    m_lastTime: -8586207821121170726
+    m_lastTime: -8586205178211258517
     List:
     - name: Bigmess_music
       guid: 3de1b763af55174ba5cc31eb22d1527d
@@ -211,13 +211,70 @@ MonoBehaviour:
       - ElementName: Bigmess_radio
         ObjectType: 7
       Path: Default Work Unit\Bigmess_radio
+    - name: Bigmess_SFX
+      guid: 39385816d5f53140a38632bee0767650
+      id: 3687680021
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Bigmess_SFX
+        ObjectType: 7
+      Path: Default Work Unit\Bigmess_SFX
   EventWwu:
   - PhysicalPath: Events\Amb.wwu
     ParentPhysicalPath: 
     guid: 901646cfc81c8345b4a4d18f8b1c5ce2
     GuidInternal: 
-    m_lastTime: -8586212990362241355
-    List: []
+    m_lastTime: -8586205178214764204
+    List:
+    - name: Play_bathroom_tone
+      guid: b4e22e8a6f14d54280f23a315a13cbc5
+      id: 3592785647
+      PathAndIcons:
+      - ElementName: Amb
+        ObjectType: 12
+      - ElementName: Play_bathroom_tone
+        ObjectType: 3
+      Path: Amb\Play_bathroom_tone
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_big_room_tone
+      guid: b07838f7d368354ca8ba36821fee2f12
+      id: 2999503001
+      PathAndIcons:
+      - ElementName: Amb
+        ObjectType: 12
+      - ElementName: Play_big_room_tone
+        ObjectType: 3
+      Path: Amb\Play_big_room_tone
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_garden_amb
+      guid: cdfc4a13a292ab4ea1d84a3e800cc863
+      id: 1623367340
+      PathAndIcons:
+      - ElementName: Amb
+        ObjectType: 12
+      - ElementName: Play_garden_amb
+        ObjectType: 3
+      Path: Amb\Play_garden_amb
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_small_room_tone
+      guid: 34cd6dc8c699ad4ba5f2a6007ee0dc2b
+      id: 2485252018
+      PathAndIcons:
+      - ElementName: Amb
+        ObjectType: 12
+      - ElementName: Play_small_room_tone
+        ObjectType: 3
+      Path: Amb\Play_small_room_tone
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 2e0b19a433a3384db4191777c4d33194
@@ -228,7 +285,7 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 989c4f7b6a08564c950aaf2152d17c74
     GuidInternal: 
-    m_lastTime: -8586207821122866181
+    m_lastTime: -8586205178214764204
     List:
     - name: Play_Music_morning
       guid: 35ddba7fefb6a64abaa98bdeb8e54d04
@@ -580,41 +637,89 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: f432dde08975134db82eaaa1eddfe4e7
     GuidInternal: 
-    m_lastTime: -8586207821122935993
+    m_lastTime: -8586205178214754232
     List:
-    - name: Play_alien_voice
-      guid: c713cd4f037ad74ea9b696953c383ff9
-      id: 3570971296
+    - name: Play_Alien_heavy_object
+      guid: 02334160e7dd194d8c349ca953acf0e9
+      id: 1684718463
       PathAndIcons:
       - ElementName: SFX
         ObjectType: 12
-      - ElementName: Play_alien_voice
+      - ElementName: Play_Alien_heavy_object
         ObjectType: 3
-      Path: SFX\Play_alien_voice
+      Path: SFX\Play_Alien_heavy_object
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
-    - name: Play_burn_SFX
-      guid: cb5915c4b465b845b38c91d4ea705707
-      id: 1188830101
+    - name: Play_burn_SFX_01
+      guid: 609b84e35f2f44438deaa0ba4c98d78f
+      id: 4265872625
       PathAndIcons:
       - ElementName: SFX
         ObjectType: 12
-      - ElementName: Play_burn_SFX
+      - ElementName: Play_burn_SFX_01
         ObjectType: 3
-      Path: SFX\Play_burn_SFX
+      Path: SFX\Play_burn_SFX_01
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
-    - name: Play_wash_SFX
-      guid: a3ba2f85068c8343a2d20fa77ccceb21
-      id: 4080261691
+    - name: Play_grab_SFX
+      guid: f090f68b1278354c9a1a0a7433b40100
+      id: 1876721888
       PathAndIcons:
       - ElementName: SFX
         ObjectType: 12
-      - ElementName: Play_wash_SFX
+      - ElementName: Play_grab_SFX
         ObjectType: 3
-      Path: SFX\Play_wash_SFX
+      Path: SFX\Play_grab_SFX
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_release_SFX
+      guid: 117e3f3253bfd14d95e97b08cd6766bb
+      id: 2301344613
+      PathAndIcons:
+      - ElementName: SFX
+        ObjectType: 12
+      - ElementName: Play_release_SFX
+        ObjectType: 3
+      Path: SFX\Play_release_SFX
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Voice_player01
+      guid: ec0bcee362fc384d80009bcf0ce28d00
+      id: 1980653889
+      PathAndIcons:
+      - ElementName: SFX
+        ObjectType: 12
+      - ElementName: Play_Voice_player01
+        ObjectType: 3
+      Path: SFX\Play_Voice_player01
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Voice_player02
+      guid: 6fac4618c2e6bc439ea05b9c5e612323
+      id: 1980653890
+      PathAndIcons:
+      - ElementName: SFX
+        ObjectType: 12
+      - ElementName: Play_Voice_player02
+        ObjectType: 3
+      Path: SFX\Play_Voice_player02
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_wash_SFX_01
+      guid: cf16f44ebcb21941a79e65b32f64b7c6
+      id: 3128134959
+      PathAndIcons:
+      - ElementName: SFX
+        ObjectType: 12
+      - ElementName: Play_wash_SFX_01
+        ObjectType: 3
+      Path: SFX\Play_wash_SFX_01
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -928,6 +1033,8 @@ MonoBehaviour:
   ExpandedItems:
   - /M2_A_Big_Mess
   - /M2_A_Big_Mess/Events
-  - /M2_A_Big_Mess/Events/Music
+  - /M2_A_Big_Mess/Events/SFX
+  - /M2_A_Big_Mess/SoundBanks
+  - /M2_A_Big_Mess/SoundBanks/Default Work Unit
   autoPopulateEnabled: 1
   CurrentPluginConfig: 
