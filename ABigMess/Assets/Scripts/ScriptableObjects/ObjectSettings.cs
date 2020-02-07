@@ -84,6 +84,7 @@ public class ObjectSettings : ScriptableObject
         electricPlug,
         sponge,
         fork,
-        muralClock
+        muralClock,
+        book
     }
 }
