@@ -55,6 +55,16 @@ public class ObjectState : MonoBehaviour
             Destroy(GetComponent<Burnt>());
         }
 
+        if (states.cooked && GetComponent<Cooked>() == null)
+        {
+            gameObject.AddComponent<Cooked>();
+        }
+
+        if (!states.cooked && GetComponent<Cooked>() != null)
+        {
+            Destroy(GetComponent<Cooked>());
+        }
+
         if (states.grown && GetComponent<Grown>() == null)
         {
             gameObject.AddComponent<Grown>();

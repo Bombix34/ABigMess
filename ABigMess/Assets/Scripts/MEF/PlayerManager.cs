@@ -45,9 +45,7 @@ public class PlayerManager : ObjectManager
 
     private void Update()
     {
-        //TEST__________
         UpdateQuackSound();
-        //__________
         RaycastObject();
         movement.PreventPlayerRotation();
         currentState.Execute();
@@ -73,11 +71,8 @@ public class PlayerManager : ObjectManager
     {
         if (inputs.GetQuackInputDown())
         {
-            AkSoundEngine.SetState("MUTE", "up");
-        }
-        else if (inputs.GetQuackInputUp())
-        {
-            AkSoundEngine.SetState("MUTE", "down");
+            MusicManager.Instance.GetSoundManager().QuackSound(inputs.playerId + 1);
+            renderer.QuackAnim();
         }
     }
 
@@ -134,6 +129,7 @@ public class PlayerManager : ObjectManager
                 return;
             }
             grabbedObject = interactObject;
+            MusicManager.Instance.GetSoundManager().PlayGrabObjectSound();
             InteractObject obj = grabbedObject.GetComponent<InteractObject>();
             raycast.RemoveFromRaycast(obj);
             if (obj.AttachedPlayersCount > 0 && obj.Settings.weightType!=ObjectSettings.ObjectWeight.heavy)
@@ -222,6 +218,7 @@ public class PlayerManager : ObjectManager
                 Destroy(grabbedObject.GetComponent<FixedJoint>());
             }
             renderer.DetachHand();
+            MusicManager.Instance.GetSoundManager().PlayReleaseObjectSound();
             grabbedObject.GetComponent<InteractObject>().Dropdown(this.gameObject);
             grabbedObject = null;
             isGrabbedObjectColliding = false;
@@ -336,6 +333,10 @@ public class PlayerManager : ObjectManager
                 else
                 {
                     InteractObject objectInHand = grabbedObject.GetComponent<InteractObject>();
+                    if(objectInHand.Settings.weightType==ObjectSettings.ObjectWeight.heavy)
+                    {
+                        return;
+                    }
                     //if object in hand is a tool
                     if (objectInHand.Settings.IsTool() && !concernedObject.Settings.IsTool())
                     {
@@ -345,8 +346,12 @@ public class PlayerManager : ObjectManager
                         concernedObject.SetUIActionIcon(toolInHandSettings.ActionIcon);
                     }
                     //if object in hand is not a tool and raycasted object is a stationnary tool
-                    else if(concernedObject.Settings.IsTool() && concernedObject.Settings.weightType==ObjectSettings.ObjectWeight.immobile)
+                    else if(concernedObject.Settings.IsTool() && concernedObject.Settings.IsStationnaryTool())
                     {
+                        if (concernedObject.Settings.NeedsToBePlugged()&& !concernedObject.GetComponent<ObjectState>().Plugged)
+                        {
+                            return;
+                        }
                         ToolSettings stationnaryToolsSettings = (ToolSettings)concernedObject.Settings;
                         objectInHand.SetHighlightColor(renderer.HighlightToolsColor);
                         objectInHand.Highlight(concernedObject.gameObject);

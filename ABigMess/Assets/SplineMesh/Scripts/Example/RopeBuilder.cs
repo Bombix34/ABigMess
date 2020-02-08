@@ -25,7 +25,9 @@ namespace SplineMesh {
         private GameObject firstSegment;
 
         [SerializeField]
-        public List<GameObject> wayPoints = new List<GameObject>();
+        public ListOptim<GameObject> wayPoints = new ListOptim<GameObject>(100);
+
+   
 
         public GameObject segmentPrefab;
         public int segmentCount;
@@ -47,52 +49,61 @@ namespace SplineMesh {
         }
 
 
-        private void OnEnable() {
+        private void OnEnable()
+        {
             spline = GetComponent<Spline>();
             toUpdate = true;
         }
 
-        private void OnValidate() {
+        private void OnValidate()
+        {
             toUpdate = true;
         }
 
-        private void Update() {
+        private void Update()
+        {
             if (toUpdate) {
                 toUpdate = false;
                 Generate();
                 UpdateSpline();
             }
-
-            // balancing
-            /*
-            if (Application.isPlaying) {
-                firstSegment.transform.localPosition = new Vector3(Mathf.Sin(Time.time) * 3, 0, 0);
-            }
-            */
+            UpdateNodes();
         }
 
         private void FixedUpdate()
         {
-            UpdateNodes();
+            
         }
 
-        private void UpdateNodes() {
+        private void UpdateNodes()
+        {
             int i = 0;
-            foreach (GameObject wayPoint in wayPoints) {
-                var node = spline.nodes[i++];
-                //if (Vector3.Distance(node.Position, transform.InverseTransformPoint(wayPoint.transform.position)) > 0.001f) 
-                if (Vector3.Distance(node.Position, transform.InverseTransformPoint(wayPoint.transform.position)) > 0.000001f)
+            Vector3 itp;
+            for (int index = 0; index < wayPoints.Count; ++index)
+            {
+                var node = spline.nodes[index];
+                itp = transform.InverseTransformPoint(wayPoints[index].transform.position);
+                var distance = (node.Position - itp).sqrMagnitude;
+                if (distance > float.Epsilon)
                 {
-                    node.Position = transform.InverseTransformPoint(wayPoint.transform.position);
-                    node.Up = wayPoint.transform.up;
+                    node.Position = itp;
+                    node.Up = wayPoints[index].transform.up;
                 }
             }
         }
 
-        private void UpdateSpline() {
-            foreach (var penisNode in wayPoints.ToList()) {
-                if (penisNode == null) wayPoints.Remove(penisNode);
+        private void UpdateSpline()
+        {
+            for(int i= wayPoints.Count - 1; i >= 0; i--)
+            {
+                if (wayPoints.Values[i] == null)
+                    wayPoints.RemoveAt(i);
             }
+
+            /*foreach (var penisNode in wayPoints.Values) {
+                if (penisNode == null)
+                    wayPoints.Remove(penisNode);
+            }*/
             int nodeCount = wayPoints.Count;
             // adjust the number of nodes in the spline.
             while (spline.nodes.Count < nodeCount) {
@@ -113,8 +124,10 @@ namespace SplineMesh {
                 seg.transform.Translate(0, 0, localSpacing);
 
                 var segRB = seg.GetComponent<Rigidbody>();
+                segRB.collisionDetectionMode = CollisionDetectionMode.Continuous;
                 // we fix the first segment so that the rope won't fall
-                if (i == 0 && isPositionFreeze) {
+                if (i == 0 && isPositionFreeze)
+                {
                     firstSegment = seg;
                     segRB.constraints = RigidbodyConstraints.FreezePosition;
                 }

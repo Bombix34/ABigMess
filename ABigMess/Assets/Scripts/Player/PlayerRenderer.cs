@@ -15,6 +15,8 @@ public class PlayerRenderer : MonoBehaviour
 
     [SerializeField]
     private Animator animator;
+    [SerializeField]
+    private Animator quackAnimator;
 
     [SerializeField]
     private RopeBuilder leftArm, rightArm;
@@ -61,6 +63,11 @@ public class PlayerRenderer : MonoBehaviour
 
         leftHandNeedGrab = true;
         rightHandNeedGrab = true;
+    }
+
+    public void QuackAnim()
+    {
+        quackAnimator.SetTrigger("Quack");
     }
 
     /// <summary>

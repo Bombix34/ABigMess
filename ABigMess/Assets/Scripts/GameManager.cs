@@ -49,7 +49,6 @@ public class GameManager : Singleton<GameManager>
                 levels.CurrentLevelIndex = i;
             }
         }
-        print(levels.CurrentLevelIndex);
         InvokeRepeating("DetectStressTime", 1f, 1f);
 
         Application.targetFrameRate = 50;
@@ -60,7 +59,7 @@ public class GameManager : Singleton<GameManager>
     {
         middlePlayers.transform.position = GetPositionBetweenPlayers();
         DebugDisplayInput();
-        if(isLaunch)
+        if (isLaunch)
         {
             currentPlayersTime += Time.deltaTime;
             uiManager.UpdateChronoUI(GetCurrentTime()[0],GetCurrentTime()[1]);
@@ -88,7 +87,6 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     public void LaunchLevel()
     {
-        MusicManager.TransitionLevel(false);
         isLaunch = true;
     }
 
@@ -96,6 +94,7 @@ public class GameManager : Singleton<GameManager>
     {
         yield return new WaitForSeconds(0.75f);
         uiManager.EndLevelTransition();
+        MusicManager.TransitionLevel(true);
         MusicManager.ShutRadio();
         yield return new WaitForSeconds(1f);
         levels.LoadNextLevel();
@@ -113,6 +112,17 @@ public class GameManager : Singleton<GameManager>
             if(player.Inputs.GetStartInput())
             {
                 GetComponent<DebugDisplay>().IsShowingDebug = !GetComponent<DebugDisplay>().IsShowingDebug;
+            }
+        }
+    }
+
+    public void DebugSwitchSceneInput()
+    {
+        foreach (PlayerManager player in players)
+        {
+            if (player.Inputs.GetStartInput())
+            {
+                WinCurrentLevel();
             }
         }
     }
