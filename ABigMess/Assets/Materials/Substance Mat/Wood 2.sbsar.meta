@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 78472febc52e979469c592160e1655e4
+guid: cae1b8fe29fd5b2449bebaa61b936487
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -10,21 +10,13 @@ ScriptedImporter:
   script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
   version: 23
   mGraphInstanceData:
-  - graphLabel: carpet
-    prototypeName: carpet
+  - graphLabel: Wood_02
+    prototypeName: Wood_02
     graphDescIndex: 0
     generateAllOutputs: 0
     generateMipMaps: 1
-    preset: " <sbspreset pkgurl=\"pkg://carpet\" label=\"\" >\n  <presetinput identifier=\"$outputsize\"
-      uid=\"1999473253\" type=\"8\" value=\"9,9\" />\n  <presetinput identifier=\"x_sampler_1\"
-      uid=\"473529287\" type=\"4\" value=\"32\" />\n  <presetinput identifier=\"y_sampler_1\"
-      uid=\"473529150\" type=\"4\" value=\"8\" />\n  <presetinput identifier=\"x_sampler_2\"
-      uid=\"473529070\" type=\"4\" value=\"32\" />\n  <presetinput identifier=\"y_sampler_2\"
-      uid=\"473529081\" type=\"4\" value=\"8\" />\n  <presetinput identifier=\"x_sampler_3\"
-      uid=\"473528949\" type=\"4\" value=\"32\" />\n  <presetinput identifier=\"y_sampler_3\"
-      uid=\"473528746\" type=\"4\" value=\"8\" />\n  <presetinput identifier=\"x_sampler_4\"
-      uid=\"473528794\" type=\"4\" value=\"32\" />\n  <presetinput identifier=\"y_sampler_4\"
-      uid=\"473528631\" type=\"4\" value=\"8\" />\n </sbspreset>\n"
+    preset: " <sbspreset pkgurl=\"pkg://Wood_02\" label=\"\" >\n  <presetinput identifier=\"$outputsize\"
+      uid=\"1831863171\" type=\"8\" value=\"9,9\" />\n </sbspreset>\n"
     shaderName: Standard
     materialProperties:
       shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
@@ -32,7 +24,7 @@ ScriptedImporter:
       lightmapFlags: 4
       texEnvs:
       - name: _BumpMap
-        texture: {fileID: 5684619558791010801, guid: 78472febc52e979469c592160e1655e4,
+        texture: {fileID: -2146320507859179079, guid: cae1b8fe29fd5b2449bebaa61b936487,
           type: 3}
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
@@ -53,7 +45,7 @@ ScriptedImporter:
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
       - name: _MainTex
-        texture: {fileID: -1094315349927819989, guid: 78472febc52e979469c592160e1655e4,
+        texture: {fileID: 862033711718105673, guid: cae1b8fe29fd5b2449bebaa61b936487,
           type: 3}
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
@@ -62,12 +54,12 @@ ScriptedImporter:
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
       - name: _OcclusionMap
-        texture: {fileID: -8513108740940789427, guid: 78472febc52e979469c592160e1655e4,
+        texture: {fileID: 8454896346883142941, guid: cae1b8fe29fd5b2449bebaa61b936487,
           type: 3}
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
       - name: _ParallaxMap
-        texture: {fileID: 6575546165833573515, guid: 78472febc52e979469c592160e1655e4,
+        texture: {fileID: -6987028077134174117, guid: cae1b8fe29fd5b2449bebaa61b936487,
           type: 3}
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
@@ -83,7 +75,7 @@ ScriptedImporter:
       - name: _GlossMapScale
         float: 1
       - name: _Glossiness
-        float: 0
+        float: 0.5
       - name: _GlossyReflections
         float: 1
       - name: _Metallic
@@ -93,7 +85,7 @@ ScriptedImporter:
       - name: _OcclusionStrength
         float: 1
       - name: _Parallax
-        float: 0.08
+        float: 0.02
       - name: _SmoothnessTextureChannel
         float: 0
       - name: _SpecularHighlights
@@ -110,26 +102,17 @@ ScriptedImporter:
       - name: _EmissionColor
         color: {r: 0, g: 0, b: 0, a: 1}
     outputDescList:
-    - outputName: height
-      identifier: Height
-      usageName: height
-      channelStr: height
-      label: Height
-      usage: 9
+    - outputName: baseColor
+      identifier: basecolor
+      usageName: baseColor
+      channelStr: baseColor
+      label: Base Color
+      usage: 1
       bImage: 1
       bNumerical: 0
-      bLinear: 1
-    - outputName: ambientOcclusion
-      identifier: AO
-      usageName: ambientOcclusion
-      channelStr: ambientOcclusion
-      label: AO
-      usage: 5
-      bImage: 1
-      bNumerical: 0
-      bLinear: 1
+      bLinear: 0
     - outputName: normal
-      identifier: Normal
+      identifier: normal
       usageName: normal
       channelStr: normal
       label: Normal
@@ -141,29 +124,33 @@ ScriptedImporter:
       identifier: roughness
       usageName: roughness
       channelStr: roughness
-      label: roughness
+      label: Roughness
       usage: 15
       bImage: 1
       bNumerical: 0
       bLinear: 1
-    - outputName: baseColor
-      identifier: basecolor
-      usageName: baseColor
-      channelStr: baseColor
-      label: basecolor
-      usage: 1
+    - outputName: height
+      identifier: height
+      usageName: height
+      channelStr: height
+      label: Height
+      usage: 9
       bImage: 1
       bNumerical: 0
-      bLinear: 0
+      bLinear: 1
+    - outputName: ambientOcclusion
+      identifier: ambientocclusion
+      usageName: ambientOcclusion
+      channelStr: ambientOcclusion
+      label: Ambient Occlusion
+      usage: 5
+      bImage: 1
+      bNumerical: 0
+      bLinear: 1
     texturePackingList:
-    - targetName: height
+    - targetName: baseColor
       components:
-      - sourceName: height
-        from: 0
-        to: 3
-    - targetName: ambientOcclusion
-      components:
-      - sourceName: ambientOcclusion
+      - sourceName: baseColor
         from: 0
         to: 3
     - targetName: normal
@@ -176,34 +163,42 @@ ScriptedImporter:
       - sourceName: roughness
         from: 0
         to: 3
-    - targetName: baseColor
+    - targetName: height
       components:
-      - sourceName: baseColor
+      - sourceName: height
+        from: 0
+        to: 3
+    - targetName: ambientOcclusion
+      components:
+      - sourceName: ambientOcclusion
         from: 0
         to: 3
     textureParameters:
-    - textureName: carpet - height
+    - textureName: Wood_02 - baseColor
       wrapMode: 0
       filterMode: 1
       aniso: 1
-    - textureName: carpet - ambientOcclusion
+    - textureName: Wood_02 - normal
       wrapMode: 0
       filterMode: 1
       aniso: 1
-    - textureName: carpet - normal
+    - textureName: Wood_02 - roughness
       wrapMode: 0
       filterMode: 1
       aniso: 1
-    - textureName: carpet - roughness
+    - textureName: Wood_02 - height
       wrapMode: 0
       filterMode: 1
       aniso: 1
-    - textureName: carpet - baseColor
+    - textureName: Wood_02 - ambientOcclusion
       wrapMode: 0
       filterMode: 1
       aniso: 1
     colorSpaceList: []
-    inputTextureMap: []
+    inputTextureMap:
+    - inputName: input
+      texturePath: Assets/Materials/Textures/Door_lambert1_BaseColor.png
+      texture2D: {fileID: 2800000, guid: 5fe12b056c6d48743b2c7aa76ab4d842, type: 3}
     targetSettingList:
     - label: Default
       bOverride: 0
@@ -213,10 +208,10 @@ ScriptedImporter:
       textureFormatMode: 0
       normalCompressed: 0
       bGenerateOnLoad: 1
-    material: {fileID: 7887957717227282328, guid: 78472febc52e979469c592160e1655e4,
+    material: {fileID: 6272020332430762805, guid: cae1b8fe29fd5b2449bebaa61b936487,
       type: 3}
     generatedTextures:
-    - {fileID: 6575546165833573515, guid: 78472febc52e979469c592160e1655e4, type: 3}
-    - {fileID: -8513108740940789427, guid: 78472febc52e979469c592160e1655e4, type: 3}
-    - {fileID: 5684619558791010801, guid: 78472febc52e979469c592160e1655e4, type: 3}
-    - {fileID: -1094315349927819989, guid: 78472febc52e979469c592160e1655e4, type: 3}
+    - {fileID: 862033711718105673, guid: cae1b8fe29fd5b2449bebaa61b936487, type: 3}
+    - {fileID: -2146320507859179079, guid: cae1b8fe29fd5b2449bebaa61b936487, type: 3}
+    - {fileID: -6987028077134174117, guid: cae1b8fe29fd5b2449bebaa61b936487, type: 3}
+    - {fileID: 8454896346883142941, guid: cae1b8fe29fd5b2449bebaa61b936487, type: 3}
