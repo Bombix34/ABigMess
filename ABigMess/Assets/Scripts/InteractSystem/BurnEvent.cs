@@ -7,9 +7,16 @@ using UnityEngine;
 public class BurnEvent : InteractEvent
 {
 
+    [SerializeField] Material material;
+
     public override void InteractionEvent(GameObject objConcerned)
     {
         SetupObjectState(objConcerned);
         TryInstantiateParticleFX(objConcerned);
+
+        if(material != null)
+        {
+            objConcerned.GetComponent<Burnt>().BurnMaterial(material);
+        }
     }
 }

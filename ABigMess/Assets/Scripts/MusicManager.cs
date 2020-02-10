@@ -43,6 +43,11 @@ public class MusicManager : Singleton<MusicManager>
         //APPEL DE LEVENT STRESS SOUND
     }
 
+    public void MainMenuMusic(bool isOn)
+    {
+        AkSoundEngine.PostEvent(isOn ? "Play_Music_menu" : "Stop_Music_menu", gameObject);
+    }
+
     public void SwitchStateMusicNoon()
     {
         int curLevelIndex = GameManager.instance.Levels.CurrentLevelIndex;
@@ -74,6 +79,10 @@ public class MusicManager : Singleton<MusicManager>
 
     public SoundManager GetSoundManager()
     {
+        if(soundManager==null)
+        {
+            soundManager = this.gameObject.AddComponent<SoundManager>();
+        }
         return soundManager;
     }
 

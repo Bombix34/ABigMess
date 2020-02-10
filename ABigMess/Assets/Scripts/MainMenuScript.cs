@@ -16,6 +16,7 @@ public class MainMenuScript : MonoBehaviour
     private void Start()
     {
         inputManagers = new List<PlayerInputManager>();
+        MusicManager.Instance.MainMenuMusic(true);
         levels.ResetPlayersTime();
         PlayerInputManager[] manager = this.GetComponents<PlayerInputManager>();
         for(int i = 0; i < manager.Length;++i)
@@ -30,6 +31,7 @@ public class MainMenuScript : MonoBehaviour
         {
             if(inputPlayer.GetPressAnyButtonDown())
             {
+                MusicManager.Instance.MainMenuMusic(false);
                 StartCoroutine(LoadFirstLevel());
             }
         }

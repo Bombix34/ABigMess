@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class SeeThroughWalls : MonoBehaviour
 {
@@ -21,35 +22,22 @@ public class SeeThroughWalls : MonoBehaviour
             if((hit.collider.gameObject==this.gameObject || hit.collider.gameObject.layer==this.gameObject.layer || !hit.collider.gameObject.CompareTag("Wall")))
             {
                 isActive = false;
-                StartCoroutine(SphereAnim(false));
+                this.transform.DOScale(0f, speedAnim/2);
             }
             else if(!isActive)
             {
                 isActive = true;
-                StartCoroutine(SphereAnim(true));
+                this.transform.DOScale(maskSize, speedAnim);
             }
+        }
+        else if(isActive)
+        {
+            isActive = false;
+            this.transform.DOScale(0f, speedAnim / 2);
         }
     }
 
-    private IEnumerator SphereAnim(bool isShowing)
-    {
-        if(isShowing)
-        {
-            while(this.transform.localScale.x<maskSize.x)
-            {
-                this.transform.localScale = new Vector3(this.transform.localScale.x + (Time.deltaTime*speedAnim), this.transform.localScale.x + (Time.deltaTime * speedAnim), this.transform.localScale.x + (Time.deltaTime * speedAnim));
-                yield return new WaitForSeconds(0.001f);
-            }
-        }
-        else
-        {
-            while (this.transform.localScale.x > 0f)
-            {
-                this.transform.localScale = new Vector3(this.transform.localScale.x - (Time.deltaTime * speedAnim*5f), this.transform.localScale.x - (Time.deltaTime * speedAnim * 5f), this.transform.localScale.x - Time.deltaTime * 5f);
-                yield return new WaitForSeconds(0.001f);
-            }
-        }
-    }
+}
 
     
-}
+

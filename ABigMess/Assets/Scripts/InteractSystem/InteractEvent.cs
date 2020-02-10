@@ -17,7 +17,7 @@ public abstract class InteractEvent : ScriptableObject
     [SerializeField] private BoolPair plugged;
 
     [SerializeField]
-    ParticleSystem particleFX;
+    GameObject particleFX;
 
     [SerializeField]
     float chronoBeforeKillingParticles = 0.25f;
@@ -36,7 +36,7 @@ public abstract class InteractEvent : ScriptableObject
     {
         if (particleFX != null)
         {
-            ParticleSystem particles = Instantiate(particleFX, objConcerned.transform.position, Quaternion.identity);
+            GameObject particles = Instantiate(particleFX, objConcerned.transform.position, Quaternion.identity);
             Destroy(particles.gameObject, chronoBeforeKillingParticles);
             return particles.gameObject;
         }

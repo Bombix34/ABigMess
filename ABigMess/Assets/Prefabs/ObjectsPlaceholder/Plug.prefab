@@ -340,6 +340,8 @@ GameObject:
   - component: {fileID: 1753151044481544377}
   - component: {fileID: 3650264074758571206}
   - component: {fileID: 5015262500635319253}
+  - component: {fileID: 1685429610410523637}
+  - component: {fileID: 5175189775030686741}
   m_Layer: 2
   m_Name: PlugTrigger
   m_TagString: Untagged
@@ -373,6 +375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 294271e163c4bad4caebe4dfbea098eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pluggedObject: {fileID: 0}
 --- !u!135 &5015262500635319253
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -386,3 +389,35 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 4
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1685429610410523637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6659793524121207647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67cd42b004709454faa4a979280a2e96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactButtonOverlayPrefab: {fileID: 1379215672641199259, guid: c68c3ed3cdef8584fb8e77aabc7143e0,
+    type: 3}
+  settings: {fileID: 11400000, guid: c5231730e2dbb3e449c72e05cfbbad78, type: 2}
+  outlineSettings: {fileID: 11400000, guid: 98d4310e4cf8fc440aad3684d6abc4b0, type: 2}
+--- !u!54 &5175189775030686741
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6659793524121207647}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0

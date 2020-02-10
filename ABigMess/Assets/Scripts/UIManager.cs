@@ -154,7 +154,6 @@ public class UIManager : Singleton<UIManager>
             backgroundTransitionPanel.color = new Color(backgroundTransitionPanel.color.r, backgroundTransitionPanel.color.g, backgroundTransitionPanel.color.b, 1);
             transitionText.color = new Color(1f, 1f, 1f, 1f);
             RectTransform transitionPanelRectTransform = transitionPanel.GetComponent<RectTransform>();
-            print(-transitionPanelRectTransform.rect.height);
             transitionPanelRectTransform.DOAnchorPosY(0, 0.6f).SetEase(Ease.Linear);
             bubbleImage.GetComponent<Image>().DOFade(0f, 1f).Complete();
             bubbleImage.GetComponent<Image>().DOFade(1f, 1f);

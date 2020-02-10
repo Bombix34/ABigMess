@@ -52,7 +52,7 @@ public class InteractObject : MonoBehaviour
         {
             Debug.LogError("Define a canvas for InteractObject: " + name);
         }
-        if(this.GetComponent<ObjectState>()==null)
+        if (this.GetComponent<ObjectState>() == null)
         {
             this.gameObject.AddComponent<ObjectState>();
         }
@@ -84,7 +84,7 @@ public class InteractObject : MonoBehaviour
             ToolSettings tool = (ToolSettings)toolObj.Settings;
             StartCoroutine(tool.ApplyEvent(this));
         }
-        else if (toolObj.Settings.IsTool() && toolObj.Settings.NeedsToBePlugged())
+        if (toolObj.Settings.IsTool() && toolObj.Settings.NeedsToBePlugged())
         {
             if (toolObj.GetComponent<ObjectState>() != null)
             {
@@ -95,26 +95,26 @@ public class InteractObject : MonoBehaviour
                 }
             }
         }
-        else
+
+        // print("I'm " + name + " I'm tool ?" + Settings.IsTool() + "Grabbed object :  " + toolObj.name + " Is tool & !NeedsToBePlugged ");
+        // if I'm a tool
+        if (Settings.IsTool() && !Settings.NeedsToBePlugged())
         {
-            // if I'm a tool
-            if (Settings.IsTool() && !Settings.NeedsToBePlugged())
+            ToolSettings tool = (ToolSettings)Settings;
+            StartCoroutine(tool.ApplyEvent(toolObj));
+        }
+        else if (Settings.IsTool() && Settings.NeedsToBePlugged())
+        {
+            if (this.GetComponent<ObjectState>() != null)
             {
-                ToolSettings tool = (ToolSettings)Settings;
-                StartCoroutine(tool.ApplyEvent(toolObj));
-            }
-            else if (Settings.IsTool() && Settings.NeedsToBePlugged())
-            {
-                if (this.GetComponent<ObjectState>() != null)
+                if (this.GetComponent<ObjectState>().Plugged)
                 {
-                    if (this.GetComponent<ObjectState>().Plugged)
-                    {
-                        ToolSettings tool = (ToolSettings)Settings;
-                        StartCoroutine(tool.ApplyEvent(toolObj));
-                    }
+                    ToolSettings tool = (ToolSettings)Settings;
+                    StartCoroutine(tool.ApplyEvent(toolObj));
                 }
             }
         }
+
     }
 
 
@@ -123,7 +123,7 @@ public class InteractObject : MonoBehaviour
         // Only if the object is not holded it can collide and apply his states to surrounding objects
         if (attachedPlayers.Count == 0)
         {
-            if(settings==null)
+            if (settings == null)
             {
                 return;
             }
@@ -173,6 +173,7 @@ public class InteractObject : MonoBehaviour
         {
             if (IsHeavy)
             {
+                MusicManager.Instance.GetSoundManager().PlayHeavyBringObject();
                 if (attachedPlayers.Count > 1)
                 {
                     UpdateHeavyObjectBringed();
@@ -249,9 +250,9 @@ public class InteractObject : MonoBehaviour
 
     private void UpdateFixedJoint()
     {
-        if(settings.isOneHandedCarrying && attachedPlayers.Count>0)
+        if (settings.isOneHandedCarrying && attachedPlayers.Count > 0)
         {
-            if(GetComponent<FixedJoint>()!=null && GetComponent<FixedJoint>().connectedBody==null)
+            if (GetComponent<FixedJoint>() != null && GetComponent<FixedJoint>().connectedBody == null)
             {
                 GetComponent<FixedJoint>().connectedBody = transform.parent.GetComponent<Rigidbody>();
             }
@@ -264,7 +265,7 @@ public class InteractObject : MonoBehaviour
     {
         outline.OutlineMode = SimpleOutline.Mode.OutlineVisible;
         outline.OutlineWidth = 0;
-        if(settings==null)
+        if (settings == null)
         {
             return;
         }

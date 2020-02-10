@@ -122,7 +122,6 @@ namespace SplineMesh {
             for (int i = 0; i < segmentCount; i++) {
                 var seg = UOUtility.Instantiate(segmentPrefab, Generated.transform);
                 seg.transform.Translate(0, 0, localSpacing);
-
                 var segRB = seg.GetComponent<Rigidbody>();
                 segRB.collisionDetectionMode = CollisionDetectionMode.Continuous;
                 // we fix the first segment so that the rope won't fall

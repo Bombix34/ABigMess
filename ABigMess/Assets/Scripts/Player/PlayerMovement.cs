@@ -90,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void ResetVelocity()
     {
-        rigidBody.MovePosition(transform.position);
+        DoMove(Vector3.zero);
     }
 
     #region ROTATION

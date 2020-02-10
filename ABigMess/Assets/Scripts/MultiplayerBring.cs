@@ -14,6 +14,8 @@ public class MultiplayerBring : MonoBehaviour
     Rigidbody body;
     float initWeight;
 
+    bool soundLoopOn = false;
+
     private void Awake()
     {
         body = GetComponent<Rigidbody>();
@@ -27,7 +29,6 @@ public class MultiplayerBring : MonoBehaviour
     void Start()
     {
         body.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-        MusicManager.Instance.GetSoundManager().PlayHeavyBringObject(true);
     }
 
     void Update()
@@ -53,7 +54,25 @@ public class MultiplayerBring : MonoBehaviour
             }
             playersInput += player.GetComponent<PlayerManager>().Inputs.GetMovementInput();
         }
+        UpdateSoundLoop();
         playersInput.Normalize();
+    }
+
+    public void UpdateSoundLoop()
+    {
+        if (playersInput.magnitude <= 0.01f)
+        {
+            MusicManager.Instance.GetSoundManager().PlayHveayBringLoop(false);
+            soundLoopOn = false;
+        }
+        else
+        {
+            if (!soundLoopOn)
+            {
+                soundLoopOn = true;
+                MusicManager.Instance.GetSoundManager().PlayHveayBringLoop(true);
+            }
+        }
     }
 
     private void UpdatePlayersProperty()
@@ -85,6 +104,8 @@ public class MultiplayerBring : MonoBehaviour
         constraintPos.AddSource(contraintTransform);
         constraintPos.translationOffset = posOffset;
         constraintPos.constraintActive = true;
+        player.GetComponent<PlayerMovement>().ResetVelocity();
+        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 
     /// <summary>
