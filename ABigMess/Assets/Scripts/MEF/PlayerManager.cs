@@ -71,7 +71,10 @@ public class PlayerManager : ObjectManager
     {
         if (inputs.GetQuackInputDown())
         {
-            MusicManager.Instance.GetSoundManager().QuackSound(inputs.playerId + 1);
+            if (MusicManager.Instance != null)
+            {
+                MusicManager.Instance.GetSoundManager().QuackSound(inputs.playerId + 1);
+            }
             renderer.QuackAnim();
         }
     }
@@ -129,7 +132,10 @@ public class PlayerManager : ObjectManager
                 return;
             }
             grabbedObject = interactObject;
-            MusicManager.Instance.GetSoundManager().PlayGrabObjectSound();
+            if (MusicManager.Instance != null)
+            {
+                MusicManager.Instance.GetSoundManager().PlayGrabObjectSound();
+            }
             InteractObject obj = grabbedObject.GetComponent<InteractObject>();
             raycast.RemoveFromRaycast(obj);
             if (obj.AttachedPlayersCount > 0 && obj.Settings.weightType!=ObjectSettings.ObjectWeight.heavy)
@@ -218,7 +224,10 @@ public class PlayerManager : ObjectManager
                 Destroy(grabbedObject.GetComponent<FixedJoint>());
             }
             renderer.DetachHand();
-            MusicManager.Instance.GetSoundManager().PlayReleaseObjectSound();
+            if (MusicManager.Instance != null)
+            {
+                MusicManager.Instance.GetSoundManager().PlayReleaseObjectSound();
+            }
             grabbedObject.GetComponent<InteractObject>().Dropdown(this.gameObject);
             grabbedObject = null;
             isGrabbedObjectColliding = false;
