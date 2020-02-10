@@ -216,7 +216,7 @@ public class PlayerManager : ObjectManager
     /// </summary>
     public void DropBringObject()
     {
-        if ((inputs.GetGrabInputDown() && grabbedObject != null) || (!movement.IsGrounded() && isGrabbedObjectColliding))
+        if (inputs.GetGrabInputDown() && grabbedObject != null)
         {
             grabbedObject.transform.parent = null;
             if(grabbedObject.GetComponent<FixedJoint>()!=null)
@@ -242,7 +242,7 @@ public class PlayerManager : ObjectManager
     /// <param name="isForcing"></param>
     public void DropBringObject(bool isForcing)
     {
-        if ((isForcing)||(inputs.GetGrabInputDown() && grabbedObject != null) || (!movement.IsGrounded() && isGrabbedObjectColliding))
+        if ((isForcing)||(inputs.GetGrabInputDown() && grabbedObject != null))
         {
             grabbedObject.transform.parent = null;
             if (grabbedObject.GetComponent<FixedJoint>() != null)
