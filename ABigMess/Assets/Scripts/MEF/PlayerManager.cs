@@ -71,7 +71,7 @@ public class PlayerManager : ObjectManager
     {
         if (inputs.GetQuackInputDown())
         {
-            if (MusicManager.Instance != null)
+            if (MusicManager.Instance.GetSoundManager() != null)
             {
                 MusicManager.Instance.GetSoundManager().QuackSound(inputs.playerId + 1);
             }
@@ -132,7 +132,7 @@ public class PlayerManager : ObjectManager
                 return;
             }
             grabbedObject = interactObject;
-            if (MusicManager.Instance != null)
+            if (MusicManager.Instance.GetSoundManager() != null)
             {
                 MusicManager.Instance.GetSoundManager().PlayGrabObjectSound();
             }
@@ -224,7 +224,7 @@ public class PlayerManager : ObjectManager
                 Destroy(grabbedObject.GetComponent<FixedJoint>());
             }
             renderer.DetachHand();
-            if (MusicManager.Instance != null)
+            if (MusicManager.Instance.GetSoundManager() != null)
             {
                 MusicManager.Instance.GetSoundManager().PlayReleaseObjectSound();
             }
