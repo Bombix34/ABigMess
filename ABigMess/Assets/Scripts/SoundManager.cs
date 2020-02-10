@@ -9,12 +9,14 @@ public class SoundManager : MonoBehaviour
         AkSoundEngine.PostEvent("Play_Voice_player0" + player.ToString(), gameObject);
     }
 
-    public void PlayHeavyBringObject(bool isOn)
+    public void PlayHeavyBringObject()
     {
-        if(isOn)
-        {
-            AkSoundEngine.PostEvent("Play_Alien_heavy_object", gameObject);
-        }
+        AkSoundEngine.PostEvent("Play_Alien_heavy_object", gameObject);
+    }
+
+    public void PlayHveayBringLoop(bool isOn)
+    {
+        AkSoundEngine.PostEvent(isOn ? "Play_voices_carry_loop":"Stop_voice_carry_loop",gameObject);
     }
 
     public void PlayGrabObjectSound()
@@ -25,5 +27,10 @@ public class SoundManager : MonoBehaviour
     public void PlayReleaseObjectSound()
     {
         AkSoundEngine.PostEvent("Play_release_SFX", gameObject);
+    }
+
+    public void UseSpongeSound()
+    {
+        AkSoundEngine.PostEvent("Play_wash_SFX", gameObject);
     }
 }

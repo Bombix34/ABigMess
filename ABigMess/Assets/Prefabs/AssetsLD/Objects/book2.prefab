@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8789290355997537734}
   - component: {fileID: 2713916052839139628}
   - component: {fileID: 722790320991188217}
+  - component: {fileID: 3522448971593543229}
   m_Layer: 0
   m_Name: book2
   m_TagString: GrabObject
@@ -125,3 +126,25 @@ MonoBehaviour:
     type: 3}
   settings: {fileID: 11400000, guid: 7b14ee12d196fa446ba2c5b203288f38, type: 2}
   outlineSettings: {fileID: 11400000, guid: 98d4310e4cf8fc440aad3684d6abc4b0, type: 2}
+--- !u!114 &3522448971593543229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4378826763760249552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2059e7b8be60b554c9324bdf690007e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  states:
+    washed: 0
+    burnt: 0
+    smuged: 0
+    cooked: 0
+    grown: 0
+    colored: 0
+    broken: 0
+    opened: 0
+    plugged: 0
