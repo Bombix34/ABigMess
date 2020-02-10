@@ -51,7 +51,7 @@ public class GameManager : Singleton<GameManager>
         }
         InvokeRepeating("DetectStressTime", 1f, 1f);
 
-        Application.targetFrameRate = 50;
+        Application.targetFrameRate = 45;
         QualitySettings.vSyncCount = 0;
     }
 

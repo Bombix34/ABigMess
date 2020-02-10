@@ -74,6 +74,10 @@ public class MusicManager : Singleton<MusicManager>
 
     public SoundManager GetSoundManager()
     {
+        if(soundManager==null)
+        {
+            soundManager = this.gameObject.AddComponent<SoundManager>();
+        }
         return soundManager;
     }
 
