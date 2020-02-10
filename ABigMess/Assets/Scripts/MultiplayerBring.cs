@@ -104,6 +104,8 @@ public class MultiplayerBring : MonoBehaviour
         constraintPos.AddSource(contraintTransform);
         constraintPos.translationOffset = posOffset;
         constraintPos.constraintActive = true;
+        player.GetComponent<PlayerMovement>().ResetVelocity();
+        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 
     /// <summary>
