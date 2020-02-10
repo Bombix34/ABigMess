@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6716410314396114286d15e91272a635
+guid: 1a8848215604fe9459e99c49f9acc99d
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -10,21 +10,21 @@ ScriptedImporter:
   script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
   version: 23
   mGraphInstanceData:
-  - graphLabel: Brickwall
-    prototypeName: Brickwall
+  - graphLabel: Burned
+    prototypeName: Burned
     graphDescIndex: 0
     generateAllOutputs: 0
     generateMipMaps: 1
-    preset: " <sbspreset pkgurl=\"pkg://Brickwall\" label=\"\" >\n  <presetinput identifier=\"$outputsize\"
-      uid=\"1545423481\" type=\"8\" value=\"9,9\" />\n </sbspreset>\n"
+    preset: " <sbspreset pkgurl=\"pkg://Burned\" label=\"\" >\n  <presetinput identifier=\"$outputsize\"
+      uid=\"632484778\" type=\"8\" value=\"9,9\" />\n </sbspreset>\n"
     shaderName: Standard
     materialProperties:
       shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-      shaderKeywords: _MAINTEX _NORMALMAP _OCCLUSIONMAP _PARALLAXMAP
+      shaderKeywords: _MAINTEX _METALLICGLOSSMAP _NORMALMAP _OCCLUSIONMAP _PARALLAXMAP
       lightmapFlags: 4
       texEnvs:
       - name: _BumpMap
-        texture: {fileID: -469673826744262557, guid: 6716410314396114286d15e91272a635,
+        texture: {fileID: -2605929311893610318, guid: 1a8848215604fe9459e99c49f9acc99d,
           type: 3}
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
@@ -41,25 +41,27 @@ ScriptedImporter:
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
       - name: _EmissionMap
-        texture: {instanceID: 0}
+        texture: {fileID: 2019560264256172369, guid: 1a8848215604fe9459e99c49f9acc99d,
+          type: 3}
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
       - name: _MainTex
-        texture: {fileID: -5849106273620452888, guid: 6716410314396114286d15e91272a635,
+        texture: {fileID: -9201130628611467341, guid: 1a8848215604fe9459e99c49f9acc99d,
           type: 3}
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
       - name: _MetallicGlossMap
-        texture: {instanceID: 0}
+        texture: {fileID: -6162526549605007580, guid: 1a8848215604fe9459e99c49f9acc99d,
+          type: 3}
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
       - name: _OcclusionMap
-        texture: {fileID: 2515496286346915986, guid: 6716410314396114286d15e91272a635,
+        texture: {fileID: -3218584452629640956, guid: 1a8848215604fe9459e99c49f9acc99d,
           type: 3}
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
       - name: _ParallaxMap
-        texture: {fileID: 5619055679991848608, guid: 6716410314396114286d15e91272a635,
+        texture: {fileID: 7459392964468493705, guid: 1a8848215604fe9459e99c49f9acc99d,
           type: 3}
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
@@ -85,7 +87,7 @@ ScriptedImporter:
       - name: _OcclusionStrength
         float: 1
       - name: _Parallax
-        float: 0.0376
+        float: 0.02
       - name: _SmoothnessTextureChannel
         float: 0
       - name: _SpecularHighlights
@@ -129,6 +131,15 @@ ScriptedImporter:
       bImage: 1
       bNumerical: 0
       bLinear: 1
+    - outputName: metallic
+      identifier: metallic
+      usageName: metallic
+      channelStr: metallic
+      label: Metallic
+      usage: 28
+      bImage: 1
+      bNumerical: 0
+      bLinear: 1
     - outputName: height
       identifier: height
       usageName: height
@@ -147,6 +158,15 @@ ScriptedImporter:
       bImage: 1
       bNumerical: 0
       bLinear: 1
+    - outputName: emissive
+      identifier: output
+      usageName: emissive
+      channelStr: emissive
+      label: output
+      usage: 3
+      bImage: 1
+      bNumerical: 0
+      bLinear: 0
     texturePackingList:
     - targetName: baseColor
       components:
@@ -163,6 +183,11 @@ ScriptedImporter:
       - sourceName: roughness
         from: 0
         to: 3
+    - targetName: metallic
+      components:
+      - sourceName: smoothness
+        from: 0
+        to: 3
     - targetName: height
       components:
       - sourceName: height
@@ -173,24 +198,37 @@ ScriptedImporter:
       - sourceName: ambientOcclusion
         from: 0
         to: 3
+    - targetName: emissive
+      components:
+      - sourceName: emissive
+        from: 0
+        to: 3
     textureParameters:
-    - textureName: Brickwall - baseColor
+    - textureName: Burned - baseColor
       wrapMode: 0
       filterMode: 1
       aniso: 1
-    - textureName: Brickwall - normal
+    - textureName: Burned - normal
       wrapMode: 0
       filterMode: 1
       aniso: 1
-    - textureName: Brickwall - roughness
+    - textureName: Burned - roughness
       wrapMode: 0
       filterMode: 1
       aniso: 1
-    - textureName: Brickwall - height
+    - textureName: Burned - metallic
       wrapMode: 0
       filterMode: 1
       aniso: 1
-    - textureName: Brickwall - ambientOcclusion
+    - textureName: Burned - height
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Burned - ambientOcclusion
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Burned - emissive
       wrapMode: 0
       filterMode: 1
       aniso: 1
@@ -205,10 +243,12 @@ ScriptedImporter:
       textureFormatMode: 0
       normalCompressed: 0
       bGenerateOnLoad: 1
-    material: {fileID: 2385084581805738782, guid: 6716410314396114286d15e91272a635,
+    material: {fileID: 1099022466987424321, guid: 1a8848215604fe9459e99c49f9acc99d,
       type: 3}
     generatedTextures:
-    - {fileID: -5849106273620452888, guid: 6716410314396114286d15e91272a635, type: 3}
-    - {fileID: -469673826744262557, guid: 6716410314396114286d15e91272a635, type: 3}
-    - {fileID: 5619055679991848608, guid: 6716410314396114286d15e91272a635, type: 3}
-    - {fileID: 2515496286346915986, guid: 6716410314396114286d15e91272a635, type: 3}
+    - {fileID: -9201130628611467341, guid: 1a8848215604fe9459e99c49f9acc99d, type: 3}
+    - {fileID: -2605929311893610318, guid: 1a8848215604fe9459e99c49f9acc99d, type: 3}
+    - {fileID: -6162526549605007580, guid: 1a8848215604fe9459e99c49f9acc99d, type: 3}
+    - {fileID: 7459392964468493705, guid: 1a8848215604fe9459e99c49f9acc99d, type: 3}
+    - {fileID: -3218584452629640956, guid: 1a8848215604fe9459e99c49f9acc99d, type: 3}
+    - {fileID: 2019560264256172369, guid: 1a8848215604fe9459e99c49f9acc99d, type: 3}
