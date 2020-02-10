@@ -30,6 +30,11 @@ public class SeeThroughWalls : MonoBehaviour
                 this.transform.DOScale(maskSize, speedAnim);
             }
         }
+        else if(isActive)
+        {
+            isActive = false;
+            this.transform.DOScale(0f, speedAnim / 2);
+        }
     }
 
 }

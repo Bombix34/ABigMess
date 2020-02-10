@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 6321332371664452824}
   - component: {fileID: 8538957120205240698}
   - component: {fileID: 1171382165380168946}
+  - component: {fileID: 4807440765427798289}
   m_Layer: 0
   m_Name: woodenChair
   m_TagString: Untagged
@@ -195,3 +196,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.163804, y: 0.2383101, z: 0.13703614}
   m_Center: {x: -0.2695503, y: 0.11820352, z: 0.27}
+--- !u!114 &4807440765427798289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6694747900294939127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2059e7b8be60b554c9324bdf690007e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  states:
+    washed: 0
+    burnt: 0
+    smuged: 0
+    cooked: 0
+    grown: 0
+    colored: 0
+    broken: 0
+    opened: 0
+    plugged: 0

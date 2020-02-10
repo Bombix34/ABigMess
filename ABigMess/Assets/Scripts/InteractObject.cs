@@ -173,6 +173,7 @@ public class InteractObject : MonoBehaviour
         {
             if (IsHeavy)
             {
+                MusicManager.Instance.GetSoundManager().PlayHeavyBringObject();
                 if (attachedPlayers.Count > 1)
                 {
                     UpdateHeavyObjectBringed();

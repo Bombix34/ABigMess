@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 3313870112928982176}
   - component: {fileID: 4522364740549109696}
   - component: {fileID: 5667397838150160818}
+  - component: {fileID: -4142050415861731939}
   m_Layer: 0
   m_Name: formicaChair
   m_TagString: Untagged
@@ -253,3 +254,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5678286, y: 0.42672414, z: 0.122718774}
   m_Center: {x: 0, y: 0.73263264, z: -0.20741808}
+--- !u!114 &-4142050415861731939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5925613637006903364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2059e7b8be60b554c9324bdf690007e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  states:
+    washed: 0
+    burnt: 0
+    smuged: 0
+    cooked: 0
+    grown: 0
+    colored: 0
+    broken: 0
+    opened: 0
+    plugged: 0

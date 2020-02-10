@@ -191,7 +191,7 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 0f2a0ca1a300644f9d0e66377c7a9207
     GuidInternal: 
-    m_lastTime: -8586205178211258517
+    m_lastTime: -8586202651891535195
     List:
     - name: Bigmess_music
       guid: 3de1b763af55174ba5cc31eb22d1527d
@@ -285,8 +285,32 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 989c4f7b6a08564c950aaf2152d17c74
     GuidInternal: 
-    m_lastTime: -8586205178214764204
+    m_lastTime: -8586202651893928846
     List:
+    - name: Play_Music_credits
+      guid: 30a0ebfb794fc04a8e5048be859d4cff
+      id: 4121310008
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Play_Music_credits
+        ObjectType: 3
+      Path: Music\Play_Music_credits
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Music_menu
+      guid: 2e195aed4b9c784894d527bb2c52ac76
+      id: 1699343283
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Play_Music_menu
+        ObjectType: 3
+      Path: Music\Play_Music_menu
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Play_Music_morning
       guid: 35ddba7fefb6a64abaa98bdeb8e54d04
       id: 3093640346
@@ -553,6 +577,30 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
+    - name: Stop_Music_credits
+      guid: a947386826d76f4880d4030c59272621
+      id: 2212559722
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Stop_Music_credits
+        ObjectType: 3
+      Path: Music\Stop_Music_credits
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Stop_Music_menu
+      guid: 0f88600d42f74c4187d987dd7291e391
+      id: 106912753
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Stop_Music_menu
+        ObjectType: 3
+      Path: Music\Stop_Music_menu
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Stop_music_morning
       guid: afd6d9f460884d44945dda9717a3229f
       id: 362766060
@@ -637,7 +685,7 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: f432dde08975134db82eaaa1eddfe4e7
     GuidInternal: 
-    m_lastTime: -8586205178214754232
+    m_lastTime: -8586202629095912501
     List:
     - name: Play_Alien_heavy_object
       guid: 02334160e7dd194d8c349ca953acf0e9
@@ -645,21 +693,23 @@ MonoBehaviour:
       PathAndIcons:
       - ElementName: SFX
         ObjectType: 12
+      - ElementName: Alien_voices
+        ObjectType: 4
       - ElementName: Play_Alien_heavy_object
         ObjectType: 3
-      Path: SFX\Play_Alien_heavy_object
+      Path: SFX\Alien_voices\Play_Alien_heavy_object
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
-    - name: Play_burn_SFX_01
+    - name: Play_burn_SFX
       guid: 609b84e35f2f44438deaa0ba4c98d78f
-      id: 4265872625
+      id: 1188830101
       PathAndIcons:
       - ElementName: SFX
         ObjectType: 12
-      - ElementName: Play_burn_SFX_01
+      - ElementName: Play_burn_SFX
         ObjectType: 3
-      Path: SFX\Play_burn_SFX_01
+      Path: SFX\Play_burn_SFX
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -672,6 +722,30 @@ MonoBehaviour:
       - ElementName: Play_grab_SFX
         ObjectType: 3
       Path: SFX\Play_grab_SFX
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_oven_close_SFX
+      guid: 65790d547851eb4eab0bd6bf71a637f2
+      id: 4125399505
+      PathAndIcons:
+      - ElementName: SFX
+        ObjectType: 12
+      - ElementName: Play_oven_close_SFX
+        ObjectType: 3
+      Path: SFX\Play_oven_close_SFX
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_oven_open_SFX
+      guid: 8f07b1f965fdec48ba40303eaf87f9b1
+      id: 143297623
+      PathAndIcons:
+      - ElementName: SFX
+        ObjectType: 12
+      - ElementName: Play_oven_open_SFX
+        ObjectType: 3
+      Path: SFX\Play_oven_open_SFX
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -693,9 +767,11 @@ MonoBehaviour:
       PathAndIcons:
       - ElementName: SFX
         ObjectType: 12
+      - ElementName: Alien_voices
+        ObjectType: 4
       - ElementName: Play_Voice_player01
         ObjectType: 3
-      Path: SFX\Play_Voice_player01
+      Path: SFX\Alien_voices\Play_Voice_player01
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -705,21 +781,51 @@ MonoBehaviour:
       PathAndIcons:
       - ElementName: SFX
         ObjectType: 12
+      - ElementName: Alien_voices
+        ObjectType: 4
       - ElementName: Play_Voice_player02
         ObjectType: 3
-      Path: SFX\Play_Voice_player02
+      Path: SFX\Alien_voices\Play_Voice_player02
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
-    - name: Play_wash_SFX_01
-      guid: cf16f44ebcb21941a79e65b32f64b7c6
-      id: 3128134959
+    - name: Play_voices_carry_loop
+      guid: d174c8b7f3037e4c8ee47669998b6439
+      id: 439267736
       PathAndIcons:
       - ElementName: SFX
         ObjectType: 12
-      - ElementName: Play_wash_SFX_01
+      - ElementName: Alien_voices
+        ObjectType: 4
+      - ElementName: Play_voices_carry_loop
         ObjectType: 3
-      Path: SFX\Play_wash_SFX_01
+      Path: SFX\Alien_voices\Play_voices_carry_loop
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_wash_SFX
+      guid: cf16f44ebcb21941a79e65b32f64b7c6
+      id: 4080261691
+      PathAndIcons:
+      - ElementName: SFX
+        ObjectType: 12
+      - ElementName: Play_wash_SFX
+        ObjectType: 3
+      Path: SFX\Play_wash_SFX
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Stop_voice_carry_loop
+      guid: cabe1dee0b2b194781afbe4e9c31363b
+      id: 3486948951
+      PathAndIcons:
+      - ElementName: SFX
+        ObjectType: 12
+      - ElementName: Alien_voices
+        ObjectType: 4
+      - ElementName: Stop_voice_carry_loop
+        ObjectType: 3
+      Path: SFX\Alien_voices\Stop_voice_carry_loop
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -1033,6 +1139,7 @@ MonoBehaviour:
   ExpandedItems:
   - /M2_A_Big_Mess
   - /M2_A_Big_Mess/Events
+  - /M2_A_Big_Mess/Events/Music
   - /M2_A_Big_Mess/Events/SFX
   - /M2_A_Big_Mess/SoundBanks
   - /M2_A_Big_Mess/SoundBanks/Default Work Unit
