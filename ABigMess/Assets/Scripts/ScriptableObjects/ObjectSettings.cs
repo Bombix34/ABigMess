@@ -85,6 +85,7 @@ public class ObjectSettings : ScriptableObject
         sponge,
         fork,
         muralClock,
-        book
+        book,
+        buffet
     }
 }
