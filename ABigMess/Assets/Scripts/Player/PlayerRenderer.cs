@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using SplineMesh;
+using DG.Tweening;
 
 
 public class PlayerRenderer : MonoBehaviour
@@ -16,7 +17,7 @@ public class PlayerRenderer : MonoBehaviour
     [SerializeField]
     private Animator animator;
     [SerializeField]
-    private Animator quackAnimator;
+    private GameObject quackObject;
 
     [SerializeField]
     private RopeBuilder leftArm, rightArm;
@@ -67,7 +68,12 @@ public class PlayerRenderer : MonoBehaviour
 
     public void QuackAnim()
     {
-        quackAnimator.SetTrigger("Quack");
+        
+        Sequence quackSequence = DOTween.Sequence();
+        quackSequence.Append(quackObject.transform.DOScale(Vector3.one * 0.75f, 0.15f));
+        quackSequence.Append(quackObject.transform.DOScale(Vector3.zero, 0.15f));
+        
+        quackObject.GetComponent<Animator>().SetTrigger("Quack");
     }
 
     /// <summary>
