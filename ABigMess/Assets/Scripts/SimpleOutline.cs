@@ -114,7 +114,6 @@ public class SimpleOutline : MonoBehaviour
     {
         foreach (var renderer in renderers)
         {
-
             // Append outline shaders
             var materials = renderer.sharedMaterials.ToList();
 
@@ -150,7 +149,6 @@ public class SimpleOutline : MonoBehaviour
         if (needsUpdate)
         {
             needsUpdate = false;
-
             UpdateMaterialProperties();
         }
     }
