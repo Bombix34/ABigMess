@@ -9,7 +9,6 @@ public class WashEvent : InteractEvent
 
     public override void InteractionEvent(GameObject objConcerned)
     {
-        Debug.Log("Washing");
         if(MusicManager.Instance!=null)
         {
             MusicManager.Instance.GetSoundManager().UseSpongeSound();
