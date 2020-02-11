@@ -7,6 +7,7 @@ using UnityEngine;
 public abstract class InteractEvent : ScriptableObject
 {
     [SerializeField] private BoolPair washed;
+    [SerializeField] private BoolPair dirty;
     [SerializeField] private BoolPair burnt;
     [SerializeField] private BoolPair smuged;
     [SerializeField] private BoolPair cooked;
@@ -61,6 +62,10 @@ public abstract class InteractEvent : ScriptableObject
         {
             objConcerned.GetComponent<ObjectState>().Washed = Washed;
         }
+        if (dirty.Key)
+        {
+            objConcerned.GetComponent<ObjectState>().Dirty = Dirty;
+        }
         if (burnt.Key)
         {
             objConcerned.GetComponent<ObjectState>().Burnt = Burnt;
@@ -107,6 +112,19 @@ public abstract class InteractEvent : ScriptableObject
         set
         {
             washed.Value = value;
+        }
+    }
+
+    public bool Dirty
+    {
+        get
+        {
+            return dirty.Value;
+        }
+
+        set
+        {
+            dirty.Value = value;
         }
     }
 
