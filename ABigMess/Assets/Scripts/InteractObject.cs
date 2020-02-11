@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using System;
+using System.Linq;
 
 public class InteractObject : MonoBehaviour
 {
@@ -56,13 +57,16 @@ public class InteractObject : MonoBehaviour
         {
             this.gameObject.AddComponent<ObjectState>();
         }
+
     }
+
     private void Start()
     {
         InitHighlight();
         SetupWeight();
         SceneObjectDatas.Instance.AddObject(this);
     }
+
 
     private void Update()
     {

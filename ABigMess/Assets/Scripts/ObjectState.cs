@@ -60,6 +60,16 @@ public class ObjectState : MonoBehaviour
             gameObject.AddComponent<Cooked>();
         }
 
+        if (!states.dirty && GetComponent<Dirty>() != null)
+        {
+            Destroy(GetComponent<Dirty>());
+        }
+
+        if (states.dirty && GetComponent<Dirty>() == null)
+        {
+            gameObject.AddComponent<Dirty>();
+        }
+
         if (!states.cooked && GetComponent<Cooked>() != null)
         {
             Destroy(GetComponent<Cooked>());
@@ -103,6 +113,20 @@ public class ObjectState : MonoBehaviour
         set
         {
             states.washed = value;
+            UpdateState();
+        }
+    }
+
+    public bool Dirty
+    {
+        get
+        {
+            return states.dirty;
+        }
+
+        set
+        {
+            states.dirty = value;
             UpdateState();
         }
     }
@@ -232,6 +256,7 @@ public class ObjectState : MonoBehaviour
         broken,
         opened,
         plugged,
+        dirty,
         none
     }
 }

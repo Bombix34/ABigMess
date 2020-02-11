@@ -11,6 +11,7 @@ public class ObjectStates
     public ObjectStates()
     {
         washed = false;
+        dirty = false;
         burnt = false;
         smuged = false;
         cooked = false;
@@ -22,6 +23,7 @@ public class ObjectStates
     }
 
     public bool washed;
+    public bool dirty;
     public bool burnt;
     public bool smuged;
     public bool cooked;
