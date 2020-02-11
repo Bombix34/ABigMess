@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[ExecuteInEditMode]
 public class ObjectState : MonoBehaviour
 {
 
@@ -21,7 +23,7 @@ public class ObjectState : MonoBehaviour
 
     private void Update()
     {
-
+        UpdateState();
     }
 
     private void InitStates()
@@ -42,7 +44,7 @@ public class ObjectState : MonoBehaviour
 
         if (!states.washed && GetComponent<Washed>() != null)
         {
-            Destroy(GetComponent<Washed>());
+            DestroyImmediate(GetComponent<Washed>());
         }
 
         if (states.burnt && GetComponent<Burnt>() == null)
@@ -52,7 +54,7 @@ public class ObjectState : MonoBehaviour
 
         if (!states.burnt && GetComponent<Burnt>() != null)
         {
-            Destroy(GetComponent<Burnt>());
+            DestroyImmediate(GetComponent<Burnt>());
         }
 
         if (states.cooked && GetComponent<Cooked>() == null)
@@ -62,7 +64,7 @@ public class ObjectState : MonoBehaviour
 
         if (!states.dirty && GetComponent<Dirty>() != null)
         {
-            Destroy(GetComponent<Dirty>());
+            DestroyImmediate(GetComponent<Dirty>());
         }
 
         if (states.dirty && GetComponent<Dirty>() == null)
@@ -72,7 +74,7 @@ public class ObjectState : MonoBehaviour
 
         if (!states.cooked && GetComponent<Cooked>() != null)
         {
-            Destroy(GetComponent<Cooked>());
+            DestroyImmediate(GetComponent<Cooked>());
         }
 
         if (states.grown && GetComponent<Grown>() == null)
@@ -82,7 +84,7 @@ public class ObjectState : MonoBehaviour
 
         if (!states.grown && GetComponent<Grown>() != null)
         {
-            Destroy(GetComponent<Grown>());
+            DestroyImmediate(GetComponent<Grown>());
         }
 
         if (states.plugged && GetComponent<Plugged>() == null)
@@ -92,13 +94,8 @@ public class ObjectState : MonoBehaviour
 
         if (!states.plugged && GetComponent<Plugged>() != null)
         {
-            Destroy(GetComponent<Plugged>());
+            DestroyImmediate(GetComponent<Plugged>());
         }
-    }
-
-    private void OnValidate()
-    {
-        UpdateState();
     }
 
     #region GET/SET
