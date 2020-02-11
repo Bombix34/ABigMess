@@ -101,6 +101,10 @@ public class InteractObject : MonoBehaviour
         if (Settings.IsTool() && !Settings.NeedsToBePlugged())
         {
             ToolSettings tool = (ToolSettings)Settings;
+            if(this.GetComponent<Animator>()!=null)
+            {
+                GetComponent<Animator>().SetTrigger("IsOn");
+            }
             StartCoroutine(tool.ApplyEvent(toolObj));
         }
         else if (Settings.IsTool() && Settings.NeedsToBePlugged())
@@ -110,6 +114,10 @@ public class InteractObject : MonoBehaviour
                 if (this.GetComponent<ObjectState>().Plugged)
                 {
                     ToolSettings tool = (ToolSettings)Settings;
+                    if (this.GetComponent<Animator>() != null)
+                    {
+                        GetComponent<Animator>().SetTrigger("IsOn");
+                    }
                     StartCoroutine(tool.ApplyEvent(toolObj));
                 }
             }
