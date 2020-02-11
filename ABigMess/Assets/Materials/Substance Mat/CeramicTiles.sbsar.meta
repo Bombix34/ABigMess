@@ -201,8 +201,13 @@ ScriptedImporter:
     generateMipMaps: 1
     preset: " <sbspreset pkgurl=\"pkg://Walls\" label=\"\" >\n  <presetinput identifier=\"$outputsize\"
       uid=\"760565187\" type=\"8\" value=\"9,9\" />\n  <presetinput identifier=\"x_tiles\"
-      uid=\"1178665773\" type=\"4\" value=\"30\" />\n  <presetinput identifier=\"y_tiles\"
-      uid=\"1178665823\" type=\"4\" value=\"30\" />\n </sbspreset>\n"
+      uid=\"1178665773\" type=\"4\" value=\"15\" />\n  <presetinput identifier=\"y_tiles\"
+      uid=\"1178665823\" type=\"4\" value=\"15\" />\n  <presetinput identifier=\"baseColor_joints\"
+      uid=\"1178668061\" type=\"3\" value=\"0.839623,0.839623,0.839623,1\" />\n  <presetinput
+      identifier=\"baseColor_spots\" uid=\"1178668085\" type=\"3\" value=\"0.420612,0.437681,0.641509,1\"
+      />\n  <presetinput identifier=\"baseColor\" uid=\"1178668146\" type=\"3\" value=\"0.735849,0.721638,0.628248,1\"
+      />\n  <presetinput identifier=\"baseColor2\" uid=\"1178668162\" type=\"3\" value=\"0.735849,0.571155,0.475525,1\"
+      />\n </sbspreset>\n"
     shaderName: Standard
     materialProperties:
       shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
