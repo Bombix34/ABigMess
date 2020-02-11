@@ -29,6 +29,9 @@ public class GameManager : Singleton<GameManager>
 
     private bool isLaunch = false;
 
+    [SerializeField]
+    private GameObject endVFX;
+
     protected override void Awake()
     {
         base.Awake();
@@ -40,6 +43,7 @@ public class GameManager : Singleton<GameManager>
     {
         uiManager = UIManager.Instance;
         uiManager.IntroScreenTransition();
+        endVFX.SetActive(false);
         MusicManager = MusicManager.Instance;
         MusicManager.SwitchStateMusicNoon();
         for (int i = 0; i < levels.levels.Count; ++i)
@@ -78,6 +82,10 @@ public class GameManager : Singleton<GameManager>
                 StartCoroutine(metricsManager.CreateArchiveCSV("METRICS_" + System.DateTime.Now.ToString("yyyy MMMM")));
             }
         }
+        if(endVFX!=null)
+        {
+            endVFX.SetActive(true);
+        }
         StartCoroutine(LoadNewLevel());
     }
 
@@ -92,7 +100,7 @@ public class GameManager : Singleton<GameManager>
 
     private IEnumerator LoadNewLevel()
     {
-        yield return new WaitForSeconds(0.75f);
+        yield return new WaitForSeconds(2f);
         uiManager.EndLevelTransition();
         MusicManager.TransitionLevel(true);
         MusicManager.ShutRadio();
