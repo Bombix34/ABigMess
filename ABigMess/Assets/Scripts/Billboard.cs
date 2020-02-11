@@ -9,6 +9,6 @@ public class Billboard : MonoBehaviour
         transform.LookAt(transform.position + Camera.main.transform.rotation * Vector3.forward,
             Camera.main.transform.rotation * Vector3.up);
         Vector3 eulerRot = transform.rotation.eulerAngles;
-        transform.rotation = Quaternion.Euler(eulerRot.x, eulerRot.y, 90f);
+        transform.rotation = Quaternion.Euler(0f, eulerRot.y,-32f);
     }
 }
