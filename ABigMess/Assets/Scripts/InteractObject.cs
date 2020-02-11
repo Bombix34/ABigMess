@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using System;
+using System.Linq;
 
 public class InteractObject : MonoBehaviour
 {
@@ -56,13 +57,16 @@ public class InteractObject : MonoBehaviour
         {
             this.gameObject.AddComponent<ObjectState>();
         }
+
     }
+
     private void Start()
     {
         InitHighlight();
         SetupWeight();
         SceneObjectDatas.Instance.AddObject(this);
     }
+
 
     private void Update()
     {
@@ -101,6 +105,10 @@ public class InteractObject : MonoBehaviour
         if (Settings.IsTool() && !Settings.NeedsToBePlugged())
         {
             ToolSettings tool = (ToolSettings)Settings;
+            if(this.GetComponent<Animator>()!=null)
+            {
+                GetComponent<Animator>().SetTrigger("IsOn");
+            }
             StartCoroutine(tool.ApplyEvent(toolObj));
         }
         else if (Settings.IsTool() && Settings.NeedsToBePlugged())
@@ -110,6 +118,10 @@ public class InteractObject : MonoBehaviour
                 if (this.GetComponent<ObjectState>().Plugged)
                 {
                     ToolSettings tool = (ToolSettings)Settings;
+                    if (this.GetComponent<Animator>() != null)
+                    {
+                        GetComponent<Animator>().SetTrigger("IsOn");
+                    }
                     StartCoroutine(tool.ApplyEvent(toolObj));
                 }
             }

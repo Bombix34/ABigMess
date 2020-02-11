@@ -11,7 +11,6 @@ public class CookEvent : InteractEvent
 
     public override void InteractionEvent(GameObject objConcerned)
     {
-        Debug.Log("Cooking " + objConcerned);
         SetupObjectState(objConcerned);
         TryInstantiateParticleFX(objConcerned);
 

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlugTrigger : MonoBehaviour
 {
-
-
     public GameObject pluggedObject = null;
 
     public void OnTriggerEnter(Collider other)
@@ -19,11 +17,36 @@ public class PlugTrigger : MonoBehaviour
             InteractObject otherIO = other.gameObject.GetComponent<InteractObject>();
             //print(this.transform.parent.gameObject + " is the plug for " + other.name + " that needs to be plugged ?: " + otherIO.Settings.NeedsToBePlugged());
             ObjectState objectState = other.gameObject.GetComponent<ObjectState>();
-
-
             Plugged plugged = other.gameObject.GetComponent<Plugged>();
-            //print("This is the plug: " + gameObject.GetComponent<InteractObject>() + " interacting with " + other.gameObject.GetComponent<InteractObject>());
-            gameObject.GetComponent<InteractObject>().Interact(other.gameObject);
+
+            if (otherIO.Settings.NeedsToBePlugged())
+            {
+                if (objectState != null)
+                {
+                    objectState.Plugged = true;
+                }
+                if (plugged != null)
+                {
+                    plugged.plug = transform.parent.gameObject;
+                }
+                pluggedObject = other.gameObject;
+                GameManager.Instance.TasksManager.UpdateTasksState();
+            }
+        }
+    }
+
+    public void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("GrabObject") && other.GetComponent<InteractObject>() != null)
+        {
+            if (pluggedObject != null)
+            {
+                return;
+            }
+            InteractObject otherIO = other.gameObject.GetComponent<InteractObject>();
+            //print(this.transform.parent.gameObject + " is the plug for " + other.name + " that needs to be plugged ?: " + otherIO.Settings.NeedsToBePlugged());
+            ObjectState objectState = other.gameObject.GetComponent<ObjectState>();
+            Plugged plugged = other.gameObject.GetComponent<Plugged>();
 
             if (otherIO.Settings.NeedsToBePlugged())
             {
