@@ -194,13 +194,17 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
-
-
     public void Hide()
     {
-        taskPanel.SetActive(false);
-        transitionPanel.SetActive(false);
+        RectTransform taskPanelTranform = taskPanel.GetComponent<RectTransform>();
+        taskPanelTranform.DOAnchorPosY(taskPanelTranform.rect.height, 0.6f);
+        RectTransform transitionPanelTranform = transitionPanel.GetComponent<RectTransform>();
+        transitionPanelTranform.DOAnchorPosY(transitionPanelTranform.rect.height, 0.6f);
     }
 
-
+    public void ShowTaskPanel()
+    {
+        RectTransform taskPanelTranform = taskPanel.GetComponent<RectTransform>();
+        taskPanelTranform.DOAnchorPosY(0, 0.6f);
+    }
 }
