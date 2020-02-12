@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShowTaskPanel : MonoBehaviour
+public class ShowTaskPanelTrigger : MonoBehaviour
 {
     public GameObject UIManager;
 
