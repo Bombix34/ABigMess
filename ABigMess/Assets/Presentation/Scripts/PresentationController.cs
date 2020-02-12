@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PresentationController : MonoBehaviour
+public class PresentationController : Singleton<PresentationController>
 {
     public PresentationLevels levelsDatas;
 
