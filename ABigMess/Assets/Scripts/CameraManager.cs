@@ -104,6 +104,11 @@ public class CameraManager : Singleton<CameraManager>
             return false;
         }
     }
+    public void SetNewCamera(CinemachineVirtualCamera newCam)
+    {
+        ResetCamerasPriority();
+        newCam.m_Priority = 10;
+    }
 
     /// <summary>
     /// be careful, every camera will be at 0, 
@@ -112,9 +117,12 @@ public class CameraManager : Singleton<CameraManager>
     private void ResetCamerasPriority()
     {
         mainCamera.Priority = 0;
-        foreach(var cam in roomCameras)
+        if(roomCameras!=null )
         {
-            cam.Priority = 0;
+            foreach(var cam in roomCameras)
+            {
+                cam.Priority = 0;
+            }
         }
     }
 
