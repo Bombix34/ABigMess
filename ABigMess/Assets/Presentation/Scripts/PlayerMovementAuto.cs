@@ -44,7 +44,6 @@ public class PlayerMovementAuto : MonoBehaviour
             playerToMove.Movement.DoMove(dirVector*1.6f);
             playerToMove.Renderer.UpdateAnimation((dirVector * 1.6f).magnitude);
             amplitude = (destinations[curIndex].position - playerToMove.transform.position).magnitude;
-            print(amplitude);
             yield return new WaitForSeconds(0.01f);
         }
         playerToMove.Movement.CanMove = false;
