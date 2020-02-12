@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4476246005096788492}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -3.5, y: -5.989653e-15, z: 5.511}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.97038347, y: 0.9931658, z: 0.9611282}
   m_Children:
   - {fileID: 3968074916533799157}
@@ -99,6 +99,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 596036313083854879}
     m_Modifications:
+    - target: {fileID: 3953620092261839631, guid: 7f8a45b5b111c894bafdf55af34b416f,
+        type: 3}
+      propertyPath: m_Name
+      value: STGlass
+      objectReference: {fileID: 0}
     - target: {fileID: 937498721504268817, guid: 7f8a45b5b111c894bafdf55af34b416f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -153,11 +158,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3953620092261839631, guid: 7f8a45b5b111c894bafdf55af34b416f,
-        type: 3}
-      propertyPath: m_Name
-      value: STGlass
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f8a45b5b111c894bafdf55af34b416f, type: 3}
