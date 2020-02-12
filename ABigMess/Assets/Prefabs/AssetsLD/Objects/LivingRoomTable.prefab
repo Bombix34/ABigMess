@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 7146837521137475696}
   - component: {fileID: 7146837521137475703}
   - component: {fileID: 7146837521137475661}
+  - component: {fileID: 6646482094128297639}
+  - component: {fileID: 3289096972814716725}
   m_Layer: 0
   m_Name: LivingRoomTable
   m_TagString: GrabObject
@@ -92,8 +94,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.7889782, y: 0.74057806, z: 0.7826177}
-  m_Center: {x: -0.002524674, y: 0.3808692, z: -0.0072140694}
+  m_Size: {x: 1.1931957, y: 0.12255001, z: 1.1666242}
+  m_Center: {x: -0.0025245547, y: 1.0743144, z: 0.0028913617}
 --- !u!54 &7146837521137475696
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -140,6 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   states:
     washed: 0
+    dirty: 0
     burnt: 0
     smuged: 0
     cooked: 0
@@ -148,3 +151,29 @@ MonoBehaviour:
     broken: 0
     opened: 0
     plugged: 0
+--- !u!65 &6646482094128297639
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7146837521137475702}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.91068363, y: 0.46162188, z: 0.87026215}
+  m_Center: {x: 0.006948054, y: 0.21028203, z: 0.08084357}
+--- !u!65 &3289096972814716725
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7146837521137475702}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.18454614, y: 0.5193901, z: 0.21138799}
+  m_Center: {x: -0.000027939677, y: 0.7315273, z: -0.002020985}
