@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7146837521137475696}
   - component: {fileID: 7146837521137475703}
   - component: {fileID: 7146837521137475661}
+  - component: {fileID: 4186252767479877389}
   m_Layer: 0
   m_Name: Flowers
   m_TagString: GrabObject
@@ -61,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ee1666e47aaddb04ca1c99eee5c776e8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -92,8 +93,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.39902294, y: 0.013591409, z: 0.40339267}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.37346432, y: 0.29981804, z: 0.3314021}
+  m_Center: {x: 0.0047192127, y: 0.8463378, z: 0.0035635978}
 --- !u!54 &7146837521137475696
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -149,3 +150,16 @@ MonoBehaviour:
     broken: 0
     opened: 0
     plugged: 0
+--- !u!65 &4186252767479877389
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7146837521137475702}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.13936223, y: 0.6901376, z: 0.09369849}
+  m_Center: {x: -0.0006831363, y: 0.3378414, z: -0.0036395565}
