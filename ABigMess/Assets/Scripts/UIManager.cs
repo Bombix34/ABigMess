@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System;
 
 public class UIManager : Singleton<UIManager>
 {
@@ -19,6 +20,8 @@ public class UIManager : Singleton<UIManager>
 
     [SerializeField]
     GameObject transitionPanel;
+    [SerializeField]
+    GameObject taskPanel;
     [SerializeField]
     private Image backgroundTransitionPanel;
     [SerializeField]
@@ -191,6 +194,13 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
-    
+
+
+    public void Hide()
+    {
+        taskPanel.SetActive(false);
+        transitionPanel.SetActive(false);
+    }
+
 
 }
