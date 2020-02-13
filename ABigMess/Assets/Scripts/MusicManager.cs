@@ -65,6 +65,35 @@ public class MusicManager : Singleton<MusicManager>
         }
     }
 
+
+    #region PRESENTATION
+
+    //ATTENTION : UNIQUEMENT POUR LES NVIEAUX PRESENTATIONS
+    private bool isMusicLaunch = false;
+
+    public void LaunchMusic()
+    {
+        AkSoundEngine.PostEvent("Play_music_noon", gameObject);
+    }
+
+    public void StopMusic()
+    {
+        isMusicLaunch = false;
+        AkSoundEngine.PostEvent("Stop_music_noon", gameObject);
+    }
+
+    public void ForceSwitchStateMusic(int indexLayer)
+    {
+        if(!isMusicLaunch)
+        {
+            LaunchMusic();
+            isMusicLaunch = true;
+        }
+        AkSoundEngine.PostEvent("Set_state_noon_0" + (indexLayer), gameObject);
+    }
+
+    #endregion  
+
     public void TransitionLevel(bool isIn)
     {
         if(isIn)
