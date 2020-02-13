@@ -3,7 +3,7 @@
 	<RootPaths>
 		<ProjectRoot>C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\</ProjectRoot>
 		<SourceFilesRoot>C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\</SourceFilesRoot>
-		<SoundBanksRoot>C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\BigMess\ABigMess\ABigMess\Assets\StreamingAssets\Audio\GeneratedSoundBanks\</SoundBanksRoot>
+		<SoundBanksRoot>C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\BigMess\ABigMess\ABigMess\Assets\StreamingAssets\Audio\GeneratedSoundBanks\Windows\</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
 		<ExternalSourcesOutputRoot>C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
@@ -21,29 +21,29 @@
 			<ShortName>Bigmess_music</ShortName>
 			<Path>Bigmess_music.bnk</Path>
 			<IncludedEvents>
-				<Event Id="4121310008" Name="Play_Music_credits" ObjectPath="\Events\Music\Play_Music_credits"/>
-				<Event Id="1699343283" Name="Play_Music_menu" ObjectPath="\Events\Music\Play_Music_menu"/>
-				<Event Id="3093640346" Name="Play_Music_morning" ObjectPath="\Events\Music\Music_morning\Play_Music_morning"/>
-				<Event Id="508480304" Name="Play_music_noon" ObjectPath="\Events\Music\Music_noon\Play_music_noon"/>
-				<Event Id="2966616398" Name="Set_state_music_morning_01" ObjectPath="\Events\Music\Music_morning\Set_state_music_morning_01"/>
-				<Event Id="2966616397" Name="Set_state_music_morning_02" ObjectPath="\Events\Music\Music_morning\Set_state_music_morning_02"/>
-				<Event Id="2966616396" Name="Set_state_music_morning_03" ObjectPath="\Events\Music\Music_morning\Set_state_music_morning_03"/>
-				<Event Id="2966616395" Name="Set_state_music_morning_04" ObjectPath="\Events\Music\Music_morning\Set_state_music_morning_04"/>
-				<Event Id="2966616394" Name="Set_state_music_morning_05" ObjectPath="\Events\Music\Music_morning\Set_state_music_morning_05"/>
-				<Event Id="2973358472" Name="Set_state_noon_01" ObjectPath="\Events\Music\Music_noon\Set_state_noon_01"/>
-				<Event Id="2973358475" Name="Set_state_noon_02" ObjectPath="\Events\Music\Music_noon\Set_state_noon_02"/>
-				<Event Id="2973358474" Name="Set_state_noon_03" ObjectPath="\Events\Music\Music_noon\Set_state_noon_03"/>
-				<Event Id="2973358477" Name="Set_state_noon_04" ObjectPath="\Events\Music\Music_noon\Set_state_noon_04"/>
-				<Event Id="2973358476" Name="Set_state_noon_05" ObjectPath="\Events\Music\Music_noon\Set_state_noon_05"/>
-				<Event Id="2973358479" Name="Set_state_noon_06" ObjectPath="\Events\Music\Music_noon\Set_state_noon_06"/>
-				<Event Id="2973358478" Name="Set_state_noon_07" ObjectPath="\Events\Music\Music_noon\Set_state_noon_07"/>
-				<Event Id="2973358465" Name="Set_state_noon_08" ObjectPath="\Events\Music\Music_noon\Set_state_noon_08"/>
-				<Event Id="2212559722" Name="Stop_Music_credits" ObjectPath="\Events\Music\Stop_Music_credits"/>
-				<Event Id="106912753" Name="Stop_Music_menu" ObjectPath="\Events\Music\Stop_Music_menu"/>
-				<Event Id="362766060" Name="Stop_music_morning" ObjectPath="\Events\Music\Music_morning\Stop_music_morning"/>
-				<Event Id="1940321634" Name="Stop_music_noon" ObjectPath="\Events\Music\Music_noon\Stop_music_noon"/>
-				<Event Id="1379993931" Name="Transition_level_in" ObjectPath="\Events\Music\Transition_level_in"/>
-				<Event Id="3495077062" Name="Transition_level_out" ObjectPath="\Events\Music\Transition_level_out"/>
+				<Event Id="4121310008" Name="Play_Music_credits" ObjectPath="\Events\Music\Play_Music_credits" DurationType="Infinite"/>
+				<Event Id="1699343283" Name="Play_Music_menu" ObjectPath="\Events\Music\Play_Music_menu" DurationType="Infinite"/>
+				<Event Id="3093640346" Name="Play_Music_morning" ObjectPath="\Events\Music\Music_morning\Play_Music_morning" DurationType="Infinite"/>
+				<Event Id="508480304" Name="Play_music_noon" ObjectPath="\Events\Music\Music_noon\Play_music_noon" DurationType="Infinite"/>
+				<Event Id="2966616398" Name="Set_state_music_morning_01" ObjectPath="\Events\Music\Music_morning\Set_state_music_morning_01" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+				<Event Id="2966616397" Name="Set_state_music_morning_02" ObjectPath="\Events\Music\Music_morning\Set_state_music_morning_02" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+				<Event Id="2966616396" Name="Set_state_music_morning_03" ObjectPath="\Events\Music\Music_morning\Set_state_music_morning_03" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+				<Event Id="2966616395" Name="Set_state_music_morning_04" ObjectPath="\Events\Music\Music_morning\Set_state_music_morning_04" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+				<Event Id="2966616394" Name="Set_state_music_morning_05" ObjectPath="\Events\Music\Music_morning\Set_state_music_morning_05" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+				<Event Id="2973358472" Name="Set_state_noon_01" ObjectPath="\Events\Music\Music_noon\Set_state_noon_01" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+				<Event Id="2973358475" Name="Set_state_noon_02" ObjectPath="\Events\Music\Music_noon\Set_state_noon_02" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+				<Event Id="2973358474" Name="Set_state_noon_03" ObjectPath="\Events\Music\Music_noon\Set_state_noon_03" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+				<Event Id="2973358477" Name="Set_state_noon_04" ObjectPath="\Events\Music\Music_noon\Set_state_noon_04" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+				<Event Id="2973358476" Name="Set_state_noon_05" ObjectPath="\Events\Music\Music_noon\Set_state_noon_05" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+				<Event Id="2973358479" Name="Set_state_noon_06" ObjectPath="\Events\Music\Music_noon\Set_state_noon_06" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+				<Event Id="2973358478" Name="Set_state_noon_07" ObjectPath="\Events\Music\Music_noon\Set_state_noon_07" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+				<Event Id="2973358465" Name="Set_state_noon_08" ObjectPath="\Events\Music\Music_noon\Set_state_noon_08" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+				<Event Id="2212559722" Name="Stop_Music_credits" ObjectPath="\Events\Music\Stop_Music_credits" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+				<Event Id="106912753" Name="Stop_Music_menu" ObjectPath="\Events\Music\Stop_Music_menu" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+				<Event Id="362766060" Name="Stop_music_morning" ObjectPath="\Events\Music\Music_morning\Stop_music_morning" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+				<Event Id="1940321634" Name="Stop_music_noon" ObjectPath="\Events\Music\Music_noon\Stop_music_noon" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+				<Event Id="1379993931" Name="Transition_level_in" ObjectPath="\Events\Music\Transition_level_in" DurationType="OneShot" DurationMin="1.997729" DurationMax="1.997729"/>
+				<Event Id="3495077062" Name="Transition_level_out" ObjectPath="\Events\Music\Transition_level_out" DurationType="OneShot" DurationMin="2.477479" DurationMax="2.477479"/>
 			</IncludedEvents>
 			<IncludedMemoryFiles>
 				<File Id="4629465" Language="SFX">
@@ -149,30 +149,30 @@
 			<ShortName>Bigmess_SFX</ShortName>
 			<Path>Bigmess_SFX.bnk</Path>
 			<IncludedEvents>
-				<Event Id="1684718463" Name="Play_Alien_heavy_object" ObjectPath="\Events\SFX\Alien_voices\Play_Alien_heavy_object"/>
-				<Event Id="3592785647" Name="Play_bathroom_tone" ObjectPath="\Events\Amb\Play_bathroom_tone"/>
-				<Event Id="2999503001" Name="Play_big_room_tone" ObjectPath="\Events\Amb\Play_big_room_tone"/>
-				<Event Id="1188830101" Name="Play_burn_SFX" ObjectPath="\Events\SFX\Play_burn_SFX"/>
-				<Event Id="3542249275" Name="Play_chair_drop_SFX" ObjectPath="\Events\SFX\Play_chair_drop_SFX"/>
-				<Event Id="2221777558" Name="Play_cook_SFX" ObjectPath="\Events\SFX\Play_cook_SFX"/>
-				<Event Id="4035254439" Name="Play_device_plug_SFX" ObjectPath="\Events\SFX\Play_device_plug_SFX"/>
-				<Event Id="3963771822" Name="Play_device_unplug_SFX" ObjectPath="\Events\SFX\Play_device_unplug_SFX"/>
-				<Event Id="326639012" Name="Play_drop_fork_SFX" ObjectPath="\Events\SFX\Play_drop_fork_SFX"/>
-				<Event Id="2233376516" Name="Play_drop_plate_SFX" ObjectPath="\Events\SFX\Play_drop_plate_SFX"/>
-				<Event Id="1623367340" Name="Play_garden_amb" ObjectPath="\Events\Amb\Play_garden_amb"/>
-				<Event Id="1876721888" Name="Play_grab_SFX" ObjectPath="\Events\SFX\Play_grab_SFX"/>
-				<Event Id="2016090091" Name="Play_heavy_object_SFX" ObjectPath="\Events\SFX\Play_heavy_object_SFX"/>
-				<Event Id="4125399505" Name="Play_oven_close_SFX" ObjectPath="\Events\SFX\Play_oven_close_SFX"/>
-				<Event Id="143297623" Name="Play_oven_open_SFX" ObjectPath="\Events\SFX\Play_oven_open_SFX"/>
-				<Event Id="2301344613" Name="Play_release_SFX" ObjectPath="\Events\SFX\Play_release_SFX"/>
-				<Event Id="2485252018" Name="Play_small_room_tone" ObjectPath="\Events\Amb\Play_small_room_tone"/>
-				<Event Id="1808223893" Name="Play_toilet_SFX" ObjectPath="\Events\SFX\Play_toilet_SFX"/>
-				<Event Id="1980653889" Name="Play_Voice_player01" ObjectPath="\Events\SFX\Alien_voices\Play_Voice_player01"/>
-				<Event Id="1980653890" Name="Play_Voice_player02" ObjectPath="\Events\SFX\Alien_voices\Play_Voice_player02"/>
-				<Event Id="439267736" Name="Play_voices_carry_loop" ObjectPath="\Events\SFX\Alien_voices\Play_voices_carry_loop"/>
-				<Event Id="4080261691" Name="Play_wash_SFX" ObjectPath="\Events\SFX\Play_wash_SFX"/>
-				<Event Id="2849262102" Name="Play_watering_can_SFX" ObjectPath="\Events\SFX\Play_watering_can_SFX"/>
-				<Event Id="3486948951" Name="Stop_voice_carry_loop" ObjectPath="\Events\SFX\Alien_voices\Stop_voice_carry_loop"/>
+				<Event Id="1684718463" Name="Play_Alien_heavy_object" ObjectPath="\Events\SFX\Alien_voices\Play_Alien_heavy_object" DurationType="OneShot" DurationMin="1.776250" DurationMax="2.697854"/>
+				<Event Id="3592785647" Name="Play_bathroom_tone" ObjectPath="\Events\Amb\Play_bathroom_tone" DurationType="Infinite"/>
+				<Event Id="2999503001" Name="Play_big_room_tone" ObjectPath="\Events\Amb\Play_big_room_tone" DurationType="Infinite"/>
+				<Event Id="1188830101" Name="Play_burn_SFX" ObjectPath="\Events\SFX\Play_burn_SFX" DurationType="OneShot" DurationMin="2.796396" DurationMax="2.796396"/>
+				<Event Id="3542249275" Name="Play_chair_drop_SFX" ObjectPath="\Events\SFX\Play_chair_drop_SFX" DurationType="OneShot" DurationMin="2.004771" DurationMax="2.436000"/>
+				<Event Id="2221777558" Name="Play_cook_SFX" ObjectPath="\Events\SFX\Play_cook_SFX" DurationType="OneShot" DurationMin="3.777208" DurationMax="3.777208"/>
+				<Event Id="4035254439" Name="Play_device_plug_SFX" ObjectPath="\Events\SFX\Play_device_plug_SFX" DurationType="OneShot" DurationMin="1.691146" DurationMax="1.691146"/>
+				<Event Id="3963771822" Name="Play_device_unplug_SFX" ObjectPath="\Events\SFX\Play_device_unplug_SFX" DurationType="OneShot" DurationMin="2.071354" DurationMax="2.071354"/>
+				<Event Id="326639012" Name="Play_drop_fork_SFX" ObjectPath="\Events\SFX\Play_drop_fork_SFX" DurationType="OneShot" DurationMin="1.412063" DurationMax="1.827062"/>
+				<Event Id="2233376516" Name="Play_drop_plate_SFX" ObjectPath="\Events\SFX\Play_drop_plate_SFX" DurationType="OneShot" DurationMin="1.521562" DurationMax="1.993167"/>
+				<Event Id="1623367340" Name="Play_garden_amb" ObjectPath="\Events\Amb\Play_garden_amb" DurationType="Infinite"/>
+				<Event Id="1876721888" Name="Play_grab_SFX" ObjectPath="\Events\SFX\Play_grab_SFX" DurationType="OneShot" DurationMin="1.425000" DurationMax="1.425000"/>
+				<Event Id="2016090091" Name="Play_heavy_object_SFX" ObjectPath="\Events\SFX\Play_heavy_object_SFX" DurationType="OneShot" DurationMin="2.754253" DurationMax="3.494332"/>
+				<Event Id="4125399505" Name="Play_oven_close_SFX" ObjectPath="\Events\SFX\Play_oven_close_SFX" DurationType="OneShot" DurationMin="2.657167" DurationMax="2.657167"/>
+				<Event Id="143297623" Name="Play_oven_open_SFX" ObjectPath="\Events\SFX\Play_oven_open_SFX" DurationType="OneShot" DurationMin="2.308542" DurationMax="2.308542"/>
+				<Event Id="2301344613" Name="Play_release_SFX" ObjectPath="\Events\SFX\Play_release_SFX" DurationType="OneShot" DurationMin="1.207292" DurationMax="1.207292"/>
+				<Event Id="2485252018" Name="Play_small_room_tone" ObjectPath="\Events\Amb\Play_small_room_tone" DurationType="Infinite"/>
+				<Event Id="1808223893" Name="Play_toilet_SFX" ObjectPath="\Events\SFX\Play_toilet_SFX" DurationType="OneShot" DurationMin="6.017021" DurationMax="6.017021"/>
+				<Event Id="1980653889" Name="Play_Voice_player01" ObjectPath="\Events\SFX\Alien_voices\Play_Voice_player01" DurationType="OneShot" DurationMin="1.054131" DurationMax="1.576834"/>
+				<Event Id="1980653890" Name="Play_Voice_player02" ObjectPath="\Events\SFX\Alien_voices\Play_Voice_player02" DurationType="OneShot" DurationMin="1.025264" DurationMax="1.502694"/>
+				<Event Id="439267736" Name="Play_voices_carry_loop" ObjectPath="\Events\SFX\Alien_voices\Play_voices_carry_loop" DurationType="Infinite"/>
+				<Event Id="4080261691" Name="Play_wash_SFX" ObjectPath="\Events\SFX\Play_wash_SFX" DurationType="OneShot" DurationMin="1.000000" DurationMax="2.892521"/>
+				<Event Id="2849262102" Name="Play_watering_can_SFX" ObjectPath="\Events\SFX\Play_watering_can_SFX" DurationType="OneShot" DurationMin="3.624958" DurationMax="3.624958"/>
+				<Event Id="3486948951" Name="Stop_voice_carry_loop" ObjectPath="\Events\SFX\Alien_voices\Stop_voice_carry_loop" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
 			</IncludedEvents>
 			<IncludedMemoryFiles>
 				<File Id="7473334" Language="SFX">
@@ -930,12 +930,12 @@
 			<ShortName>Bigmess_radio</ShortName>
 			<Path>Bigmess_radio.bnk</Path>
 			<IncludedEvents>
-				<Event Id="1510088249" Name="Play_radio_state" ObjectPath="\Events\Music\Radio\Play_radio_state"/>
-				<Event Id="1069010655" Name="Play_radio_station01" ObjectPath="\Events\Music\Radio\Play_radio_station01"/>
-				<Event Id="1069010652" Name="Play_radio_station02" ObjectPath="\Events\Music\Radio\Play_radio_station02"/>
-				<Event Id="1069010653" Name="Play_radio_station03" ObjectPath="\Events\Music\Radio\Play_radio_station03"/>
-				<Event Id="1749933030" Name="Stop_radio_level" ObjectPath="\Events\Music\Radio\Stop_radio_level"/>
-				<Event Id="3703828323" Name="Stop_radio_stations" ObjectPath="\Events\Music\Radio\Stop_radio_stations"/>
+				<Event Id="1510088249" Name="Play_radio_state" ObjectPath="\Events\Music\Radio\Play_radio_state" DurationType="Infinite"/>
+				<Event Id="1069010655" Name="Play_radio_station01" ObjectPath="\Events\Music\Radio\Play_radio_station01" DurationType="OneShot" DurationMin="2.000000" DurationMax="2.000000"/>
+				<Event Id="1069010652" Name="Play_radio_station02" ObjectPath="\Events\Music\Radio\Play_radio_station02" DurationType="OneShot" DurationMin="2.000000" DurationMax="2.000000"/>
+				<Event Id="1069010653" Name="Play_radio_station03" ObjectPath="\Events\Music\Radio\Play_radio_station03" DurationType="OneShot" DurationMin="2.000000" DurationMax="2.000000"/>
+				<Event Id="1749933030" Name="Stop_radio_level" ObjectPath="\Events\Music\Radio\Stop_radio_level" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+				<Event Id="3703828323" Name="Stop_radio_stations" ObjectPath="\Events\Music\Radio\Stop_radio_stations" DurationType="OneShot" DurationMin="1.743208" DurationMax="1.743208"/>
 			</IncludedEvents>
 			<IncludedMemoryFiles>
 				<File Id="9366097" Language="SFX">
