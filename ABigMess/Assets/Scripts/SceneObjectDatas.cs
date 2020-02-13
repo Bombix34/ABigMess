@@ -256,7 +256,10 @@ public class SceneObjectDatas : Singleton<SceneObjectDatas>
             List<InteractObject> concernedToAdd = GetObjectsOfType(objectType, zone.GetObjectsInZone());
             foreach(var item in concernedToAdd)
             {
-                toReturn.Add(item);
+                if(!toReturn.Contains(item))
+                {
+                    toReturn.Add(item);
+                }
             }
         }
         return toReturn;
@@ -271,7 +274,10 @@ public class SceneObjectDatas : Singleton<SceneObjectDatas>
             List<InteractObject> concernedToAdd = GetObjectsOfTypeInState(objectType, objectState, zone.GetObjectsInZone());
             foreach (var item in concernedToAdd)
             {
-                toReturn.Add(item);
+                if (!toReturn.Contains(item))
+                {
+                    toReturn.Add(item);
+                }
             }
         }
         return toReturn;
