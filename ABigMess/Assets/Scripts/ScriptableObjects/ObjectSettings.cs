@@ -86,6 +86,7 @@ public class ObjectSettings : ScriptableObject
         fork,
         muralClock,
         book,
-        buffet
+        buffet,
+        boots
     }
 }
