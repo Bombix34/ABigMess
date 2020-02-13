@@ -1,0 +1,67 @@
+State Group	ID	Name			Wwise Object Path	Notes
+	166680927	radio_station			\Default Work Unit\radio_station	
+	2271209915	music_morning			\Music\music_morning	
+	4048822807	music_noon			\Music\music_noon	
+
+State	ID	Name	State Group			Notes
+	0	None	radio_station			
+	312882084	station03	radio_station			
+	312882085	station02	radio_station			
+	312882086	station01	radio_station			
+	930712164	off	radio_station			
+	0	None	music_morning			
+	1062722162	step05	music_morning			
+	1062722163	step04	music_morning			
+	1062722164	step03	music_morning			
+	1062722165	step02	music_morning			
+	1062722166	step01	music_morning			
+	0	None	music_noon			
+	1062722160	step07	music_noon			
+	1062722161	step06	music_noon			
+	1062722162	step05	music_noon			
+	1062722163	step04	music_noon			
+	1062722164	step03	music_noon			
+	1062722165	step02	music_noon			
+	1062722166	step01	music_noon			
+	1062722175	step08	music_noon			
+
+Game Parameter	ID	Name			Wwise Object Path	Notes
+	504532776	Brick			\Factory Reflect Acoustic Textures\Textures\Brick	
+	513139656	Mountain			\Factory Reflect Acoustic Textures\Textures\Mountain	
+	841620460	Concrete			\Factory Reflect Acoustic Textures\Textures\Concrete	
+	1755085759	Wood_Deep			\Factory Reflect Acoustic Textures\Textures\Wood_Deep	
+	1873957695	Anechoic			\Factory Reflect Acoustic Textures\Textures\Anechoic	
+	1970351858	Fabric			\Factory Reflect Acoustic Textures\Textures\Fabric	
+	2058049674	Wood			\Factory Reflect Acoustic Textures\Textures\Wood	
+	2412606308	Carpet			\Factory Reflect Acoustic Textures\Textures\Carpet	
+	2637588553	Tile			\Factory Reflect Acoustic Textures\Textures\Tile	
+	2928161104	Curtains			\Factory Reflect Acoustic Textures\Textures\Curtains	
+	3195498748	Cork_Tiles			\Factory Reflect Acoustic Textures\Textures\Cork_Tiles	
+	3670307564	Drywall			\Factory Reflect Acoustic Textures\Textures\Drywall	
+	3735096532	transition_music			\Default Work Unit\transition_music	
+	3949723815	DuckingRadio			\Default Work Unit\DuckingRadio	
+	4168643977	Acoustic_Banner			\Factory Reflect Acoustic Textures\Textures\Acoustic_Banner	
+	4262522749	Wood_Bright			\Factory Reflect Acoustic Textures\Textures\Wood_Bright	
+
+Audio Bus	ID	Name			Wwise Object Path	Notes
+	393239870	SFX			\Default Work Unit\Master Audio Bus\SFX	
+	444316574	AMB_inside_big room			\Default Work Unit\Master Audio Bus\AMB_inside_big room	
+	624780012	AMB_inside_small_room			\Default Work Unit\Master Audio Bus\AMB_inside_small_room	
+	1013211851	AMB_outside			\Default Work Unit\Master Audio Bus\AMB_outside	
+	1430802935	AMB_inside_bathroom			\Default Work Unit\Master Audio Bus\AMB_inside_bathroom	
+	2548238350	Radio			\Default Work Unit\Master Audio Bus\Radio	
+	3803692087	Master Audio Bus			\Default Work Unit\Master Audio Bus	
+	3991942870	Music			\Default Work Unit\Master Audio Bus\Music	
+
+Effect plug-ins	ID	Name	Type				Notes
+	48620415	Have_U_Ever_Been_Outside	Wwise RoomVerb			
+	493155608	ducking_meter	Wwise Meter			
+	602546716	Room_Large	Wwise RoomVerb			
+	1179763457	music_transition_EQ	Wwise Parametric EQ			
+	2945072214	My_Closet	Wwise RoomVerb			
+	2995775460	Room_Small	Wwise RoomVerb			
+
+Audio Devices	ID	Name	Type				Notes
+	2317455096	No_Output	No Output			
+	3859886410	System	System			
+
