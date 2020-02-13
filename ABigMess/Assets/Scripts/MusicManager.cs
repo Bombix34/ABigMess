@@ -67,15 +67,48 @@ public class MusicManager : Singleton<MusicManager>
 
     public void TransitionLevel(bool isIn)
     {
-        if(isIn)
+        if (isIn)
         {
+            AkSoundEngine.PostEvent("Play_transition_sound_in", gameObject);
             AkSoundEngine.PostEvent("Transition_level_in", gameObject);
         }
         else
         {
+            AkSoundEngine.PostEvent("Play_transition_sound_out", gameObject);
             AkSoundEngine.PostEvent("Transition_level_out", gameObject);
         }
     }
+
+    #region PRESENTATION
+
+    //ATTENTION : UNIQUEMENT POUR LES NVIEAUX PRESENTATIONS
+    private bool isMusicLaunch = false;
+
+    public void LaunchMusic()
+    {
+        AkSoundEngine.PostEvent("Play_music_noon", gameObject);
+    }
+
+    public void StopMusic()
+    {
+        isMusicLaunch = false;
+        AkSoundEngine.PostEvent("Transition_level_in", gameObject);
+        AkSoundEngine.PostEvent("Stop_music_noon", gameObject);
+    }
+
+    public void ForceSwitchStateMusic(int indexLayer)
+    {
+        if(!isMusicLaunch)
+        {
+            LaunchMusic();
+            isMusicLaunch = true;
+        }
+        AkSoundEngine.PostEvent("Transition_level_out", gameObject);
+        AkSoundEngine.PostEvent("Set_state_noon_0" + (indexLayer), gameObject);
+    }
+
+    #endregion  
+
 
     public SoundManager GetSoundManager()
     {
