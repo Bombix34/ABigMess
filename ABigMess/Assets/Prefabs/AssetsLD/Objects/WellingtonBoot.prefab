@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: 2616019291824709193}
   - component: {fileID: 1172084352573429241}
   - component: {fileID: 6318902233885628807}
+  - component: {fileID: 7127346823882791723}
   m_Layer: 0
-  m_Name: We
+  m_Name: WellingtonBoot
   m_TagString: GrabObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,7 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactButtonOverlayPrefab: {fileID: 1379215672641199259, guid: c68c3ed3cdef8584fb8e77aabc7143e0,
     type: 3}
-  settings: {fileID: 11400000, guid: 8571b17c452a90a4fa6a2bd82aa04812, type: 2}
+  settings: {fileID: 11400000, guid: 4221db5ac1e4fba4dbac67415a391c54, type: 2}
   outlineSettings: {fileID: 11400000, guid: 98d4310e4cf8fc440aad3684d6abc4b0, type: 2}
 --- !u!65 &1172084352573429241
 BoxCollider:
@@ -109,8 +110,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.25722715, y: 1.0815208, z: 0.73839355}
-  m_Center: {x: 0, y: 0.54011714, z: -0.003009364}
+  m_Size: {x: 0.18005902, y: 0.75706464, z: 0.5168755}
+  m_Center: {x: -0.0000000037252903, y: 0.378082, z: -0.0021065623}
 --- !u!54 &6318902233885628807
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -127,3 +128,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &7127346823882791723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8875182160160988108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2059e7b8be60b554c9324bdf690007e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  states:
+    washed: 0
+    dirty: 0
+    burnt: 0
+    smuged: 0
+    cooked: 0
+    grown: 0
+    colored: 0
+    broken: 0
+    opened: 0
+    plugged: 0
