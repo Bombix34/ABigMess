@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2555212991549099559}
   - component: {fileID: 1622389064965222382}
   - component: {fileID: 4802027011447929612}
+  - component: {fileID: 3942911545282176265}
   m_Layer: 0
   m_Name: WellingtonBoot
   m_TagString: GrabObject
@@ -79,6 +80,29 @@ MonoBehaviour:
     type: 3}
   settings: {fileID: 11400000, guid: 8571b17c452a90a4fa6a2bd82aa04812, type: 2}
   outlineSettings: {fileID: 11400000, guid: 98d4310e4cf8fc440aad3684d6abc4b0, type: 2}
+--- !u!114 &3942911545282176265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5372197795055524048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2059e7b8be60b554c9324bdf690007e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  states:
+    washed: 0
+    dirty: 0
+    burnt: 0
+    smuged: 0
+    cooked: 0
+    grown: 0
+    colored: 0
+    broken: 0
+    opened: 0
+    plugged: 0
 --- !u!1 &5689302901389029087
 GameObject:
   m_ObjectHideFlags: 0
