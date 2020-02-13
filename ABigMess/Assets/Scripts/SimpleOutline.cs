@@ -96,6 +96,17 @@ public class SimpleOutline : MonoBehaviour
         // Cache renderers
         renderers = GetComponentsInChildren<Renderer>();
 
+        // Remove ParticleSystemsRenderers
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            if (renderers[i] is ParticleSystemRenderer)
+            {
+                renderers[i] = null;
+            }
+        }
+        // Remove null from renderers
+        renderers = renderers.Where(c => c != null).ToArray();
+
         // Instantiate outline materials
         outlineMaskMaterial = Instantiate(Resources.Load<Material>(@"Materials/OutlineMask"));
         outlineFillMaterial = Instantiate(Resources.Load<Material>(@"Materials/OutlineFill"));
