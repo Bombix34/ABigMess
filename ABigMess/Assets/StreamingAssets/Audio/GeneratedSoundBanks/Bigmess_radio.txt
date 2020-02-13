@@ -1,0 +1,109 @@
+Event	ID	Name			Wwise Object Path	Notes
+	1069010652	Play_radio_station02			\Music\Radio\Play_radio_station02	
+	1069010653	Play_radio_station03			\Music\Radio\Play_radio_station03	
+	1069010655	Play_radio_station01			\Music\Radio\Play_radio_station01	
+	1510088249	Play_radio_state			\Music\Radio\Play_radio_state	
+	1749933030	Stop_radio_level			\Music\Radio\Stop_radio_level	
+	3703828323	Stop_radio_stations			\Music\Radio\Stop_radio_stations	
+
+State Group	ID	Name			Wwise Object Path	Notes
+	166680927	radio_station			\Default Work Unit\radio_station	
+
+State	ID	Name	State Group			Notes
+	0	None	radio_station			
+	312882084	station03	radio_station			
+	312882085	station02	radio_station			
+	312882086	station01	radio_station			
+	930712164	off	radio_station			
+
+Custom State	ID	Name	State Group	Owner		Notes
+	14095151	station01	radio_station	\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station03		
+	305066158	station02	radio_station	\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station03		
+	415566567	station03	radio_station	\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station01		
+	650112832	station02	radio_station	\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station01		
+	841213039	station03	radio_station	\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station02		
+	879077567	station01	radio_station	\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station02		
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	9366097	caster_louis-002	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\caster_louis-002_9B96ECC7.wem		\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station01\caster_louis-002\caster_louis-002		40124
+	23682200	caster_louis-006	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\caster_louis-006_9B96ECC7.wem		\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station01\caster_louis-006\caster_louis-006		49646
+	29118490	static_D-004	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_D-004_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_D_SFX\static_D-004		3587
+	58216700	static_F-001	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_FX-001_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_F_SFX\static_F-001		16665
+	73873310	caster_louis-004	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\caster_louis-004_9B96ECC7.wem		\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station01\caster_louis-004\caster_louis-004		53710
+	137702736	static_C-003	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_C-003_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_C_SFX\static_C-003		3963
+	138380469	caster_simon-003	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\caster_simon-003_9B96ECC7.wem		\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station02\caster_simon-003\caster_simon-003		60709
+	186735368	static_F-002	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_FX-002_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_F_SFX\static_F-002		17711
+	198085294	caster_louis-007	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\caster_louis-007_9B96ECC7.wem		\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station01\caster_louis-007\caster_louis-007		51253
+	206064198	caster_simon-004	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\caster_simon-004_9B96ECC7.wem		\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station02\caster_simon-004\caster_simon-004		80944
+	211254484	static_E-006	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_E-006_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_E_SFX\static_E-006		3910
+	212196890	static_D-003	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_D-003_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_D_SFX\static_D-003		4075
+	222950181	static_A-001	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_A-001_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_A_SFX\static_A-001		13166
+	226560596	static_D-005	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_D-005_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_D_SFX\static_D-005		4004
+	248521691	caster_simon-007	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\caster_simon-007_9B96ECC7.wem		\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station02\caster_simon-007\caster_simon-007		104153
+	251941631	static_D-006	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_D-006_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_D_SFX\static_D-006		3783
+	253694918	static_A-007	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_A-007_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_A_SFX\static_A-007		8794
+	254522013	static_B-001	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_B-001_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_B_SFX\static_B-001		4887
+	283535939	caster_simon-001	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\caster_simon-001_9B96ECC7.wem		\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station02\caster_simon-001\caster_simon-001		203560
+	283657099	radio_off_SFX	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\radio_off_SFX_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\radio_off_SFX		12744
+	303240979	static_B-003	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_B-003_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_B_SFX\static_B-003		5333
+	314080650	static_C-001	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_C-001_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_C_SFX\static_C-001		4912
+	327303454	caster_thomas-008	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\caster_thomas-008_9B96ECC7.wem		\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station03\caster_thomas-008\caster_thomas-008		152583
+	352555108	static_C-008	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_C-008_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_C_SFX\static_C-008		3617
+	401368860	static_B-004	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_B-004_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_B_SFX\static_B-004		4882
+	409554297	static_A-002	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_A-002_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_A_SFX\static_A-002		9979
+	437687424	static_D-008	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_D-008_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_D_SFX\static_D-008		3649
+	438806584	static_C-009	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_C-009_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_C_SFX\static_C-009		3867
+	439201233	static_C-006	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_C-006_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_C_SFX\static_C-006		3740
+	442914385	caster_thomas-007	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\caster_thomas-007_9B96ECC7.wem		\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station03\caster_thomas-007\caster_thomas-007		122598
+	464763951	static_F-003	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_FX-003_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_F_SFX\static_F-003		18575
+	466782826	static_E-009	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_E-009_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_E_SFX\static_E-009		4279
+	496624674	caster_thomas-009	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\caster_thomas-009_9B96ECC7.wem		\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station03\caster_thomas-009\caster_thomas-009		145659
+	561490902	static_E-003	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_E-003_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_E_SFX\static_E-003		4431
+	566885147	caster_louis-001	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\caster_louis-001_9B96ECC7.wem		\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station01\caster_louis-001\caster_louis-001		41432
+	573295939	static_A-003	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_A-003_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_A_SFX\static_A-003		10104
+	583913353	caster_thomas-005	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\caster_thomas-005_9B96ECC7.wem		\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station03\caster_thomas-005\caster_thomas-005		99611
+	596759797	static_D-007	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_D-007_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_D_SFX\static_D-007		3583
+	613868227	static_C-004	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_C-004_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_C_SFX\static_C-004		3653
+	618205705	static_D-001	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_D-001_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_D_SFX\static_D-001		4952
+	619620895	caster_simon-008	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\caster_simon-008_9B96ECC7.wem		\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station02\caster_simon-008\caster_simon-008		97997
+	632412126	static_A-006	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_A-006_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_A_SFX\static_A-006		8746
+	639070996	static_E-007	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_E-007_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_E_SFX\static_E-007		3735
+	645368893	static_A-004	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_A-004_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_A_SFX\static_A-004		8935
+	655184548	static_C-005	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_C-005_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_C_SFX\static_C-005		3964
+	660824431	static_B-009	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_B-009_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_B_SFX\static_B-009		5867
+	661056302	static_E-002	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_E-002_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_E_SFX\static_E-002		3928
+	678872715	static_C-002	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_C-002_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_C_SFX\static_C-002		4297
+	681601421	static_C-007	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_C-007_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_C_SFX\static_C-007		3536
+	701277267	static_F-004	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_FX-004_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_F_SFX\static_F-004		18320
+	735079034	caster_thomas-006	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\caster_thomas-006_9B96ECC7.wem		\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station03\caster_thomas-006\caster_thomas-006		144681
+	739080969	caster_thomas-004	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\caster_thomas-004_9B96ECC7.wem		\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station03\caster_thomas-004\caster_thomas-004		68589
+	739970031	radio_on_SFX	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\radio_on_SFX_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\radio_on_SFX		17982
+	747157216	static_D-002	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_D-002_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_D_SFX\static_D-002		4528
+	749870324	caster_simon-005	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\caster_simon-005_9B96ECC7.wem		\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station02\caster_simon-005\caster_simon-005		82493
+	756685148	static_E-005	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_E-005_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_E_SFX\static_E-005		4947
+	809891506	static_A-008	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_A-008_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_A_SFX\static_A-008		8296
+	811231497	Radio_static_loop	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_loop_9B96ECC7.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_loop		817382
+	826166415	caster_thomas-002	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\caster_thomas-002_9B96ECC7.wem		\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station03\caster_thomas-002\caster_thomas-002		197392
+	858147685	static_A-009	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_A-009_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_A_SFX\static_A-009		9353
+	878141750	static_F-007	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_FX-007_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_F_SFX\static_F-007		18551
+	896417277	caster_simon-009	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\caster_simon-009_9B96ECC7.wem		\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station02\caster_simon-009\caster_simon-009		71282
+	901753670	static_E-001	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_E-001_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_E_SFX\static_E-001		5351
+	911410451	static_B-008	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_B-008_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_B_SFX\static_B-008		6476
+	915273234	caster_louis-003	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\caster_louis-003_9B96ECC7.wem		\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station01\caster_louis-003\caster_louis-003		64917
+	917338709	caster_thomas-001	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\caster_thomas-001_9B96ECC7.wem		\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station03\caster_thomas-001\caster_thomas-001		75526
+	919251776	static_B-005	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_B-005_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_B_SFX\static_B-005		5489
+	922912415	caster_louis-005	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\caster_louis-005_9B96ECC7.wem		\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station01\caster_louis-005\caster_louis-005		120160
+	930064935	static_A-005	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_A-005_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_A_SFX\static_A-005		9750
+	948807393	caster_thomas-003	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\caster_thomas-003_9B96ECC7.wem		\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station03\caster_thomas-003\caster_thomas-003		203152
+	951693898	caster_simon-002	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\caster_simon-002_9B96ECC7.wem		\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station02\caster_simon-002\caster_simon-002		128964
+	962603947	caster_simon-006	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\caster_simon-006_9B96ECC7.wem		\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station02\caster_simon-006\caster_simon-006		75284
+	968511723	static_E-004	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_E-004_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_E_SFX\static_E-004		3769
+	1002832952	static_F-005	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_FX-005_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_F_SFX\static_F-005		17991
+	1029104766	static_F-006	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_FX-006_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_F_SFX\static_F-006		17503
+	1032026152	static_E-008	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_E-008_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_E_SFX\static_E-008		3990
+	1035971210	static_D-009	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_D-009_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_D_SFX\static_D-009		3925
+	1053033439	static_B-007	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_B-007_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_B_SFX\static_B-007		7352
+	1053344360	caster_thomas-010	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\caster_thomas-010_9B96ECC7.wem		\Interactive Music Hierarchy\Big_mess_radio_State\radio_stations\station03\caster_thomas-010\caster_thomas-010		120518
+	1070462140	static_B-002	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_B-002_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_B_SFX\static_B-002		6564
+	1073651919	static_B-006	C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\SFX\static_B-006_6296B0F9.wem		\Actor-Mixer Hierarchy\SFX\Radio_SFX\Radio_static_SFX\static_B_SFX\static_B-006		5787
+
