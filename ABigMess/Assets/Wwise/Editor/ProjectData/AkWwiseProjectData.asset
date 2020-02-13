@@ -184,14 +184,14 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: d8f724ebd01aca43968faaf35d3b837f
     GuidInternal: 
-    m_lastTime: -8586207821122676691
+    m_lastTime: -8586200014020835362
     List: []
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 0f2a0ca1a300644f9d0e66377c7a9207
     GuidInternal: 
-    m_lastTime: -8586200065944359636
+    m_lastTime: -8586200003718834719
     List:
     - name: Bigmess_music
       guid: 3de1b763af55174ba5cc31eb22d1527d
@@ -279,13 +279,13 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 2e0b19a433a3384db4191777c4d33194
     GuidInternal: 
-    m_lastTime: -8586200065944529195
+    m_lastTime: -8586200003718874884
     List: []
   - PhysicalPath: Events\Music.wwu
     ParentPhysicalPath: 
     guid: 989c4f7b6a08564c950aaf2152d17c74
     GuidInternal: 
-    m_lastTime: -8586202651893928846
+    m_lastTime: -8586200003718854673
     List:
     - name: Play_Music_credits
       guid: 30a0ebfb794fc04a8e5048be859d4cff
@@ -392,6 +392,30 @@ MonoBehaviour:
       - ElementName: Play_radio_station03
         ObjectType: 3
       Path: Music\Radio\Play_radio_station03
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_transition_sound_in
+      guid: f395967a16a54146b1ae6fe5d8297aad
+      id: 2363713323
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Play_transition_sound_in
+        ObjectType: 3
+      Path: Music\Play_transition_sound_in
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_transition_sound_out
+      guid: 6b0a76dc1bf51e45a3631e3e025dbafe
+      id: 4260129830
+      PathAndIcons:
+      - ElementName: Music
+        ObjectType: 12
+      - ElementName: Play_transition_sound_out
+        ObjectType: 3
+      Path: Music\Play_transition_sound_out
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -1248,9 +1272,8 @@ MonoBehaviour:
   - /M2_A_Big_Mess
   - /M2_A_Big_Mess/Events
   - /M2_A_Big_Mess/Events/Music
-  - /M2_A_Big_Mess/Events/Music/Music_noon
-  - /M2_A_Big_Mess/Events/SFX
   - /M2_A_Big_Mess/SoundBanks
   - /M2_A_Big_Mess/SoundBanks/Default Work Unit
+  - /M2_A_Big_Mess/States
   autoPopulateEnabled: 1
   CurrentPluginConfig: 
