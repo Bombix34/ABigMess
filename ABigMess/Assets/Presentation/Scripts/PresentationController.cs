@@ -34,6 +34,7 @@ public class PresentationController : Singleton<PresentationController>
     {
         if(inputs.ReloadSceneInput())
         {
+            StopMusic();
             levelsDatas.ReloadScene();
         }
         if(inputs.NextSceneInput())
@@ -53,13 +54,22 @@ public class PresentationController : Singleton<PresentationController>
             transitionManager.LeaveSceneTransition();
             yield return new WaitForSeconds(0.75f);
         }
-        if(isNext)
+        StopMusic();
+        if (isNext)
         {
             levelsDatas.LoadNextScene();
         }
         else
         {
             levelsDatas.LoadPreviousScene();
+        }
+    }
+
+    public void StopMusic()
+    {
+        if(MusicManager.instance!=null)
+        {
+            MusicManager.instance.StopMusic();
         }
     }
 }
