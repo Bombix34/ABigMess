@@ -82,7 +82,7 @@ public class MusicManager : Singleton<MusicManager>
     #region PRESENTATION
 
     //ATTENTION : UNIQUEMENT POUR LES NVIEAUX PRESENTATIONS
-    private bool isMusicLaunch = false;
+    public bool isMusicLaunch = false;
 
     public void LaunchMusic()
     {
@@ -91,6 +91,10 @@ public class MusicManager : Singleton<MusicManager>
 
     public void StopMusic()
     {
+        if(!isMusicLaunch)
+        {
+            return;
+        }
         isMusicLaunch = false;
         AkSoundEngine.PostEvent("Transition_level_in", gameObject);
         AkSoundEngine.PostEvent("Stop_music_noon", gameObject);
