@@ -100,8 +100,12 @@
 
 			float2 uv = IN.uv_MainTex.xy;
 			float val = fbm(uv);
-
-            o.Alpha = val * c.a;
+			if (val > 0.5f) {
+				o.Alpha = val * c.a;
+			}
+			else {
+				o.Alpha = 0;
+			}
         }
         ENDCG
     }
