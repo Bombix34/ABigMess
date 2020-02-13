@@ -12,7 +12,7 @@ public class UIWorldTrigger : MonoBehaviour
     {
         foreach (RectTransform showRect in toShow)
         {
-            showRect.DOScale(0f, 0f);
+            //showRect.DOScale(0f, 0f);
             showRect.DOAnchorPos3DZ(20f, 0f);
         }
     }
@@ -23,11 +23,13 @@ public class UIWorldTrigger : MonoBehaviour
         {
             foreach(RectTransform rect in toHide)
             {
-                rect.DOScale(0f, 0.6f);
+                //rect.DOScale(0f, 0.6f);
+                rect.DOAnchorPos3DZ(20f, 0.6f);
             }
             foreach(RectTransform showRect in toShow)
             {
-                showRect.DOScale(0.02f, 0.6f);
+                showRect.DOAnchorPos3DZ(0f, 0.6f);
+                //showRect.DOScale(0.02f, 0.6f);
             }
         }
     }
