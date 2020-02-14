@@ -191,7 +191,7 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 0f2a0ca1a300644f9d0e66377c7a9207
     GuidInternal: 
-    m_lastTime: -8586200003718834719
+    m_lastTime: -8586199143812513385
     List:
     - name: Bigmess_music
       guid: 3de1b763af55174ba5cc31eb22d1527d
@@ -225,7 +225,7 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 901646cfc81c8345b4a4d18f8b1c5ce2
     GuidInternal: 
-    m_lastTime: -8586205178214764204
+    m_lastTime: -8586199162237896567
     List:
     - name: Play_bathroom_tone
       guid: b4e22e8a6f14d54280f23a315a13cbc5
@@ -279,13 +279,25 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 2e0b19a433a3384db4191777c4d33194
     GuidInternal: 
-    m_lastTime: -8586200003718874884
-    List: []
+    m_lastTime: -8586199145835544789
+    List:
+    - name: Stop_trailer_sound
+      guid: cf534e85eaf35046aafc824b76e7fd44
+      id: 264926969
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Stop_trailer_sound
+        ObjectType: 3
+      Path: Default Work Unit\Stop_trailer_sound
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
   - PhysicalPath: Events\Music.wwu
     ParentPhysicalPath: 
     guid: 989c4f7b6a08564c950aaf2152d17c74
     GuidInternal: 
-    m_lastTime: -8586200003718854673
+    m_lastTime: -8586199162237916518
     List:
     - name: Play_Music_credits
       guid: 30a0ebfb794fc04a8e5048be859d4cff
@@ -709,7 +721,7 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: f432dde08975134db82eaaa1eddfe4e7
     GuidInternal: 
-    m_lastTime: -8586200065944459381
+    m_lastTime: -8586199145835534800
     List:
     - name: Play_Alien_heavy_object
       guid: 02334160e7dd194d8c349ca953acf0e9
@@ -746,6 +758,18 @@ MonoBehaviour:
       - ElementName: Play_chair_drop_SFX
         ObjectType: 3
       Path: SFX\Play_chair_drop_SFX
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_confettis_SFX
+      guid: 5c56a52052a03248aafd93d44e110235
+      id: 3618541997
+      PathAndIcons:
+      - ElementName: SFX
+        ObjectType: 12
+      - ElementName: Play_confettis_SFX
+        ObjectType: 3
+      Path: SFX\Play_confettis_SFX
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -857,6 +881,18 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
+    - name: Play_paint_SFX
+      guid: 5255f8580b8b26409bf00dab8288f463
+      id: 604816926
+      PathAndIcons:
+      - ElementName: SFX
+        ObjectType: 12
+      - ElementName: Play_paint_SFX
+        ObjectType: 3
+      Path: SFX\Play_paint_SFX
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Play_release_SFX
       guid: 117e3f3253bfd14d95e97b08cd6766bb
       id: 2301344613
@@ -878,6 +914,18 @@ MonoBehaviour:
       - ElementName: Play_toilet_SFX
         ObjectType: 3
       Path: SFX\Play_toilet_SFX
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_trailer_bigmess_audio
+      guid: f991b248b7ec40438ae5124bba783ade
+      id: 113392983
+      PathAndIcons:
+      - ElementName: SFX
+        ObjectType: 12
+      - ElementName: Play_trailer_bigmess_audio
+        ObjectType: 3
+      Path: SFX\Play_trailer_bigmess_audio
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -1271,6 +1319,7 @@ MonoBehaviour:
   ExpandedItems:
   - /M2_A_Big_Mess
   - /M2_A_Big_Mess/Events
+  - /M2_A_Big_Mess/Events/Default Work Unit
   - /M2_A_Big_Mess/Events/Music
   - /M2_A_Big_Mess/SoundBanks
   - /M2_A_Big_Mess/SoundBanks/Default Work Unit
