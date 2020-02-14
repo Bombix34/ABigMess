@@ -52,7 +52,6 @@ public class MusicSwitchOnStart : MonoBehaviour
             manager.StopMusic();
             this.GetComponent<VideoPlayer>().Play();
             manager.PlayTrailerSound();
-            StartCoroutine(WaitForEndTrailer());
         }
     }
 
@@ -63,14 +62,5 @@ public class MusicSwitchOnStart : MonoBehaviour
             manager.StopTrailerSound();
         }
     }
-
-    private IEnumerator WaitForEndTrailer()
-    {
-        yield return new WaitForSeconds(1f);
-        while (this.GetComponent<VideoPlayer>().isPlaying)
-        {
-            yield return new WaitForSeconds(0.001f);
-        }
-       // EndTrailerSound();
-    }
+    
 }
