@@ -5,10 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PresentationController : Singleton<PresentationController>
 {
-    //public PresentationLevels levelsDatas;
-
-    public Object nextScene;
-    public Object previousScene;
+    public string nextScene;
+    public string previousScene;
 
     public PresentationTransition transitionManager;
 
@@ -19,13 +17,6 @@ public class PresentationController : Singleton<PresentationController>
     private void Start()
     {
         inputs = GetComponent<PresentationInputsManager>();
-        Debug.Log(nextScene);
-        /*
-        if(isFirstScene)
-        {
-            levelsDatas.curIndexScene = 0;
-        }
-        */
         if(transitionManager!=null)
         {
             transitionManager.StartSceneTransition();
@@ -42,9 +33,7 @@ public class PresentationController : Singleton<PresentationController>
         if(inputs.ReloadSceneInput())
         {
             StopMusic();
-            /*
-            levelsDatas.ReloadScene();
-            */
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         if(inputs.NextSceneInput())
         {
@@ -68,17 +57,15 @@ public class PresentationController : Singleton<PresentationController>
         {
             if(nextScene!=null)
             {
-                SceneManager.LoadScene(nextScene.name);
+                SceneManager.LoadScene(nextScene);
             }
-            //levelsDatas.LoadNextScene();
         }
         else
         {
             if (previousScene != null)
             {
-                SceneManager.LoadScene(previousScene.name);
+                SceneManager.LoadScene(previousScene);
             }
-           // levelsDatas.LoadPreviousScene();
         }
     }
 
