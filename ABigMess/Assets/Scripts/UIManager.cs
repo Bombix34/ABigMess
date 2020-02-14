@@ -36,7 +36,7 @@ public class UIManager : Singleton<UIManager>
     private int currentTextPosition = 0;
 
     [SerializeField]
-    private static float letterApparitionDelay = 0.05f;
+    private static float letterApparitionDelay = 0.01f;
 
     private void Start()
     {
