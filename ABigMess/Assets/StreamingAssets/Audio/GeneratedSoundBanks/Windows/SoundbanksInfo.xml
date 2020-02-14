@@ -3,7 +3,7 @@
 	<RootPaths>
 		<ProjectRoot>C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\</ProjectRoot>
 		<SourceFilesRoot>C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\.cache\Windows\</SourceFilesRoot>
-		<SoundBanksRoot>C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\BigMess\ABigMess\ABigMess\Assets\StreamingAssets\Audio\GeneratedSoundBanks\Windows\</SoundBanksRoot>
+		<SoundBanksRoot>C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\GeneratedSoundBanks\Windows\</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
 		<ExternalSourcesOutputRoot>C:\Users\ELE5b88f44f2c111\Documents\GamesProjects\ABigMess_Wwise\ABigMess_Wwise\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
@@ -25,6 +25,8 @@
 				<Event Id="1699343283" Name="Play_Music_menu" ObjectPath="\Events\Music\Play_Music_menu" DurationType="Infinite"/>
 				<Event Id="3093640346" Name="Play_Music_morning" ObjectPath="\Events\Music\Music_morning\Play_Music_morning" DurationType="Infinite"/>
 				<Event Id="508480304" Name="Play_music_noon" ObjectPath="\Events\Music\Music_noon\Play_music_noon" DurationType="Infinite"/>
+				<Event Id="2363713323" Name="Play_transition_sound_in" ObjectPath="\Events\Music\Play_transition_sound_in" DurationType="OneShot" DurationMin="1.997729" DurationMax="1.997729"/>
+				<Event Id="4260129830" Name="Play_transition_sound_out" ObjectPath="\Events\Music\Play_transition_sound_out" DurationType="OneShot" DurationMin="2.477479" DurationMax="2.477479"/>
 				<Event Id="2966616398" Name="Set_state_music_morning_01" ObjectPath="\Events\Music\Music_morning\Set_state_music_morning_01" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
 				<Event Id="2966616397" Name="Set_state_music_morning_02" ObjectPath="\Events\Music\Music_morning\Set_state_music_morning_02" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
 				<Event Id="2966616396" Name="Set_state_music_morning_03" ObjectPath="\Events\Music\Music_morning\Set_state_music_morning_03" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
@@ -42,8 +44,8 @@
 				<Event Id="106912753" Name="Stop_Music_menu" ObjectPath="\Events\Music\Stop_Music_menu" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
 				<Event Id="362766060" Name="Stop_music_morning" ObjectPath="\Events\Music\Music_morning\Stop_music_morning" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
 				<Event Id="1940321634" Name="Stop_music_noon" ObjectPath="\Events\Music\Music_noon\Stop_music_noon" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
-				<Event Id="1379993931" Name="Transition_level_in" ObjectPath="\Events\Music\Transition_level_in" DurationType="OneShot" DurationMin="1.997729" DurationMax="1.997729"/>
-				<Event Id="3495077062" Name="Transition_level_out" ObjectPath="\Events\Music\Transition_level_out" DurationType="OneShot" DurationMin="2.477479" DurationMax="2.477479"/>
+				<Event Id="1379993931" Name="Transition_level_in" ObjectPath="\Events\Music\Transition_level_in" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+				<Event Id="3495077062" Name="Transition_level_out" ObjectPath="\Events\Music\Transition_level_out" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
 			</IncludedEvents>
 			<IncludedMemoryFiles>
 				<File Id="4629465" Language="SFX">
