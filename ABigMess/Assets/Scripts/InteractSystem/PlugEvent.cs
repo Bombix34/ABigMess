@@ -13,7 +13,7 @@ public class PlugEvent : InteractEvent
     
     public override void InteractionEvent(GameObject objConcerned)
     {
-        //Debug.Log("Plugging " + objConcerned);
+        Debug.Log("Plugging " + objConcerned);
         SetupObjectState(objConcerned);
         GameObject particles = TryInstantiateParticleFX(objConcerned);
         if(particles!=null)
