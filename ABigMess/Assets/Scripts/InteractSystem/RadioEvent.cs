@@ -18,6 +18,10 @@ public class RadioEvent : InteractEvent
         {
             objConcerned.GetComponent<Animator>().SetBool("IsOn", true);
         }
+        foreach(ParticleSystem particle in objConcerned.GetComponentsInChildren<ParticleSystem>())
+        {
+            particle.Play();
+        }
         TryInstantiateParticleFX(objConcerned);
     }
 }
