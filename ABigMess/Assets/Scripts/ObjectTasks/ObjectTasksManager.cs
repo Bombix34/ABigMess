@@ -35,6 +35,10 @@ public class ObjectTasksManager : MonoBehaviour
 
     public void InitTaskDoneValue()
     {
+        if(currentTasks==null)
+        {
+            return;
+        }
         foreach (ObjectTask task in currentTasks.objectTasks)
         {
             task.IsDone = false;

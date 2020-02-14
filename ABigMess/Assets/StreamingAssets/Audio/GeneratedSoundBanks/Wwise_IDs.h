@@ -39,6 +39,8 @@ namespace AK
         static const AkUniqueID PLAY_RELEASE_SFX = 2301344613U;
         static const AkUniqueID PLAY_SMALL_ROOM_TONE = 2485252018U;
         static const AkUniqueID PLAY_TOILET_SFX = 1808223893U;
+        static const AkUniqueID PLAY_TRANSITION_SOUND_IN = 2363713323U;
+        static const AkUniqueID PLAY_TRANSITION_SOUND_OUT = 4260129830U;
         static const AkUniqueID PLAY_VOICE_PLAYER01 = 1980653889U;
         static const AkUniqueID PLAY_VOICE_PLAYER02 = 1980653890U;
         static const AkUniqueID PLAY_VOICES_CARRY_LOOP = 439267736U;

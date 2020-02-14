@@ -31,4 +31,13 @@ public class MusicSwitchOnStart : MonoBehaviour
             manager.MainMenuMusic(true);
         }
     }
+
+    public void StopMusic()
+    {
+        if (IsMusicManager)
+        {
+            manager.isMusicLaunch = true;
+            manager.StopMusic();
+        }
+    }
 }
