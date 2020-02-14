@@ -23,7 +23,6 @@ public class PresentationController : Singleton<PresentationController>
         {
             transitionManager.StartSceneTransition();
         }
-        print(levelsDatas.curIndexScene);
     }
 
     private void Update()

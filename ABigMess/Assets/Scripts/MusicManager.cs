@@ -91,7 +91,7 @@ public class MusicManager : Singleton<MusicManager>
 
     public void StopMusic()
     {
-        if(!isMusicLaunch)
+        if (!isMusicLaunch)
         {
             return;
         }
@@ -109,6 +109,16 @@ public class MusicManager : Singleton<MusicManager>
         }
         AkSoundEngine.PostEvent("Transition_level_out", gameObject);
         AkSoundEngine.PostEvent("Set_state_noon_0" + (indexLayer), gameObject);
+    }
+
+    public void PlayTrailerSound()
+    {
+        AkSoundEngine.PostEvent("Play_trailer_bigmess_audio", gameObject);
+    }
+
+    public void StopTrailerSound()
+    {
+        AkSoundEngine.PostEvent("Stop_trailer_sound", gameObject);
     }
 
     #endregion  

@@ -376,16 +376,16 @@ VideoPlayer:
   m_AspectRatio: 2
   m_DataSource: 0
   m_PlaybackSpeed: 1
-  m_AudioOutputMode: 2
+  m_AudioOutputMode: 0
   m_TargetAudioSources:
   - {fileID: 0}
   m_DirectAudioVolumes:
   - 1
   m_Url: 
-  m_EnabledAudioTracks: 01
+  m_EnabledAudioTracks: 00
   m_DirectAudioMutes: 00
   m_ControlledAudioTrackCount: 1
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_SkipOnDrop: 1
   m_Looping: 0
   m_WaitForFirstFrame: 1
@@ -492,9 +492,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 1477520859}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 571ddd4ea1f10d643831f1ca8887ef0c, type: 3}
+  m_Script: {fileID: 11500000, guid: 02e21476a5e5c594581db42163901c2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onStartEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1477520865}
+        m_MethodName: TrailerSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1001 &1715421709
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -689,7 +705,7 @@ PrefabInstance:
     - target: {fileID: 171978448306464006, guid: c589bacd9dee1994db1f13ef75fae1b4,
         type: 3}
       propertyPath: OnLeaveSceneEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 171978448306464006, guid: c589bacd9dee1994db1f13ef75fae1b4,
         type: 3}
@@ -780,7 +796,7 @@ PrefabInstance:
         type: 3}
       propertyPath: OnLeaveSceneEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 5939186318866060453}
+      objectReference: {fileID: 1477520865}
     - target: {fileID: 171978448306464006, guid: c589bacd9dee1994db1f13ef75fae1b4,
         type: 3}
       propertyPath: transitionScreenColorOut.r
@@ -814,7 +830,7 @@ PrefabInstance:
     - target: {fileID: 171978448306464006, guid: c589bacd9dee1994db1f13ef75fae1b4,
         type: 3}
       propertyPath: OnLeaveSceneEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: GoInTransition
+      value: EndTrailerSound
       objectReference: {fileID: 0}
     - target: {fileID: 171978448306464006, guid: c589bacd9dee1994db1f13ef75fae1b4,
         type: 3}
