@@ -11,6 +11,6 @@ public class IndexSceneInit : MonoBehaviour
 
     private void Start()
     {
-        levelsDatas.curIndexScene = indexToSet;
+      //  levelsDatas.curIndexScene = indexToSet;
     }
 }
