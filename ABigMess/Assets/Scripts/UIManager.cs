@@ -32,6 +32,8 @@ public class UIManager : Singleton<UIManager>
     private Image grandmaImage;
     [SerializeField]
     private Image bubbleImage;
+    [SerializeField]
+    private Text skipText;
 
     private int currentTextPosition = 0;
 
@@ -41,6 +43,7 @@ public class UIManager : Singleton<UIManager>
     private void Start()
     {
         grandmaImage.color = new Color(1f, 1f, 1f, 0f);
+        skipText.color = grandmaImage.color;
         bubbleImage.color = grandmaImage.color;
     }
 
@@ -108,6 +111,7 @@ public class UIManager : Singleton<UIManager>
         bubbleImage.gameObject.SetActive(true);
         bubbleImage.color = grandmaImage.color;
         bubbleImage.DOFade(1f, 0.8f);
+        skipText.DOFade(1f, 0.8f);
         TransitionScreen currentLevelTransition = GameManager.Instance.GetCurrentLevel().introScreen;
         //transitionInstruction.gameObject.SetActive(true);
         if (currentLevelTransition != null)
@@ -147,6 +151,7 @@ public class UIManager : Singleton<UIManager>
         transitionPanel.SetActive(true);
         grandmaImage.gameObject.SetActive(false);
         bubbleImage.gameObject.SetActive(false);
+        skipText.gameObject.SetActive(false);
         StartCoroutine(TransitionFade(true));
     }
 
@@ -189,6 +194,7 @@ public class UIManager : Singleton<UIManager>
             RectTransform transitionPanelRectTransform = transitionPanel.GetComponent<RectTransform>();
             transitionPanelRectTransform.DOAnchorPosY(transitionPanelRectTransform.rect.height, 0.6f).SetEase(Ease.Linear);
             transitionInstruction.gameObject.SetActive(false);
+            skipText.gameObject.SetActive(false);
             GameManager.instance.LaunchLevel();
             
         }
