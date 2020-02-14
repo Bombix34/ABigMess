@@ -7,6 +7,10 @@ using UnityEngine;
 public class WashEvent : InteractEvent
 {
 
+    [SerializeField] GameObject sparklesParticles;
+
+    [SerializeField] float sparklesParticlesHeight = 0.5f;
+
     public override void InteractionEvent(GameObject objConcerned)
     {
         if(MusicManager.Instance!=null)
@@ -15,6 +19,27 @@ public class WashEvent : InteractEvent
         }
         SetupObjectState(objConcerned);
         TryInstantiateParticleFX(objConcerned);
+        if (sparklesParticles != null)
+        {
+            //Find any monobehaviour to start coroutine
+            MonoBehaviour mb = FindObjectOfType<MonoBehaviour>();
+            mb.StartCoroutine(InstantiateSparkles(objConcerned));
+
+            InstantiateSparkles(objConcerned);
+        }
     }
 
+    public IEnumerator InstantiateSparkles(GameObject objConcerned)
+    {
+        yield return new WaitForSeconds(chronoBeforeKillingParticles);
+        if (objConcerned.GetComponentInChildren<ParticleSystem>() == null)
+        {
+            GameObject particles = Instantiate(sparklesParticles, objConcerned.transform);
+            particles.transform.position = new Vector3(particles.transform.position.x, 
+                particles.transform.position.y + sparklesParticlesHeight, 
+                particles.transform.position.z);
+
+            Destroy(particles, 1f);
+        }
+    }
 }

@@ -21,7 +21,7 @@ public abstract class InteractEvent : ScriptableObject
     GameObject particleFX;
 
     [SerializeField]
-    float chronoBeforeKillingParticles = 0.25f;
+    protected float chronoBeforeKillingParticles = 0.25f;
 
     [SerializeField]
     public Sprite icon;
