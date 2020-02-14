@@ -136,6 +136,7 @@ public class Radio
     {
         akSoundManager = obj;
         LaunchRadio();
+        
     }
 
     public bool IsRadioLaunch()
