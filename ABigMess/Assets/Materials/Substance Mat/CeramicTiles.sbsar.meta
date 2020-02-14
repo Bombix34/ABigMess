@@ -192,15 +192,19 @@ ScriptedImporter:
       type: 3}
     generatedTextures:
     - {fileID: -2722043554132669187, guid: 46827f0dc51c13b488efffe4fa531fde, type: 3}
-    - {fileID: 5871383560343728185, guid: 46827f0dc51c13b488efffe4fa531fde, type: 3}
     - {fileID: 337319303902830216, guid: 46827f0dc51c13b488efffe4fa531fde, type: 3}
+    - {fileID: 5871383560343728185, guid: 46827f0dc51c13b488efffe4fa531fde, type: 3}
   - graphLabel: Walls_1
     prototypeName: Walls
     graphDescIndex: 0
     generateAllOutputs: 0
     generateMipMaps: 1
     preset: " <sbspreset pkgurl=\"pkg://Walls\" label=\"\" >\n  <presetinput identifier=\"$outputsize\"
-      uid=\"760565187\" type=\"8\" value=\"11,11\" />\n </sbspreset>\n"
+      uid=\"760565187\" type=\"8\" value=\"11,11\" />\n  <presetinput identifier=\"baseColor_joints\"
+      uid=\"1178668061\" type=\"3\" value=\"0.915094,0.900983,0.841714,1\" />\n  <presetinput
+      identifier=\"baseColor\" uid=\"1178668146\" type=\"3\" value=\"0.858491,0.829566,0.757253,1\"
+      />\n  <presetinput identifier=\"baseColor2\" uid=\"1178668162\" type=\"3\" value=\"0.830189,0.740121,0.778912,1\"
+      />\n </sbspreset>\n"
     shaderName: Standard
     materialProperties:
       shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
