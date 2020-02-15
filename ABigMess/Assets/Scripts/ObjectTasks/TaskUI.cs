@@ -117,7 +117,7 @@ public class TaskUI : MonoBehaviour
             return;
         }
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(image.DOColor(task.IsDone ? Color.green : Color.white, 1));
+        sequence.Append(image.DOColor(task.IsDone ? new Color(0f,1f,0f,0.7f) : new Color(1f,1f,1f,0.7f), 1));
         sequence.Join(rectTransform.DOSizeDelta(task.IsDone ? initialSizeDelta * 1.125f : initialSizeDelta, 1f).SetEase(Ease.InElastic));
         
     }
