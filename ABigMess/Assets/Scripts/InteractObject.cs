@@ -86,6 +86,12 @@ public class InteractObject : MonoBehaviour
     {
         InteractObject toolObj = grabbedObject.GetComponent<InteractObject>();
 
+        if (particles != null)
+        {
+            particles.Simulate(0.0f, true, true);
+            particles.Play();
+        }
+
         // Reset particles if grabbedObject has particles (for example wateringCan)
         if (toolObj != null && toolObj.particles != null)
         {
