@@ -37,6 +37,8 @@ public class InteractObject : MonoBehaviour
 
     private List<GameObject> attachedPlayers;
 
+    private ParticleSystem particles;
+
     private void Awake()
     {
         attachedPlayers = new List<GameObject>();
@@ -65,6 +67,7 @@ public class InteractObject : MonoBehaviour
         InitHighlight();
         SetupWeight();
         SceneObjectDatas.Instance.AddObject(this);
+        particles = GetComponentInChildren<ParticleSystem>();
     }
 
 
@@ -82,6 +85,19 @@ public class InteractObject : MonoBehaviour
     public void Interact(GameObject grabbedObject)
     {
         InteractObject toolObj = grabbedObject.GetComponent<InteractObject>();
+
+        if (particles != null)
+        {
+            particles.Simulate(0.0f, true, true);
+            particles.Play();
+        }
+
+        // Reset particles if grabbedObject has particles (for example wateringCan)
+        if (toolObj != null && toolObj.particles != null)
+        {
+            toolObj.particles.Simulate(0.0f, true, true);
+            toolObj.particles.Play();
+        }
 
         if (toolObj.Settings.IsTool() && !toolObj.Settings.NeedsToBePlugged())
         {
@@ -105,7 +121,7 @@ public class InteractObject : MonoBehaviour
         if (Settings.IsTool() && !Settings.NeedsToBePlugged())
         {
             ToolSettings tool = (ToolSettings)Settings;
-            if(this.GetComponent<Animator>()!=null)
+            if (this.GetComponent<Animator>() != null)
             {
                 GetComponent<Animator>().SetTrigger("IsOn");
             }
