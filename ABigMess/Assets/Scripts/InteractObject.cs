@@ -93,10 +93,10 @@ public class InteractObject : MonoBehaviour
         }
 
         // Reset particles if grabbedObject has particles (for example wateringCan)
-        if (grabbedObject.GetComponent<InteractObject>().particles != null)
+        if (toolObj != null && toolObj.particles != null)
         {
-            grabbedObject.GetComponent<InteractObject>().particles.Simulate(0.0f, true, true);
-            grabbedObject.GetComponent<InteractObject>().particles.Play();
+            toolObj.particles.Simulate(0.0f, true, true);
+            toolObj.particles.Play();
         }
 
         if (toolObj.Settings.IsTool() && !toolObj.Settings.NeedsToBePlugged())
