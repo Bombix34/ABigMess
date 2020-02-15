@@ -86,12 +86,6 @@ public class InteractObject : MonoBehaviour
     {
         InteractObject toolObj = grabbedObject.GetComponent<InteractObject>();
 
-        if (particles != null)
-        {
-            particles.Simulate(0.0f, true, true);
-            particles.Play();
-        }
-
         // Reset particles if grabbedObject has particles (for example wateringCan)
         if (toolObj != null && toolObj.particles != null)
         {
@@ -170,6 +164,11 @@ public class InteractObject : MonoBehaviour
         GameObject objPlayer = player.GrabbedObject;
         if (objPlayer == null)
         {
+            if (particles != null)
+            {
+                particles.Simulate(0.0f, true, true);
+                particles.Play();
+            }
             //no tools in hand
             ToolSettings noObjEvents = player.reglages.noObjectInHandEventsList;
             StartCoroutine(noObjEvents.ApplyEvent(this));
