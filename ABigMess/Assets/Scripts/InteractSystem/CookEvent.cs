@@ -13,7 +13,10 @@ public class CookEvent : InteractEvent
     {
         SetupObjectState(objConcerned);
         TryInstantiateParticleFX(objConcerned);
-
+        if (MusicManager.Instance != null)
+        {
+            MusicManager.Instance.GetSoundManager().CookSFX();
+        }
         objConcerned.GetComponent<Cooked>().CookedParticles(cookedFixedParticles);
     }
 

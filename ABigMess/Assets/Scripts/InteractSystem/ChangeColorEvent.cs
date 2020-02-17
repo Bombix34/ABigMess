@@ -20,6 +20,10 @@ public class ChangeColorEvent : InteractEvent
             {
                 choosenColor = colors[(int)Random.Range(0f, colors.Count)];
             }
+            if (MusicManager.Instance != null)
+            {
+                MusicManager.Instance.GetSoundManager().PaintSFX();
+            }
             objConcerned.GetComponent<Renderer>().material.color = choosenColor;
         }
     }

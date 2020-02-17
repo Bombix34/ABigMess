@@ -2172,7 +2172,7 @@ PrefabInstance:
     - target: {fileID: 6670160125843387460, guid: 34de8cb1347068542b2d2b790419c689,
         type: 3}
       propertyPath: nextScene
-      value: Prez_Scene07_Twitch
+      value: Prez_Scene07_Twitch02
       objectReference: {fileID: 0}
     - target: {fileID: 6670160125843387460, guid: 34de8cb1347068542b2d2b790419c689,
         type: 3}
@@ -2305,16 +2305,6 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
-    - target: {fileID: 516979014158434530, guid: 28c58f66981c91141afcaa271b4fa7dd,
-        type: 3}
-      propertyPath: m_HorizontalDamping
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 516979014158434530, guid: 28c58f66981c91141afcaa271b4fa7dd,
-        type: 3}
-      propertyPath: m_VerticalDamping
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 516979014158434531, guid: 28c58f66981c91141afcaa271b4fa7dd,
         type: 3}
       propertyPath: m_CameraDistance
@@ -2344,6 +2334,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_YDamping
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 516979014158434530, guid: 28c58f66981c91141afcaa271b4fa7dd,
+        type: 3}
+      propertyPath: m_HorizontalDamping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 516979014158434530, guid: 28c58f66981c91141afcaa271b4fa7dd,
+        type: 3}
+      propertyPath: m_VerticalDamping
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28c58f66981c91141afcaa271b4fa7dd, type: 3}
@@ -2612,7 +2612,7 @@ PrefabInstance:
     - target: {fileID: 171978448306464005, guid: c589bacd9dee1994db1f13ef75fae1b4,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 171978448306464009, guid: c589bacd9dee1994db1f13ef75fae1b4,
         type: 3}
@@ -6609,6 +6609,10 @@ PrefabInstance:
       propertyPath: isStaticObject
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1441965578, guid: 1b245603123b69742b4ef143811054b6, type: 3}
+      propertyPath: isGlobal
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1441965577, guid: 1b245603123b69742b4ef143811054b6, type: 3}
       propertyPath: volumeTrigger
       value: 
@@ -6620,10 +6624,6 @@ PrefabInstance:
     - target: {fileID: 1441965577, guid: 1b245603123b69742b4ef143811054b6, type: 3}
       propertyPath: volumeLayer.m_Bits
       value: 257
-      objectReference: {fileID: 0}
-    - target: {fileID: 1441965578, guid: 1b245603123b69742b4ef143811054b6, type: 3}
-      propertyPath: isGlobal
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b245603123b69742b4ef143811054b6, type: 3}

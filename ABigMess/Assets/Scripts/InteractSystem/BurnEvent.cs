@@ -13,8 +13,11 @@ public class BurnEvent : InteractEvent
     {
         SetupObjectState(objConcerned);
         TryInstantiateParticleFX(objConcerned);
-
-        if(material != null)
+        if (MusicManager.Instance != null)
+        {
+            MusicManager.Instance.GetSoundManager().BurnSFX();
+        }
+        if (material != null)
         {
             objConcerned.GetComponent<Burnt>().BurnMaterial(material);
         }

@@ -33,4 +33,36 @@ public class SoundManager : MonoBehaviour
     {
         AkSoundEngine.PostEvent("Play_wash_SFX", gameObject);
     }
+
+    public void BurnSFX()
+    {
+        AkSoundEngine.PostEvent("Play_burn_SFX", gameObject);
+    }
+
+    public void CookSFX()
+    {
+        AkSoundEngine.PostEvent("Play_cook_SFX", gameObject);
+    }
+
+    public void PlayWinSFX()
+    {
+        AkSoundEngine.PostEvent("Play_confettis_SFX", gameObject);
+    }
+
+    public void PaintSFX()
+    {
+        AkSoundEngine.PostEvent("Play_paint_SFX", gameObject);
+    }
+
+    public void PlugSFX(bool isPlug)
+    {
+        if(isPlug)
+        {
+            AkSoundEngine.PostEvent("Play_device_plug_SFX", gameObject);
+        }
+        else
+        {
+            AkSoundEngine.PostEvent("Play_device_unplug_SFX", gameObject);
+        }
+    }
 }
