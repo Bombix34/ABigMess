@@ -154,6 +154,7 @@ public class PlayerManager : ObjectManager
             {
                 AttachGrabbedObjectTwoHanded();
             }
+            IgnoreCollision(true);
             ChangeState(new PlayerBringState(this, obj));
         }
     }
@@ -229,6 +230,7 @@ public class PlayerManager : ObjectManager
                 MusicManager.Instance.GetSoundManager().PlayReleaseObjectSound();
             }
             grabbedObject.GetComponent<InteractObject>().Dropdown(this.gameObject);
+            IgnoreCollision(false);
             grabbedObject = null;
             isGrabbedObjectColliding = false;
             movement.CanMove = true;
@@ -255,6 +257,23 @@ public class PlayerManager : ObjectManager
             isGrabbedObjectColliding = false;
             movement.CanMove = true;
             ChangeState(new PlayerBaseState(this));
+        }
+    }
+
+    private void IgnoreCollision(bool isIgnoring)
+    {
+        if(grabbedObject==null)
+        {
+            return;
+        }
+        Collider[] objectColliders = grabbedObject.GetComponents<Collider>();
+        Collider[] playerColliders = this.GetComponents<Collider>();
+        for(int j =0; j < playerColliders.Length; ++j)
+        {
+            for(int i = 0; i < objectColliders.Length; ++i)
+            {
+                Physics.IgnoreCollision(playerColliders[j], objectColliders[i], isIgnoring);
+            }
         }
     }
 
