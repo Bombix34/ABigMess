@@ -21,11 +21,7 @@ public class WashEvent : InteractEvent
         TryInstantiateParticleFX(objConcerned);
         if (sparklesParticles != null)
         {
-            //Find any monobehaviour to start coroutine
-            MonoBehaviour mb = FindObjectOfType<MonoBehaviour>();
-            mb.StartCoroutine(InstantiateSparkles(objConcerned));
-
-            InstantiateSparkles(objConcerned);
+            objConcerned.GetComponent<MonoBehaviour>().StartCoroutine(InstantiateSparkles(objConcerned));
         }
     }
 
