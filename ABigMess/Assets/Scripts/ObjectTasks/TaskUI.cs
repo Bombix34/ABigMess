@@ -30,6 +30,11 @@ public class TaskUI : MonoBehaviour
 
     private Vector2 initialSizeDelta;
 
+    [SerializeField]
+    private List<Sprite> animations;
+
+    private bool animateSwitchSprites = true;
+
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -38,6 +43,19 @@ public class TaskUI : MonoBehaviour
         image.color = Color.white;
 
         initialSizeDelta = rectTransform.sizeDelta;
+
+        StartCoroutine(SwitchSprites());
+    }
+
+    public IEnumerator SwitchSprites()
+    {
+        int i = 0;
+        while(animateSwitchSprites)
+        {
+            image.sprite = animations[i];
+            i = (i + 1) % animations.Count;
+            yield return new WaitForSeconds(0.2f);
+        }
     }
 
     public void DisplayTask(ObjectTask newTask, List<Sprite> list)
@@ -79,6 +97,7 @@ public class TaskUI : MonoBehaviour
     {
         if ((task != null && task.IsDone))
         {
+            animateSwitchSprites = false;
             Sequence sequence = DOTween.Sequence();
             sequence.Append(rectTransform.DOAnchorPosY(rectTransform.sizeDelta.y, 1));
         }
