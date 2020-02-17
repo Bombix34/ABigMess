@@ -210,7 +210,10 @@ public class UIManager : Singleton<UIManager>
 
     public void UpdateCookie(int currentCookie)
     {
-        cookieManager.SwitchCookie(currentCookie);
+        if(cookieManager!=null)
+        {
+            cookieManager.SwitchCookie(currentCookie);
+        }
     }
 
     private bool isHide = false;
