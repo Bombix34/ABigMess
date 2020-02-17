@@ -35,6 +35,16 @@ public class MusicSwitchOnStart : MonoBehaviour
         }
     }
 
+    public void CreditMusic()
+    {
+        if (IsMusicManager)
+        {
+            manager.isMusicLaunch = true;
+            manager.StopMusic();
+            manager.CreditMusic();
+        }
+    }
+
     public void StopMusic()
     {
         if (IsMusicManager)

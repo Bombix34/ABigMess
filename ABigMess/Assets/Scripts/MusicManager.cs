@@ -94,6 +94,11 @@ public class MusicManager : Singleton<MusicManager>
         }
     }
 
+    public void CreditMusic()
+    {
+        AkSoundEngine.PostEvent("Play_Music_credits", gameObject);
+    }
+
     #region PRESENTATION
 
     //ATTENTION : UNIQUEMENT POUR LES NVIEAUX PRESENTATIONS

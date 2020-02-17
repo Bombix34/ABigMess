@@ -21,6 +21,7 @@ public class PlugTrigger : MonoBehaviour
 
             gameObject.GetComponent<InteractObject>().Interact(other.gameObject);
 
+            MusicManager.Instance.GetSoundManager().PlugSFX(true);
             if (otherIO.Settings.NeedsToBePlugged())
             {
                 if (objectState != null)
@@ -49,8 +50,7 @@ public class PlugTrigger : MonoBehaviour
             //print(this.transform.parent.gameObject + " is the plug for " + other.name + " that needs to be plugged ?: " + otherIO.Settings.NeedsToBePlugged());
             ObjectState objectState = other.gameObject.GetComponent<ObjectState>();
             Plugged plugged = other.gameObject.GetComponent<Plugged>();
-
-
+            
             if (otherIO.Settings.NeedsToBePlugged())
             {
                 if (objectState != null)
@@ -81,6 +81,7 @@ public class PlugTrigger : MonoBehaviour
             {
                 objectState.Plugged = false;
             }
+            MusicManager.Instance.GetSoundManager().PlugSFX(false);
             pluggedObject = null;
             GameManager.Instance.TasksManager.UpdateTasksState();
         }
