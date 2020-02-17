@@ -52,6 +52,7 @@ public class MusicManager : Singleton<MusicManager>
     {
         if(layer==0)
         {
+            AkSoundEngine.PostEvent("Stop_music_noon", gameObject);
             AkSoundEngine.PostEvent("Play_music_noon", gameObject);
         }
         else if(layer<9)
@@ -68,6 +69,8 @@ public class MusicManager : Singleton<MusicManager>
     {
         if (layer == 0)
         {
+
+            AkSoundEngine.PostEvent("Stop_music_morning", gameObject);
             AkSoundEngine.PostEvent("Play_music_morning", gameObject);
         }
         else if (layer < 6)

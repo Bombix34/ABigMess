@@ -65,6 +65,14 @@ public class MusicSwitchOnStart : MonoBehaviour
         }
     }
 
+    public void TransitionSoundIn()
+    {
+        if (IsMusicManager)
+        {
+            AkSoundEngine.PostEvent("Transition_level_in", gameObject);
+        }
+    }
+
     public void EndTrailerSound()
     {
         if (IsMusicManager)
