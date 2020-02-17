@@ -61,6 +61,7 @@ public class GameManager : Singleton<GameManager>
             currentPlayersTime += Time.deltaTime;
             uiManager.UpdateChronoUI(GetCurrentTime()[0],GetCurrentTime()[1]);
         }
+        UpdateChronoMedalUI();
     }
 
     public void WinCurrentLevel()
@@ -217,6 +218,56 @@ public class GameManager : Singleton<GameManager>
         toReturn.Add(minutes);
         toReturn.Add(seconds);
         return toReturn;
+    }
+
+    private int curCookieState = -1;
+
+    private void UpdateChronoMedalUI()
+    {
+        Level curLevel = levels.CurrentLevel;
+        float currentTime = levels.CurrentLevel.startChrono - currentPlayersTime;
+        if (currentTime > curLevel.silverChrono)
+        {
+            //gold
+            if(curCookieState!=3)
+            {
+                uiManager.UpdateCookie(3);
+                curCookieState = 3;
+            }
+        }
+        else if(currentTime > curLevel.bronzeChrono)
+        {
+            //silver
+            if (curCookieState != 2)
+            {
+                uiManager.UpdateCookie(2);
+                curCookieState = 2;
+            }
+        }
+        else if(currentTime >0)
+        {
+            //bronze
+            curCookieState = 1;
+            if (curCookieState != 1)
+            {
+                uiManager.UpdateCookie(1);
+                curCookieState = 1;
+            }
+        }
+        else 
+        {
+            //no medal
+            if (curCookieState != 0)
+            {
+                uiManager.UpdateCookie(0);
+                curCookieState = 0;
+            }
+        }
+    }
+
+    public float CurrentPlayerTime()
+    {
+        return currentPlayersTime;
     }
 
     public Level GetCurrentLevel()

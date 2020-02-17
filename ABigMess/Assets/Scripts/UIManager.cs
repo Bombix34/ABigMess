@@ -34,6 +34,7 @@ public class UIManager : Singleton<UIManager>
     private Image bubbleImage;
     [SerializeField]
     private Text skipText;
+    private CookieUI cookieManager;
 
     private int currentTextPosition = 0;
 
@@ -45,6 +46,7 @@ public class UIManager : Singleton<UIManager>
         grandmaImage.color = new Color(1f, 1f, 1f, 0f);
         skipText.color = grandmaImage.color;
         bubbleImage.color = grandmaImage.color;
+        cookieManager = this.GetComponent<CookieUI>();
     }
 
     public void UpdateChronoUI(int minutes, int seconds)
@@ -204,6 +206,11 @@ public class UIManager : Singleton<UIManager>
             skipText.gameObject.SetActive(false);
             GameManager.instance.LaunchLevel();
         }
+    }
+
+    public void UpdateCookie(int currentCookie)
+    {
+        cookieManager.SwitchCookie(currentCookie);
     }
 
     private bool isHide = false;
