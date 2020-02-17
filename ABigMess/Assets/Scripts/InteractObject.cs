@@ -388,7 +388,10 @@ public class InteractObject : MonoBehaviour
         {
             interactButtonOverlayInstance.SetActive(false);
         }
-        outline.OutlineWidth = 0;
+        if(outline!=null)
+        {
+            outline.OutlineWidth = 0;
+        }
         decreaseOutline = true;
     }
 
