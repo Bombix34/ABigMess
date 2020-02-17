@@ -89,6 +89,7 @@ public class ObjectSettings : ScriptableObject
         muralClock,
         book,
         buffet,
-        boots
+        boots,
+        generic
     }
 }
