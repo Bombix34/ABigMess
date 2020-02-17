@@ -5,28 +5,35 @@ using UnityEngine;
 
 public class Cooked : MonoBehaviour
 {
-    Color defaultColor;
+    Material defaultMaterial;
     ObjectState objectState;
 
     ParticleSystem cookedParticles;
-    
+
     void Start()
     {
-        defaultColor = GetComponent<Renderer>().material.color;
         objectState = GetComponent<ObjectState>();
 
-        GetComponent<Renderer>().material.color = Color.yellow;
+        defaultMaterial = GetComponent<Renderer>().material;
+
+        InteractObject interactObject = GetComponent<InteractObject>();
+
+        if (interactObject != null && interactObject.Settings != null && interactObject.Settings.cookedMaterial != null)
+        {
+            GetComponent<Renderer>().material = interactObject.Settings.cookedMaterial;
+        }
     }
 
     private void OnDestroy()
     {
-        GetComponent<Renderer>().material.color = defaultColor;
+        GetComponent<Renderer>().material = defaultMaterial;
         Destroy(cookedParticles);
     }
 
-    internal void CookedParticles(ParticleSystem cookedFixedParticles)
+
+    public void CookedParticles(ParticleSystem cookedFixedParticles)
     {
-        if(cookedFixedParticles != null)
+        if (cookedFixedParticles != null)
         {
             cookedParticles = Instantiate(cookedFixedParticles, transform.position, Quaternion.identity);
         }
