@@ -79,6 +79,7 @@ public class GameManager : Singleton<GameManager>
         {
             endVFX.SetActive(true);
         }
+        MusicManager.ShutRadio();
         MusicManager.GetSoundManager().PlayWinSFX();
         StartCoroutine(LoadNewLevel());
     }

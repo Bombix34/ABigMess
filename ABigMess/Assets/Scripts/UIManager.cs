@@ -103,6 +103,10 @@ public class UIManager : Singleton<UIManager>
     /// </summary>
     public void IntroScreenTransition()
     {
+        if(isHide)
+        {
+            return;
+        }
         transitionPanel.SetActive(true);
         transitionInstruction.gameObject.SetActive(true);
         grandmaImage.gameObject.SetActive(true);
@@ -184,24 +188,29 @@ public class UIManager : Singleton<UIManager>
                 }
                 yield return new WaitForSeconds(0.2f);
             }
-            while (!GameManager.Instance.PlayersPressValidateInput())
+            if(!isHide)
             {
-                yield return new WaitForSeconds(0.01f);
-            }
+                while (!GameManager.Instance.PlayersPressValidateInput())
+                {
+                    yield return new WaitForSeconds(0.01f);
+                }
 
-            MusicManager.Instance.TransitionLevel(false);
+                MusicManager.Instance.TransitionLevel(false);
+            }
 
             RectTransform transitionPanelRectTransform = transitionPanel.GetComponent<RectTransform>();
             transitionPanelRectTransform.DOAnchorPosY(transitionPanelRectTransform.rect.height, 0.6f).SetEase(Ease.Linear);
             transitionInstruction.gameObject.SetActive(false);
             skipText.gameObject.SetActive(false);
             GameManager.instance.LaunchLevel();
-            
         }
     }
 
+    private bool isHide = false;
+
     public void Hide()
     {
+        isHide = true;
         RectTransform taskPanelTranform = taskPanel.GetComponent<RectTransform>();
         taskPanelTranform.DOAnchorPosY(taskPanelTranform.rect.height, 0.6f);
         RectTransform transitionPanelTranform = transitionPanel.GetComponent<RectTransform>();
@@ -210,6 +219,7 @@ public class UIManager : Singleton<UIManager>
 
     public void ShowTaskPanel()
     {
+        isHide = false;
         RectTransform taskPanelTranform = taskPanel.GetComponent<RectTransform>();
         taskPanelTranform.DOAnchorPosY(0, 0.6f);
     }
