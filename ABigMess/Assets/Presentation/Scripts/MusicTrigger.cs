@@ -19,6 +19,9 @@ public class MusicTrigger : MonoBehaviour
         {
             return;
         }
-        musicManager.ForceSwitchStateMusic(musicLayerToLoad);
+        if(other.CompareTag("Player"))
+        {
+            musicManager.ForceSwitchStateMusic(musicLayerToLoad);
+        }
     }
 }

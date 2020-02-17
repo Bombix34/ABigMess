@@ -184,14 +184,14 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: d8f724ebd01aca43968faaf35d3b837f
     GuidInternal: 
-    m_lastTime: -8586200014020835362
+    m_lastTime: -8586196687464341574
     List: []
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 0f2a0ca1a300644f9d0e66377c7a9207
     GuidInternal: 
-    m_lastTime: -8586199143812513385
+    m_lastTime: -8586196687464311654
     List:
     - name: Bigmess_music
       guid: 3de1b763af55174ba5cc31eb22d1527d
@@ -279,25 +279,13 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 2e0b19a433a3384db4191777c4d33194
     GuidInternal: 
-    m_lastTime: -8586199145835544789
-    List:
-    - name: Stop_trailer_sound
-      guid: cf534e85eaf35046aafc824b76e7fd44
-      id: 264926969
-      PathAndIcons:
-      - ElementName: Default Work Unit
-        ObjectType: 12
-      - ElementName: Stop_trailer_sound
-        ObjectType: 3
-      Path: Default Work Unit\Stop_trailer_sound
-      maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+    m_lastTime: -8586196687464531060
+    List: []
   - PhysicalPath: Events\Music.wwu
     ParentPhysicalPath: 
     guid: 989c4f7b6a08564c950aaf2152d17c74
     GuidInternal: 
-    m_lastTime: -8586199162237916518
+    m_lastTime: -8586196687464580928
     List:
     - name: Play_Music_credits
       guid: 30a0ebfb794fc04a8e5048be859d4cff
@@ -721,7 +709,7 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: f432dde08975134db82eaaa1eddfe4e7
     GuidInternal: 
-    m_lastTime: -8586199145835534800
+    m_lastTime: -8586196687464531060
     List:
     - name: Play_Alien_heavy_object
       guid: 02334160e7dd194d8c349ca953acf0e9
@@ -992,6 +980,18 @@ MonoBehaviour:
       - ElementName: Play_watering_can_SFX
         ObjectType: 3
       Path: SFX\Play_watering_can_SFX
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Stop_trailer_sound
+      guid: cf534e85eaf35046aafc824b76e7fd44
+      id: 264926969
+      PathAndIcons:
+      - ElementName: SFX
+        ObjectType: 12
+      - ElementName: Stop_trailer_sound
+        ObjectType: 3
+      Path: SFX\Stop_trailer_sound
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -1319,8 +1319,9 @@ MonoBehaviour:
   ExpandedItems:
   - /M2_A_Big_Mess
   - /M2_A_Big_Mess/Events
-  - /M2_A_Big_Mess/Events/Default Work Unit
   - /M2_A_Big_Mess/Events/Music
+  - /M2_A_Big_Mess/Events/Music/Music_morning
+  - /M2_A_Big_Mess/Events/Music/Music_noon
   - /M2_A_Big_Mess/SoundBanks
   - /M2_A_Big_Mess/SoundBanks/Default Work Unit
   - /M2_A_Big_Mess/States
