@@ -53,6 +53,7 @@ public class PresentationController : Singleton<PresentationController>
             yield return new WaitForSeconds(0.75f);
         }
         StopMusic();
+        MusicManager.instance.ShutRadio();
         if (isNext)
         {
             if(nextScene!=null)

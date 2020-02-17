@@ -45,8 +45,7 @@ public class GameManager : Singleton<GameManager>
         uiManager.IntroScreenTransition();
         endVFX.SetActive(false);
         MusicManager = MusicManager.Instance;
-        MusicManager.SwitchStateMusicNoon();
-        print(levels.CurrentLevelIndex);
+        levels.GetCurrentLevel().LaunchLevelMusic(MusicManager);
         InvokeRepeating("DetectStressTime", 1f, 1f);
 
         Application.targetFrameRate = 45;
@@ -80,6 +79,8 @@ public class GameManager : Singleton<GameManager>
         {
             endVFX.SetActive(true);
         }
+        MusicManager.ShutRadio();
+        MusicManager.GetSoundManager().PlayWinSFX();
         StartCoroutine(LoadNewLevel());
     }
 

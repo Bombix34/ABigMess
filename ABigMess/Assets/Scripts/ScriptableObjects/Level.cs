@@ -22,6 +22,28 @@ public class Level : ScriptableObject
     private float playerTime;
 
     public TransitionScreen introScreen;
+    
+    [Header("Music type to launch")]
+    [Header("--------------------------")]
+    public MusicType musicType;
+    [Header("layer of music: noon 1 to 8 - morning 1 to 5")]
+    public int musicLayer;
+
+    public void LaunchLevelMusic(MusicManager music)
+    {
+        if(musicType==MusicType.morning)
+        {
+            music.SwitchStateMusicMorning(musicLayer);
+        }
+        else if(musicType==MusicType.noon)
+        {
+            music.SwitchStateMusicNoon(musicLayer);
+        }
+        else
+        {
+            music.StopMusic();
+        }
+    }
 
     public void LoadScene()
     {
@@ -49,5 +71,10 @@ public class Level : ScriptableObject
         }
     }
 
-
+    public enum MusicType
+    {
+        none,
+        noon,
+        morning
+    }
 }

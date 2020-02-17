@@ -117,6 +117,7 @@ public class MultiplayerBring : MonoBehaviour
         {
             DetachPlayer(player);
         }
+        MusicManager.Instance.GetSoundManager().PlayHveayBringLoop(false);
         Destroy(objectMovement);
         Destroy(this);
     }

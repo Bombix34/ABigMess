@@ -48,20 +48,38 @@ public class MusicManager : Singleton<MusicManager>
         AkSoundEngine.PostEvent(isOn ? "Play_Music_menu" : "Stop_Music_menu", gameObject);
     }
 
-    public void SwitchStateMusicNoon()
+    public void SwitchStateMusicNoon(int layer)
     {
-        int curLevelIndex = GameManager.instance.Levels.CurrentLevelIndex;
-        if(curLevelIndex==0)
+        if(layer==0)
         {
+            AkSoundEngine.PostEvent("Stop_music_noon", gameObject);
             AkSoundEngine.PostEvent("Play_music_noon", gameObject);
         }
-        else if(curLevelIndex<7)
+        else if(layer<9)
         {
-            AkSoundEngine.PostEvent("Set_state_noon_0" + (curLevelIndex + 1),gameObject);
+            AkSoundEngine.PostEvent("Set_state_noon_0" + layer,gameObject);
         }
         else
         {
             AkSoundEngine.PostEvent("Set_state_noon_08", gameObject);
+        }
+    }
+
+    public void SwitchStateMusicMorning(int layer)
+    {
+        if (layer == 0)
+        {
+
+            AkSoundEngine.PostEvent("Stop_music_morning", gameObject);
+            AkSoundEngine.PostEvent("Play_music_morning", gameObject);
+        }
+        else if (layer < 6)
+        {
+            AkSoundEngine.PostEvent("Set_state_music_morning_0" + layer, gameObject);
+        }
+        else
+        {
+            AkSoundEngine.PostEvent("Set_state_music_morning_05", gameObject);
         }
     }
 
@@ -77,6 +95,11 @@ public class MusicManager : Singleton<MusicManager>
             AkSoundEngine.PostEvent("Play_transition_sound_out", gameObject);
             AkSoundEngine.PostEvent("Transition_level_out", gameObject);
         }
+    }
+
+    public void CreditMusic()
+    {
+        AkSoundEngine.PostEvent("Play_Music_credits", gameObject);
     }
 
     #region PRESENTATION
@@ -98,6 +121,8 @@ public class MusicManager : Singleton<MusicManager>
         isMusicLaunch = false;
         AkSoundEngine.PostEvent("Transition_level_in", gameObject);
         AkSoundEngine.PostEvent("Stop_music_noon", gameObject);
+        AkSoundEngine.PostEvent("Stop_music_morning", gameObject);
+
     }
 
     public void ForceSwitchStateMusic(int indexLayer)

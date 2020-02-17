@@ -35,6 +35,16 @@ public class MusicSwitchOnStart : MonoBehaviour
         }
     }
 
+    public void CreditMusic()
+    {
+        if (IsMusicManager)
+        {
+            manager.isMusicLaunch = true;
+            manager.StopMusic();
+            manager.CreditMusic();
+        }
+    }
+
     public void StopMusic()
     {
         if (IsMusicManager)
@@ -52,6 +62,14 @@ public class MusicSwitchOnStart : MonoBehaviour
             manager.StopMusic();
             this.GetComponent<VideoPlayer>().Play();
             manager.PlayTrailerSound();
+        }
+    }
+
+    public void TransitionSoundIn()
+    {
+        if (IsMusicManager)
+        {
+            AkSoundEngine.PostEvent("Transition_level_in", gameObject);
         }
     }
 
