@@ -685,6 +685,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PresentationController
       objectReference: {fileID: 0}
+    - target: {fileID: 2130629969224900135, guid: 34de8cb1347068542b2d2b790419c689,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2130629969224900134, guid: 34de8cb1347068542b2d2b790419c689,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -758,7 +763,12 @@ PrefabInstance:
     - target: {fileID: 6670160125843387460, guid: 34de8cb1347068542b2d2b790419c689,
         type: 3}
       propertyPath: nextScene
-      value: Prez_Scene02_Trailer
+      value: TrailerScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 2130629969224900133, guid: 34de8cb1347068542b2d2b790419c689,
+        type: 3}
+      propertyPath: loadNextSceneInput
+      value: 275
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34de8cb1347068542b2d2b790419c689, type: 3}

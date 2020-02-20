@@ -16,6 +16,14 @@ public class PlayerInputManager : MonoBehaviour
         player = ReInput.players.GetPlayer(playerId);
     }
 
+    private void Update()
+    {
+        if(GetSelectInput())
+        {
+            print("select");
+        }
+    }
+
 
     #region MOVEMENT_INPUT
 
@@ -114,6 +122,16 @@ public class PlayerInputManager : MonoBehaviour
     public bool GetStartInputUp()
     {
         return player.GetButtonUp("Start");
+    }
+
+    //Select
+    public bool GetSelectInput()
+    {
+        return player.GetButtonDown("Select");
+    }
+    public bool GetSelectInputUp()
+    {
+        return player.GetButtonUp("Select");
     }
 
     //Any
