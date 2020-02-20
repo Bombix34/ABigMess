@@ -44,7 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 800025143c5bf054fa9330d3cebef4bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelsDatas: {fileID: 11400000, guid: 5ace3d972966c9f43b80e95da089311a, type: 2}
+  nextScene: 
+  previousScene: 
+  transitionManager: {fileID: 0}
+  isFirstScene: 0
 --- !u!114 &2130629969224900133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57,6 +60,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cca7d69a51ea67e459dad6af748507b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadNextSceneInput: 275
-  loadPreviousSceneInput: 276
+  loadNextSceneInput: 0
+  loadPreviousSceneInput: 0
   reloadSceneKey: 114
