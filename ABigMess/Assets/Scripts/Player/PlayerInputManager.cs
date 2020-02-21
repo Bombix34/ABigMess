@@ -16,15 +16,6 @@ public class PlayerInputManager : MonoBehaviour
         player = ReInput.players.GetPlayer(playerId);
     }
 
-    private void Update()
-    {
-        if(GetSelectInput())
-        {
-            print("select");
-        }
-    }
-
-
     #region MOVEMENT_INPUT
 
     public float GetMovementInputX()
@@ -127,8 +118,9 @@ public class PlayerInputManager : MonoBehaviour
     //Select
     public bool GetSelectInput()
     {
-        return player.GetButtonDown("Select");
+        return player.GetButton("Select");
     }
+
     public bool GetSelectInputUp()
     {
         return player.GetButtonUp("Select");

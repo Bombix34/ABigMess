@@ -61,6 +61,7 @@ public class GameManager : Singleton<GameManager>
             uiManager.UpdateChronoUI(GetCurrentTime()[0],GetCurrentTime()[1]);
         }
         UpdateChronoMedalUI();
+        UpdateReloadInput();
     }
 
     public void WinCurrentLevel()
@@ -101,6 +102,27 @@ public class GameManager : Singleton<GameManager>
         MusicManager.ShutRadio();
         yield return new WaitForSeconds(1f);
         levels.LoadNextLevel();
+    }
+
+    private float selectInputAmount = 0f;
+
+    private void UpdateReloadInput()
+    {
+        foreach (PlayerManager player in players)
+        {
+            if(player.Inputs.GetSelectInput())
+            {
+                selectInputAmount += Time.deltaTime;
+                if(selectInputAmount >= 1f)
+                {
+                    ReloadLevel();
+                }
+            }
+            if(player.Inputs.GetSelectInputUp())
+            {
+                selectInputAmount = 0f;
+            }
+        }
     }
 
     public void ReloadLevel()
